@@ -150,3 +150,12 @@ Switch the repository source to **Local Repository** and select a folder contain
 
 - **Documentation Website:** [https://arglax.github.io/WuWa-Mobile-Config-Patcher/](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+
+---
+
+## Credits
+Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project.  
+1. nagasemana5608 / Kudoupulse  
+2. k4irzw67 / Kyo  
+3. oxygen_011  
+4. eggsee  

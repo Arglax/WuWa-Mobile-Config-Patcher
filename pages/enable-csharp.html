@@ -68,7 +68,7 @@
         </div>
 
         <p class="lead-text">
-          Wuthering Waves utilizes a custom C# scripting layer (Puerts bridge) for skill interactions, combat calculations, and character logic. Injecting dedicated launch arguments into <code>UE4CommandLine.txt</code> ensures maximum thread allocation and reduced garbage collection pauses.
+          Wuthering Waves is shifting to C# Environment after being in JavaScript for long. Injecting dedicated launch arguments into <code>UE4CommandLine.txt</code> ensures maximum thread allocation and reduced garbage collection pauses.
         </p>
 
         <div class="method-card">
@@ -96,7 +96,7 @@
 /storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/UE4CommandLine.txt
 
 // Injected Flag Content
--ForceEnableCSharpEnvironment -usehyperthreading</code></pre>
+-ForceEnableCSharpEnvironment</code></pre>
         </div>
 
         <table class="doc-table">
@@ -114,10 +114,6 @@
             <tr>
               <td><code>-SkipSplash</code></td>
               <td>Bypasses intro logo animations, speeding up cold boot times into the login gate.</td>
-            </tr>
-            <tr>
-              <td><code>-usehyperthreading</code></td>
-              <td>Instructs the Unreal TaskGraph scheduler to utilize all available big.LITTLE CPU cores on ARM64 processors.</td>
             </tr>
           </tbody>
         </table>

@@ -1,154 +1,135 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Config Editor - WuWa Mobile Config Patcher</title>
+  <title>Config Editor — WuWa Config Patcher</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-  <!-- Top Navigation Header -->
-  <header class="site-header">
-    <div class="header-left">
-      <button class="icon-btn sidebar-toggle" aria-label="Toggle Sidebar Navigation">
-        <span>☰</span>
-      </button>
-      <a href="../index.html" class="brand-link">
-        <img src="../images/logo.jpg" alt="WuWa Mobile Config Patcher Logo" class="brand-logo">
-        <span>WuWa Config Patcher</span>
-      </a>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+      <h1>WuWa Config Patcher</h1>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
 
-    <div class="header-search">
-      <div class="search-container">
-        <div class="search-input-wrapper">
-          <span class="search-icon">🔍</span>
-          <input type="text" class="search-input" placeholder="Search documentation... (Press '/' to focus)" aria-label="Search documentation">
-          <span class="search-shortcut">/</span>
-        </div>
-        <div class="search-results" aria-live="polite"></div>
+    <div class="header-actions">
+      <!-- Functional Live Search Bar -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
-    </div>
 
-    <div class="header-right">
-      <button class="icon-btn theme-toggle" title="Toggle Theme" aria-label="Toggle Dark/Light Mode">
-        <span class="theme-icon">🌙</span>
-      </button>
-      <a data-meta-href="release_url" href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases" target="_blank" rel="noopener noreferrer" class="header-btn">
-        <span>📦 Releases</span>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub Repo
       </a>
     </div>
   </header>
 
-  <!-- Main Layout -->
-  <div class="doc-layout">
-    <div class="sidebar-overlay"></div>
-
+  <div class="main-container">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-      <nav class="sidebar-nav">
-        <div>
-          <div class="nav-group-title">Getting Started</div>
-          <ul class="nav-list">
-            <li><a href="../index.html" class="nav-link"><span class="nav-icon">📖</span> Overview</a></li>
-            <li><a href="setup-shizuku.html" class="nav-link"><span class="nav-icon">⚡</span> Setup Shizuku</a></li>
-          </ul>
-        </div>
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html#overview" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Elevated Access</a></li>
+        </ul>
+      </div>
 
-        <div>
-          <div class="nav-group-title">Guides & Features</div>
-          <ul class="nav-list">
-            <li><a href="patching-configs.html" class="nav-link"><span class="nav-icon">🛠️</span> Patching Configs</a></li>
-            <li><a href="manual-method.html" class="nav-link"><span class="nav-icon">💻</span> Manual Method</a></li>
-            <li><a href="config-editor.html" class="nav-link active"><span class="nav-icon">📝</span> Config Editor</a></li>
-            <li><a href="enable-csharp.html" class="nav-link"><span class="nav-icon">🚀</span> Enable C#</a></li>
-            <li><a href="utilities-diagnostics.html" class="nav-link"><span class="nav-icon">🧰</span> Utilities & Logs</a></li>
-          </ul>
-        </div>
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS (END-USER)</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link active">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
 
-        <div>
-          <div class="nav-group-title">Support</div>
-          <ul class="nav-list">
-            <li><a href="troubleshooting.html" class="nav-link"><span class="nav-icon">❓</span> Troubleshooting & FAQ</a></li>
-            <li><a href="bug-reporting.html" class="nav-link"><span class="nav-icon">🐛</span> Bug Reporting</a></li>
-          </ul>
-        </div>
-      </nav>
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="utilities-diagnostics.html#cvar-analyzer" class="nav-link">Config Analyzer & Verification</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="utilities-diagnostics.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
+        </ul>
+      </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="main-content">
-      <div class="content-wrapper">
-        <h1>Config Editor</h1>
-        <p>
+    <main class="content-area">
+      
+      <section id="config-editor" class="doc-section">
+        <div class="section-header">
+          <h2>Config Editor</h2>
+        </div>
+
+        <p class="lead-text">
           The built-in <strong>Config Editor</strong> provides a flexible, mobile-optimized environment for modifying and inspecting Unreal Engine configuration files (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, <code>GameUserSettings.ini</code>) directly on your device.
         </p>
 
         <hr>
 
-        <h2>📸 Editing Modes Overview</h2>
-        <p>
-          To cater to different editing workflows, the Config Editor offers three dedicated modes: <strong>Smart Mode</strong>, <strong>Text (Raw) Mode</strong>, and <strong>One-Line Mode</strong>.
-        </p>
-
-        <div class="screenshot-grid">
-          <!-- 1. Smart Mode -->
-          <div class="screenshot-card">
-            <div class="screenshot-wrapper">
-              <img src="../images/smart.jpg" alt="Smart Mode Interface Screenshot" class="screenshot-img">
-            </div>
-            <div class="screenshot-caption">Smart Mode</div>
-            <div class="screenshot-subtext">Sectioned UI with value steppers, toggles, and negative number support.</div>
+        <h3>📸 Editing Modes Overview</h3>
+        <p>To cater to different editing workflows, the Config Editor offers three dedicated modes: <strong>Smart Mode</strong>, <strong>Text (Raw) Mode</strong>, and <strong>One-Line Mode</strong>.</p>
+        
+        <div class="features-grid">
+          <!-- Smart Mode -->
+          <div class="feature-card">
+            <img src="../images/smart.jpg" alt="Smart Mode Interface Screenshot" style="width: 100%; border-radius: 8px; margin-bottom: 12px;">
+            <h4>Smart Mode</h4>
+            <p>Sectioned UI with value steppers, toggles, and negative number support.</p>
           </div>
 
-          <!-- 2. Text Mode -->
-          <div class="screenshot-card">
-            <div class="screenshot-wrapper">
-              <img src="../images/text.jpg" alt="Text (Raw) Mode Interface Screenshot" class="screenshot-img">
-            </div>
-            <div class="screenshot-caption">Text (Raw) Mode</div>
-            <div class="screenshot-subtext">Direct multi-line editor with font-size controls and Search & Replace.</div>
+          <!-- Text Mode -->
+          <div class="feature-card">
+            <img src="../images/text.jpg" alt="Text (Raw) Mode Interface Screenshot" style="width: 100%; border-radius: 8px; margin-bottom: 12px;">
+            <h4>Text (Raw) Mode</h4>
+            <p>Direct multi-line editor with font-size controls and Search & Replace.</p>
           </div>
 
-          <!-- 3. One-Line Mode -->
-          <div class="screenshot-card">
-            <div class="screenshot-wrapper">
-              <img src="../images/oneline.jpg" alt="One-Line Mode Interface Screenshot" class="screenshot-img">
-            </div>
-            <div class="screenshot-caption">One-Line Mode</div>
-            <div class="screenshot-subtext">Quickly add or isolate a single CVar parameter in any target section.</div>
+          <!-- One-Line Mode -->
+          <div class="feature-card">
+            <img src="../images/oneline.jpg" alt="One-Line Mode Interface Screenshot" style="width: 100%; border-radius: 8px; margin-bottom: 12px;">
+            <h4>One-Line Mode</h4>
+            <p>Quickly add or isolate a single CVar parameter in any target section.</p>
           </div>
         </div>
 
         <hr>
 
-        <h2>✨ Detailed Mode Breakdown</h2>
+        <h3>✨ Detailed Mode Breakdown</h3>
 
-        <h3>1. 🧩 Smart Mode (<code>smart.jpg</code>)</h3>
-        <p>
-          Smart Mode parses your <code>.ini</code> files into collapsible, structured sections (e.g. <code>[SystemSettings]</code>, <code>[/Script/Engine.GarbageCollectionSettings]</code>).
-        </p>
+        <h4>1. 🧩 Smart Mode</h4>
+        <p>Smart Mode parses your <code>.ini</code> files into collapsible, structured sections (e.g. <code>[SystemSettings]</code>, <code>[/Script/Engine.GarbageCollectionSettings]</code>).</p>
         <ul>
           <li><strong>Inline Value Adjustments:</strong> Tap the pencil icon next to any key to edit its parameter.</li>
           <li><strong>Steppers & Negatives:</strong> Increment or decrement values easily with dedicated steppers (now with full negative number support).</li>
           <li><strong>Section Filtering:</strong> Collapse or expand sections to keep your editing workspace organized.</li>
         </ul>
 
-        <h3>2. 📄 Text / Raw Mode (<code>text.jpg</code>)</h3>
-        <p>
-          For power users who prefer working with direct raw code and configuration blocks.
-        </p>
+        <h4>2. 📄 Text / Raw Mode</h4>
+        <p>For power users who prefer working with direct raw code and configuration blocks.</p>
         <ul>
           <li><strong>Search & Replace:</strong> Quickly locate specific CVar strings across large config files.</li>
           <li><strong>Font Size Control:</strong> Adjust text size on-the-fly for comfortable viewing on any screen size.</li>
           <li><strong>Clean Syntax Preservation:</strong> Ensures formatting and indentation remain intact upon saving.</li>
         </ul>
 
-        <h3>3. ⚡ One-Line Mode / Quick CVar (<code>oneline.jpg</code>)</h3>
-        <p>
-          Allows adding or updating a single specific console variable without scrolling through hundreds of lines or risking accidental modifications to unrelated sections.
-        </p>
+        <h4>3. ⚡ One-Line Mode / Quick CVar</h4>
+        <p>Allows adding or updating a single specific console variable without scrolling through hundreds of lines or risking accidental modifications to unrelated sections.</p>
         <ul>
           <li><strong>Targeted Injection:</strong> Select a target header (e.g. <code>[SystemSettings]</code>), specify the key (e.g. <code>r.ShadowQuality</code>), and input your desired value.</li>
           <li><strong>Isolation Editing:</strong> Safely preview changes before writing them to the active configuration.</li>
@@ -156,7 +137,12 @@
 
         <hr>
 
-        <h2>🔄 Persistent Undo-Redo & Config Analyzer</h2>
+        <h3 id="cvar-guards">🛡️ Engine CVar Section Guards</h3>
+        <p>Auto-validates CVar placement across UE section headers and flags misplaced lines in vibrant red with a 1-tap Auto-Fix option.</p>
+
+        <hr>
+
+        <h3>🔄 Persistent Undo-Redo & Config Analyzer</h3>
         <ul>
           <li><strong>Persistent History:</strong> Undo and redo actions persist across sessions, so you won't lose your change history even if you accidentally close the app.</li>
           <li><strong>Config Analyzer:</strong> Audits your active game configuration and highlights which CVar lines were successfully applied, overridden by the game engine, or deleted.</li>
@@ -164,52 +150,51 @@
 
         <hr>
 
-        <h2>🎯 Popular Console Variables (CVars)</h2>
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>CVar / Variable</th>
-                <th>Target Section</th>
-                <th>Recommended Values</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>r.MobileContentScaleFactor</code></td>
-                <td><code>[SystemSettings]</code></td>
-                <td><code>0.8</code> – <code>1.5</code></td>
-                <td>Scales 3D render resolution (lower for FPS, higher for clarity).</td>
-              </tr>
-              <tr>
-                <td><code>r.ShadowQuality</code></td>
-                <td><code>[SystemSettings]</code></td>
-                <td><code>0</code> – <code>3</code></td>
-                <td>Sets shadow map resolution and dynamic cascading filters.</td>
-              </tr>
-              <tr>
-                <td><code>r.BloomQuality</code></td>
-                <td><code>[SystemSettings]</code></td>
-                <td><code>0</code> (Off) – <code>2</code></td>
-                <td>Controls glare and bloom post-processing intensity.</td>
-              </tr>
-              <tr>
-                <td><code>r.VSync</code></td>
-                <td><code>[SystemSettings]</code></td>
-                <td><code>0</code> (Off) / <code>1</code> (On)</td>
-                <td>Disables vertical sync to reduce input lag on high-refresh displays.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <h3>🎯 Popular Console Variables (CVars)</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>CVar / Variable</th>
+              <th>Target Section</th>
+              <th>Recommended Values</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>r.MobileContentScaleFactor</code></td>
+              <td><code>[SystemSettings]</code></td>
+              <td><code>0.8</code> – <code>1.5</code></td>
+              <td>Scales 3D render resolution (lower for FPS, higher for clarity).</td>
+            </tr>
+            <tr>
+              <td><code>r.ShadowQuality</code></td>
+              <td><code>[SystemSettings]</code></td>
+              <td><code>0</code> – <code>3</code></td>
+              <td>Sets shadow map resolution and dynamic cascading filters.</td>
+            </tr>
+            <tr>
+              <td><code>r.BloomQuality</code></td>
+              <td><code>[SystemSettings]</code></td>
+              <td><code>0</code> (Off) – <code>2</code></td>
+              <td>Controls glare and bloom post-processing intensity.</td>
+            </tr>
+            <tr>
+              <td><code>r.VSync</code></td>
+              <td><code>[SystemSettings]</code></td>
+              <td><code>0</code> (Off) / <code>1</code> (On)</td>
+              <td>Disables vertical sync to reduce input lag on high-refresh displays.</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
     </main>
   </div>
 
   <!-- Footer -->
-  <footer class="site-footer">
-    <p>© 2026 <span data-meta="author">Arglax</span> • WuWa Mobile Config Patcher Documentation</p>
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Developed by Arglax • Released under MIT License</span>
   </footer>
 
   <script src="../js/main.js"></script>

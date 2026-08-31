@@ -458,7 +458,8 @@
       pre.appendChild(btn);
     });
   }
-// -------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------
   // 9. Interactive Feature Cards & Modal Logic
   // -------------------------------------------------------------------------
   function initFeatureModals() {
@@ -470,11 +471,9 @@
     const closeBtn = document.getElementById('modal-close-btn');
     const pageLink = document.getElementById('modal-page-link');
     const modalTitle = document.getElementById('modal-title');
-    const tabs = modal.querySelectorAll('.modal-tab');
     const contentSimple = document.getElementById('tab-content-simple');
-    const contentTech = document.getElementById('tab-content-technical');
 
-    // Route map based on the data-feature attribute in index.html
+    // Route map based on the data-feature attribute
     const featureRoutes = {
       '1-click-patching': 'pages/patching-configs.html',
       'live-config-editor': 'pages/config-editor.html',
@@ -482,6 +481,16 @@
       'force-csharp': 'pages/enable-csharp.html',
       'log-tools': 'pages/utilities-diagnostics.html',
       'cvar-bank': 'pages/utilities-diagnostics.html#cvar-bank'
+    };
+
+    // Simple descriptions map
+    const featureDescriptions = {
+      '1-click-patching': "Provided shizuku, axmanager, or root permissions are already granted, this function allows seamless application of desired .ini files directly inside the configs folder.",
+      'live-config-editor': "Contains 3 unique modes tailored to the preference of the user.<br>Smart mode - highly visual mode with multiple automation functions<br>Text mode - highly manual mode with built in text editor<br>One-Line mode - easily edit configs per line",
+      'engine-section-guards': "-is an automated feature from the config patcher than ensures your cvars are not misplaced, lessening the chance of unread cvars. The app also has proper functions to autosort and auto clean and autofix configs for you.",
+      'force-csharp': "-Option to force enable c# environment for users who do not have the c# yet. Recommended only for users with at least 8GB RAM.",
+      'log-tools': "Decrypt obfuscated Client.log files for human readability. Includes a line explorer, search filters, and an option to extract device hardware diagnostics (like RAM, GPU, and CPU counts) directly from your game logs.",
+      'cvar-bank': "A searchable, built-in database of over 1000 Unreal Engine and Wuthering Waves CVars sourced from AlteriaX and official docs. You can extract CVars from text or send them directly into the config editor."
     };
 
     // Open Modal
@@ -499,10 +508,11 @@
           pageLink.href = '#';
         }
 
-        // Basic placeholder injection (can be expanded if you fetch data dynamically later)
-        contentSimple.innerHTML = `<p>Quick overview and casual instructions for <strong>${title}</strong>.</p><p>Tap the button below to view the complete guide.</p>`;
-        contentTech.innerHTML = `<p>Advanced technical details and backend mechanics for <strong>${title}</strong>.</p><p>Tap the button below to view the dedicated documentation.</p>`;
+        // Enforce universal button text
+        pageLink.innerText = "View Documentation";
 
+        // Inject simple content
+        contentSimple.innerHTML = `<p>${featureDescriptions[featureId] || ''}</p>`;
         modal.classList.add('active');
       });
     });
@@ -511,25 +521,7 @@
     const closeModal = () => modal.classList.remove('active');
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal(); // Close when clicking the dark overlay outside the window
-    });
-
-    // Tab Switching Mechanics
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Reset active states
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        // Toggle content visibility
-        if (tab.getAttribute('data-tab') === 'simple') {
-          contentSimple.classList.remove('hidden');
-          contentTech.classList.add('hidden');
-        } else {
-          contentSimple.classList.add('hidden');
-          contentTech.classList.remove('hidden');
-        }
-      });
+      if (e.target === modal) closeModal(); 
     });
   }
 

@@ -823,9 +823,10 @@ body {
 /* Screenshot Grids (For UI Previews) */
 .screenshot-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 columns side-by-side on PC */
   gap: 1.5rem;
   margin: 2rem 0;
+  align-items: start;
 }
 
 .screenshot-card {
@@ -862,6 +863,25 @@ body {
   color: #94a3b8;
   padding: 0 1.25rem 1.25rem;
   line-height: 1.5;
+}
+
+/* Tablet Layout */
+@media screen and (max-width: 1100px) {
+  .screenshot-grid {
+    grid-template-columns: repeat(2, 1fr); /* Drops to 2 columns on mid-sized screens */
+  }
+}
+
+/* Mobile Layout */
+@media screen and (max-width: 768px) {
+  .screenshot-grid {
+    grid-template-columns: 1fr; /* Stacks vertically */
+  }
+  
+  .screenshot-card {
+    max-width: 360px; /* Shrinks to an appropriate portrait width */
+    margin: 0 auto; /* Centers the shrunk card */
+  }
 }
 
 /* Data Table Formatting */

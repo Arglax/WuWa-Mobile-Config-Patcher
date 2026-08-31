@@ -458,13 +458,90 @@
       pre.appendChild(btn);
     });
   }
+// -------------------------------------------------------------------------
+  // 9. Interactive Feature Cards & Modal Logic
+  // -------------------------------------------------------------------------
+  function initFeatureModals() {
+    const cards = document.querySelectorAll('.clickable-card');
+    const modal = document.getElementById('feature-modal');
+    
+    if (!modal || cards.length === 0) return;
 
-  // 8. Initialization on DOM Load
+    const closeBtn = document.getElementById('modal-close-btn');
+    const pageLink = document.getElementById('modal-page-link');
+    const modalTitle = document.getElementById('modal-title');
+    const tabs = modal.querySelectorAll('.modal-tab');
+    const contentSimple = document.getElementById('tab-content-simple');
+    const contentTech = document.getElementById('tab-content-technical');
+
+    // Route map based on the data-feature attribute in index.html
+    const featureRoutes = {
+      '1-click-patching': 'pages/patching-configs.html',
+      'live-config-editor': 'pages/config-editor.html',
+      'engine-section-guards': 'pages/config-editor.html#cvar-guards',
+      'force-csharp': 'pages/enable-csharp.html',
+      'log-tools': 'pages/utilities-diagnostics.html',
+      'cvar-bank': 'pages/utilities-diagnostics.html#cvar-bank'
+    };
+
+    // Open Modal
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const featureId = card.getAttribute('data-feature');
+        const title = card.querySelector('h4').innerText;
+        
+        modalTitle.innerText = title;
+        
+        // Dynamically set the link to the correct documentation page
+        if (featureRoutes[featureId]) {
+          pageLink.href = resolvePath(featureRoutes[featureId]);
+        } else {
+          pageLink.href = '#';
+        }
+
+        // Basic placeholder injection (can be expanded if you fetch data dynamically later)
+        contentSimple.innerHTML = `<p>Quick overview and casual instructions for <strong>${title}</strong>.</p><p>Tap the button below to view the complete guide.</p>`;
+        contentTech.innerHTML = `<p>Advanced technical details and backend mechanics for <strong>${title}</strong>.</p><p>Tap the button below to view the dedicated documentation.</p>`;
+
+        modal.classList.add('active');
+      });
+    });
+
+    // Close Modal
+    const closeModal = () => modal.classList.remove('active');
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal(); // Close when clicking the dark overlay outside the window
+    });
+
+    // Tab Switching Mechanics
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Reset active states
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Toggle content visibility
+        if (tab.getAttribute('data-tab') === 'simple') {
+          contentSimple.classList.remove('hidden');
+          contentTech.classList.add('hidden');
+        } else {
+          contentSimple.classList.add('hidden');
+          contentTech.classList.remove('hidden');
+        }
+      });
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // 10. Initialization on DOM Load
+  // -------------------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', () => {
     loadGlobalMetadata();
     initSearch();
     initSidebar();
     initCodeCopy();
+    initFeatureModals(); // <-- Modal initialized here
   });
 
   window.WuWaDocs = {

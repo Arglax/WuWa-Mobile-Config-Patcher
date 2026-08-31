@@ -690,3 +690,173 @@ body {
         margin: 0 auto;
     }
 }
+/* ==========================================================================
+   Interactive Tech Cards & Modal Mechanics (Restored)
+   ========================================================================== */
+
+/* Clickable Feature Cards */
+.clickable-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    padding-bottom: 3.5rem; /* Extra space for the link at the bottom */
+}
+
+.clickable-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-purple);
+}
+
+.tech-link {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 0.85rem;
+    color: var(--accent-purple);
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.clickable-card:hover .tech-link {
+    color: var(--accent-gold);
+}
+
+/* Modal Overlay (The darkened background) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(13, 17, 23, 0.85); /* Matches your dark theme */
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Modal Window */
+.modal-window {
+    background: var(--bg-surface);
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-window {
+    transform: scale(1);
+}
+
+.modal-header {
+    background: var(--bg-header);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--accent-gold);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+}
+
+.close-btn:hover {
+    color: var(--accent-red);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Modal Tabs (Casual vs. Creator) */
+.modal-tabs {
+    display: flex;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 6px 16px 0;
+    gap: 8px;
+}
+
+.modal-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-tab:hover {
+    color: var(--text-main);
+}
+
+.modal-tab.active {
+    color: var(--accent-purple);
+    border-bottom-color: var(--accent-purple);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    font-size: 14px;
+    min-height: 120px;
+}
+
+.modal-body strong {
+    color: var(--accent-purple);
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    background: var(--bg-header);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-purple), #7e22ce);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}

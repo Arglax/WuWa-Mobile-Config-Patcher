@@ -1,20 +1,18 @@
 /**
  * WuWa Mobile Config Patcher - Documentation Engine
- * Features: Global Metadata Sync, Dynamic Path Resolution, Search System, Theme Manager, Mobile Sidebar, Code Copy
+ * Features: Global Metadata Sync, Dynamic Path Resolution, Search System, Code Copy
  */
 
 (function () {
   'use strict';
 
-  // -------------------------------------------------------------------------
   // 1. Default Metadata & Global Fallbacks
-  // -------------------------------------------------------------------------
   const DEFAULT_METADATA = {
-    version: "1.4.4.1",
+    version: "1.5.0",
     app_size: "6 MB",
-    release_url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-    latest_release_url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases/latest",
-    repo_url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher",
+    release_url: "https://github.com/arglax/wuwa-mobile-config-patcher/releases",
+    latest_release_url: "https://github.com/arglax/wuwa-mobile-config-patcher/releases/latest",
+    repo_url: "https://github.com/arglax/wuwa-mobile-config-patcher",
     min_android: "Android 11 (API 30)",
     rec_android: "Android 13+ (API 33)",
     shizuku_ver: "v13.6.0",
@@ -22,9 +20,7 @@
     author: "Arglax"
   };
 
-  // -------------------------------------------------------------------------
   // 2. Search Database
-  // -------------------------------------------------------------------------
   const SEARCH_DATABASE = [
     {
       title: "Overview & Introduction",
@@ -72,7 +68,7 @@
       title: "Utilities & Diagnostics",
       section: "Toolkit",
       url: "pages/utilities-diagnostics.html",
-      keywords: "utilities client.log decrypt log extract log delete logs export patch share patch device snapshot metadata",
+      keywords: "utilities client.log decrypt log extract log delete logs export patch share patch device snapshot metadata cvar analyzer",
       snippet: "Extract and decrypt Client.log, manage oversized log files, export patches, and view hardware info."
     },
     {
@@ -92,15 +88,13 @@
     {
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
-      url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update v1.4.4.1 github releases patcher",
+      url: "https://github.com/arglax/wuwa-mobile-config-patcher/releases",
+      keywords: "download apk release update github releases patcher",
       snippet: "Download the latest APK release of WuWa Mobile Config Patcher from the official GitHub Releases page."
     }
   ];
 
-  // -------------------------------------------------------------------------
   // 3. Dynamic Relative Path Resolver
-  // -------------------------------------------------------------------------
   function resolvePath(targetUrl) {
     if (!targetUrl) return '#';
     if (
@@ -160,9 +154,7 @@
     return resolved + hash;
   }
 
-  // -------------------------------------------------------------------------
   // 4. Global Metadata Parser & DOM Updater
-  // -------------------------------------------------------------------------
   function parseMetadataText(text) {
     if (!text) return {};
     const trimmed = text.trim();
@@ -180,7 +172,6 @@
       .map((l) => l.trim())
       .filter((l) => l && !l.startsWith('#'));
 
-    // Single line version support (e.g. "2.0")
     if (lines.length === 1 && !lines[0].includes(':') && !lines[0].includes('=')) {
       metadata.version = lines[0].replace(/^v/i, '');
       return metadata;
@@ -224,7 +215,6 @@
     const cleanVersion = (meta.version || '').replace(/^v/i, '');
     const versionWithV = 'v' + cleanVersion;
 
-    // 1. Text elements with data-meta="key"
     document.querySelectorAll('[data-meta]').forEach((el) => {
       const key = el.getAttribute('data-meta').toLowerCase();
       if (key === 'version') {
@@ -236,7 +226,6 @@
       }
     });
 
-    // 2. Link targets with data-meta-href="key"
     document.querySelectorAll('[data-meta-href]').forEach((el) => {
       const key = el.getAttribute('data-meta-href').toLowerCase();
       if (meta[key]) {
@@ -244,85 +233,23 @@
       }
     });
 
-    // 3. Download badges with data-meta-badge="download_badge"
-    document.querySelectorAll('[data-meta-badge="download_badge"]').forEach((img) => {
-      const badgeUrl = `https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v${encodeURIComponent(cleanVersion)}-brightgreen?style=plastic&logo=android`;
-      img.setAttribute('src', badgeUrl);
-      img.setAttribute('alt', `Download WuWa Config Patcher v${cleanVersion}`);
-    });
-
-    // 4. Update Dynamic Search Entries
     const downloadItem = SEARCH_DATABASE.find((item) => item.section === 'Downloads');
     if (downloadItem) {
       downloadItem.snippet = `Download the latest APK release (v${cleanVersion}) of WuWa Mobile Config Patcher from the official GitHub Releases page.`;
-      downloadItem.keywords = `download apk release update v${cleanVersion} ${cleanVersion} github releases patcher`;
+      downloadItem.keywords += ` ${cleanVersion}`;
       if (meta.release_url) {
         downloadItem.url = meta.release_url;
       }
     }
   }
 
-  // -------------------------------------------------------------------------
-  // 5. Theme Manager (Dark / Light Mode)
-  // -------------------------------------------------------------------------
-  const THEME_STORAGE_KEY = 'wuwa_patcher_theme';
-
-  function getPreferredTheme() {
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    if (savedTheme === 'dark' || savedTheme === 'light') {
-      return savedTheme;
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    if (document.body) {
-      document.body.setAttribute('data-theme', theme);
-    }
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
-    updateThemeToggleButtons(theme);
-  }
-
-  function updateThemeToggleButtons(theme) {
-    const toggles = document.querySelectorAll('.theme-toggle');
-    toggles.forEach((btn) => {
-      const icon = btn.querySelector('.theme-icon');
-      if (theme === 'dark') {
-        btn.setAttribute('title', 'Switch to Light Mode');
-        btn.setAttribute('aria-label', 'Switch to Light Mode');
-        if (icon) icon.textContent = '☀️';
-      } else {
-        btn.setAttribute('title', 'Switch to Dark Mode');
-        btn.setAttribute('aria-label', 'Switch to Dark Mode');
-        if (icon) icon.textContent = '🌙';
-      }
-    });
-  }
-
-  function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || getPreferredTheme();
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
-  }
-
-  applyTheme(getPreferredTheme());
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem(THEME_STORAGE_KEY)) {
-      applyTheme(e.matches ? 'dark' : 'light');
-    }
-  });
-
-  // -------------------------------------------------------------------------
-  // 6. Live Search System
-  // -------------------------------------------------------------------------
+  // 5. Live Search System (Updated for v1.5.0)
   function initSearch() {
-    const searchContainers = document.querySelectorAll('.search-container');
+    const searchContainers = document.querySelectorAll('.search-box');
 
     searchContainers.forEach((container) => {
-      const input = container.querySelector('.search-input');
-      const resultsContainer = container.querySelector('.search-results');
+      const input = container.querySelector('#doc-search');
+      const resultsContainer = container.querySelector('.search-dropdown');
       if (!input || !resultsContainer) return;
 
       let selectedIndex = -1;
@@ -331,7 +258,7 @@
         const trimmed = query.trim().toLowerCase();
         if (!trimmed) {
           resultsContainer.innerHTML = '';
-          resultsContainer.classList.remove('active');
+          resultsContainer.classList.add('hidden');
           selectedIndex = -1;
           return;
         }
@@ -355,7 +282,7 @@
               <p>No documentation pages found for "<strong>${escapeHtml(trimmed)}</strong>"</p>
             </div>
           `;
-          resultsContainer.classList.add('active');
+          resultsContainer.classList.remove('hidden');
           selectedIndex = -1;
           return;
         }
@@ -370,18 +297,20 @@
 
             return `
               <a href="${resolvedUrl}" ${targetAttr} class="search-result-item" data-index="${idx}">
-                <div class="result-header">
-                  <span class="result-title">${highlightedTitle}</span>
-                  <span class="result-section">${escapeHtml(item.section)}</span>
+                <div class="result-content">
+                  <div class="result-header">
+                    <span class="result-title">${highlightedTitle}</span>
+                    <span class="result-section">${escapeHtml(item.section)}</span>
+                  </div>
+                  <div class="result-snippet">${highlightedSnippet}</div>
                 </div>
-                <div class="result-snippet">${highlightedSnippet}</div>
               </a>
             `;
           })
           .join('');
 
         resultsContainer.innerHTML = itemsHtml;
-        resultsContainer.classList.add('active');
+        resultsContainer.classList.remove('hidden');
         selectedIndex = -1;
       }
 
@@ -408,25 +337,26 @@
             items[selectedIndex].click();
           }
         } else if (e.key === 'Escape') {
-          resultsContainer.classList.remove('active');
+          resultsContainer.classList.add('hidden');
           input.blur();
         }
       });
 
       document.addEventListener('click', (e) => {
         if (!container.contains(e.target)) {
-          resultsContainer.classList.remove('active');
+          resultsContainer.classList.add('hidden');
         }
       });
     });
 
+    // Global Shortcut Focus: '/' or 'Ctrl+K'
     document.addEventListener('keydown', (e) => {
       if (
         (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) &&
         !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)
       ) {
         e.preventDefault();
-        const firstSearchInput = document.querySelector('.search-input');
+        const firstSearchInput = document.querySelector('#doc-search');
         if (firstSearchInput) {
           firstSearchInput.focus();
           firstSearchInput.select();
@@ -439,7 +369,7 @@
     items.forEach((item, i) => {
       if (i === index) {
         item.classList.add('selected');
-        item.scrollIntoView({ block: 'nearest' });
+        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else {
         item.classList.remove('selected');
       }
@@ -470,31 +400,12 @@
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
-  // -------------------------------------------------------------------------
-  // 7. Sidebar & Mobile Drawer
-  // -------------------------------------------------------------------------
+  // 6. Sidebar Mobile Drawer (Fallback if implemented)
   function initSidebar() {
     const sidebar = document.querySelector('.sidebar');
-    const toggleBtn = document.querySelector('.sidebar-toggle');
-    const overlay = document.querySelector('.sidebar-overlay');
-
-    if (!sidebar) return;
-
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-        if (overlay) overlay.classList.toggle('active');
-      });
-    }
-
-    if (overlay) {
-      overlay.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
-      });
-    }
-
     const currentPath = window.location.pathname;
+    
+    if (!sidebar) return;
     const navLinks = sidebar.querySelectorAll('.nav-link');
 
     navLinks.forEach((link) => {
@@ -511,9 +422,7 @@
     });
   }
 
-  // -------------------------------------------------------------------------
-  // 8. Code Block Copy Buttons
-  // -------------------------------------------------------------------------
+  // 7. Code Block Copy Buttons
   function initCodeCopy() {
     const codeBlocks = document.querySelectorAll('pre');
 
@@ -550,18 +459,9 @@
     });
   }
 
-  // -------------------------------------------------------------------------
-  // 9. Initialization on DOM Load
-  // -------------------------------------------------------------------------
+  // 8. Initialization on DOM Load
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.theme-toggle').forEach((btn) => {
-      btn.addEventListener('click', toggleTheme);
-    });
-    updateThemeToggleButtons(document.documentElement.getAttribute('data-theme') || 'dark');
-
-    // Fetch and bind metadata from app-version.txt
     loadGlobalMetadata();
-
     initSearch();
     initSidebar();
     initCodeCopy();
@@ -569,9 +469,6 @@
 
   window.WuWaDocs = {
     resolvePath,
-    toggleTheme,
-    applyTheme,
-    getPreferredTheme,
     loadGlobalMetadata,
     DEFAULT_METADATA
   };

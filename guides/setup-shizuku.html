@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shizuku Setup Guide — WuWa Config Patcher</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>WuWa Config Patcher</h1>
+                <span class="version-badge">Shizuku Setup Guide</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../index.html" class="github-link">← Back to Main Docs</a>
+        </div>
+    </header>
+
+    <div class="content-area" style="margin: 0 auto;">
+        <section class="doc-section">
+            <div class="section-header">
+                <h2>Setting Up Shizuku & Developer Options</h2>
+            </div>
+
+            <div class="alert alert-important">
+                <div class="alert-title">WHY SHIZUKU IS REQUIRED</div>
+                <p>Android 11+ enforces strict Scoped Storage. Shizuku grants elevated access to inject and backup files inside <code>Android/data/com.kurogame.wutheringwaves.global</code> safely.</p>
+            </div>
+
+            <h3>Step 1: Enable Developer Options</h3>
+            <ol class="step-list">
+                <li>Open phone <strong>Settings</strong>.</li>
+                <li>Go to <strong>About Phone</strong> $\rightarrow$ <strong>Software Information</strong>.</li>
+                <li>Tap <strong>Build Number</strong> 7 times continuously until Developer Mode activates.</li>
+            </ol>
+
+            <h3>Step 2: Start Shizuku via Wireless Debugging</h3>
+            <ol class="step-list">
+                <li>Open <strong>Shizuku</strong> app.</li>
+                <li>Tap <strong>Pairing</strong> $\rightarrow$ Open Developer Options.</li>
+                <li>Enable <strong>Wireless Debugging</strong> $\rightarrow$ Tap <em>Pair device with pairing code</em>.</li>
+                <li>Enter the 6-digit code into Shizuku's notification prompt.</li>
+                <li>Return to Shizuku and tap <strong>Start</strong>.</li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>

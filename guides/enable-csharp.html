@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enabling C# Environment Guide — WuWa Config Patcher</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>WuWa Config Patcher</h1>
+                <span class="version-badge">Enabling C# Guide</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../index.html" class="github-link">← Back to Main Docs</a>
+        </div>
+    </header>
+
+    <div class="content-area" style="margin: 0 auto;">
+        <section class="doc-section">
+            <div class="section-header">
+                <h2>Enabling C# Scripting Environment</h2>
+            </div>
+
+            <p>Kuro Games developed an updated C# scripting environment for Wuthering Waves. You can force enable this engine flag to improve script execution performance:</p>
+
+            <ol class="step-list">
+                <li>Go to the <strong>Editor</strong> tab.</li>
+                <li>Select <strong>Misc Patch</strong> at the bottom.</li>
+                <li>Check <code>-ForceEnableCSharpEnvironment</code> (and optionally <code>-SkipSplash</code>).</li>
+                <li>Tap <strong>Patch</strong>.</li>
+            </ol>
+
+            <h3>How to Verify C# Environment is Active</h3>
+            <ul>
+                <li><strong>In-Game Client Indicator</strong>: Launch Wuthering Waves. Look at the top-right or bottom-left client version text. If an <strong>asterisk (*)</strong> appears at the end of the version string, C# is active!</li>
+                <li><strong>Log Verification</strong>: Run <strong>Decrypt Log</strong> in Utilities $\rightarrow$ search for <code>Sharphereal</code>. If present with initialization logs, C# is active.</li>
+            </ul>
+
+            <p>To disable C#, return to <strong>Misc Patch</strong> and tap <strong>Remove File</strong>.</p>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,5 +1,8 @@
 Since the mobile config patcher app has become a powerful tool to patch, edit, and analyze configs, it now requires an official and proper documentation.
 
+Anyways I don't have a lot of time right now so expect some stupid ai placeholders while I'm manually populating stuff.
+
+
 # WuWa Config Patcher — Official Documentation
 
 The official documentation repository for **WuWa Config Patcher** (`io.github.arglax.configpatcher`), an advanced Android application designed to grant mobile players 1-click graphics patching, live INI editing, CVar section enforcement, and deep engine diagnostics for *Wuthering Waves*[cite: 1, 2]. 

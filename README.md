@@ -3,6 +3,12 @@
 An ultra light-weight (6 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
 [![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.5.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+
+## 📚 Documentation & Releases
+
+- **Documentation Website:** [https://arglax.github.io/WuWa-Mobile-Config-Patcher/](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)
+- **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+
 ---
 
 ## Key Features
@@ -117,19 +123,6 @@ Switch the repository source to **Local Repository** and select a folder contain
 
 ---
 
-## Help & Troubleshooting
-
-| Feature | Description |
-|---|---|
-| **Sync Files** | Downloads the latest config release, or pulls files from a custom URL / local repository. |
-| **1-Click Patch** | Applies the patch directly to your config folder. Selecting Advanced will apply ALL `.ini` files found. |
-| **Config Selector** | Opens a web browser to a tool for checking recommended config preset. |
-| **Log Decryptor** | Decrypts your uploaded Client.log + some QoL features. |
-| **Revert to Vanilla** | Deletes modified files. The game will automatically recreate default files on your next launch. |
-| **(Advanced) Revert to Vanilla** | Deletes `DeviceProfiles.ini`, `Engine.ini`, `Scalability.ini`, and `GameUserSettings.ini`. |
-
----
-
 ## Disclaimer
 >[!IMPORTANT]
 >This tool is for optimization purposes only. By using this app, you acknowledge that modifying game files is done at your own discretion. Always ensure you have a backup if you are unsure about the changes you are applying, especially if you have your own **customized** config — otherwise it will be lost. The application does not tamper with your data except to patch the config file, and all included tools run locally on your device. No data is transmitted to an external, online server.
@@ -143,14 +136,7 @@ Switch the repository source to **Local Repository** and select a folder contain
 - **UI Framework:** Jetpack Compose (Material 3)
 - **Permissions:** Shizuku API
 - **Architecture:** Repository-pattern driven, Coroutine-based concurrency
-
----
-
-## 📚 Documentation & Releases
-
-- **Documentation Website:** [https://arglax.github.io/WuWa-Mobile-Config-Patcher/](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)
-- **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
-
+  
 ---
 
 ## Credits

@@ -1,0 +1,13 @@
+# WuWa Mobile Config Patcher - Global Metadata & Version Configuration
+# Updating this file automatically updates badges, version labels, and links across all pages.
+
+version: 1.4.4.1
+app_size: 6 MB
+release_url: https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases
+latest_release_url: https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases/latest
+repo_url: https://github.com/Arglax/WuWa-Mobile-Config-Patcher
+min_android: Android 11 (API 30)
+rec_android: Android 13+ (API 33)
+shizuku_ver: v13.6.0
+game_target: Wuthering Waves (Global)
+author: Arglax

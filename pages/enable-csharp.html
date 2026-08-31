@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
       <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
@@ -18,7 +17,6 @@
     </div>
 
     <div class="header-actions">
-      <!-- Functional Live Search Bar -->
       <div class="search-box">
         <span class="search-icon">🔍</span>
         <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
@@ -35,7 +33,6 @@
   </header>
 
   <div class="main-container">
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>GETTING STARTED</h3>
@@ -68,9 +65,7 @@
       </div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="content-area">
-      
       <section id="enable-csharp" class="doc-section">
         <div class="section-header">
           <h2>Enable C# Environment</h2>
@@ -83,11 +78,11 @@
         <hr>
 
         <h3>📸 Visual Reference</h3>
-        <div class="features-grid">
-          <div class="feature-card">
-            <img src="../images/csharp.jpg" alt="Enable C# Environment Settings Screenshot" style="width: 100%; border-radius: 8px; margin-bottom: 12px;">
-            <h4>C# Environment Toggle</h4>
-            <p>Toggle C# runtime scripting and verify device RAM compatibility.</p>
+        <div class="screenshot-grid" style="grid-template-columns: 1fr; max-width: 600px;">
+          <div class="screenshot-card">
+            <img src="../images/csharp.jpg" alt="Enable C# Environment Settings" class="screenshot-img">
+            <div class="screenshot-caption">C# Environment Toggle</div>
+            <div class="screenshot-subtext">Toggle C# runtime scripting and verify device RAM compatibility.</div>
           </div>
         </div>
 
@@ -130,7 +125,6 @@
     </main>
   </div>
 
-  <!-- Footer -->
   <footer class="app-footer">
     <span>WuWa Config Patcher • Developed by Arglax • Released under MIT License</span>
   </footer>

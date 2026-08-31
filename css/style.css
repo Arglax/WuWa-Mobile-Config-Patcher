@@ -772,3 +772,116 @@ body {
     margin-top: 4px;
     text-align: center;
 }
+
+/* ==========================================================================
+   V1.5.0 DOCS TYPOGRAPHY & SCREENSHOT CARDS
+   ========================================================================== */
+
+/* Ensure the main content block expands fully next to the sidebar */
+.content-area {
+  flex: 1;
+  min-width: 0; 
+  padding: 2rem 4%;
+}
+
+/* Rich Text & Typography Spacing */
+.doc-section h3 {
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+}
+
+.doc-section h4 {
+  font-size: 1.15rem;
+  margin: 1.75rem 0 0.75rem;
+  color: #e2e8f0;
+}
+
+.doc-section p, .doc-section ul, .doc-section ol {
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  color: #cbd5e1;
+}
+
+.doc-section ul, .doc-section ol {
+  padding-left: 1.5rem;
+}
+
+.doc-section li {
+  margin-bottom: 0.5rem;
+}
+
+.doc-section hr {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 3rem 0;
+}
+
+/* Screenshot Grids (For UI Previews) */
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.screenshot-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.screenshot-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.screenshot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.screenshot-caption {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #f8fafc;
+  padding: 1.25rem 1.25rem 0.25rem;
+}
+
+.screenshot-subtext {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  padding: 0 1.25rem 1.25rem;
+  line-height: 1.5;
+}
+
+/* Data Table Formatting */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.doc-table th, .doc-table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.doc-table th {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+  font-weight: 600;
+}

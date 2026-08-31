@@ -5,20 +5,27 @@ Anyways I don't have a lot of time right now so expect some stupid ai placeholde
 
 # WuWa Config Patcher — Official Documentation
 
-The official documentation repository for **WuWa Config Patcher** (`io.github.arglax.configpatcher`), an advanced Android application designed to grant mobile players 1-click graphics patching, live INI editing, CVar section enforcement, and deep engine diagnostics for *Wuthering Waves*[cite: 1, 2]. 
+The official documentation repository for **WuWa Config Patcher** (`io.github.arglax.configpatcher`), an advanced Android application designed to grant mobile players 1-click graphics patching, live INI editing, CVar section enforcement, and deep engine diagnostics for *Wuthering Waves*.
+<a href="https://discord.gg/renjxYBEZM"><img src="https://img.shields.io/badge/Discord-7289DA?logo=discord&logoColor=white&style=plastic" height="40"></a>
 
-Developed by Arglax, this static site is built with responsive HTML, CSS, and vanilla JavaScript, optimized for deployment via GitHub Pages.
+>[!CAUTION]
+> ## DISCLAIMER
+> I, Arglax, am not in any way affiliated with Kuro Games nor Epic Games.
 
-## Live Site
-**[Currently WIP okay?](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)**
+## Latest Release
+You can download the latest version [here](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases/latest).
+
+## Official Documentation in GitHub Pages
+You can check the **[documentation here.](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)**
 
 ## Documented Features
 This documentation covers the authoritative technical mechanics of the application, including:
-* **Elevated File Routing:** Bypassing strict Android 11+ scoped storage using Shizuku (Wireless Debugging), Root, or AXManager backends[cite: 1].
-* **Live Config Editor:** Smart, Text, and One-Line editing modes for `Engine.ini` and `DeviceProfiles.ini`[cite: 1, 2].
-* **CVar Section Guards:** Rulesets that validate and auto-fix Unreal Engine Console Variables into their canonical headers to prevent engine overrides[cite: 1].
-* **C# Environment Injection:** Pushing `-ForceEnableCSharpEnvironment` into the `UE4CommandLine.txt` file[cite: 1].
-* **Log Diagnostics:** Tools for decrypting obfuscated `Client.log` files (Scheme A/B) and extracting device hardware metrics[cite: 1].
+* **Elevated File Routing:** Bypassing strict Android 11+ scoped storage using Shizuku (Wireless Debugging), Root, or AXManager permissions.
+* **Live Config Editor:** Smart, Text, and One-Line editing modes for `Engine.ini` and `DeviceProfiles.ini`.
+* **CVar Section Guards:** Rulesets that validate and auto-fix Unreal Engine Console Variables into their canonical headers to prevent engine overrides.
+* **C# Environment Injection:** Pushing `-ForceEnableCSharpEnvironment` into the `UE4CommandLine.txt` file.
+* **Log Diagnostics:** Tools for decrypting `Client.log` files (Scheme A/B) and extracting device hardware metrics.
+* **How To Use the App** A guide how to use the different functions of the application.
 
 ## Repository Structure
 ```text

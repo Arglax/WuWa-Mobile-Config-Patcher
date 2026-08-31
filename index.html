@@ -1,410 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WuWa Config Patcher — Official Documentation</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="images/logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WuWa Config Patcher — Official Documentation (v1.5.0)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
-    <!-- Top Header -->
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher</h1>
-                <span class="version-badge">v1.5.0 Official Documentation</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="docSearchInput" placeholder="Search documentation...">
-            </div>
-            <a href="https://github.com/Arglax" target="_blank" class="github-link">
-                <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                </svg>
-                <span>GitHub Repo</span>
-            </a>
-        </div>
-    </header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-section">
-                <h3>Getting Started</h3>
-                <ul>
-                    <li><a href="#overview" class="nav-link active">Overview & Features</a></li>
-                    <li><a href="#prerequisites" class="nav-link">Prerequisites & Setup</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3>Core Workflows</h3>
-                <ul>
-                    <li><a href="#apply-configs" class="nav-link">Getting & Applying Configs</a></li>
-                    <li><a href="#revert-vanilla" class="nav-link">Reverting to Vanilla</a></li>
-                    <li><a href="#config-editor" class="nav-link">Live Config Editor</a></li>
-                    <li><a href="#enable-csharp" class="nav-link">Enabling C# Environment</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3>Advanced Tools</h3>
-                <ul>
-                    <li><a href="#utilities-diagnostics" class="nav-link">Utilities & Diagnostics</a></li>
-                    <li><a href="#cvar-guards" class="nav-link">Engine CVar Guards & Rules</a></li>
-                    <li><a href="#bug-reporting" class="nav-link">Bug Reporting & Support</a></li>
-                    <li><a href="#manual-guide" class="nav-link">Manual Mode Guide (Old School)</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Content Area -->
-        <main class="content-area">
-            <!-- Overview -->
-            <section id="overview" class="doc-section">
-                <div class="section-header">
-                    <h2>Overview & Core Capabilities</h2>
-                    <span class="author-tag">By Arglax • 100% Free & Ad-Free</span>
-                </div>
-                <p class="lead-text">
-                    <strong>WuWa Config Patcher</strong> is an advanced, elevated Android application designed to grant mobile players 1-click graphics patching, live INI editing, CVar section enforcement, and deep engine diagnostics for <em>Wuthering Waves</em>.
-                </p>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="card-icon">⚡</div>
-                        <h4>1-Click Patching</h4>
-                        <p>Inject official or community presets straight into scoped game storage via Shizuku elevated shell.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">🛠️</div>
-                        <h4>Live Config Editor</h4>
-                        <p>Smart, Text, and One-Line editing modes with A-Z sorting, persistent undo/redo, and visual syntax highlighting.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">🛡️</div>
-                        <h4>Engine Section Guards</h4>
-                        <p>Auto-validates CVar placement across UE section headers and flags misplaced lines in vibrant red with 1-tap Auto-Fix.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">🚀</div>
-                        <h4>Force C# Environment</h4>
-                        <p>Pushes custom UE command line flags (-ForceEnableCSharpEnvironment) to boost game script performance.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">🔍</div>
-                        <h4>Log Tools & Decryptor</h4>
-                        <p>Decrypts obfuscated Client.log files with an inline line explorer, filter chips, and device stats extractor.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">📚</div>
-                        <h4>CVar Bank Reference</h4>
-                        <p>Searchable library of 1000+ UE and WuWa CVars sourced from Unreal Docs and the official AlteriaX reference pastebin.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Prerequisites & Setup -->
-            <section id="prerequisites" class="doc-section">
-                <div class="section-header">
-                    <h2>Prerequisites & Setup Guide</h2>
-                </div>
-                <p>Android's strict scoped storage prevents apps from reaching <code>Android/data/com.kurogame.wutheringwaves.global</code> directly. To grant permissions, you must use <strong>Shizuku</strong>.</p>
-
-                <div class="alert alert-important">
-                    <div class="alert-title">IMPORTANT REQUIREMENT</div>
-                    <p>Developer Options must be activated on your Android device to start Shizuku via Wireless Debugging or ADB.</p>
-                </div>
-
-                <h3>How to Enable Developer Options</h3>
-                <ol class="step-list">
-                    <li>Open the <strong>Settings</strong> app on your Android phone.</li>
-                    <li>Navigate to <strong>About Phone</strong> or <strong>Software Information</strong>.</li>
-                    <li>Locate <strong>Build Number</strong> and tap it <strong>7 times in quick succession</strong>.</li>
-                    <li>You will see a toast confirming: <em>"You are now a developer!"</em>.</li>
-                    <li>Return to main Settings and locate <strong>Developer Options</strong> under <em>System</em> or <em>Additional Settings</em>.</li>
-                </ol>
-
-                <h3>Setting Up Shizuku</h3>
-                <ol class="step-list">
-                    <li>Launch the <strong>Shizuku</strong> app.</li>
-                    <li>Enable <strong>Wireless Debugging</strong> in Android Developer Options.</li>
-                    <li>Tap <strong>Pairing</strong> in Shizuku, enter the 6-digit Wireless Debugging code.</li>
-                    <li>Tap <strong>Start</strong> in Shizuku until the status turns <strong>"Shizuku is running"</strong>.</li>
-                    <li>In WuWa Config Patcher, go to <strong>Settings $\rightarrow$ Shizuku Check</strong> and grant access.</li>
-                </ol>
-            </section>
-
-            <!-- Getting & Applying Configs -->
-            <section id="apply-configs" class="doc-section">
-                <div class="section-header">
-                    <h2>Getting & Applying Configs</h2>
-                </div>
-                <p>Choose from three seamless repository sources to fetch and inject graphics presets:</p>
-
-                <div class="method-card">
-                    <h4>Method 1: Default Repository (Recommended)</h4>
-                    <ol>
-                        <li>Go to the <strong>Config</strong> tab.</li>
-                        <li>Set <strong>Repository Source</strong> to <code>Arglax (Default)</code>.</li>
-                        <li>Tap <strong>Sync Files & Refresh</strong>.</li>
-                        <li>Select your desired preset (e.g. <em>Snapdragon 8 Gen 3 - Extreme</em>).</li>
-                        <li>Tap the big <strong>1-Click Patch</strong> button.</li>
-                    </ol>
-                </div>
-
-                <div class="method-card">
-                    <h4>Method 2: Custom Online Repository (.zip Download Link)</h4>
-                    <ol>
-                        <li>Go to the <strong>Config</strong> tab.</li>
-                        <li>Set <strong>Repository Source</strong> to <code>Custom Online Repository</code>.</li>
-                        <li>Enter a direct <code>.zip</code> download URL.</li>
-                        <li>Tap <strong>Sync Files & Refresh</strong> and apply via <strong>1-Click Patch</strong>.</li>
-                    </ol>
-                </div>
-
-                <div class="method-card">
-                    <h4>Method 3: Local Repository (On-Device Folder)</h4>
-                    <ol>
-                        <li>Go to the <strong>Config</strong> tab $\rightarrow$ select <code>Local Repository</code>.</li>
-                        <li>Tap <strong>Select Folder</strong> and pick the directory containing your custom config zips/files.</li>
-                        <li>Tap <strong>Use this Folder</strong>, sync, and apply via <strong>1-Click Patch</strong>.</li>
-                    </ol>
-                </div>
-
-                <div class="alert alert-tip">
-                    <div class="alert-title">PRO TIP: PER-FILE PATCHING</div>
-                    <p>Want to apply only <code>Engine.ini</code> without overwriting <code>DeviceProfiles.ini</code>? Tap the <strong>Gear Icon (⚙️)</strong> beside 1-Click Patch and choose specific files to patch!</p>
-                </div>
-            </section>
-
-            <!-- Reverting to Vanilla -->
-            <section id="revert-vanilla" class="doc-section">
-                <div class="section-header">
-                    <h2>Reverting to Vanilla & Advanced Revert</h2>
-                </div>
-                <p>If you experience unexpected stutters or want to revert back to official Kuro Games default graphics:</p>
-                <ul>
-                    <li><strong>Full Vanilla Revert</strong>: Go to <strong>Utilities</strong> tab $\rightarrow$ tap <strong>Revert to Vanilla</strong> $\rightarrow$ Confirm. This wipes active modified configs.</li>
-                    <li><strong>Advanced Revert</strong>: Tap <strong>Advanced Revert</strong> in Utilities to selectively choose and delete individual config files (e.g., deleting only <code>Engine.ini</code> while keeping <code>DeviceProfiles.ini</code>).</li>
-                </ul>
-            </section>
-
-            <!-- Live Config Editor -->
-            <section id="config-editor" class="doc-section">
-                <div class="section-header">
-                    <h2>Live Config Editor & Modes</h2>
-                </div>
-                <p>Access the <strong>Editor</strong> tab to tweak active on-device config files directly. Highlighted target files include <code>Engine.ini</code> and <code>DeviceProfiles.ini</code>.</p>
-
-                <div class="editor-modes-container">
-                    <div class="editor-mode-box">
-                        <span class="mode-tag">Smart Mode</span>
-                        <ul>
-                            <li>Structured sectioned visual cards with add/edit controls.</li>
-                            <li><strong>Sort A-Z Button</strong>: Instantly sorts CVars alphabetically per section.</li>
-                            <li><strong>Auto-Fix Button</strong>: Re-categorizes CVars into standard UE section headers automatically.</li>
-                        </ul>
-                    </div>
-
-                    <div class="editor-mode-box">
-                        <span class="mode-tag">Text Mode</span>
-                        <ul>
-                            <li>Full manual syntax-highlighted raw text editor.</li>
-                            <li><strong>Isolation Search Mode</strong>: Filters raw text line-by-line to view matching lines only.</li>
-                            <li>Search and replace with live line numbers.</li>
-                        </ul>
-                    </div>
-
-                    <div class="editor-mode-box">
-                        <span class="mode-tag">One-Line Mode</span>
-                        <ul>
-                            <li>Dropdown key-value editor tailored for rapid single CVar adjustments.</li>
-                            <li>Includes live raw buffer preview at the bottom.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CVar Guards -->
-            <section id="cvar-guards" class="doc-section">
-                <div class="section-header">
-                    <h2>Engine CVar Guards & Section Rules</h2>
-                </div>
-                <p>To prevent game engine overrides, the editor enforces canonical Unreal Engine section placement rules:</p>
-
-                <table class="doc-table">
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Canonical Section Header</th>
-                            <th>Guard Rule & Prefix</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Rendering</td>
-                            <td><code>[/Script/Engine.RendererSettings]</code></td>
-                            <td>Any CVar starting with <code>r.</code> (except <code>r.SupportAllShaderPermutations</code>).</td>
-                        </tr>
-                        <tr>
-                            <td>Rendering Override</td>
-                            <td><code>[/Script/Engine.RendererOverrideSettings]</code></td>
-                            <td>Accepts <code>r.SupportAllShaderPermutations</code>, any <code>r.</code> CVars, or <code>dp.</code> commands. Whitelisted during Auto-Fix.</td>
-                        </tr>
-                        <tr>
-                            <td>Streaming</td>
-                            <td><code>[/Script/Engine.StreamingSettings]</code></td>
-                            <td>Any CVar starting with <code>s.</code>.</td>
-                        </tr>
-                        <tr>
-                            <td>Garbage Collection</td>
-                            <td><code>[/Script/Engine.GarbageCollectionSettings]</code></td>
-                            <td>Any CVar starting with <code>gc.</code>.</td>
-                        </tr>
-                        <tr>
-                            <td>Network Settings</td>
-                            <td><code>[/Script/Engine.NetworkSettings]</code></td>
-                            <td>Specifically for <code>n.VerifyPeer</code>, <code>p.EnableMultiplayerWorldOriginRebasing</code>, and <code>NetworkEmulationProfiles</code>.</td>
-                        </tr>
-                        <tr>
-                            <td>Cooker Settings</td>
-                            <td><code>[/Script/UnrealEd.CookerSettings]</code></td>
-                            <td>Any CVar starting with <code>cook.</code>.</td>
-                        </tr>
-                        <tr>
-                            <td>Whitelisted Sections</td>
-                            <td><code>[Core.Paths]</code> / <code>[Core.System]</code></td>
-                            <td>Paths and system settings are completely whitelisted and never flagged or moved.</td>
-                        </tr>
-                        <tr>
-                            <td>General Container</td>
-                            <td><code>[SystemSettings]</code> / <code>[ConsoleVariables]</code></td>
-                            <td>General blocks that accept <strong>ANY</strong> CVars safely.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <div class="alert-title">VIBRANT RED HIGHLIGHTING & AUTO-FIX</div>
-                    <p>Misplaced CVars are displayed in <strong>Vibrant Red</strong> across all editor views. When saving, if misplaced CVars exist, the app prompts you with an <strong>Auto-Fix Sections</strong> remediative action or the option to proceed with <em>"I know what I'm doing"</em>.</p>
-                </div>
-
-                <div class="alert alert-tip">
-                    <div class="alert-title">DEVICEPROFILES.INI RULE</div>
-                    <p>In <code>DeviceProfiles.ini</code>, CVar entries are automatically formatted as <code>CVars=Key=Value</code>. Metadata lines (e.g. <code>BaseProfileName</code>, <code>DeviceScore</code>) remain un-prefixed.</p>
-                </div>
-            </section>
-
-            <!-- Enabling C# Environment -->
-            <section id="enable-csharp" class="doc-section">
-                <div class="section-header">
-                    <h2>Enabling C# Environment</h2>
-                </div>
-                <p>Kuro Games developed an updated C# scripting environment for Wuthering Waves. You can force enable this engine flag to improve script execution performance:</p>
-
-                <ol class="step-list">
-                    <li>Go to the <strong>Editor</strong> tab.</li>
-                    <li>Select <strong>Misc Patch</strong> at the bottom.</li>
-                    <li>Check <code>-ForceEnableCSharpEnvironment</code> (and optionally <code>-SkipSplash</code>).</li>
-                    <li>Tap <strong>Patch</strong>.</li>
-                </ol>
-
-                <h3>How to Verify C# Environment is Active</h3>
-                <ul>
-                    <li><strong>In-Game Client Indicator</strong>: Launch Wuthering Waves. Look at the top-right or bottom-left client version text. If an <strong>asterisk (*)</strong> appears at the end of the version string, C# is active!</li>
-                    <li><strong>Log Verification</strong>: Run <strong>Decrypt Log</strong> in Utilities $\rightarrow$ search for <code>Sharphereal</code>. If present with initialization logs, C# is active.</li>
-                </ul>
-
-                <p>To disable C#, return to <strong>Misc Patch</strong> and tap <strong>Remove File</strong>.</p>
-            </section>
-
-            <!-- Utilities & Diagnostics -->
-            <section id="utilities-diagnostics" class="doc-section">
-                <div class="section-header">
-                    <h2>Utilities Suite & Diagnostics</h2>
-                </div>
-                <p>Access the <strong>Utilities</strong> tab for deep hardware scans, log tools, and persistent backups:</p>
-
-                <div class="utilities-grid">
-                    <div class="util-item">
-                        <h4>Get Device Info</h4>
-                        <p>Scans hidden hardware specs (GPU model, physical RAM, CPU cores, Device Score) extracted directly from game logs.</p>
-                    </div>
-                    <div class="util-item">
-                        <h4>Log Decryptor & Explorer</h4>
-                        <p>Decrypts obfuscated <code>Client.log</code> files with an inline line explorer, filter chips (LogConfig, Vulkan, RHI), and full-screen viewer.</p>
-                    </div>
-                    <div class="util-item">
-                        <h4>Duplicate Flagger</h4>
-                        <p>Scans active INIs for duplicate CVar entries across lines and sections, allowing 1-tap resolution while protecting metadata.</p>
-                    </div>
-                    <div class="util-item">
-                        <h4>Strip Forbidden CVars</h4>
-                        <p>Detects and strips forbidden CVars that get ignored or deleted at runtime by game code (harmless at startup, no crashes).</p>
-                    </div>
-                    <div class="util-item">
-                        <h4>CVar Bank & Reference</h4>
-                        <p>Searchable reference database of 1000+ CVars with Card and Table views, source filters, and 1-tap <em>Send to Editor</em> insertion.</p>
-                    </div>
-                    <div class="util-item">
-                        <h4>Main Storage Reader</h4>
-                        <p>Persistent storage containing timestamped live INI backups with 1-tap <strong>Restore Backup</strong> capability.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Bug Reporting & Support -->
-            <section id="bug-reporting" class="doc-section">
-                <div class="section-header">
-                    <h2>Reporting Bugs & Community Support</h2>
-                </div>
-                <p>Follow these guidelines to submit bug reports and get quick assistance:</p>
-
-                <h3>For Game-Related Crashes or Visual Issues</h3>
-                <p>Go to the <strong>Utilities</strong> tab $\rightarrow$ tap <strong>Get Device Info</strong> (copy specs) $\rightarrow$ tap <strong>Decrypt Log</strong> $\rightarrow$ tap <strong>Share Decrypted Log</strong>. Send both files in Discord <code>#issues-and-concerns</code>.</p>
-
-                <h3>For Config Patcher App Bugs</h3>
-                <ol class="step-list">
-                    <li>Go to the <strong>Support</strong> tab.</li>
-                    <li>Tap <strong>Report a Bug / Suggest a Feature</strong>.</li>
-                    <li>Select <strong>Bug Report</strong>, describe the issue, and send via email or Discord.</li>
-                </ol>
-            </section>
-
-            <!-- Manual Guide -->
-            <section id="manual-guide" class="doc-section">
-                <div class="section-header">
-                    <h2>Manual Mode Guide (Old School)</h2>
-                </div>
-                <p>For users who prefer applying configs manually without using the automated patcher app:</p>
-
-                <div class="code-block">
-                    <div class="code-header">Game Config Target Directory</div>
-                    <pre><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android</code></pre>
-                </div>
-
-                <ol class="step-list">
-                    <li>Download <code>Engine.ini</code> or <code>DeviceProfiles.ini</code> from Arglax's GitHub repository.</li>
-                    <li>Ensure the file extension is strictly <code>.ini</code> (if saved as <code>.ini.txt</code>, rename it to remove <code>.txt</code>).</li>
-                    <li>Use a Shizuku-enabled file manager (such as MT Manager or ZArchiver) to copy the files into the Android directory listed above.</li>
-                    <li>Launch Wuthering Waves.</li>
-                </ol>
-            </section>
-        </main>
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <img src="images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='images/logo.jpg';">
+      <h1>WuWa Config Patcher</h1>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-        <p>WuWa Config Patcher • Developed by Arglax • Official Documentation Site</p>
-    </footer>
+    <div class="header-actions">
+      <!-- Functional Live Search Bar -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
 
-    <script src="js/main.js"></script>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub Repo
+      </a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="#overview" class="nav-link active">Overview & Features</a></li>
+          <li><a href="pages/setup-shizuku.html" class="nav-link">Prerequisites & Elevated Access</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS (END-USER)</h3>
+        <ul>
+          <li><a href="pages/patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="pages/patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="pages/config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="pages/enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="pages/utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="pages/utilities-diagnostics.html#cvar-analyzer" class="nav-link">Config Analyzer & Verification</a></li>
+          <li><a href="pages/config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="pages/utilities-diagnostics.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="pages/manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
+          <li><a href="pages/bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+      
+      <!-- Section 1: Overview & Interactive Cards -->
+      <section id="overview" class="doc-section">
+        <div class="section-header">
+          <h2>Overview & Core Capabilities</h2>
+          <span class="author-tag">By Arglax • 100% Free & Open Source</span>
+        </div>
+
+        <p class="lead-text">
+          <strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code>) is an elevated Android utility designed to grant mobile players 1-tap graphics patching while providing config creators, tweakers, and developers with deep INI editing, real-time CVar section enforcement, and raw engine diagnostics for <em>Wuthering Waves</em>.
+        </p>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">💡 INTERACTIVE FEATURE CARDS</div>
+          Tap any card below to open an in-depth breakdown with dedicated <strong>End-User Quick Steps</strong> and <strong>Technical Creator Deep-Dives</strong>.
+        </div>
+
+        <!-- Interactive Clickable Cards Grid -->
+        <div class="features-grid">
+
+          <!-- Card 1: 1-Click Patching -->
+          <div class="feature-card clickable-card" data-feature="1-click-patching">
+            <div class="card-icon">⚡</div>
+            <h4>1-Click Patching</h4>
+            <p>Inject official and community presets straight into scoped game storage via elevated Shizuku shell IPC.</p>
+            <span class="tech-link">View Details & Guide →</span>
+          </div>
+
+          <!-- Card 2: Live Config Editor -->
+          <div class="feature-card clickable-card" data-feature="live-config-editor">
+            <div class="card-icon">🛠️</div>
+            <h4>Live Config Editor</h4>
+            <p>Smart, Text, and One-Line editing modes with A-Z sorting, persistent undo/redo history, and syntax highlighting.</p>
+            <span class="tech-link">View Details & Guide →</span>
+          </div>
+
+          <!-- Card 3: Engine Section Guards -->
+          <div class="feature-card clickable-card" data-feature="engine-section-guards">
+            <div class="card-icon">🛡️</div>
+            <h4>Engine Section Guards</h4>
+            <p>Auto-validates CVar placement across UE section headers and flags misplaced lines in vibrant red with 1-tap Auto-Fix.</p>
+            <span class="tech-link">View Details & Guide →</span>
+          </div>
+
+          <!-- Card 4: Force C# Environment -->
+          <div class="feature-card clickable-card" data-feature="force-csharp">
+            <div class="card-icon">🚀</div>
+            <h4>Force C# Environment</h4>
+            <p>Pushes custom UE command line flags (<code>-ForceEnableCSharpEnvironment</code>) to boost script performance.</p>
+            <span class="tech-link">View Details & Guide →</span>
+          </div>
+
+          <!-- Card 5: Log Tools & Decryptor -->
+          <div class="feature-card clickable-card" data-feature="log-tools">
+            <div class="card-icon">🔍</div>
+            <h4>Log Tools & Decryptor</h4>
+            <p>Decrypts obfuscated <code>Client.log</code> files with an inline line explorer, filter chips, and device stats extractor.</p>
+            <span class="tech-link">View Details & Guide →</span>
+          </div>
+
+          <!-- Card 6: CVar Bank Reference -->
+          <div class="feature-card clickable-card" data-feature="cvar-bank">
+            <div class="card-icon">📚</div>
+            <h4>CVar Bank Reference</h4>
+            <p>Searchable library of 1000+ UE and WuWa CVars sourced from Unreal Engine Docs and the official AlteriaX database.</p>
+            <span class="tech-link">View Details & Guide →</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section 2: Environment Invariants & Supported Packages -->
+      <section id="environments" class="doc-section">
+        <div class="section-header">
+          <h2>System Invariants & Storage Paths</h2>
+          <span class="author-tag">Target SDK 36 (Android 11–15+)</span>
+        </div>
+
+        <p class="lead-text">
+          Because Android 11+ enforces Scoped Storage (Storage Access Framework), the patcher resolves package paths dynamically and uses elevated IPC to perform direct atomic writes.
+        </p>
+
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Target Component</th>
+              <th>Absolute Scoped Storage File Path</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Config Directory</strong></td>
+              <td><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/Client/Saved/Config/Android/</code></td>
+            </tr>
+            <tr>
+              <td><strong>Active INI Files</strong></td>
+              <td><code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, <code>GameUserSettings.ini</code></td>
+            </tr>
+            <tr>
+              <td><strong>Runtime Logs</strong></td>
+              <td><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/Client/Saved/Logs/Client.log</code></td>
+            </tr>
+            <tr>
+              <td><strong>Launch Flags</strong></td>
+              <td><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/UE4CommandLine.txt</code></td>
+            </tr>
+            <tr>
+              <td><strong>Shader Caches</strong></td>
+              <td><code>.../files/VulkanProgramBinaryCache</code> (Vulkan) & <code>.../files/ProgramBinaryCache</code> (OpenGL)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">SUPPORTED GAME VARIANTS</div>
+          The patcher automatically detects and resolves: <code>com.kurogame.wutheringwaves.global</code>, <code>com.kurogame.wutheringwaves.bilibili</code>, <code>com.kurogame.wutheringwaves.kuro</code>, <code>com.kurogame.wutheringwaves.tw</code>, <code>com.kurogame.wutheringwaves.jp</code>, and <code>com.kurogame.wutheringwaves.kr</code>.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Interactive Modal Window for Cards -->
+  <div id="feature-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="modal-title">Feature Name</h3>
+        <button class="close-btn" id="modal-close-btn">&times;</button>
+      </div>
+
+      <!-- Mode Toggle Tabs: End-User vs Creator -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="simple">🟢 Casual / 1-Tap Guide</button>
+        <button class="modal-tab" data-tab="technical">⚙️ Creator / Technical Deep-Dive</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="tab-content-simple"></div>
+        <div id="tab-content-technical" class="hidden"></div>
+      </div>
+
+      <div class="modal-footer">
+        <a id="modal-page-link" href="#" class="btn-primary">Open Dedicated Documentation Page →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Developed by Arglax • Released under MIT License</span>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>

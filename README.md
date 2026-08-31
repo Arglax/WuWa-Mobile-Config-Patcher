@@ -9,8 +9,8 @@ The official documentation repository for **WuWa Config Patcher** (`io.github.ar
 
 Developed by Arglax, this static site is built with responsive HTML, CSS, and vanilla JavaScript, optimized for deployment via GitHub Pages.
 
-## 🔗 Live Site
-**[Insert your GitHub Pages URL here, e.g., https://arglax.github.io/wuwa-config-patcher-docs]**
+## Live Site
+**[Currently WIP okay?](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)**
 
 ## Documented Features
 This documentation covers the authoritative technical mechanics of the application, including:

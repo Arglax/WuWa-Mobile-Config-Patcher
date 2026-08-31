@@ -728,3 +728,61 @@ body {
 .hidden {
     display: none !important;
 }
+/* Screenshot Cards */
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.screenshot-single-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.screenshot-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 12px;
+}
+
+.screenshot-single-card {
+    max-width: 320px;
+    width: 100%;
+}
+
+.screenshot-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-main);
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+}
+
+.screenshot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.screenshot-caption {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-top: 10px;
+    text-align: center;
+}
+
+.screenshot-subtext {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-align: center;
+}

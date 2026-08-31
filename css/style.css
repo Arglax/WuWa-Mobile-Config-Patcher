@@ -299,7 +299,6 @@ body {
 /* Lists */
 .step-list {
     margin: 16px 0 24px 24px;
-
 }
 
 .step-list li {
@@ -487,4 +486,129 @@ body {
     .search-box input {
         width: 140px;
     }
+}
+
+/* ==========================================================================
+   Interactive Tech Cards & Modal Mechanics (Appended UI)
+   ========================================================================== */
+
+/* Clickable Card Enhancements */
+.clickable-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    padding-bottom: 2.5rem;
+}
+
+.clickable-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tech-link {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    font-size: 0.85rem;
+    color: var(--accent-purple);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.clickable-card:hover .tech-link {
+    color: var(--accent-gold);
+}
+
+/* Modal Overlay & Window */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(13, 17, 23, 0.85); /* Matches var(--bg-main) with opacity */
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-window {
+    background: var(--bg-surface);
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-window {
+    transform: scale(1);
+}
+
+.modal-header {
+    background: var(--bg-header);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--accent-gold);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--accent-red);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    font-size: 13.5px;
+}
+
+.modal-body code {
+    background-color: var(--bg-main);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: var(--accent-purple);
+}
+
+.modal-body ul {
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.modal-body li {
+    margin-bottom: 0.8rem;
+}
+
+.modal-body strong {
+    color: var(--accent-green);
 }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Config Editor Guide — WuWa Config Patcher[cite: 9]</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>WuWa Config Patcher[cite: 9]</h1>
+                <span class="version-badge">Live Config Editor Guide[cite: 9]</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 9]</a>
+        </div>
+    </header>
+
+    <div class="content-area" style="margin: 0 auto;">
+        <section class="doc-section">
+            <div class="section-header">
+                <h2>Live Config Editor & Section Rules[cite: 9]</h2>
+            </div>
+
+            <p>Access the <strong>Editor</strong> tab to tweak active on-device config files directly (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>GameUserSettings.ini</code>). Files are read via <code>ShizukuManager.readLogFile()</code> and cached in memory for zero-latency tab switching[cite: 1].</p>
+
+            <div class="editor-modes-container">
+                <div class="editor-mode-box">
+                    <span class="mode-tag">Smart Mode</span>
+                    <ul>
+                        <li>Structured section cards with add/edit/delete controls.[cite: 9]</li>
+                        <li><strong>Sort A-Z Button</strong>: Instantly sorts CVars alphabetically per section (<code>sortSmartSectionsAlphabetically()</code>)[cite: 1].</li>
+                        <li><strong>Multi-Select & Bulk Delete</strong>: Allows checking multiple items in expanded sections to delete them in a single batch[cite: 1].</li>
+                        <li><strong>Auto-Fix Button</strong>: Re-categorizes CVars into standard UE section headers automatically based on <code>CVarSectionGuard.kt</code>[cite: 1].</li>
+                    </ul>
+                </div>
+
+                <div class="editor-mode-box">
+                    <span class="mode-tag">Text Mode</span>
+                    <ul>
+                        <li>Full manual syntax-highlighted raw text editor.[cite: 9]</li>
+                        <li><strong>Isolation Search Mode</strong>: Filters raw text line-by-line.[cite: 9]</li>
+                        <li>Adjustable font size slider (8sp to 24sp) and Search/Replace tools with "Replace Next" and "Replace All"[cite: 1].</li>
+                    </ul>
+                </div>
+
+                <div class="editor-mode-box">
+                    <span class="mode-tag">One-Line Mode</span>
+                    <ul>
+                        <li>Tailored key-value editor for rapid single CVar adjustments via interactive "Add CVar" and "Edit CVar" dialogs[cite: 1].</li>
+                        <li>Includes real-time section guard validation notes and a live buffer preview card at the bottom[cite: 1].</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Engine Section Guard Rules (CVarSectionGuard.kt)[cite: 1]</h3>
+            <p>Misplaced CVars are displayed in <strong>Vibrant Red (#FF2222)</strong> across all editor views. When saving, if misplaced CVars exist, the app prompts you with an <strong>Auto-Fix Sections</strong> remediative action or the option to bypass with <em>"I know what I'm doing"</em>[cite: 1].</p>
+
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Canonical Section Header</th>
+                        <th>Prefix Guard Enforcement[cite: 1]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>[/Script/Engine.RendererSettings]</code></td>
+                        <td>Any CVar starting with <code>r.</code> (except <code>r.SupportAllShaderPermutations</code>)[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[/Script/Engine.RendererOverrideSettings]</code></td>
+                        <td>Accepts <code>r.SupportAllShaderPermutations</code>, any <code>r.</code> CVars, or <code>dp.</code> commands. Whitelisted during Auto-Fix[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[/Script/Engine.StreamingSettings]</code></td>
+                        <td>Any CVar starting with <code>s.</code>[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[/Script/Engine.GarbageCollectionSettings]</code></td>
+                        <td>Any CVar starting with <code>gc.</code>[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[/Script/Engine.NetworkSettings]</code></td>
+                        <td><code>n.VerifyPeer</code>, <code>p.EnableMultiplayerWorldOriginRebasing</code>, <code>NetworkEmulationProfiles</code>[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[/Script/UnrealEd.CookerSettings]</code></td>
+                        <td>Any CVar starting with <code>cook.</code>[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[SystemSettings]</code> / <code>[ConsoleVariables]</code></td>
+                        <td>Universal blocks that safely accept ANY CVars[cite: 1].</td>
+                    </tr>
+                    <tr>
+                        <td><code>[Core.Paths]</code> / <code>[Core.System]</code></td>
+                        <td>Strictly whitelisted. NEVER flagged, moved, or altered during Auto-Fix[cite: 1].</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-tip">
+                <div class="alert-title">DEVICEPROFILES.INI RULE</div>
+                <p>In <code>DeviceProfiles.ini</code>, CVar entries are automatically formatted as <code>CVars=Key=Value</code>. Metadata lines (e.g. <code>BaseProfileName</code>, <code>DeviceScore</code>) remain un-prefixed and preserved untouched[cite: 1].</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

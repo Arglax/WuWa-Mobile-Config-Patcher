@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Mode Guide — WuWa Config Patcher[cite: 4]</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>WuWa Config Patcher[cite: 4]</h1>
+                <span class="version-badge">Manual Guide[cite: 4]</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 4]</a>
+        </div>
+    </header>
+
+    <div class="content-area" style="margin: 0 auto;">
+        <section class="doc-section">
+            <div class="section-header">
+                <h2>Manual Mode Guide (Old School No-App Method)[cite: 4]</h2>
+            </div>
+
+            <p>For users who prefer applying configs manually without using the automated patcher app:[cite: 4]</p>
+
+            <div class="code-block">
+                <div class="code-header">Game Config Target Directory[cite: 4]</div>
+                <pre><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android[cite: 1]</code></pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">Other Crucial Directories[cite: 1]</div>
+                <pre><code>Logs: .../Saved/Logs/Client.log
+Command Line: .../files/UE4Game/Client/UE4CommandLine.txt
+Vulkan Shaders: .../files/VulkanProgramBinaryCache
+OpenGL Shaders: .../files/ProgramBinaryCache[cite: 1]</code></pre>
+            </div>
+
+            <ol class="step-list">
+                <li>Download active files (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, or <code>GameUserSettings.ini</code>) from Arglax's GitHub repository[cite: 1].</li>
+                <li>Ensure the file extension is strictly <code>.ini</code> (if saved as <code>.ini.txt</code>, rename it to remove <code>.txt</code>).[cite: 4]</li>
+                <li>Use a Shizuku-enabled file manager (such as MT Manager or ZArchiver) to copy the files into the Android directory listed above.[cite: 4]</li>
+                <li>Launch Wuthering Waves.[cite: 4]</li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>

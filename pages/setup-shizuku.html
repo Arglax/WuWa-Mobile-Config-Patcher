@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shizuku Setup Guide — WuWa Config Patcher[cite: 6]</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>WuWa Config Patcher[cite: 6]</h1>
+                <span class="version-badge">Shizuku Setup Guide[cite: 6]</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 6]</a>
+        </div>
+    </header>
+
+    <div class="content-area" style="margin: 0 auto;">
+        <section class="doc-section">
+            <div class="section-header">
+                <h2>Setting Up Shizuku & Elevated Backends[cite: 6]</h2>
+            </div>
+
+            <div class="alert alert-important">
+                <div class="alert-title">ELEVATED ACCESS REQUIRED</div>
+                <p>Android enforces strict Scoped Storage. You must utilize an elevated backend to interact with the game's file system safely. Supported backends include:[cite: 1]</p>
+                <ul>
+                    <li><strong>SHIZUKU (Primary Green Badge):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code>[cite: 1].</li>
+                    <li><strong>ROOT (Red Badge):</strong> Non-interactive <code>su -c id</code> check[cite: 1].</li>
+                    <li><strong>AXMANAGER (Blue Badge):</strong> Axeron community provider helper[cite: 1].</li>
+                </ul>
+            </div>
+
+            <h3>Step 1: Enable Developer Options[cite: 6]</h3>
+            <ol class="step-list">
+                <li>Open phone <strong>Settings</strong>.[cite: 6]</li>
+                <li>Go to <strong>About Phone</strong> $\rightarrow$ <strong>Software Information</strong>.[cite: 6]</li>
+                <li>Tap <strong>Build Number</strong> 7 times continuously until Developer Mode activates.[cite: 6]</li>
+            </ol>
+
+            <h3>Step 2: Start Shizuku via Wireless Debugging[cite: 6]</h3>
+            <ol class="step-list">
+                <li>Open <strong>Shizuku</strong> app.[cite: 6]</li>
+                <li>Tap <strong>Pairing</strong> $\rightarrow$ Open Developer Options.[cite: 6]</li>
+                <li>Enable <strong>Wireless Debugging</strong> $\rightarrow$ Tap <em>Pair device with pairing code</em>.[cite: 6]</li>
+                <li>Enter the 6-digit code into Shizuku's notification prompt.[cite: 6]</li>
+                <li>Return to Shizuku and tap <strong>Start</strong>.[cite: 6]</li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>

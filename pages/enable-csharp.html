@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enabling C# Environment Guide — WuWa Config Patcher[cite: 10]</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>WuWa Config Patcher[cite: 10]</h1>
+                <span class="version-badge">Enabling C# Guide[cite: 10]</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 10]</a>
+        </div>
+    </header>
+
+    <div class="content-area" style="margin: 0 auto;">
+        <section class="doc-section">
+            <div class="section-header">
+                <h2>Enabling C# Scripting Environment (Misc Patch)[cite: 1]</h2>
+            </div>
+
+            <p>Kuro Games developed an updated C# scripting environment for Wuthering Waves. You can force enable this engine flag to improve script execution performance:[cite: 10]</p>
+
+            <div class="code-block">
+                <div class="code-header">Command Line Target File[cite: 1]</div>
+                <pre><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/UE4CommandLine.txt[cite: 1]</code></pre>
+            </div>
+
+            <ol class="step-list">
+                <li>Go to the <strong>Editor</strong> tab.[cite: 10]</li>
+                <li>Select the <strong>Misc Patch</strong> sub-screen selector at the bottom.[cite: 1]</li>
+                <li>Check the box for <code>-ForceEnableCSharpEnvironment</code>.[cite: 1] You may also check <code>-SkipSplash</code> or enter custom launch flags using the Custom Variable dialog[cite: 1].</li>
+                <li>Tap <strong>Patch</strong>. This pushes <code>UE4CommandLine.txt</code> directly inside the Client folder[cite: 1].</li>
+            </ol>
+
+            <h3>How to Verify C# Environment is Active[cite: 10]</h3>
+            <ul>
+                <li><strong>In-Game Client Indicator</strong>: Launch Wuthering Waves. Look at the top-right or bottom-left client version text. If an <strong>asterisk (*)</strong> appears at the end of the version string, C# is active![cite: 10]</li>
+                <li><strong>Log Verification</strong>: Run <strong>Decrypt Log</strong> in Utilities $\rightarrow$ use filter chips to isolate <code>Sharphereal</code>. If present with initialization logs, C# is active[cite: 1].</li>
+            </ul>
+
+            <p>To disable C# and revert default engine execution, return to <strong>Misc Patch</strong> and tap <strong>Remove File</strong>[cite: 1].</p>
+        </section>
+    </div>
+</body>
+</html>

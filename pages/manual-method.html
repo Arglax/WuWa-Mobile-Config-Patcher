@@ -1,53 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Mode Guide — WuWa Config Patcher[cite: 4]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual Mode Guide (No Shizuku) — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 4]</h1>
-                <span class="version-badge">Manual Guide[cite: 4]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 4]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Manual Mode Guide (Old School No-App Method)[cite: 4]</h2>
-            </div>
-
-            <p>For users who prefer applying configs manually without using the automated patcher app:[cite: 4]</p>
-
-            <div class="code-block">
-                <div class="code-header">Game Config Target Directory[cite: 4]</div>
-                <pre><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android[cite: 1]</code></pre>
-            </div>
-            
-            <div class="code-block">
-                <div class="code-header">Other Crucial Directories[cite: 1]</div>
-                <pre><code>Logs: .../Saved/Logs/Client.log
-Command Line: .../files/UE4Game/Client/UE4CommandLine.txt
-Vulkan Shaders: .../files/VulkanProgramBinaryCache
-OpenGL Shaders: .../files/ProgramBinaryCache[cite: 1]</code></pre>
-            </div>
-
-            <ol class="step-list">
-                <li>Download active files (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, or <code>GameUserSettings.ini</code>) from Arglax's GitHub repository[cite: 1].</li>
-                <li>Ensure the file extension is strictly <code>.ini</code> (if saved as <code>.ini.txt</code>, rename it to remove <code>.txt</code>).[cite: 4]</li>
-                <li>Use a Shizuku-enabled file manager (such as MT Manager or ZArchiver) to copy the files into the Android directory listed above.[cite: 4]</li>
-                <li>Launch Wuthering Waves.[cite: 4]</li>
-            </ol>
-        </section>
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link active">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Manual Mode Guide (Old School File Managers)</h2>
+          <span class="author-tag">Fallback Workflow for Android 11 to 14</span>
+        </div>
+
+        <p class="lead-text">
+          If you are unable to set up Shizuku, Wireless Debugging, or Root access, you can manually export presets from the app and paste them into the game's scoped storage folder using specialized file managers.
+        </p>
+
+        <div class="method-card">
+          <h4>Manual Patching Instructions</h4>
+          <ol class="step-list">
+            <li>Install a Scoped Storage-compatible file manager such as <strong>FV File Explorer</strong>, <strong>ZArchiver</strong>, or <strong>MT Manager</strong>.</li>
+            <li>In WuWa Config Patcher, go to <strong>Utilities &gt; Export &amp; Sharing &gt; Share Patch</strong> to export your desired configuration archive.</li>
+            <li>Extract the <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> files.</li>
+            <li>Using your file explorer, copy the files and navigate to:
+              <br><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android/</code>
+            </li>
+            <li>Paste and overwrite the existing files.</li>
+          </ol>
+        </div>
+
+        <div class="alert alert-important">
+          <div class="alert-title">ANDROID 14/15 PERMISSION RESTRICTIONS</div>
+          On newer Android versions, third-party file managers without Shizuku or Root will be blocked from accessing <code>/Android/data/</code>. In this scenario, using Shizuku with WuWa Config Patcher is strictly required.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

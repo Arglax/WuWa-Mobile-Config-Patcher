@@ -1,47 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bug Reporting Guide — WuWa Config Patcher[cite: 8]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bug Reporting, Activity Logger & Support — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 8]</h1>
-                <span class="version-badge">Bug Reporting Guide[cite: 8]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 8]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Reporting Bugs & Getting Support[cite: 8]</h2>
-            </div>
-
-            <h3>For Game-Related Crashes or Visual Issues[cite: 8]</h3>
-            <p>Go to the <strong>Utilities</strong> tab $\rightarrow$ tap <strong>Get Device Info</strong> (copy specs) $\rightarrow$ tap <strong>Decrypt Log</strong> $\rightarrow$ tap <strong>Share Decrypted Log</strong>. Send both files in Discord <code>#issues-and-concerns</code>.[cite: 8]</p>
-
-            <h3>For Config Patcher App Bugs[cite: 8]</h3>
-            <ol class="step-list">
-                <li>Go to the <strong>Support</strong> tab (Tab 5).[cite: 1]</li>
-                <li>Tap <strong>Report a Bug / Suggest a Feature</strong>.[cite: 8]</li>
-                <li>Select <strong>Bug Report</strong>. This opens <code>BugReportDialog.kt</code> which automatically generates a technical report attached with your device diagnostics and backend <code>activity_log.txt</code>.[cite: 1]</li>
-                <li>Send directly via Email or Discord.[cite: 1]</li>
-            </ol>
-            
-            <div class="alert alert-tip">
-                <div class="alert-title">ADDITIONAL SUPPORT RESOURCES</div>
-                <p>The Support screen also provides direct links to Arglax's official Discord and GitHub, a showcase card for the WuWaLab Companion app, and GCash/InstaPay donation dialogs (<code>GCashDialog.kt</code>)[cite: 1].</p>
-            </div>
-        </section>
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link active">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      
+      <!-- Support & Bug Reporting -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Support, Bug Reporting & Activity Logger</h2>
+          <span class="author-tag">Tab 5: SupportScreen</span>
+        </div>
+
+        <p class="lead-text">
+          WuWa Config Patcher automatically tracks all internal transactions, file operations, Shizuku IPC binder calls, and exceptions via <code>ActionLogger.kt</code> to ensure full diagnostic traceability.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-icon">📋</div>
+            <h4>Activity Logger Traceability</h4>
+            <p>All operations are logged in <code>context.filesDir/activity_log.txt</code>. You can inspect this anytime under <strong>Utilities &gt; Common &gt; View Backend Activity Log</strong>.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🐛</div>
+            <h4>Report a Bug Generator</h4>
+            <p>Tap <strong>"Report a Bug / Suggest a Feature"</strong> on the Support tab to open <code>BugReportDialog.kt</code>. It compiles device hardware specs and backend logs to submit via Discord or GitHub Issues.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">☕</div>
+            <h4>Donations & Creator Support</h4>
+            <p>WuWa Config Patcher is 100% free and ad-free. You can support Arglax directly via the in-app GCash / InstaPay QR dialog.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Danger Zone -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Settings: Danger Zone Actions</h2>
+          <span class="author-tag">Tab 4: SettingsScreen &gt; Danger Zone</span>
+        </div>
+
+        <p class="lead-text">
+          Guarded 3-step confirmation actions for system cleanup and cache maintenance:
+        </p>
+
+        <div class="alert alert-important">
+          <div class="alert-title">AVAILABLE DANGER ZONE ROUTINES</div>
+          <ul>
+            <li><strong>Clear App Cache &amp; History:</strong> Wipes temporary repository zip caches and editor undo/redo snapshot stacks.</li>
+            <li><strong>Clear App Data &amp; Exports:</strong> Complete factory reset for all custom repo URLs, exports, and preferences.</li>
+            <li><strong>Clear Activity Log:</strong> Erases <code>activity_log.txt</code>.</li>
+            <li><strong>Delete Shaders:</strong> Opens <code>DeleteShadersDialog.kt</code> to wipe Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) compiled shader caches to fix rendering artifacts after game updates.</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

@@ -1,113 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Config Editor Guide — WuWa Config Patcher[cite: 9]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Config Editor & Section Guards — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 9]</h1>
-                <span class="version-badge">Live Config Editor Guide[cite: 9]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 9]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Live Config Editor & Section Rules[cite: 9]</h2>
-            </div>
-
-            <p>Access the <strong>Editor</strong> tab to tweak active on-device config files directly (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>GameUserSettings.ini</code>). Files are read via <code>ShizukuManager.readLogFile()</code> and cached in memory for zero-latency tab switching[cite: 1].</p>
-
-            <div class="editor-modes-container">
-                <div class="editor-mode-box">
-                    <span class="mode-tag">Smart Mode</span>
-                    <ul>
-                        <li>Structured section cards with add/edit/delete controls.[cite: 9]</li>
-                        <li><strong>Sort A-Z Button</strong>: Instantly sorts CVars alphabetically per section (<code>sortSmartSectionsAlphabetically()</code>)[cite: 1].</li>
-                        <li><strong>Multi-Select & Bulk Delete</strong>: Allows checking multiple items in expanded sections to delete them in a single batch[cite: 1].</li>
-                        <li><strong>Auto-Fix Button</strong>: Re-categorizes CVars into standard UE section headers automatically based on <code>CVarSectionGuard.kt</code>[cite: 1].</li>
-                    </ul>
-                </div>
-
-                <div class="editor-mode-box">
-                    <span class="mode-tag">Text Mode</span>
-                    <ul>
-                        <li>Full manual syntax-highlighted raw text editor.[cite: 9]</li>
-                        <li><strong>Isolation Search Mode</strong>: Filters raw text line-by-line.[cite: 9]</li>
-                        <li>Adjustable font size slider (8sp to 24sp) and Search/Replace tools with "Replace Next" and "Replace All"[cite: 1].</li>
-                    </ul>
-                </div>
-
-                <div class="editor-mode-box">
-                    <span class="mode-tag">One-Line Mode</span>
-                    <ul>
-                        <li>Tailored key-value editor for rapid single CVar adjustments via interactive "Add CVar" and "Edit CVar" dialogs[cite: 1].</li>
-                        <li>Includes real-time section guard validation notes and a live buffer preview card at the bottom[cite: 1].</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Engine Section Guard Rules (CVarSectionGuard.kt)[cite: 1]</h3>
-            <p>Misplaced CVars are displayed in <strong>Vibrant Red (#FF2222)</strong> across all editor views. When saving, if misplaced CVars exist, the app prompts you with an <strong>Auto-Fix Sections</strong> remediative action or the option to bypass with <em>"I know what I'm doing"</em>[cite: 1].</p>
-
-            <table class="doc-table">
-                <thead>
-                    <tr>
-                        <th>Canonical Section Header</th>
-                        <th>Prefix Guard Enforcement[cite: 1]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>[/Script/Engine.RendererSettings]</code></td>
-                        <td>Any CVar starting with <code>r.</code> (except <code>r.SupportAllShaderPermutations</code>)[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[/Script/Engine.RendererOverrideSettings]</code></td>
-                        <td>Accepts <code>r.SupportAllShaderPermutations</code>, any <code>r.</code> CVars, or <code>dp.</code> commands. Whitelisted during Auto-Fix[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[/Script/Engine.StreamingSettings]</code></td>
-                        <td>Any CVar starting with <code>s.</code>[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[/Script/Engine.GarbageCollectionSettings]</code></td>
-                        <td>Any CVar starting with <code>gc.</code>[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[/Script/Engine.NetworkSettings]</code></td>
-                        <td><code>n.VerifyPeer</code>, <code>p.EnableMultiplayerWorldOriginRebasing</code>, <code>NetworkEmulationProfiles</code>[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[/Script/UnrealEd.CookerSettings]</code></td>
-                        <td>Any CVar starting with <code>cook.</code>[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[SystemSettings]</code> / <code>[ConsoleVariables]</code></td>
-                        <td>Universal blocks that safely accept ANY CVars[cite: 1].</td>
-                    </tr>
-                    <tr>
-                        <td><code>[Core.Paths]</code> / <code>[Core.System]</code></td>
-                        <td>Strictly whitelisted. NEVER flagged, moved, or altered during Auto-Fix[cite: 1].</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="alert alert-tip">
-                <div class="alert-title">DEVICEPROFILES.INI RULE</div>
-                <p>In <code>DeviceProfiles.ini</code>, CVar entries are automatically formatted as <code>CVars=Key=Value</code>. Metadata lines (e.g. <code>BaseProfileName</code>, <code>DeviceScore</code>) remain un-prefixed and preserved untouched[cite: 1].</p>
-            </div>
-        </section>
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link active">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      
+      <!-- Editor Overview -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Live INI Config Editor</h2>
+          <span class="author-tag">Tab 2: EditorScreen</span>
+        </div>
+
+        <p class="lead-text">
+          The built-in editor allows live, in-place modification of game configuration files without external text editors. Select files from the top-left dropdown (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, or <code>GameUserSettings.ini</code>).
+        </p>
+
+        <!-- Editor Modes Breakdown -->
+        <div class="editor-modes-container">
+          <div class="editor-mode-box">
+            <span class="mode-tag">Smart Mode</span>
+            <h4>Interactive Card UI</h4>
+            <ul>
+              <li><strong>Sort A-Z Button:</strong> Alphabetizes all keys inside every section via <code>sortSmartSectionsAlphabetically()</code>.</li>
+              <li><strong>Auto-Fix Sections:</strong> Automatically re-categorizes all CVars to their canonical Unreal headers.</li>
+              <li><strong>Bulk Delete:</strong> Multi-select checkboxes to delete multiple CVars in one action.</li>
+            </ul>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Text Mode</span>
+            <h4>Raw Syntax Editor</h4>
+            <ul>
+              <li><strong>Isolation Search:</strong> Filters editor lines to display only items matching your query.</li>
+              <li><strong>Find & Replace:</strong> Full regex find, Replace Next, and Replace All toolbar.</li>
+              <li><strong>Font Scaling:</strong> Adjustable font size slider from 8sp to 24sp.</li>
+            </ul>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">One-Line Mode</span>
+            <h4>Fast CVar Injection Buffer</h4>
+            <ul>
+              <li>Dropdown selector for target section and CVar name.</li>
+              <li>Interactive Add/Edit dialogs with real-time Section Guard syntax checks.</li>
+              <li>Live buffer preview card before committing writes.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Guards & Enforcement -->
+      <section id="cvar-guards" class="doc-section">
+        <div class="section-header">
+          <h2>Engine CVar Section Guards & Canonical Rules</h2>
+          <span class="author-tag">CVarSectionGuard.kt Mechanics</span>
+        </div>
+
+        <p class="lead-text">
+          Unreal Engine 4 &amp; 5 strictly parse configuration variables based on INI section headers. A CVar placed in the wrong section is silently discarded by the game engine.
+        </p>
+
+        <div class="alert alert-important">
+          <div class="alert-title">VIBRANT RED WARNING (#FF2222)</div>
+          Any CVar placed under an illegal header is highlighted in bold vibrant red. When you tap <strong>Save</strong>, the app prompts you with <strong>Auto-Fix Sections</strong> to cleanly migrate misplaced lines into their canonical headers.
+        </div>
+
+        <!-- Canonical Header Matrix -->
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>INI Section Header</th>
+              <th>Valid CVar Prefix / Rules</th>
+              <th>Whitelisted / Strict Behavior</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>[/Script/Engine.RendererSettings]</code></td>
+              <td>All <code>r.</code> variables (except <code>r.SupportAllShaderPermutations</code>)</td>
+              <td>Canonical rendering section</td>
+            </tr>
+            <tr>
+              <td><code>[/Script/Engine.RendererOverrideSettings]</code></td>
+              <td><code>r.SupportAllShaderPermutations</code>, <code>r.</code>, or <code>dp.</code></td>
+              <td><strong>Strictly Whitelisted:</strong> Never moved or altered during Auto-Fix</td>
+            </tr>
+            <tr>
+              <td><code>[/Script/Engine.StreamingSettings]</code></td>
+              <td>All <code>s.</code> variables (Texture &amp; Asset Streaming)</td>
+              <td>Auto-fixed from <code>[SystemSettings]</code> if present</td>
+            </tr>
+            <tr>
+              <td><code>[/Script/Engine.GarbageCollectionSettings]</code></td>
+              <td>All <code>gc.</code> variables (Memory &amp; GC frequency)</td>
+              <td>Canonical GC section</td>
+            </tr>
+            <tr>
+              <td><code>[/Script/Engine.NetworkSettings]</code></td>
+              <td><code>n.VerifyPeer</code>, <code>p.EnableMultiplayerWorldOriginRebasing</code></td>
+              <td>Network &amp; Multiplayer parameters</td>
+            </tr>
+            <tr>
+              <td><code>[/Script/UnrealEd.CookerSettings]</code></td>
+              <td>All <code>cook.</code> directives</td>
+              <td>Cooker &amp; Package rules</td>
+            </tr>
+            <tr>
+              <td><code>[SystemSettings]</code> / <code>[ConsoleVariables]</code></td>
+              <td>Universal root containers</td>
+              <td>Accepts ANY valid CVar variable</td>
+            </tr>
+            <tr>
+              <td><code>[Core.Paths]</code> &amp; <code>[Core.System]</code></td>
+              <td>Engine core directory paths</td>
+              <td><strong>Strictly Whitelisted:</strong> Never touched or altered</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">DEVICEPROFILES.INI SYNTAX RULE</div>
+          Inside <code>DeviceProfiles.ini</code>, CVars must be structured as <code>CVars=Key=Value</code>. The patcher enforces this formatting automatically while protecting profile pointers like <code>BaseProfileName</code> and <code>DeviceScore</code>.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

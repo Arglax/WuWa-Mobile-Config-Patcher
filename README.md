@@ -9,8 +9,7 @@ The official documentation repository for **WuWa Config Patcher** (`io.github.ar
 <a href="https://discord.gg/renjxYBEZM"><img src="https://img.shields.io/badge/Discord-7289DA?logo=discord&logoColor=white&style=plastic" height="40"></a>
 
 >[!CAUTION]
-> ## DISCLAIMER
-> I, Arglax, am not in any way affiliated with Kuro Games nor Epic Games.
+> DISCLAIMER: I, Arglax, am not in any way affiliated with Kuro Games nor Epic Games.  
 
 ## Latest Release
 You can download the latest version [here](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases/latest).

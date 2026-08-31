@@ -1,72 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getting & Applying Configs Guide — WuWa Config Patcher[cite: 5]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1-Click & Custom Config Patching — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 5]</h1>
-                <span class="version-badge">Applying Configs Guide[cite: 5]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 5]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Getting & Applying Config Presets[cite: 5]</h2>
-            </div>
-
-            <p>WuWa Config Patcher provides three seamless repository sources to fetch and inject graphics presets:[cite: 5]</p>
-
-            <div class="method-card">
-                <h4>Method 1: Default Repository (Arglax & Community Presets)[cite: 5]</h4>
-                <ol class="step-list">
-                    <li>Open the <strong>Config</strong> tab.[cite: 5]</li>
-                    <li>Set <strong>Repository Source</strong> to <code>Arglax (Default)</code>. This securely connects to the GitHub API (<code>GitHubApi.kt</code>) to fetch <code>custom-metadata.txt</code> and official zip archives[cite: 1].</li>
-                    <li>Tap <strong>Sync Files & Refresh</strong>. The app extracts archives via <code>ZipExtractor.kt</code> into <code>context.cacheDir/repo_cache/</code> and recursively parses preset directories using <code>ConfigScanner.kt</code>[cite: 1].</li>
-                    <li>Select your target device preset (categorized automatically into STABLE, PERFORMANCE, HIGH_VISUAL, etc. via <code>PresetCategorization.kt</code>)[cite: 1].</li>
-                    <li>Tap <strong>1-Click Patch</strong>. A timestamped backup is generated in <code>app_main_storage/backups/</code> via <code>MainStorageManager.kt</code> before files are routed directly to the game using elevated Shizuku IPC (<code>ShizukuManager.applyAllIniFiles</code>)[cite: 1].</li>
-                </ol>
-            </div>
-
-            <div class="method-card">
-                <h4>Method 2: Custom Online Repository (.zip Download Link)[cite: 5]</h4>
-                <ol class="step-list">
-                    <li>Go to <strong>Config</strong> tab $\rightarrow$ select <code>Custom Online Repository</code>.[cite: 5]</li>
-                    <li>Paste the direct HTTP/HTTPS URL to your custom <code>.zip</code> config pack[cite: 1].</li>
-                    <li>Tap <strong>Sync Files & Refresh</strong> and apply via <strong>1-Click Patch</strong>.[cite: 5]</li>
-                </ol>
-            </div>
-
-            <div class="method-card">
-                <h4>Method 3: Local Repository (On-Device Folder)[cite: 5]</h4>
-                <ol class="step-list">
-                    <li>Go to <strong>Config</strong> tab $\rightarrow$ select <code>Local Repository</code>.[cite: 5]</li>
-                    <li>Tap <strong>Select Folder</strong> to invoke the SAF Tree Picker (<code>OpenDocumentTree</code>) and pick the directory containing your custom config files[cite: 1].</li>
-                    <li>Tap <strong>Use this Folder</strong>, sync, and apply via <strong>1-Click Patch</strong>.[cite: 5]</li>
-                </ol>
-            </div>
-
-            <div class="alert alert-tip">
-                <div class="alert-title">PER-FILE ADVANCED PATCHING</div>
-                <p>To apply only a specific file (e.g. <code>Engine.ini</code> without touching <code>DeviceProfiles.ini</code>), tap the <strong>Gear Icon (⚙️)</strong> beside 1-Click Patch to open <code>AdvancedPatchDialog.kt</code> and selectively route individual files[cite: 1].</p>
-            </div>
-            
-            <div class="alert alert-important">
-                <div class="alert-title">GAME LAUNCHER RESOLUTION</div>
-                <p>The "Launch Game" button intelligently resolves package availability across <code>com.kurogame.wutheringwaves.global</code>, <code>.bilibili</code>, <code>.kuro</code>, <code>.tw</code>, <code>.jp</code>, and <code>.kr</code> before triggering the launch intent[cite: 1].</p>
-            </div>
-        </section>
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link active">1-Click & Custom Presets</a></li>
+          <li><a href="#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      
+      <!-- 1-Click Patching Workflow -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>1-Click Preset Patching Workflow</h2>
+          <span class="author-tag">Tab 1: ConfigScreen</span>
+        </div>
+
+        <p class="lead-text">
+          The Config screen is designed for instantaneous 1-tap optimization. It automatically downloads, parses, and injects verified community and official graphic presets into your game directory.
+        </p>
+
+        <div class="method-card">
+          <h4>End-User Quick Steps</h4>
+          <ol class="step-list">
+            <li><strong>Select Repository Source:</strong> By default, <em>Arglax (Default)</em> is selected. Tap <strong>"Sync Files & Refresh"</strong> to fetch the latest presets.</li>
+            <li><strong>Choose a Preset:</strong> Browse through categories (<code>STABLE</code>, <code>PERFORMANCE</code>, <code>HIGH_VISUAL</code>, <code>COMMUNITY</code>).</li>
+            <li><strong>Tap "1-Click Patch":</strong> The app automatically creates a timestamped backup of your current setup and injects the new configuration.</li>
+            <li><strong>Tap "Launch Game":</strong> Starts Wuthering Waves with your active tweaks.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Advanced Per-File Patching -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Advanced Patching & Repository Options</h2>
+          <span class="author-tag">For Tweakers & Preset Creators</span>
+        </div>
+
+        <div class="editor-modes-container">
+          <div class="editor-mode-box">
+            <span class="mode-tag">Gear Icon ⚙️</span>
+            <h4>Per-File Granular Patching</h4>
+            <p>Tapping the gear icon next to 1-Click Patch opens <code>AdvancedPatchDialog.kt</code>. This allows creators to selectively toggle which files to inject:</p>
+            <ul>
+              <li><code>Engine.ini</code> — Core rendering variables & system settings.</li>
+              <li><code>DeviceProfiles.ini</code> — Device profile CVars & memory scaling.</li>
+              <li><code>Scalability.ini</code> — Low/Medium/High/Cinematic preset overrides.</li>
+            </ul>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Custom Repositories</span>
+            <h4>Custom Online & Local SAF Repos</h4>
+            <p>Under the Repository Status Card, select:</p>
+            <ul>
+              <li><strong>Custom Online Repository:</strong> Enter a custom HTTP/HTTPS <code>.zip</code> URL containing community presets.</li>
+              <li><strong>Local Repository:</strong> Select a local device folder via SAF to load offline INI presets.</li>
+              <li><strong>Deep Subfolder Fallback:</strong> <code>ConfigNode.kt</code> uses <code>folder.walkTopDown()</code> to discover nested presets in deep subfolders.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reverting to Vanilla -->
+      <section id="revert" class="doc-section">
+        <div class="section-header">
+          <h2>Reverting to Vanilla (Factory Game Defaults)</h2>
+          <span class="author-tag">Restoring Original State</span>
+        </div>
+
+        <p class="lead-text">
+          If you experience graphical glitches, unexpected stuttering, or game updates, you can restore clean vanilla game defaults in two ways:
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-icon">🔴</div>
+            <h4>Standard Revert (1-Tap)</h4>
+            <p>Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong> and tap the red <strong>"Revert to Vanilla"</strong> button. This safely removes <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>, prompting the game to regenerate pristine defaults upon next launch.</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-icon">⚙️</div>
+            <h4>Advanced Revert & Restore</h4>
+            <p>Tap <strong>"Advanced Revert"</strong> to selectively delete specific INIs, or go to <strong>Utilities &gt; Advanced &gt; Main Storage</strong> to restore a previous timestamped backup snapshot from <code>context.filesDir/app_main_storage/backups/</code>.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

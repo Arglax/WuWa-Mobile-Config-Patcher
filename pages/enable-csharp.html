@@ -1,53 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enabling C# Environment Guide — WuWa Config Patcher[cite: 10]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enabling C# Environment & Launch Flags — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 10]</h1>
-                <span class="version-badge">Enabling C# Guide[cite: 10]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 10]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Enabling C# Scripting Environment (Misc Patch)[cite: 1]</h2>
-            </div>
-
-            <p>Kuro Games developed an updated C# scripting environment for Wuthering Waves. You can force enable this engine flag to improve script execution performance:[cite: 10]</p>
-
-            <div class="code-block">
-                <div class="code-header">Command Line Target File[cite: 1]</div>
-                <pre><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/UE4CommandLine.txt[cite: 1]</code></pre>
-            </div>
-
-            <ol class="step-list">
-                <li>Go to the <strong>Editor</strong> tab.[cite: 10]</li>
-                <li>Select the <strong>Misc Patch</strong> sub-screen selector at the bottom.[cite: 1]</li>
-                <li>Check the box for <code>-ForceEnableCSharpEnvironment</code>.[cite: 1] You may also check <code>-SkipSplash</code> or enter custom launch flags using the Custom Variable dialog[cite: 1].</li>
-                <li>Tap <strong>Patch</strong>. This pushes <code>UE4CommandLine.txt</code> directly inside the Client folder[cite: 1].</li>
-            </ol>
-
-            <h3>How to Verify C# Environment is Active[cite: 10]</h3>
-            <ul>
-                <li><strong>In-Game Client Indicator</strong>: Launch Wuthering Waves. Look at the top-right or bottom-left client version text. If an <strong>asterisk (*)</strong> appears at the end of the version string, C# is active![cite: 10]</li>
-                <li><strong>Log Verification</strong>: Run <strong>Decrypt Log</strong> in Utilities $\rightarrow$ use filter chips to isolate <code>Sharphereal</code>. If present with initialization logs, C# is active[cite: 1].</li>
-            </ul>
-
-            <p>To disable C# and revert default engine execution, return to <strong>Misc Patch</strong> and tap <strong>Remove File</strong>[cite: 1].</p>
-        </section>
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link active">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Force C# Scripting Environment & Launch Flags</h2>
+          <span class="author-tag">Editor &gt; Misc Patch</span>
+        </div>
+
+        <p class="lead-text">
+          Wuthering Waves utilizes a custom C# scripting layer (Puerts bridge) for skill interactions, combat calculations, and character logic. Injecting dedicated launch arguments into <code>UE4CommandLine.txt</code> ensures maximum thread allocation and reduced garbage collection pauses.
+        </p>
+
+        <div class="method-card">
+          <h4>How to Enable in 1 Tap</h4>
+          <ol class="step-list">
+            <li>Open WuWa Config Patcher and navigate to the <strong>Editor Tab</strong>.</li>
+            <li>Select <strong>Misc Patch</strong> from the bottom sub-screen selector.</li>
+            <li>Check <strong>-ForceEnableCSharpEnvironment</strong> (enables C# optimization).</li>
+            <li>Check <strong>-SkipSplash</strong> (optional: skips opening splash logo).</li>
+            <li>Tap <strong>Apply Misc Patch</strong>.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Technical Low-Level Specs -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Technical Architecture: UE4CommandLine.txt</h2>
+          <span class="author-tag">Engine Low-Level Hook</span>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">File Path & Injected Arguments</div>
+          <pre><code>// Target Storage Path
+/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/UE4CommandLine.txt
+
+// Injected Flag Content
+-ForceEnableCSharpEnvironment -usehyperthreading</code></pre>
+        </div>
+
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Command Flag</th>
+              <th>Engine Functionality & Performance Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>-ForceEnableCSharpEnvironment</code></td>
+              <td>Forces the Puerts/C# runtime bridge to execute with optimized JIT/AOT memory allocation, reducing GC hitches during crowded battles.</td>
+            </tr>
+            <tr>
+              <td><code>-SkipSplash</code></td>
+              <td>Bypasses intro logo animations, speeding up cold boot times into the login gate.</td>
+            </tr>
+            <tr>
+              <td><code>-usehyperthreading</code></td>
+              <td>Instructs the Unreal TaskGraph scheduler to utilize all available big.LITTLE CPU cores on ARM64 processors.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

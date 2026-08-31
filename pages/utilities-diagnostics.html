@@ -1,72 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utilities & Diagnostics Guide — WuWa Config Patcher[cite: 7]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilities, Diagnostics & CVar Bank — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 7]</h1>
-                <span class="version-badge">Utilities Guide[cite: 7]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 7]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Utilities Suite & Diagnostics Guide[cite: 7]</h2>
-            </div>
-
-            <p>Access the <strong>Utilities</strong> tab for deep hardware scans, log tools, and persistent backups. The screen is divided into <strong>Common</strong> and <strong>Advanced</strong> subtabs:[cite: 1]</p>
-
-            <div class="utilities-grid">
-                <div class="util-item">
-                    <h4>Get Device Info</h4>
-                    <p>Invokes <code>DeviceStatsCollector.kt</code> to extract hidden hardware specs (GPU model, physical RAM, CPU cores, C# environment status, and Device Score) directly from game logs[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Log Decryptor & Explorer</h4>
-                    <p>Uses <code>LogDecryptor.kt</code> (supporting Scheme A XOR 0xA5/0xEF, Scheme B XOR 0x55, and Plaintext fallback) to read obfuscated <code>Client.log</code> files. Features inline search, filter chips (LogConfig, GameThread, Sharphereal, Vulkan, RHI), and a full-screen <code>DecryptedLogViewerDialog.kt</code>[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Analyze Config</h4>
-                    <p>Invokes <code>CVarAnalyzer.kt</code> to cross-check live INI CVars against the latest instance in <code>Client.log</code>. Generates <code>ConfigAnalysisDialog.kt</code> featuring a 5-column filterable status table displaying Applied, Failed, and Deleted metrics[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Extract Log CVars</h4>
-                    <p>Invokes <code>CVarExtractor.kt</code> to parse the decrypted log line-by-line, assigning change frequency remarks (Static, Var 1, Var 2, Var 3, Hyper) and allowing TXT/CSV exports[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Duplicate Flagger</h4>
-                    <p>Uses <code>DuplicateCvarFlagger.kt</code> to scan active INIs for duplicate entries across sections, allowing 1-tap interactive resolution via <code>DuplicateFlaggerDialog.kt</code> while protecting metadata pointers[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Strip Forbidden CVars</h4>
-                    <p>Detects and strips forbidden CVars that are ignored at runtime using <code>ForbiddenCvarStripper.kt</code>. Displays <code>ForbiddenCvarDialog.kt</code> with a 1-tap Auto Strip All action[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>CVar Bank & Reference</h4>
-                    <p>Searchable library of 1000+ CVars loaded asynchronously via <code>loadAlteriaXAssetsIfNeeded()</code>. Includes Card/Table views, dynamic web text extraction, and a 1-tap "Send to Editor" function[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Main Storage Reader</h4>
-                    <p>Opens <code>MainStorageReaderDialog.kt</code> to view, copy, share, or 1-tap Restore Backup from the persistent <code>context.filesDir/app_main_storage/</code> directory[cite: 1].</p>
-                </div>
-                <div class="util-item">
-                    <h4>Vanilla Revert & Diagnostics</h4>
-                    <p>Reverts graphics by executing elevated file deletion on <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> (or selectively via <code>AdvancedRevertDialog.kt</code>). You can also view backend processes via <code>ActivityLogDialog.kt</code>[cite: 1].</p>
-                </div>
-            </div>
-        </section>
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link active">Utilities & Diagnostics</a></li>
+          <li><a href="#cvar-analyzer" class="nav-link">Config Analyzer & Report</a></li>
+          <li><a href="#cvar-bank" class="nav-link">CVar Bank & Reference</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      
+      <!-- Utilities Overview: Common Subtab -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Common Utilities & Log Decryptor</h2>
+          <span class="author-tag">Tab 3: UtilitiesScreen (Common Subtab)</span>
+        </div>
+
+        <div class="utilities-grid">
+          <div class="util-item">
+            <h4>🔍 Decrypted Log Explorer</h4>
+            <p>Live inline viewer for <code>Client.log</code> with search and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>LogInit</code>, <code>LogTemp</code>, <code>Vulkan</code>, <code>RHI</code>).</p>
+          </div>
+
+          <div class="util-item">
+            <h4>📱 Get Device Info</h4>
+            <p>Invokes <code>DeviceStatsCollector.kt</code> to extract your exact GPU renderer, Vulkan driver, physical RAM, CPU topology, and game-evaluated <strong>Device Score</strong>.</p>
+          </div>
+
+          <div class="util-item">
+            <h4>🔓 Log Decryptor Engine</h4>
+            <p>Offline decryption for encrypted logs. Automatically runs <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>), <strong>Scheme B</strong> (XOR <code>0x55</code>), or plaintext fallback.</p>
+          </div>
+
+          <div class="util-item">
+            <h4>📦 Export & Sharing</h4>
+            <p>Compresses your active live INIs into a ZIP archive and triggers the Android Sharesheet with custom naming.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Advanced Subtab: CVar Analyzer -->
+      <section id="cvar-analyzer" class="doc-section">
+        <div class="section-header">
+          <h2>Config & Engine Analysis (CVar Analyzer)</h2>
+          <span class="author-tag">Advanced Subtab &gt; CVarAnalyzer.kt</span>
+        </div>
+
+        <p class="lead-text">
+          The <strong>Analyze Config</strong> tool cross-checks your live INI CVars against the latest execution block of <code>Client.log</code> to prove whether your graphic commands actually applied or were rejected by the game engine.
+        </p>
+
+        <div class="method-card">
+          <h4>Config Analysis Report (ConfigAnalysisDialog.kt)</h4>
+          <ul>
+            <li><strong>Summary KPIs:</strong> Displays Total CVars, Applied %, Failed count, Deleted/Ignored count &amp; %.</li>
+            <li><strong>Combined Filter Bar:</strong> Tap-to-cycle CVar Filters (<code>All</code> &gt; <code>Applied</code> &gt; <code>Failed</code> &gt; <code>Deleted</code>) combined with File Filters (<code>All Files</code> &gt; <code>Engine.ini</code> &gt; <code>DeviceProfiles.ini</code>).</li>
+            <li><strong>5-Column Frozen Table:</strong> Features a frozen left CVar column with scrollable Section, User Val, Log Val, and Result Status columns.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Advanced Subtab: CVar Bank & INI Cleanup -->
+      <section id="cvar-bank" class="doc-section">
+        <div class="section-header">
+          <h2>CVar Bank, Duplicate Flagger & Stripper</h2>
+          <span class="author-tag">Advanced Tools for Config Creators</span>
+        </div>
+
+        <div class="editor-modes-container">
+          <div class="editor-mode-box">
+            <span class="mode-tag">1000+ Database</span>
+            <h4>CVar Bank & Reference</h4>
+            <p>Loaded asynchronously from AlteriaX assets and Unreal Docs. Features Card View vs Tabulated Table View, web text extractor, and a <strong>"Send to Editor"</strong> button to insert CVars directly into Smart Mode.</p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Integrity</span>
+            <h4>Duplicate Flagger</h4>
+            <p>Scans live INIs for duplicate keys across lines and sections while protecting metadata profile pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>).</p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Cleanup</span>
+            <h4>Strip Forbidden CVars</h4>
+            <p>Detects and eliminates blacklisted or crash-inducing CVars with a 1-tap <strong>Auto Strip All</strong> action.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

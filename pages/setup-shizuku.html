@@ -1,57 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shizuku Setup Guide — WuWa Config Patcher[cite: 6]</title>
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerequisites & Elevated Access — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-icon">⚡</div>
-            <div>
-                <h1>WuWa Config Patcher[cite: 6]</h1>
-                <span class="version-badge">Shizuku Setup Guide[cite: 6]</span>
-            </div>
-        </div>
-        <div class="header-actions">
-            <a href="../index.html" class="github-link">← Back to Main Docs[cite: 6]</a>
-        </div>
-    </header>
 
-    <div class="content-area" style="margin: 0 auto;">
-        <section class="doc-section">
-            <div class="section-header">
-                <h2>Setting Up Shizuku & Elevated Backends[cite: 6]</h2>
-            </div>
-
-            <div class="alert alert-important">
-                <div class="alert-title">ELEVATED ACCESS REQUIRED</div>
-                <p>Android enforces strict Scoped Storage. You must utilize an elevated backend to interact with the game's file system safely. Supported backends include:[cite: 1]</p>
-                <ul>
-                    <li><strong>SHIZUKU (Primary Green Badge):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code>[cite: 1].</li>
-                    <li><strong>ROOT (Red Badge):</strong> Non-interactive <code>su -c id</code> check[cite: 1].</li>
-                    <li><strong>AXMANAGER (Blue Badge):</strong> Axeron community provider helper[cite: 1].</li>
-                </ul>
-            </div>
-
-            <h3>Step 1: Enable Developer Options[cite: 6]</h3>
-            <ol class="step-list">
-                <li>Open phone <strong>Settings</strong>.[cite: 6]</li>
-                <li>Go to <strong>About Phone</strong> $\rightarrow$ <strong>Software Information</strong>.[cite: 6]</li>
-                <li>Tap <strong>Build Number</strong> 7 times continuously until Developer Mode activates.[cite: 6]</li>
-            </ol>
-
-            <h3>Step 2: Start Shizuku via Wireless Debugging[cite: 6]</h3>
-            <ol class="step-list">
-                <li>Open <strong>Shizuku</strong> app.[cite: 6]</li>
-                <li>Tap <strong>Pairing</strong> $\rightarrow$ Open Developer Options.[cite: 6]</li>
-                <li>Enable <strong>Wireless Debugging</strong> $\rightarrow$ Tap <em>Pair device with pairing code</em>.[cite: 6]</li>
-                <li>Enter the 6-digit code into Shizuku's notification prompt.[cite: 6]</li>
-                <li>Return to Shizuku and tap <strong>Start</strong>.[cite: 6]</li>
-            </ol>
-        </section>
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge">v1.5.0-beta</span>
     </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link active">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+      
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Prerequisites & Elevated Access Backends</h2>
+          <span class="author-tag">Target SDK 36 • Android 11 to 15+</span>
+        </div>
+
+        <p class="lead-text">
+          On Android 11+, Google restricts access to <code>/Android/data/</code> via Scoped Storage. WuWa Config Patcher bypasses these limitations using elevated IPC backends so you can patch files without needing a PC or a rooted device.
+        </p>
+
+        <!-- Access Backends Summary -->
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-icon">⚡</div>
+            <h4>Shizuku (Recommended)</h4>
+            <p>Runs via Android Wireless Debugging or ADB. Requires zero root and grants direct access across app reboots.</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-icon">👑</div>
+            <h4>Root Access (Magisk/KernelSU/APatch)</h4>
+            <p>Direct elevated root shell execution (<code>su -c id</code>). Fully automated 1-tap grant.</p>
+          </div>
+          <div class="feature-card">
+            <div class="card-icon">🔷</div>
+            <h4>AxManager Provider</h4>
+            <p>Third-party Axeron shell provider integration for devices with dedicated optimizer suites.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Standard Guide: Setting up Shizuku -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Standard Guide: Setting up Shizuku (Wireless Debugging)</h2>
+          <span class="author-tag">End-User Setup (No Root Required)</span>
+        </div>
+
+        <div class="method-card">
+          <h4>Step-by-Step Wireless Debugging Pairing</h4>
+          <ol class="step-list">
+            <li>Download and install <strong>Shizuku</strong> from Google Play or GitHub.</li>
+            <li>Connect your device to <strong>Wi-Fi</strong> (or turn on a Portable Wi-Fi Hotspot on your phone).</li>
+            <li>Go to <strong>Settings &gt; Developer Options</strong> on your phone.
+              <ul>
+                <li>Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times in <em>About Phone</em>).</li>
+                <li>Enable <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.</li>
+              </ul>
+            </li>
+            <li>Open Shizuku, tap <strong>Pairing</strong> &gt; <strong>Developer Options</strong>, then tap <strong>Pair device with pairing code</strong>.</li>
+            <li>Enter the 6-digit code in the Shizuku notification prompt.</li>
+            <li>Return to Shizuku and tap <strong>Start</strong>.</li>
+            <li>Open <strong>WuWa Config Patcher</strong> and grant Shizuku permission when prompted.</li>
+          </ol>
+        </div>
+
+        <div class="alert alert-important">
+          <div class="alert-title">XIAOMI / HYPEROS / MIUI USERS</div>
+          You must enable <strong>"USB Debugging (Security Settings)"</strong> inside Developer Options. This requires a signed-in Mi Account and allows Shizuku to grant file system write permissions.
+        </div>
+      </section>
+
+      <!-- Technical Deep-Dive -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Technical Deep-Dive: Elevation Architecture</h2>
+          <span class="author-tag">For Developers & Advanced Tweakers</span>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">Backend Verification Logic (ShizukuManager.kt)</div>
+          <pre><code>// 1. Shizuku Binder IPC Check
+val isShizukuAvailable = Shizuku.pingBinder()
+if (isShizukuAvailable && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+    activeBackend = AccessBackend.SHIZUKU // Green Badge
+}
+
+// 2. Direct Root Shell Fallback
+else if (Shell.cmd("id").exec().isSuccess) {
+    activeBackend = AccessBackend.ROOT // Red Badge
+}
+
+// 3. Axeron Provider Detection
+else if (AxManager.isAvailable()) {
+    activeBackend = AccessBackend.AXMANAGER // Blue Badge
+}</code></pre>
+        </div>
+
+        <p class="lead-text">
+          When 1-Click Patch is triggered, the patcher uses Shizuku's <code>IFileSystem</code> service to write directly to <code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android/</code> without touching standard Android SAF document trees.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Official Documentation • v1.5.0</span>
+  </footer>
+
+  <script src="../js/main.js"></script>
 </body>
 </html>

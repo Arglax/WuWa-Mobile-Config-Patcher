@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Diagnostic Suite & CVar Tools — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.png">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
+        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+      </div>
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub Repo
+      </a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>GETTING STARTED</h3>
+        <ul>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CORE WORKFLOWS (END-USER)</h3>
+        <ul>
+          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
+          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
+          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
+          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>CREATOR & ADVANCED TOOLS</h3>
+        <ul>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="advanced-tools.html" class="nav-link active">Advanced Diagnostic Suite</a></li>
+          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
+          <li><a href="#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
+          <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content-area">
+
+      <!-- Top Guide Card -->
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Engine Section & Diagnostic Guide</h2>
+          <span class="author-tag">Tab 3: UtilitiesScreen &gt; Advanced Subtab</span>
+        </div>
+
+        <p class="lead-text">
+          The <strong>Advanced Subtab</strong> provides a comprehensive toolkit for config creators, preset developers, and engine tweakers. It includes rule chips, forbidden CVar truth guides, and interactive diagnostic resolution tools.
+        </p>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">CANONICAL SECTION PREFIX CHIPS</div>
+          <ul>
+            <li><code>r.</code> → <code>[/Script/Engine.RendererSettings]</code></li>
+            <li><code>s.</code> → <code>[/Script/Engine.StreamingSettings]</code></li>
+            <li><code>gc.</code> → <code>[/Script/Engine.GarbageCollectionSettings]</code></li>
+            <li><code>cook.</code> → <code>[/Script/UnrealEd.CookerSettings]</code></li>
+            <li><code>[SystemSettings]</code> → Universal container for all general CVars.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CVar Analyzer -->
+      <section id="cvar-analyzer" class="doc-section">
+        <div class="section-header">
+          <h2>1. Analyze Config (CVar Analyzer)</h2>
+          <span class="author-tag">CVarAnalyzer.kt</span>
+        </div>
+
+        <p class="lead-text">
+          The <strong>Analyze Config</strong> button invokes <code>CVarAnalyzer.kt</code> to cross-check active on-device INI CVars against the execution stream of decrypted <code>Client.log</code>. It resolves the <strong>latest instance</strong> near log end to determine whether your commands applied, failed, or were deleted by the game engine.
+        </p>
+
+        <div class="method-card">
+          <h4>Config Analysis Report (<code>ConfigAnalysisDialog.kt</code>)</h4>
+          <ul>
+            <li><strong>Summary KPIs:</strong> Total CVars, Applied %, Failed count, Deleted/Ignored count &amp; %.</li>
+            <li><strong>Collapsible Smart Insights Panel:</strong> Analyzes potential engine bottlenecks and provides actionable recommendations.</li>
+            <li><strong>Combined Single Horizontal Filter Bar:</strong> Features a tap-to-cycle <strong>CVar Filter</strong> (<code>All</code> → <code>Applied</code> → <code>Failed</code> → <code>Deleted</code>) combined with a <strong>File Filter</strong> (<code>All Files</code> → <code>Engine.ini</code> → <code>DeviceProfiles.ini</code>).</li>
+            <li><strong>Copy &amp; Save Scope Dialogs:</strong> Selectively copy or export either the Full Report or Filtered CVar Names Only.</li>
+          </ul>
+        </div>
+
+        <h4>Frozen Left Column Table Format</h4>
+        <div class="frozen-table-container">
+          <table class="frozen-table">
+            <thead>
+              <tr>
+                <th class="frozen-col">CVar Name</th>
+                <th>Target Section</th>
+                <th>User Value</th>
+                <th>Log Executed Value</th>
+                <th>Verification Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="frozen-col"><code>r.MobileContentScaleFactor</code></td>
+                <td><code>[SystemSettings]</code></td>
+                <td><code>1.25</code></td>
+                <td><code>1.250000</code></td>
+                <td><span style="color: #10b981; font-weight: 800;">APPLIED</span></td>
+              </tr>
+              <tr>
+                <td class="frozen-col"><code>r.ShadowQuality</code></td>
+                <td><code>[SystemSettings]</code></td>
+                <td><code>3</code></td>
+                <td><code>3</code></td>
+                <td><span style="color: #10b981; font-weight: 800;">APPLIED</span></td>
+              </tr>
+              <tr>
+                <td class="frozen-col"><code>r.VolumetricFog</code></td>
+                <td><code>[/Script/Engine.RendererSettings]</code></td>
+                <td><code>0</code></td>
+                <td><code>[Not Found]</code></td>
+                <td><span style="color: #ef4444; font-weight: 800;">FAILED / UNREAD</span></td>
+              </tr>
+              <tr>
+                <td class="frozen-col"><code>r.TonemapperFilm</code></td>
+                <td><code>[SystemSettings]</code></td>
+                <td><code>1</code></td>
+                <td><code>[Stripped]</code></td>
+                <td><span style="color: #f59e0b; font-weight: 800;">DELETED BY GAME</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CVar Bank -->
+      <section id="cvar-bank" class="doc-section">
+        <div class="section-header">
+          <h2>2. CVar Bank & Reference Library</h2>
+          <span class="author-tag">1000+ Database Engine</span>
+        </div>
+
+        <p class="lead-text">
+          Loaded asynchronously via <code>loadAlteriaXAssetsIfNeeded()</code> on background thread (<code>Dispatchers.IO</code>) from <code>assets/alteriax_cvars.txt</code> and Unreal Engine Docs.
+        </p>
+
+        <div class="editor-modes-container">
+          <div class="editor-mode-box">
+            <span class="mode-tag">Source Filters</span>
+            <h4>Source & Category Filtering</h4>
+            <p>Filter by: <code>All Sources</code>, <code>AlteriaX Pastebin</code>, or <code>Unreal Engine Docs</code>.</p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">View Modes</span>
+            <h4>Card View vs Table View</h4>
+            <p>Toggle between interactive card representation and tabulated table view for high-density reading.</p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Web Extractor</span>
+            <h4>Extract Web CVars</h4>
+            <p>Dialog allowing users to paste raw CVar text or web page text to parse and extract new CVars dynamically into the local database.</p>
+          </div>
+        </div>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">💡 SEND TO EDITOR</div>
+          Tap the <strong>"Send to Editor"</strong> button beside any CVar in the CVar Bank to instantly switch to the Config Editor tab and insert the CVar under its canonical section in Smart Mode!
+        </div>
+      </section>
+
+      <!-- Integrity & Cleanup Tools -->
+      <section id="integrity-tools" class="doc-section">
+        <div class="section-header">
+          <h2>3. INI Integrity & Cleanup Tools</h2>
+          <span class="author-tag">Duplicate Flagger & Forbidden Stripper</span>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-icon">🔁</div>
+            <h4>Duplicate Flagger</h4>
+            <p>Invokes <code>DuplicateCvarFlagger.kt</code> to scan active INIs for duplicate keys across lines and sections while protecting metadata profile pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>). Displays <code>DuplicateFlaggerDialog.kt</code> for 1-tap resolution.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🚫</div>
+            <h4>Strip Forbidden CVars</h4>
+            <p>Invokes <code>ForbiddenCvarStripper.kt</code> to detect forbidden or blacklisted CVars that cause engine rejection or crashes. Displays <code>ForbiddenCvarDialog.kt</code> with a 1-tap <strong>Auto Strip All</strong> action.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Log Extraction & Main Storage -->
+      <section id="extraction-storage" class="doc-section">
+        <div class="section-header">
+          <h2>4. Log Extraction & Main Storage Reader</h2>
+          <span class="author-tag">CVarExtractor.kt & MainStorageReaderDialog.kt</span>
+        </div>
+
+        <div class="editor-modes-container">
+          <div class="editor-mode-box">
+            <span class="mode-tag">CVar Extractor</span>
+            <h4>Extract Log CVars (<code>CVarExtractor.kt</code>)</h4>
+            <p>Parses decrypted <code>Client.log</code> line-by-line and assigns change frequency remarks:</p>
+            <ul>
+              <li><code>Static</code> — Constants loaded once during engine initialization.</li>
+              <li><code>Var 1</code> / <code>Var 2</code> / <code>Var 3</code> — CVars modified during scene loading or graphic changes.</li>
+              <li><code>Hyper</code> — Rapidly updating runtime CVars per frame.</li>
+            </ul>
+            <p>Displays <code>CVarExtractorDialog.kt</code> with TXT and CSV export options.</p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Main Storage</span>
+            <h4>Main Storage Reader (<code>MainStorageReaderDialog.kt</code>)</h4>
+            <p>Inspects persistent backups stored in <code>context.filesDir/app_main_storage/</code>.</p>
+            <ul>
+              <li>View, copy, or share timestamped INI backups.</li>
+              <li>1-tap <strong>Restore Backup</strong> button to revert to any previous configuration snapshot instantly.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.5.0</span></span>
+  </footer>
+
+  <script src="../js/metadata.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/code-copy.js"></script>
+  <script src="../js/formatter.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/ai-chat.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

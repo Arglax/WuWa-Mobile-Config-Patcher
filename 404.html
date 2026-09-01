@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Not Found — WuWa Config Patcher</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .error-container {
             display: flex;
@@ -18,7 +18,7 @@
         .error-code {
             font-size: 120px;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-gold));
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1;
@@ -31,8 +31,8 @@
         }
         .home-btn {
             background-color: var(--bg-surface);
-            border: 1px solid var(--accent-purple);
-            color: var(--accent-purple);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
             padding: 12px 24px;
             border-radius: 8px;
             text-decoration: none;
@@ -40,7 +40,7 @@
             transition: all 0.2s ease;
         }
         .home-btn:hover {
-            background-color: rgba(168, 85, 247, 0.15);
+            background-color: rgba(45, 212, 191, 0.15);
             transform: translateY(-2px);
         }
     </style>
@@ -57,8 +57,14 @@
 
     <div class="error-container">
         <div class="error-code">404</div>
-        <div class="error-msg">The configuration file you are looking for has been misplaced by the Section Guards.</div>
-        <a href="/" class="home-btn">Return to Documentation</a>
+        <div class="error-msg">The configuration page you are looking for has been misplaced by the CVar Section Guards.</div>
+        <a href="index.html" class="home-btn">Return to Documentation</a>
     </div>
+
+    <script src="js/formatter.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/ai-knowledge.js"></script>
+    <script src="js/ai-chat.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

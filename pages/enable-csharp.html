@@ -9,23 +9,31 @@
 </head>
 <body>
 
+  <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
-      <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
-      <h1>WuWa Config Patcher</h1>
-      <span class="version-badge">v1.5.0-beta</span>
+      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <h1>WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
     </div>
 
     <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
         <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
         <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
-
-      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
         GitHub Repo
       </a>
@@ -33,12 +41,13 @@
   </header>
 
   <div class="main-container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>GETTING STARTED</h3>
         <ul>
-          <li><a href="../index.html#overview" class="nav-link">Overview & Features</a></li>
-          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Elevated Access</a></li>
+          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
+          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
         </ul>
       </div>
 
@@ -56,10 +65,11 @@
         <h3>CREATOR & ADVANCED TOOLS</h3>
         <ul>
           <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
-          <li><a href="utilities-diagnostics.html#cvar-analyzer" class="nav-link">Config Analyzer & Verification</a></li>
+          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
           <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="utilities-diagnostics.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
           <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
+          <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
           <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
         </ul>
       </div>
@@ -68,21 +78,22 @@
     <main class="content-area">
       <section id="enable-csharp" class="doc-section">
         <div class="section-header">
-          <h2>Enable C# Environment</h2>
+          <h2>Force Enable C# Environment Scripting</h2>
+          <span class="author-tag">Editor Tab &gt; Misc Patch</span>
         </div>
         
         <p class="lead-text">
-          WuWa Mobile Config Patcher includes support for checking, enabling, and managing the experimental C# (C-Sharp) runtime environment for Wuthering Waves on Android.
+          WuWa Mobile Config Patcher includes support for checking, forcing, and verifying the experimental C# (C-Sharp) runtime environment for Wuthering Waves on Android.
         </p>
 
         <hr>
 
-        <h3>Visual Reference</h3>
-        <div class="screenshot-grid" style="grid-template-columns: 1fr; max-width: 600px;">
+        <h3>Visual Reference & Toggle UI</h3>
+        <div class="screenshot-grid" style="grid-template-columns: 1fr; max-width: 580px;">
           <div class="screenshot-card">
-            <img src="../images/csharp.jpg" alt="Enable C# Environment Settings" class="screenshot-img">
+            <img src="../images/csharp.jpg" alt="Enable C# Environment Settings UI" class="screenshot-img">
             <div class="screenshot-caption">C# Environment Toggle</div>
-            <div class="screenshot-subtext">Toggle C# runtime scripting and verify device RAM compatibility.</div>
+            <div class="screenshot-subtext">Toggle C# runtime scripting pipeline and verify device RAM compatibility.</div>
           </div>
         </div>
 
@@ -90,45 +101,56 @@
 
         <h3>What is the C# Environment?</h3>
         <p>
-          The C# runtime option enables the engine's alternate scripting pipeline. When paired with compatible graphics drivers and Vulkan rendering, it can offer substantial frame pacing improvements, reduced CPU overhead, and smoother asset streaming on supported hardware.
+          Kuro Games developed an updated C# scripting pipeline for Wuthering Waves. Pushing the engine command-line flag <code>-ForceEnableCSharpEnvironment</code> forces the game engine to utilize this alternate scripting pipeline. When paired with compatible Vulkan graphics drivers, it can offer substantial frame pacing improvements, reduced CPU overhead, and smoother asset streaming on supported mobile hardware.
         </p>
 
         <div class="alert alert-warning">
-          <div class="alert-title">⚠️ Hardware & RAM Recommendations</div>
-          <strong>Recommended RAM:</strong> 8 GB or higher. Devices with under 8 GB RAM may experience memory pressure or force-closing during intensive combat scenes or map loading.
+          <div class="alert-title">⚠️ HARDWARE & RAM RECOMMENDATIONS</div>
+          <strong>Recommended Physical RAM:</strong> 8 GB or higher. Devices with under 8 GB RAM may experience severe memory pressure or force-closing during intensive combat scenes or map loading.
         </div>
 
         <hr>
 
         <h3>How to Enable via Config Patcher</h3>
-        <ol>
+        <ol class="step-list">
           <li>Open <strong>WuWa Config Patcher</strong>.</li>
-          <li>Navigate to the <strong>Config Editor</strong> tab or <strong>Utilities</strong>.</li>
-          <li>Tap <strong>Check C# Status / Get Device Info</strong> to verify your device's architecture and RAM capabilities.</li>
-          <li>Under <strong>Misc Patching</strong>, toggle <strong>Enable C# Environment</strong>.</li>
-          <li>Apply the patch and launch the game.</li>
+          <li>Navigate to <strong>Editor Tab &gt; Misc Patch Subtab</strong>.</li>
+          <li>Check <code>-ForceEnableCSharpEnvironment</code> (and optionally <code>-SkipSplash</code>).</li>
+          <li>Tap <strong>Patch</strong>. This pushes the command flag directly into <code>.../files/UE4Game/Client/UE4CommandLine.txt</code>.</li>
         </ol>
 
         <div class="alert alert-tip">
-          <div class="alert-title">💡 Testing Tip</div>
-          When testing the C# environment for the first time, it is recommended to run without heavy custom visual overrides to evaluate baseline stability before layering additional CVars.
+          <div class="alert-title">💡 VERIFICATION METHODS</div>
+          <ul>
+            <li><strong>In-Game Client Version Asterisk (*):</strong> Launch Wuthering Waves. Inspect the version string on the top-right or bottom-left of the splash screen. An <strong>asterisk (*)</strong> at the end of the version string confirms C# is active!</li>
+            <li><strong>Log Verification:</strong> Go to <strong>Utilities &gt; Decrypted Log Explorer</strong> and search for <code>Sharphereal</code>. If present with initialization logs, C# is active.</li>
+          </ul>
         </div>
 
         <hr>
 
         <h3>Reverting or Disabling</h3>
         <p>
-          If your device experiences instability with the C# environment enabled, simply open the app and tap <strong>Revert to Vanilla</strong> or toggle off C# in the Editor to restore default engine scripts.
+          If your device experiences instability with C# enabled, simply reopen <strong>Misc Patch</strong> and uncheck <code>-ForceEnableCSharpEnvironment</code>, or tap <strong>Revert to Vanilla</strong> in Utilities to restore default engine launch scripts.
         </p>
-        
+
       </section>
     </main>
   </div>
 
+  <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Developed by Arglax • Released under MIT License</span>
+    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.5.0</span></span>
   </footer>
 
+  <script src="../js/metadata.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/code-copy.js"></script>
+  <script src="../js/formatter.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/ai-knowledge.js"></script>
+  <script src="../js/ai-chat.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

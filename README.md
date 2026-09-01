@@ -9,6 +9,9 @@ An ultra light-weight (6 MB) android application to improve streamlining of the 
 - **Documentation Website:** [https://arglax.github.io/WuWa-Mobile-Config-Patcher/](https://arglax.github.io/WuWa-Mobile-Config-Patcher/)
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
+>[!NOTE]
+> **WuWa AI Assistant Enabled:** The official documentation site now features an interactive **AI Assistant** (💬) to help answer your questions, explain CVar settings, troubleshoot Shizuku setups, and guide you directly to the relevant documentation pages!
+
 ---
 
 ## Key Features

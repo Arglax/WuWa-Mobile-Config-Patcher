@@ -3,30 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bug Reporting, Activity Logger & Support — WuWa Config Patcher</title>
+  <title>Support, Bug Reporting & Settings — WuWa Config Patcher</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
 
+  <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
       <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0-beta</span>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
     </div>
 
     <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
         <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
-      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
         GitHub Repo
       </a>
@@ -34,6 +41,7 @@
   </header>
 
   <div class="main-container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>GETTING STARTED</h3>
@@ -44,7 +52,7 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>CORE WORKFLOWS</h3>
+        <h3>CORE WORKFLOWS (END-USER)</h3>
         <ul>
           <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
           <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
@@ -56,11 +64,13 @@
       <div class="sidebar-section">
         <h3>CREATOR & ADVANCED TOOLS</h3>
         <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
           <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
-          <li><a href="bug-reporting.html" class="nav-link active">Support & Diagnostics</a></li>
+          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
           <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
+          <li><a href="bug-reporting.html" class="nav-link active">Support & Activity Logger</a></li>
         </ul>
       </div>
     </aside>
@@ -69,63 +79,88 @@
       
       <section class="doc-section">
         <div class="section-header">
-          <h2>Support, Bug Reporting & Activity Logger</h2>
+          <h2>Support & Diagnostic Bug Reporting</h2>
           <span class="author-tag">Tab 5: SupportScreen</span>
         </div>
 
         <p class="lead-text">
-          WuWa Config Patcher automatically tracks all internal transactions, file operations, Shizuku IPC binder calls, and exceptions via <code>ActionLogger.kt</code> to ensure full diagnostic traceability.
+          WuWa Config Patcher automatically tracks all internal transactions, file operations, Shizuku IPC binder calls, and exceptions via <code>ActionLogger.log(context, message)</code> and <code>ActionLogger.logException(context, title, throwable)</code>.
         </p>
 
         <div class="features-grid">
           <div class="feature-card">
             <div class="card-icon">📋</div>
             <h4>Activity Logger Traceability</h4>
-            <p>All operations are logged in <code>context.filesDir/activity_log.txt</code>. You can inspect this anytime under <strong>Utilities &gt; Common &gt; View Backend Activity Log</strong>.</p>
+            <p>All operations are logged in <code>context.filesDir/activity_log.txt</code>. You can inspect this anytime under <strong>Utilities &gt; Common Subtab &gt; View Backend Activity Log</strong>.</p>
           </div>
 
           <div class="feature-card">
             <div class="card-icon">🐛</div>
-            <h4>Report a Bug Generator</h4>
-            <p>Tap <strong>"Report a Bug / Suggest a Feature"</strong> on the Support tab to open <code>BugReportDialog.kt</code>. It compiles device hardware specs and backend logs to submit via Discord or GitHub Issues.</p>
+            <h4>Report a Bug Generator (<code>BugReportDialog.kt</code>)</h4>
+            <p>Tap <strong>"Report a Bug / Suggest a Feature"</strong> on the Support tab to open <code>BugReportDialog.kt</code>. It compiles hardware specs and backend logs to submit via Email, Discord, or GitHub Issues.</p>
           </div>
 
           <div class="feature-card">
             <div class="card-icon">☕</div>
             <h4>Donations & Creator Support</h4>
-            <p>WuWa Config Patcher is 100% free and ad-free. You can support Arglax directly via the in-app GCash / InstaPay QR dialog.</p>
+            <p>WuWa Config Patcher is 100% free and ad-free. You can support Arglax directly via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).</p>
           </div>
+        </div>
+
+        <div class="alert alert-tip" style="margin-top: 20px;">
+          <div class="alert-title">DEVELOPER NOTES & RELEASE REPOSITORY</div>
+          View release notes from Arglax regarding the platform migration to <strong>WuWa-Mobile-Config-Patcher</strong> on GitHub. Tap <strong>"Visit New Release Repository"</strong> on the Support tab to access releases directly at <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases" target="_blank" style="color: var(--accent-gold); font-weight: 800;">GitHub Releases</a>.
         </div>
       </section>
 
       <section class="doc-section">
         <div class="section-header">
-          <h2>Settings: Danger Zone Actions</h2>
+          <h2>Settings Screen: Danger Zone Actions</h2>
           <span class="author-tag">Tab 4: SettingsScreen &gt; Danger Zone</span>
         </div>
 
         <p class="lead-text">
-          Guarded 3-step confirmation actions for system cleanup and cache maintenance:
+          Normally collapsed in Settings. Expanding the Danger Zone reveals 3-step guarded confirmation actions for system cleanup and cache maintenance:
         </p>
 
-        <div class="alert alert-important">
-          <div class="alert-title">AVAILABLE DANGER ZONE ROUTINES</div>
+        <div class="method-card">
+          <h4>Guarded System Maintenance Routines</h4>
           <ul>
             <li><strong>Clear App Cache &amp; History:</strong> Wipes temporary repository zip caches and editor undo/redo snapshot stacks.</li>
-            <li><strong>Clear App Data &amp; Exports:</strong> Complete factory reset for all custom repo URLs, exports, and preferences.</li>
-            <li><strong>Clear Activity Log:</strong> Erases <code>activity_log.txt</code>.</li>
-            <li><strong>Delete Shaders:</strong> Opens <code>DeleteShadersDialog.kt</code> to wipe Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) compiled shader caches to fix rendering artifacts after game updates.</li>
+            <li><strong>Clear App Data &amp; Exports:</strong> Complete factory reset clearing custom repository URLs, exported zips, and preference toggles.</li>
+            <li><strong>Clear Activity Log:</strong> Erases <code>context.filesDir/activity_log.txt</code>.</li>
+            <li><strong>Delete Shaders (<code>DeleteShadersDialog.kt</code>):</strong> Deletes Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) compiled shader caches to fix rendering artifacts after game updates.</li>
           </ul>
         </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>What's New Card (<code>ChangelogDialog.kt</code>)</h2>
+          <span class="author-tag">Tab 4: SettingsScreen</span>
+        </div>
+
+        <p class="lead-text">
+          The <strong>What's New Card</strong> renders current release highlights (`v1.5.0`) linking directly to <code>ChangelogDialog.kt</code>.
+        </p>
       </section>
 
     </main>
   </div>
 
+  <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.5.0</span></span>
   </footer>
 
+  <script src="../js/metadata.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/code-copy.js"></script>
+  <script src="../js/formatter.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/ai-knowledge.js"></script>
+  <script src="../js/ai-chat.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

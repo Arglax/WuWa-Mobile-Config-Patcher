@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WuWa Config Patcher — Official Documentation (v1.5.0)</title>
+  <title>WuWa Config Patcher — Official Technical Documentation (v1.5.0)</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/png" href="images/logo.png">
 </head>
@@ -14,18 +14,24 @@
     <div class="header-brand">
       <img src="images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='images/logo.jpg';">
       <h1>WuWa Config Patcher</h1>
-      <span class="version-badge">v1.5.0-beta</span>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
     </div>
 
     <div class="header-actions">
-      <!-- Functional Live Search Bar -->
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
+      <!-- Live Search Bar -->
       <div class="search-box">
         <span class="search-icon">🔍</span>
         <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
         <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
 
-      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
@@ -59,10 +65,11 @@
         <h3>CREATOR & ADVANCED TOOLS</h3>
         <ul>
           <li><a href="pages/utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
-          <li><a href="pages/utilities-diagnostics.html#cvar-analyzer" class="nav-link">Config Analyzer & Verification</a></li>
+          <li><a href="pages/advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
           <li><a href="pages/config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="pages/utilities-diagnostics.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="pages/advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
           <li><a href="pages/manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
+          <li><a href="pages/troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
           <li><a href="pages/bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
         </ul>
       </div>
@@ -71,7 +78,7 @@
     <!-- Main Content Area -->
     <main class="content-area">
       
-      <!-- Section 1: Overview & Interactive Cards -->
+      <!-- Section 1: Overview & Interactive Dual-Tab Cards -->
       <section id="overview" class="doc-section">
         <div class="section-header">
           <h2>Overview & Core Capabilities</h2>
@@ -79,12 +86,12 @@
         </div>
 
         <p class="lead-text">
-          <strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code>) is an elevated Android utility designed to grant mobile players 1-tap graphics patching while providing config creators, tweakers, and developers with deep INI editing, real-time CVar section enforcement, and raw engine diagnostics for <em>Wuthering Waves</em>.
+          <strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.5.0</code>, <code>versionCode = 30</code>) is an elevated Android utility designed to grant mobile players 1-tap graphics patching while providing config creators, tweakers, and developers with deep INI editing, real-time CVar section enforcement, and raw engine diagnostics for <em>Wuthering Waves</em>.
         </p>
 
         <div class="alert alert-tip">
-          <div class="alert-title">💡 INTERACTIVE FEATURE CARDS</div>
-          Tap any card below to open an in-depth breakdown with dedicated <strong>End-User Quick Steps</strong>.
+          <div class="alert-title">💡 DUAL-TAB INTERACTIVE FEATURE CARDS</div>
+          Tap any card below to open an interactive modal with two dedicated views: <strong>End-User Quick Steps</strong> and <strong>Creator & Technical Mechanics</strong>.
         </div>
 
         <!-- Interactive Clickable Cards Grid -->
@@ -95,7 +102,7 @@
             <div class="card-icon">⚡</div>
             <h4>1-Click Patching</h4>
             <p>Inject official and community presets straight into scoped game storage via elevated Shizuku shell IPC.</p>
-            <span class="tech-link">View Details & Guide →</span>
+            <span class="tech-link">View Quick Steps & Mechanics →</span>
           </div>
 
           <!-- Card 2: Live Config Editor -->
@@ -103,7 +110,7 @@
             <div class="card-icon">🛠️</div>
             <h4>Live Config Editor</h4>
             <p>Smart, Text, and One-Line editing modes with A-Z sorting, persistent undo/redo history, and syntax highlighting.</p>
-            <span class="tech-link">View Details & Guide →</span>
+            <span class="tech-link">View Quick Steps & Mechanics →</span>
           </div>
 
           <!-- Card 3: Engine Section Guards -->
@@ -111,7 +118,7 @@
             <div class="card-icon">🛡️</div>
             <h4>Engine Section Guards</h4>
             <p>Auto-validates CVar placement across UE section headers and flags misplaced lines in vibrant red with 1-tap Auto-Fix.</p>
-            <span class="tech-link">View Details & Guide →</span>
+            <span class="tech-link">View Quick Steps & Mechanics →</span>
           </div>
 
           <!-- Card 4: Force C# Environment -->
@@ -119,7 +126,7 @@
             <div class="card-icon">🚀</div>
             <h4>Force C# Environment</h4>
             <p>Pushes custom UE command line flags (<code>-ForceEnableCSharpEnvironment</code>) to boost script performance.</p>
-            <span class="tech-link">View Details & Guide →</span>
+            <span class="tech-link">View Quick Steps & Mechanics →</span>
           </div>
 
           <!-- Card 5: Log Tools & Decryptor -->
@@ -127,29 +134,73 @@
             <div class="card-icon">🔍</div>
             <h4>Log Tools & Decryptor</h4>
             <p>Decrypts obfuscated <code>Client.log</code> files with an inline line explorer, filter chips, and device stats extractor.</p>
-            <span class="tech-link">View Details & Guide →</span>
+            <span class="tech-link">View Quick Steps & Mechanics →</span>
           </div>
 
           <!-- Card 6: CVar Bank Reference -->
           <div class="feature-card clickable-card" data-feature="cvar-bank">
             <div class="card-icon">📚</div>
-            <h4>CVar Bank Reference</h4>
-            <p>Searchable library of 1000+ UE and WuWa CVars sourced from Unreal Engine Docs and the official AlteriaX database.</p>
-            <span class="tech-link">View Details & Guide →</span>
+            <h4>CVar Bank & Diagnostic Suite</h4>
+            <p>Searchable library of 1000+ CVars paired with CVar Analyzer, Duplicate Flagger, and Forbidden CVar Stripper.</p>
+            <span class="tech-link">View Quick Steps & Mechanics →</span>
           </div>
 
         </div>
       </section>
 
-      <!-- Section 2: Environment Invariants & Supported Packages -->
-      <section id="environments" class="doc-section">
+      <!-- Section 2: Elevated Access Backends -->
+      <section id="elevated-backends" class="doc-section">
         <div class="section-header">
-          <h2>System Invariants & Storage Paths</h2>
-          <span class="author-tag">Target SDK 36 (Android 11–15+)</span>
+          <h2>Elevated Access Backend Hierarchy</h2>
+          <span class="author-tag">AccessBackend Architecture</span>
         </div>
 
         <p class="lead-text">
-          Because Android 11+ enforces Scoped Storage (Storage Access Framework), the patcher resolves package paths dynamically and uses elevated IPC to perform direct atomic writes.
+          Because Android 11+ enforces Scoped Storage, WuWa Config Patcher dynamically detects and utilizes 5 elevated access backend states:
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="badge-backend badge-root">ROOT</span>
+            <h4 style="margin-top: 10px;">Native SU Shell</h4>
+            <p>Managed via topjohnwu <code>libsu</code> Core (<code>v6.0.0</code>). Grants non-interactive direct root shell execution.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="badge-backend badge-shizuku">SHIZUKU</span>
+            <h4 style="margin-top: 10px;">Wireless Debugging / ADB</h4>
+            <p>Managed via <code>ShizukuManager.kt</code> (`rikka.shizuku.api`). Wireless ADB IPC execution requiring zero root.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="badge-backend badge-axmanager">AXMANAGER</span>
+            <h4 style="margin-top: 10px;">Axeron Shell Provider</h4>
+            <p>Integrated third-party provider helper for devices utilizing Axeron performance manager suites.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="badge-backend badge-unauthorized">SHIZUKU_UNAUTHORIZED</span>
+            <h4 style="margin-top: 10px;">Pending Permission</h4>
+            <p>Shizuku service binder detected running on device, but application permission prompt is pending.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="badge-backend badge-none">NONE</span>
+            <h4 style="margin-top: 10px;">No Access Available</h4>
+            <p>No elevated access detected. App prompts setup wizard or falls back to manual export mode.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Environment Invariants & Supported Packages -->
+      <section id="environments" class="doc-section">
+        <div class="section-header">
+          <h2>System Invariants & File Storage Paths</h2>
+          <span class="author-tag">SDK Targets: compileSdk 37, minSdk 30</span>
+        </div>
+
+        <p class="lead-text">
+          The patcher resolves scoped game storage paths dynamically across all official game package variants on Android 11–15+.
         </p>
 
         <table class="doc-table">
@@ -169,15 +220,15 @@
               <td><code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, <code>GameUserSettings.ini</code></td>
             </tr>
             <tr>
-              <td><strong>Runtime Logs</strong></td>
+              <td><strong>Runtime Log File</strong></td>
               <td><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/Client/Saved/Logs/Client.log</code></td>
             </tr>
             <tr>
-              <td><strong>Launch Flags</strong></td>
+              <td><strong>Launch Flag File</strong></td>
               <td><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/UE4CommandLine.txt</code></td>
             </tr>
             <tr>
-              <td><strong>Shader Caches</strong></td>
+              <td><strong>Shader Cache Directories</strong></td>
               <td><code>.../files/VulkanProgramBinaryCache</code> (Vulkan) & <code>.../files/ProgramBinaryCache</code> (OpenGL)</td>
             </tr>
           </tbody>
@@ -185,36 +236,51 @@
 
         <div class="alert alert-warning">
           <div class="alert-title">SUPPORTED GAME VARIANTS</div>
-          The patcher automatically detects and resolves: <code>com.kurogame.wutheringwaves.global</code>, <code>com.kurogame.wutheringwaves.bilibili</code>, <code>com.kurogame.wutheringwaves.kuro</code>, <code>com.kurogame.wutheringwaves.tw</code>, <code>com.kurogame.wutheringwaves.jp</code>, and <code>com.kurogame.wutheringwaves.kr</code>.
+          The patcher automatically detects and resolves package variants: <code>com.kurogame.wutheringwaves.global</code>, <code>com.kurogame.wutheringwaves.bilibili</code>, <code>com.kurogame.wutheringwaves.kuro</code>, <code>com.kurogame.wutheringwaves.tw</code>, <code>com.kurogame.wutheringwaves.jp</code>, and <code>com.kurogame.wutheringwaves.kr</code>.
         </div>
       </section>
 
     </main>
   </div>
 
-  <!-- Interactive Modal Window for Cards -->
+  <!-- Dual-Tab Interactive Feature Card Modal Window -->
   <div id="feature-modal" class="modal-overlay" role="dialog" aria-modal="true">
     <div class="modal-window">
       <div class="modal-header">
-        <h3 id="modal-title">Feature Name</h3>
-        <button class="close-btn" id="modal-close-btn">&times;</button>
+        <h3 id="modal-title">Feature Details</h3>
+        <button class="close-btn" id="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <!-- Dual Tabs -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="modal-tab-casual">End-User Quick Steps</button>
+        <button class="modal-tab" id="modal-tab-technical">Creator & Technical Mechanics</button>
       </div>
 
       <div class="modal-body">
-        <div id="tab-content-simple"></div>
+        <div id="tab-content-casual"></div>
+        <div id="tab-content-technical" style="display: none;"></div>
       </div>
 
       <div class="modal-footer">
-        <a id="modal-page-link" href="#" class="btn-primary">View Documentation</a>
+        <a id="modal-page-link" href="#" class="btn-primary">View Full Documentation Page</a>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Developed by Arglax • Released under MIT License</span>
+    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.5.0</span></span>
   </footer>
 
+  <script src="js/metadata.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/code-copy.js"></script>
+  <script src="js/formatter.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/ai-knowledge.js"></script>
+  <script src="js/ai-chat.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -9,24 +9,31 @@
 </head>
 <body>
 
+  <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
       <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0-beta</span>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
     </div>
 
     <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
         <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
-      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
         GitHub Repo
       </a>
@@ -34,6 +41,7 @@
   </header>
 
   <div class="main-container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>GETTING STARTED</h3>
@@ -44,7 +52,7 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>CORE WORKFLOWS</h3>
+        <h3>CORE WORKFLOWS (END-USER)</h3>
         <ul>
           <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
           <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
@@ -56,11 +64,13 @@
       <div class="sidebar-section">
         <h3>CREATOR & ADVANCED TOOLS</h3>
         <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
           <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
-          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
           <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
         </ul>
       </div>
     </aside>
@@ -69,29 +79,43 @@
       
       <section class="doc-section">
         <div class="section-header">
-          <h2>Prerequisites & Elevated Access Backends</h2>
+          <h2>Elevated Access Backends Hierarchy</h2>
           <span class="author-tag">Target SDK 36 • Android 11 to 15+</span>
         </div>
 
         <p class="lead-text">
-          On Android 11+, Google restricts access to <code>/Android/data/</code> via Scoped Storage. WuWa Config Patcher bypasses these limitations using elevated IPC backends so you can patch files without needing a PC or a rooted device.
+          On Android 11+, Google restricts direct access to <code>/Android/data/</code> via Scoped Storage (Storage Access Framework). WuWa Config Patcher bypasses these limitations using elevated IPC backends so you can patch files without needing a PC or a rooted device.
         </p>
 
         <div class="features-grid">
           <div class="feature-card">
-            <div class="card-icon">⚡</div>
-            <h4>Shizuku (Recommended)</h4>
-            <p>Runs via Android Wireless Debugging or ADB. Requires zero root and grants direct access across app reboots.</p>
+            <span class="badge-backend badge-root">ROOT</span>
+            <h4 style="margin-top: 10px;">1. ROOT (Native SU)</h4>
+            <p>Managed via topjohnwu <code>libsu</code> Core (<code>v6.0.0</code>). Direct elevated root shell execution (<code>su -c id</code>).</p>
           </div>
+
           <div class="feature-card">
-            <div class="card-icon">👑</div>
-            <h4>Root Access (Magisk/KernelSU/APatch)</h4>
-            <p>Direct elevated root shell execution (<code>su -c id</code>). Fully automated 1-tap grant.</p>
+            <span class="badge-backend badge-shizuku">SHIZUKU</span>
+            <h4 style="margin-top: 10px;">2. SHIZUKU (Wireless ADB)</h4>
+            <p>Managed via <code>ShizukuManager.kt</code> (`rikka.shizuku.api`). Wireless ADB IPC execution requiring zero root.</p>
           </div>
+
           <div class="feature-card">
-            <div class="card-icon">🔷</div>
-            <h4>AxManager Provider</h4>
-            <p>Third-party Axeron shell provider integration for devices with dedicated optimizer suites.</p>
+            <span class="badge-backend badge-axmanager">AXMANAGER</span>
+            <h4 style="margin-top: 10px;">3. AXMANAGER</h4>
+            <p>Managed via <code>AxManagerManager.kt</code>. Axeron community provider helper integration.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="badge-backend badge-unauthorized">SHIZUKU_UNAUTHORIZED</span>
+            <h4 style="margin-top: 10px;">4. SHIZUKU UNAUTHORIZED</h4>
+            <p>Shizuku service binder detected running on device, but app permission prompt is pending approval.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="badge-backend badge-none">NONE</span>
+            <h4 style="margin-top: 10px;">5. NONE</h4>
+            <p>No elevated backend available. Prompts Shizuku setup wizard or falls back to manual file export.</p>
           </div>
         </div>
       </section>
@@ -105,8 +129,8 @@
         <div class="method-card">
           <h4>Step-by-Step Wireless Debugging Pairing</h4>
           <ol class="step-list">
-            <li>Download and install <strong>Shizuku</strong> from Google Play or GitHub.</li>
-            <li>Connect your device to <strong>Wi-Fi</strong> (or turn on a Portable Wi-Fi Hotspot on your phone).</li>
+            <li>Download and install <strong>Shizuku</strong> from Google Play or official GitHub releases.</li>
+            <li>Connect your device to <strong>Wi-Fi</strong> (or turn on Portable Wi-Fi Hotspot on your phone).</li>
             <li>Go to <strong>Settings &gt; Developer Options</strong> on your phone.
               <ul>
                 <li>Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times in <em>About Phone</em>).</li>
@@ -115,7 +139,7 @@
             </li>
             <li>Open Shizuku, tap <strong>Pairing</strong> &gt; <strong>Developer Options</strong>, then tap <strong>Pair device with pairing code</strong>.</li>
             <li>Enter the 6-digit code in the Shizuku notification prompt.</li>
-            <li>Return to Shizuku and tap <strong>Start</strong>.</li>
+            <li>Return to Shizuku and tap <strong>Start</strong> until status shows <em>"Shizuku is running"</em>.</li>
             <li>Open <strong>WuWa Config Patcher</strong> and grant Shizuku permission when prompted.</li>
           </ol>
         </div>
@@ -129,40 +153,59 @@
       <section class="doc-section">
         <div class="section-header">
           <h2>Technical Deep-Dive: Elevation Architecture</h2>
-          <span class="author-tag">For Developers & Advanced Tweakers</span>
+          <span class="author-tag">ShizukuManager.kt & libsu</span>
         </div>
 
         <div class="code-block">
           <div class="code-header">Backend Verification Logic (ShizukuManager.kt)</div>
-          <pre><code>// 1. Shizuku Binder IPC Check
+          <pre><code>// 1. Shizuku Binder IPC Check (rikka.shizuku.api)
 val isShizukuAvailable = Shizuku.pingBinder()
 if (isShizukuAvailable && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
-    activeBackend = AccessBackend.SHIZUKU // Green Badge
+    activeBackend = AccessBackend.SHIZUKU // Green Badge (#47D764)
 }
 
-// 2. Direct Root Shell Fallback
+// 2. Direct Root Shell Fallback (libsu Core v6.0.0)
 else if (Shell.cmd("id").exec().isSuccess) {
-    activeBackend = AccessBackend.ROOT // Red Badge
+    activeBackend = AccessBackend.ROOT // Red Badge (#E35D6A)
 }
 
-// 3. Axeron Provider Detection
+// 3. Axeron Provider Detection (AxManagerManager.kt)
 else if (AxManager.isAvailable()) {
-    activeBackend = AccessBackend.AXMANAGER // Blue Badge
+    activeBackend = AccessBackend.AXMANAGER // Blue Badge (#2AA37D)
+}
+
+// 4. Unauthorized Pending Status
+else if (isShizukuAvailable) {
+    activeBackend = AccessBackend.SHIZUKU_UNAUTHORIZED // Orange Badge (#F7C948)
+}
+
+// 5. Fallback
+else {
+    activeBackend = AccessBackend.NONE // Gray Badge (#A8B4AF)
 }</code></pre>
         </div>
 
         <p class="lead-text">
-          When 1-Click Patch is triggered, the patcher uses Shizuku's <code>IFileSystem</code> service to write directly to <code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android/</code> without touching standard Android SAF document trees.
+          When 1-Click Patch is triggered, the patcher uses Shizuku's elevated shell service to write directly to <code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android/</code> without touching standard Android SAF document trees.
         </p>
       </section>
 
     </main>
   </div>
 
+  <!-- Footer -->
   <footer class="app-footer">
     <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
   </footer>
 
+  <script src="../js/metadata.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/code-copy.js"></script>
+  <script src="../js/formatter.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/ai-knowledge.js"></script>
+  <script src="../js/ai-chat.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

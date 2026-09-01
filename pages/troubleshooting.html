@@ -9,24 +9,31 @@
 </head>
 <body>
 
+  <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
       <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0-beta</span>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
     </div>
 
     <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
         <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
-      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
         GitHub Repo
       </a>
@@ -34,6 +41,7 @@
   </header>
 
   <div class="main-container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>GETTING STARTED</h3>
@@ -44,7 +52,7 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>CORE WORKFLOWS</h3>
+        <h3>CORE WORKFLOWS (END-USER)</h3>
         <ul>
           <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
           <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
@@ -56,11 +64,13 @@
       <div class="sidebar-section">
         <h3>CREATOR & ADVANCED TOOLS</h3>
         <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
           <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode (No Shizuku)</a></li>
-          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
           <li><a href="troubleshooting.html" class="nav-link active">Troubleshooting & FAQ</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
         </ul>
       </div>
     </aside>
@@ -68,65 +78,86 @@
     <main class="content-area">
       <section class="doc-section">
         <div class="section-header">
-          <h2>Troubleshooting & Common Issues</h2>
-          <span class="author-tag">Frequently Asked Questions</span>
+          <h2>Troubleshooting & Frequently Asked Questions</h2>
+          <span class="author-tag">v1.5.0 Support Reference</span>
         </div>
 
         <div class="method-card">
           <h4>1. Shizuku is Running, but App Shows "NONE" or Requests Access</h4>
-          <p>If your Elevated Access Status shows "NONE" despite Shizuku running in the background[cite: 9]:</p>
+          <p>If your Elevated Access Status shows "NONE" despite Shizuku running in the background:</p>
           <ol class="step-list">
-            <li>Go to the <strong>Settings</strong> tab and check the Elevated Access Status card[cite: 9].</li>
-            <li>Tap the refresh button next to the Shizuku setup wizard[cite: 9].</li>
-            <li>If it fails, open the Shizuku app, revoke permissions for WuWa Config Patcher, and force stop the patcher. Reopen the patcher to trigger the prompt again via <code>rikka.shizuku.api</code>[cite: 9].</li>
+            <li>Go to the <strong>Settings</strong> tab and check the Elevated Access Status card.</li>
+            <li>Tap the refresh button next to the Shizuku setup wizard.</li>
+            <li>If it fails, open the Shizuku app, revoke permissions for WuWa Config Patcher, and force stop the patcher. Reopen the patcher to trigger the prompt again via <code>rikka.shizuku.api</code>.</li>
           </ol>
         </div>
 
         <div class="method-card">
-          <h4>2. The Game is Stuttering / Crashing After a Patch</h4>
-          <p>Not all devices handle extreme presets well. To safely reset your game graphics to Kuro Games' defaults[cite: 9]:</p>
+          <h4>2. Game Stuttering or Crashing After Patching</h4>
+          <p>Not all mobile devices handle extreme visual presets well. To safely reset your game graphics to Kuro Games' defaults:</p>
           <ol class="step-list">
-            <li>Navigate to the <strong>Utilities</strong> tab $\rightarrow$ <strong>Common Subtab</strong>[cite: 9].</li>
-            <li>Tap the primary red <strong>Revert to Vanilla</strong> button[cite: 9].</li>
-            <li>Confirm the prompt. This automatically executes a safe deletion of <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>[cite: 9].</li>
+            <li>Navigate to the <strong>Utilities</strong> tab $\rightarrow$ <strong>Common Subtab</strong>.</li>
+            <li>Tap the primary red <strong>Revert to Vanilla</strong> button.</li>
+            <li>Confirm the prompt. This automatically executes a safe deletion of <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>.</li>
           </ol>
         </div>
 
         <div class="method-card">
           <h4>3. What do the Access Badges Mean?</h4>
           <ul class="step-list">
-            <li><strong style="color: #10b981;">Green Badge (SHIZUKU)</strong>: Primary wireless debugging backend[cite: 9].</li>
-            <li><strong style="color: #ef4444;">Red Badge (ROOT)</strong>: Non-interactive <code>su -c id</code> backend for rooted devices[cite: 9].</li>
-            <li><strong style="color: #3b82f6;">Blue Badge (AXMANAGER)</strong>: Axeron community provider helper[cite: 9].</li>
+            <li><span class="badge-backend badge-root">ROOT</span> — Red badge (#E35D6A): Direct elevated <code>libsu</code> shell execution.</li>
+            <li><span class="badge-backend badge-shizuku">SHIZUKU</span> — Green badge (#47D764): Primary wireless debugging ADB backend.</li>
+            <li><span class="badge-backend badge-axmanager">AXMANAGER</span> — Blue badge (#2AA37D): Axeron community provider helper.</li>
+            <li><span class="badge-backend badge-unauthorized">SHIZUKU_UNAUTHORIZED</span> — Orange badge (#F7C948): Shizuku binder running, permission pending.</li>
+            <li><span class="badge-backend badge-none">NONE</span> — Gray badge (#A8B4AF): No elevated backend available.</li>
           </ul>
         </div>
 
         <div class="method-card">
-          <h4>4. Editor Saves are Flagged in Vibrant Red</h4>
-          <p>The Config Editor enforces strict CVar Section Guards. Misplaced lines are painted <strong>#FF2222</strong>[cite: 9].</p>
+          <h4>4. Editor Saves are Flagged in Vibrant Red (#FF2222)</h4>
+          <p>The Config Editor enforces strict CVar Section Guards via <code>CVarSectionGuard.kt</code>. Misplaced lines or <code>Engine.ini</code> <code>CVars=</code> prefixes are painted bold <strong class="guard-red-highlight">Vibrant Red</strong>.</p>
           <ol class="step-list">
-            <li>When you tap Save, choose <strong>Auto-Fix Sections</strong>[cite: 9].</li>
-            <li>The app will automatically route your CVars to canonical headers (e.g., <code>s.</code> commands to <code>[/Script/Engine.StreamingSettings]</code>)[cite: 9].</li>
-            <li>Note: <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and will never be altered by the Auto-Fix tool[cite: 9].</li>
+            <li>When you tap <strong>Save</strong>, select <strong>Auto-Fix Sections</strong> in the warning prompt.</li>
+            <li>The app will automatically route your CVars to canonical section headers (e.g. <code>s.</code> commands to <code>[/Script/Engine.StreamingSettings]</code>) and strip invalid <code>CVars=</code> prefixes.</li>
+            <li>Note: <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and never altered.</li>
           </ol>
         </div>
 
         <div class="method-card">
-          <h4>5. Device Storage is Full from Logs</h4>
-          <p>Wuthering Waves can generate massive log files over time. To clean them[cite: 9]:</p>
+          <h4>5. Internal Device Storage Full from Game Logs</h4>
+          <p>Wuthering Waves can generate massive log files over time. To clean them:</p>
           <ol class="step-list">
-            <li>Go to <strong>Utilities</strong> $\rightarrow$ <strong>Log Tools</strong>[cite: 9].</li>
-            <li>Tap <strong>Delete Logs</strong> to execute an elevated <code>rm -rf</code> on the <code>.../Saved/Logs/</code> directory safely[cite: 9].</li>
+            <li>Go to <strong>Utilities</strong> $\rightarrow$ <strong>Common Subtab</strong> $\rightarrow$ <strong>Log Tools</strong>.</li>
+            <li>Tap <strong>Delete Logs</strong> to execute an elevated <code>rm -rf</code> on the <code>.../Saved/Logs/</code> directory safely.</li>
+          </ol>
+        </div>
+
+        <div class="method-card">
+          <h4>6. Shader Compilation Crashes or Graphical Artifacts</h4>
+          <p>If you experience rendering artifacts or crashes during shader compilation after game updates:</p>
+          <ol class="step-list">
+            <li>Go to <strong>Settings Tab &gt; Danger Zone</strong>.</li>
+            <li>Tap <strong>Delete Shaders</strong>. This opens <code>DeleteShadersDialog.kt</code>.</li>
+            <li>Select and delete Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) shader caches to force a clean shader rebuild upon next launch.</li>
           </ol>
         </div>
       </section>
     </main>
   </div>
 
+  <!-- Footer -->
   <footer class="app-footer">
     <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
   </footer>
 
+  <script src="../js/metadata.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/code-copy.js"></script>
+  <script src="../js/formatter.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/ai-knowledge.js"></script>
+  <script src="../js/ai-chat.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

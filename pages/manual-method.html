@@ -9,26 +9,31 @@
 </head>
 <body>
 
+  <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
       <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
+        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <!-- Added data-meta attribute for dynamic version injection -->
-      <span class="version-badge" data-meta="version_v">v1.5.0-beta</span>
+      <span class="version-badge" data-meta="version_v">v1.5.0</span>
     </div>
 
     <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation..." autocomplete="off">
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
         <div id="search-results-dropdown" class="search-dropdown hidden"></div>
       </div>
-      
-      <a href="https://github.com/arglax/wuwa-mobile-config-patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
         GitHub Repo
       </a>
@@ -36,6 +41,7 @@
   </header>
 
   <div class="main-container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <h3>GETTING STARTED</h3>
@@ -46,7 +52,7 @@
       </div>
 
       <div class="sidebar-section">
-        <h3>CORE WORKFLOWS</h3>
+        <h3>CORE WORKFLOWS (END-USER)</h3>
         <ul>
           <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
           <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
@@ -58,10 +64,13 @@
       <div class="sidebar-section">
         <h3>CREATOR & ADVANCED TOOLS</h3>
         <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Diagnostics</a></li>
+          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
+          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
           <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="manual-method.html" class="nav-link active">Manual Mode (No Shizuku)</a></li>
-          <li><a href="bug-reporting.html" class="nav-link">Support & Diagnostics</a></li>
+          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
+          <li><a href="manual-method.html" class="nav-link active">Manual Mode Guide (Old School)</a></li>
+          <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
+          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
         </ul>
       </div>
     </aside>
@@ -71,11 +80,11 @@
       <section class="doc-section">
         <div class="section-header">
           <h2>Manual Mode Guide (Old School File Managers)</h2>
-          <span class="author-tag">Fallback Workflow for Android 11 to 14</span>
+          <span class="author-tag">Fallback Workflow for Android 11 to 13</span>
         </div>
 
         <p class="lead-text">
-          If you are unable to set up Shizuku, Wireless Debugging, or Root access, you can manually export presets from the app and paste them into the game's scoped storage folder using specialized file managers.
+          If you are unable to set up Shizuku, Wireless Debugging, or Root access, you can manually export presets from the patcher and paste them into the game's scoped storage folder using specialized file managers or USB PC transfers.
         </p>
 
         <div class="method-card">
@@ -85,26 +94,35 @@
             <li>In WuWa Config Patcher, go to <strong>Utilities &gt; Export &amp; Sharing &gt; Share Patch</strong> to export your desired configuration archive.</li>
             <li>Extract the <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> files.</li>
             <li>Using your file explorer, copy the files and navigate to:
-              <br><code>/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android/</code>
+              <br><code style="display: block; margin: 8px 0; word-break: break-all;">/storage/emulated/0/Android/data/com.kurogame.wutheringwaves.global/files/UE4Game/Client/Client/Saved/Config/Android/</code>
             </li>
             <li>Paste and overwrite the existing files.</li>
+            <li>Launch Wuthering Waves.</li>
           </ol>
         </div>
 
         <div class="alert alert-important">
-          <div class="alert-title">ANDROID 14/15 PERMISSION RESTRICTIONS</div>
-          On newer Android versions, third-party file managers without Shizuku or Root will be blocked from accessing <code>/Android/data/</code>. In this scenario, using Shizuku with WuWa Config Patcher is strictly required.
+          <div class="alert-title">ANDROID 14 / 15 PERMISSION RESTRICTIONS</div>
+          On newer Android versions (Android 14 and 15+), Google has blocked third-party file managers without elevated Shizuku or Root access from reaching <code>/Android/data/</code>. In this scenario, setting up Shizuku or Root for WuWa Config Patcher is strictly required.
         </div>
       </section>
 
     </main>
   </div>
 
+  <!-- Footer -->
   <footer class="app-footer">
-    <!-- Added data-meta attribute to the footer version -->
     <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
   </footer>
 
+  <script src="../js/metadata.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/code-copy.js"></script>
+  <script src="../js/formatter.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/ai-knowledge.js"></script>
+  <script src="../js/ai-chat.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>

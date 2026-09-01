@@ -8,26 +8,89 @@
   function normalizeText(text) {
     if (!text) return '';
     return text.toLowerCase()
-      .replace(/\bc#\b/g, 'csharp')
+      // NOTE: "#" is not a regex "word" character, so a trailing \b (as in
+      // \bc#\b) never matches when '#' is followed by whitespace/end-of-
+      // string — i.e. it never matched real input like "C# environment".
+      // Use \b only before 'c' and rely on '#' itself as the terminator.
+      .replace(/\bc\s*#/g, 'csharp')
       .replace(/\bc-sharp\b/g, 'csharp')
       .replace(/\bc\s+sharp\b/g, 'csharp')
+      .replace(/\bsharp\s*c\b/g, 'csharp')
+      .replace(/\bdot\s*net\b/g, 'dotnet')
       .replace(/\brequired\b/g, 'require')
       .replace(/\brequires\b/g, 'require')
-      .replace(/\brequirements\b/g, 'require')
+      .replace(/\brequirements?\b/g, 'require')
       .replace(/\bneeded\b/g, 'need')
       .replace(/\bneeding\b/g, 'need')
       .replace(/\bneeds\b/g, 'need')
+      .replace(/\bsetting\s*up\b/g, 'setup')
+      .replace(/\bset\s*up\b/g, 'setup')
+      .replace(/\bconfiguration\b/g, 'config')
+      .replace(/\bconfigs\b/g, 'config')
+      .replace(/\bapplication\b/g, 'app')
+      .replace(/\bthanks?\s*you\b/g, 'thanks')
+      .replace(/\bthank\s*you\b/g, 'thanks')
       .replace(/[^a-z0-9\s]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
   }
 
+  // Guards against short, high-collision keywords (e.g. "ram", "c", "gb")
+  // silently substring-matching inside unrelated words ("c" inside almost
+  // any sentence, "ram" inside "program"/"framework", etc). Below a
+  // length threshold we require a whole-token match instead of a raw
+  // substring/`.includes()` check.
+  // Keywords shorter than this (e.g. "ram", "gpu", "cpu", "gb") require a
+  // whole-word match. Without this, plain substring checks would match
+  // "ram" inside "program"/"reprogram", "gpu" inside a longer token, etc.
+  const SHORT_KEYWORD_THRESHOLD = 4;
+
+  function containsAsToken(normalizedHaystack, needle) {
+    if (!needle) return false;
+    if (needle.length >= SHORT_KEYWORD_THRESHOLD) {
+      return normalizedHaystack.includes(needle);
+    }
+    // Short needle: only count it if it appears as a standalone word.
+    const re = new RegExp('(^|\\s)' + needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\s|$)');
+    return re.test(normalizedHaystack);
+  }
+
   const SKILL_TOPICS = [
     {
       id: "greetings",
-      keywords: ["how are you", "hello", "hi", "hey", "who are you", "what can you do", "help", "who made you"],
+      keywords: ["how are you", "hello", "hi", "hey", "yo", "sup", "what s up", "good morning", "good afternoon", "good evening", "what can you do", "help", "help me"],
       response: {
         text: `I'm doing great! 😊 I am your <strong>WuWa Config Patcher AI Assistant</strong>. Ask me anything about recommended CVars, RAM requirements, Shizuku setup, C# Environment, Section Guards, or Log Diagnostics!`,
+        link: "index.html",
+        linkText: "Explore Documentation Home"
+      }
+    },
+
+    {
+      id: "credits",
+      keywords: ["who are you", "who made you", "who created you", "who developed this", "who built this", "who is the developer", "creator of this app", "made this app"],
+      response: {
+        text: `I'm the built-in AI Assistant for <strong>WuWa Config Patcher</strong>, a Shizuku-based tool for tweaking Wuthering Waves graphics configs on Android. The app is built and maintained by <strong>Arglax</strong>. Ask me about CVars, Shizuku setup, C# Environment, or anything else in the app!`,
+        link: "index.html",
+        linkText: "Explore Documentation Home"
+      }
+    },
+
+    {
+      id: "thanks",
+      keywords: ["thanks", "thx", "ty", "appreciate it", "nice one", "cool", "awesome", "great", "perfect", "got it", "makes sense"],
+      response: {
+        text: `You're welcome! 🙌 Let me know if you have any other questions about CVars, Shizuku, C# Environment, or anything else in the app.`,
+        link: "index.html",
+        linkText: "Explore Documentation Home"
+      }
+    },
+
+    {
+      id: "goodbye",
+      keywords: ["bye", "goodbye", "see you", "see ya", "later", "im done", "that s all"],
+      response: {
+        text: `Take care! 👋 Come back anytime you need help with CVars, Shizuku setup, or config patching.`,
         link: "index.html",
         linkText: "Explore Documentation Home"
       }
@@ -51,7 +114,7 @@
 
     {
       id: "csharp-environment",
-      keywords: ["how to enable c# environment", "c# environment", "csharp environment", "enable c# environment", "c#", "csharp", "mono", "scripting", "asterisk", "sharphereal", "force", "unity", "pipeline"],
+      keywords: ["how to enable c# environment", "c# environment", "csharp environment", "enable c# environment", "what is c# environment", "c#", "csharp", "c sharp", "mono", "scripting", "asterisk", "sharphereal", "force enable csharp", "unity", "pipeline"],
       response: {
         text: `<strong>Enabling C# Environment Scripting:</strong><br>
         1. Go to <strong>Editor Tab &gt; Misc Patch</strong> subtab.<br>
@@ -70,7 +133,7 @@
       response: {
         text: `<strong>Common Utilities & Log Tools:</strong><br>
         • <strong>Decrypted Log Explorer:</strong> Search through <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>Vulkan</code>, <code>RHI</code>, <code>Sharphereal</code>).<br>
-        • <strong>Log Decryptor (`LogDecryptor.kt`):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>) or <strong>Scheme B</strong> (XOR <code>0x55</code>).<br>
+        • <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>) or <strong>Scheme B</strong> (XOR <code>0x55</code>).<br>
         • <strong>Get Device Info:</strong> Scans real GPU model, physical RAM, CPU topology, and game-evaluated <strong>Device Score</strong>.<br>
         • <strong>Delete Logs:</strong> Clears bloated log files safely to free up internal storage.`,
         link: "pages/utilities-diagnostics.html",
@@ -130,8 +193,8 @@
       keywords: ["how does cvar analyzer work", "cvar analyzer", "analyze config", "config analyzer", "applied percentage", "failed cvars", "stripped cvars"],
       response: {
         text: `<strong>Config & Engine Diagnostics:</strong><br>
-        • <strong>Analyze Config (`CVarAnalyzer.kt`):</strong> Cross-checks active INI CVars against decrypted <code>Client.log</code> execution blocks to prove if commands applied, failed, or were deleted by game code.<br>
-        • <strong>Log Decryptor (`LogDecryptor.kt`):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>), <strong>Scheme B</strong> (XOR <code>0x55</code>), or plaintext.<br>
+        • <strong>Analyze Config (<code>CVarAnalyzer.kt</code>):</strong> Cross-checks active INI CVars against decrypted <code>Client.log</code> execution blocks to prove if commands applied, failed, or were deleted by game code.<br>
+        • <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>), <strong>Scheme B</strong> (XOR <code>0x55</code>), or plaintext.<br>
         • <strong>Delete Logs:</strong> Executes elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim storage space.`,
         link: "pages/advanced-tools.html#cvar-analyzer",
         linkText: "Open CVar Analyzer & Log Tools"
@@ -146,7 +209,7 @@
         1. Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong>.<br>
         2. Tap the red <strong>Revert to Vanilla</strong> button and confirm.<br>
         3. This safely removes <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>, prompting the game to regenerate factory Kuro Games defaults upon launch.<br><br>
-        <em>Shader Compilation Crashes:</em> Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (`DeleteShadersDialog.kt`) to clear Vulkan or OpenGL shader caches!`,
+        <em>Shader Compilation Crashes:</em> Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (<code>DeleteShadersDialog.kt</code>) to clear Vulkan or OpenGL shader caches!`,
         link: "pages/patching-configs.html#revert",
         linkText: "View Vanilla Revert & Shader Guide"
       }
@@ -157,8 +220,8 @@
       keywords: ["report a bug", "bug reporting", "activity log", "activity_log.txt", "support", "discord", "github", "gcash", "donate", "danger zone"],
       response: {
         text: `<strong>Bug Reporting & Diagnostics:</strong><br>
-        • <strong>Activity Logger (`ActionLogger.kt`):</strong> Records all binder events and operations in <code>context.filesDir/activity_log.txt</code>.<br>
-        • <strong>Report a Bug Generator (`BugReportDialog.kt`):</strong> Tap <strong>"Report a Bug / Suggest a Feature"</strong> on Support tab to compile hardware specs and backend logs to send via Email or Discord.<br>
+        • <strong>Activity Logger (<code>ActionLogger.kt</code>):</strong> Records all binder events and operations in <code>context.filesDir/activity_log.txt</code>.<br>
+        • <strong>Report a Bug Generator (<code>BugReportDialog.kt</code>):</strong> Tap <strong>"Report a Bug / Suggest a Feature"</strong> on Support tab to compile hardware specs and backend logs to send via Email or Discord.<br>
         • <strong>Creator Support:</strong> Support Arglax directly via GCash / InstaPay QR dialog on the Support tab.`,
         link: "pages/bug-reporting.html",
         linkText: "View Support & Activity Logger Guide"
@@ -166,11 +229,26 @@
     }
   ];
 
+  // Common English words that show up inside multi-word keyword phrases
+  // (e.g. "how does X work") but carry no topical meaning on their own.
+  // Left un-filtered, a query like "how does the program work" would
+  // partially match every phrase-keyword that also happens to contain
+  // "how"/"does"/"work", causing wrong topics to win. Excluding them from
+  // the token list used for partial matching fixes that.
+  const STOPWORDS = new Set([
+    'how', 'does', 'do', 'did', 'is', 'are', 'was', 'were', 'the', 'a', 'an',
+    'to', 'of', 'in', 'on', 'for', 'with', 'and', 'or', 'but', 'what', 'why',
+    'when', 'where', 'who', 'which', 'can', 'could', 'should', 'would',
+    'will', 'i', 'my', 'me', 'you', 'your', 'it', 'this', 'that', 'these',
+    'those', 'be', 'been', 'am', 'if', 'so', 'not', 'no', 'yes', 'please',
+    'work', 'works', 'about', 'there', 'have', 'has', 'had'
+  ]);
+
   function findBestMatch(rawQuery) {
     if (!rawQuery) return null;
     const rawLower = rawQuery.toLowerCase().trim();
     const normalized = normalizeText(rawQuery);
-    const tokens = normalized.split(/\s+/).filter(t => t.length > 1);
+    const tokens = normalized.split(/\s+/).filter(t => t.length > 1 && !STOPWORDS.has(t));
 
     let bestTopic = null;
     let maxScore = 0;
@@ -180,19 +258,22 @@
 
       topic.keywords.forEach((keyword) => {
         const cleanKeyword = normalizeText(keyword);
+        if (!cleanKeyword) return; // keyword normalized to nothing — skip
 
         // 1. Direct Multi-Word Phrase Match (+10 Score Priority)
-        if (cleanKeyword.includes(' ') && (rawLower.includes(keyword.toLowerCase()) || normalized.includes(cleanKeyword))) {
+        if (cleanKeyword.includes(' ') && normalized.includes(cleanKeyword)) {
           score += 10;
         }
-        // 2. Exact Word / Substring Match (+5 Score)
-        else if (rawLower.includes(keyword.toLowerCase()) || normalized.includes(cleanKeyword)) {
+        // 2. Exact Word / Whole-Token Match (+5 / +3 Score)
+        else if (containsAsToken(normalized, cleanKeyword)) {
           score += cleanKeyword.length >= 4 ? 5 : 3;
         }
-        // 3. Partial Token Match (+1.5 Score)
-        else {
+        // 3. Partial Token Match (+1.5 Score) — only for keywords with
+        // enough length that a partial match is still meaningful.
+        else if (cleanKeyword.length >= SHORT_KEYWORD_THRESHOLD) {
           tokens.forEach((token) => {
-            if (cleanKeyword.includes(token) || token.includes(cleanKeyword)) {
+            if (token.length >= SHORT_KEYWORD_THRESHOLD &&
+                (cleanKeyword.includes(token) || token.includes(cleanKeyword))) {
               score += 1.5;
             }
           });

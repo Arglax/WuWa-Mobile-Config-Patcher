@@ -1,6 +1,6 @@
 /**
  * WuWa Mobile Config Patcher - AI Skill Knowledge Base & Intent Matching Engine
- * Lightweight, zero-latency local NLP intent matcher with normalized word stemming and greetings.
+ * Features: Exact Phrase Priority Matching (+10 pts), normalized word stemming, and deep documentation links.
  */
 (function (window) {
   'use strict';
@@ -25,7 +25,7 @@
   const SKILL_TOPICS = [
     {
       id: "greetings",
-      keywords: ["how are you", "hello", "hi", "hey", "who are you", "what can you do", "help", "who made you", "good morning", "good evening"],
+      keywords: ["how are you", "hello", "hi", "hey", "who are you", "what can you do", "help", "who made you"],
       response: {
         text: `I'm doing great! 😊 I am your <strong>WuWa Config Patcher AI Assistant</strong>. Ask me anything about recommended CVars, RAM requirements, Shizuku setup, C# Environment, Section Guards, or Log Diagnostics!`,
         link: "index.html",
@@ -34,8 +34,53 @@
     },
 
     {
+      id: "section-guards",
+      keywords: ["what are cvar section guards", "cvar section guards", "section guard", "section guards", "engine section guards", "vibrant red", "misplaced cvars", "misplaced", "autofix", "auto-fix", "renderer", "streaming", "garbage", "cooker", "cvars=", "prefix"],
+      response: {
+        text: `<strong>Engine CVar Section Guards (CVarSectionGuard.kt):</strong><br>
+        Unreal Engine ignores misplaced CVars. The patcher enforces canonical section headers:<br>
+        • <code>r.</code> CVars $\\rightarrow$ <code>[/Script/Engine.RendererSettings]</code><br>
+        • <code>s.</code> CVars $\\rightarrow$ <code>[/Script/Engine.StreamingSettings]</code><br>
+        • <code>gc.</code> CVars $\\rightarrow$ <code>[/Script/Engine.GarbageCollectionSettings]</code><br>
+        • General CVars $\\rightarrow$ <code>[SystemSettings]</code><br><br>
+        Misplaced lines & <code>CVars=</code> prefixes are painted in bold <strong style="color: #FF2222;">Vibrant Red (#FF2222)</strong>. Tapping <strong>Save</strong> provides a 1-tap <strong>Auto-Fix Sections</strong> remediation button!`,
+        link: "pages/config-editor.html#cvar-guards",
+        linkText: "View CVar Section Guards Reference"
+      }
+    },
+
+    {
+      id: "csharp-environment",
+      keywords: ["how to enable c# environment", "c# environment", "csharp environment", "enable c# environment", "c#", "csharp", "mono", "scripting", "asterisk", "sharphereal", "force", "unity", "pipeline"],
+      response: {
+        text: `<strong>Enabling C# Environment Scripting:</strong><br>
+        1. Go to <strong>Editor Tab &gt; Misc Patch</strong> subtab.<br>
+        2. Check <code>-ForceEnableCSharpEnvironment</code> and tap <strong>Patch</strong>.<br>
+        3. Launch Wuthering Waves. An <strong>asterisk (*)</strong> at the end of the client version string on the splash screen confirms C# is active!<br><br>
+        <em>Log Verification:</em> Decrypt <code>Client.log</code> in Utilities and search for <code>Sharphereal</code> initialization entries.<br>
+        <em>Hardware Note:</em> Requires at least <strong>8 GB RAM</strong>.`,
+        link: "pages/enable-csharp.html",
+        linkText: "View C# Environment Guide"
+      }
+    },
+
+    {
+      id: "log-tools",
+      keywords: ["i need help with log tools", "help with log tools", "log tools", "client.log", "decrypt log", "decrypted log", "log decryptor", "log explorer", "get device info", "delete logs"],
+      response: {
+        text: `<strong>Common Utilities & Log Tools:</strong><br>
+        • <strong>Decrypted Log Explorer:</strong> Search through <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>Vulkan</code>, <code>RHI</code>, <code>Sharphereal</code>).<br>
+        • <strong>Log Decryptor (`LogDecryptor.kt`):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>) or <strong>Scheme B</strong> (XOR <code>0x55</code>).<br>
+        • <strong>Get Device Info:</strong> Scans real GPU model, physical RAM, CPU topology, and game-evaluated <strong>Device Score</strong>.<br>
+        • <strong>Delete Logs:</strong> Clears bloated log files safely to free up internal storage.`,
+        link: "pages/utilities-diagnostics.html",
+        linkText: "Open Common Utilities & Log Diagnostics"
+      }
+    },
+
+    {
       id: "ram-hardware",
-      keywords: ["ram", "memory", "recommend", "recommended", "require", "requirement", "requirements", "required", "reqs", "need", "needed", "amount", "gb", "hardware", "device", "score", "spec", "specs", "gpu", "cpu", "csharp"],
+      keywords: ["recommended ram", "ram requirements", "ram requirement", "required ram", "hardware recommendations", "ram", "memory", "gb", "hardware", "device score", "spec", "specs", "gpu", "cpu"],
       response: {
         text: `<strong>RAM & Hardware Recommendations for WuWa Config Patcher:</strong><br>
         • <strong>8 GB Physical RAM or higher:</strong> Recommended for running Extreme / High Visual presets and the <strong>C# Environment</strong> pipeline.<br>
@@ -49,7 +94,7 @@
 
     {
       id: "cvars-recommended",
-      keywords: ["cvar", "cvars", "put", "add", "setting", "settings", "graphic", "graphics", "fps", "resolution", "shadow", "shadows", "bloom", "vsync", "fog", "recommend", "recommended", "tweak", "tweaks", "preset"],
+      keywords: ["what cvars can i put", "recommended cvars", "popular cvars", "cvar", "cvars", "graphic settings", "fps settings", "preset", "tweak", "tweaks"],
       response: {
         text: `<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>
         • <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.5</code> (Section: <code>[SystemSettings]</code> — scales 3D render resolution).<br>
@@ -65,23 +110,8 @@
     },
 
     {
-      id: "csharp-environment",
-      keywords: ["csharp", "mono", "script", "scripting", "asterisk", "sharphereal", "force", "unity", "pipeline", "execution", "ram"],
-      response: {
-        text: `<strong>Enabling C# Environment Scripting:</strong><br>
-        1. Go to <strong>Editor Tab &gt; Misc Patch</strong> subtab.<br>
-        2. Check <code>-ForceEnableCSharpEnvironment</code> and tap <strong>Patch</strong>.<br>
-        3. Launch Wuthering Waves. An <strong>asterisk (*)</strong> at the end of the client version string on the splash screen confirms C# is active!<br><br>
-        <em>Log Verification:</em> Decrypt <code>Client.log</code> in Utilities and search for <code>Sharphereal</code> initialization entries.<br>
-        <em>Hardware Note:</em> Requires at least <strong>8 GB RAM</strong>.`,
-        link: "pages/enable-csharp.html",
-        linkText: "View C# Environment Guide"
-      }
-    },
-
-    {
       id: "shizuku-setup",
-      keywords: ["shizuku", "wireless", "adb", "pairing", "pair", "port", "code", "none", "status", "permission", "permissions", "backend", "access", "xiaomi", "miui", "hyperos"],
+      keywords: ["how do i setup shizuku", "shizuku setup", "setup shizuku", "wireless debugging", "pairing", "shizuku", "backend", "access", "xiaomi", "miui", "hyperos"],
       response: {
         text: `<strong>Setting up Shizuku (Wireless Debugging):</strong><br>
         1. Enable <strong>Developer Options</strong> in Android Settings (tap <em>Build Number</em> 7 times).<br>
@@ -96,24 +126,8 @@
     },
 
     {
-      id: "section-guards",
-      keywords: ["guard", "guards", "red", "vibrant", "misplaced", "autofix", "auto-fix", "renderer", "streaming", "garbage", "cooker", "cvars=", "prefix"],
-      response: {
-        text: `<strong>Engine CVar Section Guards (CVarSectionGuard.kt):</strong><br>
-        Unreal Engine ignores misplaced CVars. The patcher enforces canonical section headers:<br>
-        • <code>r.</code> CVars $\\rightarrow$ <code>[/Script/Engine.RendererSettings]</code><br>
-        • <code>s.</code> CVars $\\rightarrow$ <code>[/Script/Engine.StreamingSettings]</code><br>
-        • <code>gc.</code> CVars $\\rightarrow$ <code>[/Script/Engine.GarbageCollectionSettings]</code><br>
-        • General CVars $\\rightarrow$ <code>[SystemSettings]</code><br><br>
-        Misplaced lines & <code>CVars=</code> prefixes are painted in bold <strong style="color: #FF2222;">Vibrant Red (#FF2222)</strong>. Tapping <strong>Save</strong> provides a 1-tap <strong>Auto-Fix Sections</strong> remediation button!`,
-        link: "pages/config-editor.html#cvar-guards",
-        linkText: "View CVar Section Guards Reference"
-      }
-    },
-
-    {
       id: "cvar-analyzer",
-      keywords: ["analyze", "analyzer", "applied", "failed", "deleted", "stripped", "log", "client.log", "decrypt", "scheme"],
+      keywords: ["how does cvar analyzer work", "cvar analyzer", "analyze config", "config analyzer", "applied percentage", "failed cvars", "stripped cvars"],
       response: {
         text: `<strong>Config & Engine Diagnostics:</strong><br>
         • <strong>Analyze Config (`CVarAnalyzer.kt`):</strong> Cross-checks active INI CVars against decrypted <code>Client.log</code> execution blocks to prove if commands applied, failed, or were deleted by game code.<br>
@@ -126,7 +140,7 @@
 
     {
       id: "revert-vanilla",
-      keywords: ["revert", "vanilla", "stutter", "lag", "crash", "black", "screen", "flicker", "flickering", "shader", "shaders", "reset", "clean"],
+      keywords: ["revert to vanilla", "vanilla mode", "restore stock settings", "delete shaders", "shader cache", "revert", "vanilla", "stutter", "lag", "crash", "black screen"],
       response: {
         text: `<strong>Reverting to Clean Vanilla Defaults:</strong><br>
         1. Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong>.<br>
@@ -140,7 +154,7 @@
 
     {
       id: "bug-reporting",
-      keywords: ["bug", "report", "activity", "log", "activity_log.txt", "support", "discord", "github", "gcash", "donate", "danger", "zone"],
+      keywords: ["report a bug", "bug reporting", "activity log", "activity_log.txt", "support", "discord", "github", "gcash", "donate", "danger zone"],
       response: {
         text: `<strong>Bug Reporting & Diagnostics:</strong><br>
         • <strong>Activity Logger (`ActionLogger.kt`):</strong> Records all binder events and operations in <code>context.filesDir/activity_log.txt</code>.<br>
@@ -167,11 +181,16 @@
       topic.keywords.forEach((keyword) => {
         const cleanKeyword = normalizeText(keyword);
 
-        // Exact phrase or keyword match in raw or normalized string
-        if (rawLower.includes(keyword.toLowerCase()) || normalized.includes(cleanKeyword)) {
-          score += cleanKeyword.length >= 5 ? 3 : 2;
-        } else {
-          // Token level matching
+        // 1. Direct Multi-Word Phrase Match (+10 Score Priority)
+        if (cleanKeyword.includes(' ') && (rawLower.includes(keyword.toLowerCase()) || normalized.includes(cleanKeyword))) {
+          score += 10;
+        }
+        // 2. Exact Word / Substring Match (+5 Score)
+        else if (rawLower.includes(keyword.toLowerCase()) || normalized.includes(cleanKeyword)) {
+          score += cleanKeyword.length >= 4 ? 5 : 3;
+        }
+        // 3. Partial Token Match (+1.5 Score)
+        else {
           tokens.forEach((token) => {
             if (cleanKeyword.includes(token) || token.includes(cleanKeyword)) {
               score += 1.5;
@@ -186,12 +205,12 @@
       }
     });
 
-    // Score threshold >= 2 returns instant skill match
+    // High confidence match threshold
     if (maxScore >= 2 && bestTopic) {
       return bestTopic.response;
     }
 
-    // Ranked multi-keyword fallback across SEARCH_DATABASE in search.js
+    // Ranked search across SEARCH_DATABASE in search.js
     if (window.WuWaSearch && window.WuWaSearch.SEARCH_DATABASE) {
       const database = window.WuWaSearch.SEARCH_DATABASE;
       let bestSearchItem = null;

@@ -1,0 +1,28 @@
+name: "Teach AI / New Keyword"
+description: "Suggest a new keyword or intent for the WuWa AI Assistant"
+labels: ["ai-learning"]
+body:
+  - type: dropdown
+    id: topic_id
+    attributes:
+      label: Target Knowledge Topic
+      options:
+        - "cvars-recommended"
+        - "ram-hardware"
+        - "shizuku-setup"
+        - "csharp-environment"
+        - "section-guards"
+        - "log-tools"
+        - "cvar-analyzer"
+        - "revert-vanilla"
+        - "bug-reporting"
+    validations:
+      required: true
+  - type: textarea
+    id: new_keywords
+    attributes:
+      label: Phrases or Keywords
+      description: Enter phrases that should match this topic (comma-separated).
+      placeholder: "uncap fps, 120fps, frame limiter"
+    validations:
+      required: true

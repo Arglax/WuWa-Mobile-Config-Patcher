@@ -1,336 +1,219 @@
 /**
- * WuWa Mobile Config Patcher - AI Skill Knowledge Base & Intent Matching Engine
- * Features: Exact Phrase Priority Matching (+10 pts), normalized word stemming, and deep documentation links.
+ * WuWa Mobile Config Patcher - V2 AI Engine
+ * Features: Dynamic JSON Fetching, BM25 Ranking, Stemming, Bigram Typo Fix, and Local Learning
  */
 (function (window) {
   'use strict';
 
-  function normalizeText(text) {
-    if (!text) return '';
-    return text.toLowerCase()
-      // NOTE: "#" is not a regex "word" character, so a trailing \b (as in
-      // \bc#\b) never matches when '#' is followed by whitespace/end-of-
-      // string — i.e. it never matched real input like "C# environment".
-      // Use \b only before 'c' and rely on '#' itself as the terminator.
-      .replace(/\bc\s*#/g, 'csharp')
-      .replace(/\bc-sharp\b/g, 'csharp')
-      .replace(/\bc\s+sharp\b/g, 'csharp')
-      .replace(/\bsharp\s*c\b/g, 'csharp')
-      .replace(/\bdot\s*net\b/g, 'dotnet')
-      .replace(/\brequired\b/g, 'require')
-      .replace(/\brequires\b/g, 'require')
-      .replace(/\brequirements?\b/g, 'require')
-      .replace(/\bneeded\b/g, 'need')
-      .replace(/\bneeding\b/g, 'need')
-      .replace(/\bneeds\b/g, 'need')
-      .replace(/\bsetting\s*up\b/g, 'setup')
-      .replace(/\bset\s*up\b/g, 'setup')
-      .replace(/\bconfiguration\b/g, 'config')
-      .replace(/\bconfigs\b/g, 'config')
-      .replace(/\bapplication\b/g, 'app')
-      .replace(/\bthanks?\s*you\b/g, 'thanks')
-      .replace(/\bthank\s*you\b/g, 'thanks')
-      .replace(/[^a-z0-9\s]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+  const LEARNED_CACHE_KEY = 'wuwa_ai_learned_associations';
+
+  function stemWord(word) {
+    if (word.length < 4) return word;
+    return word
+      .replace(/(ing|edly|ingly|ed)$/, '')
+      .replace(/(ies|s|es)$/, '')
+      .replace(/(tion|tions|tional)$/, 't')
+      .replace(/(ment|ments)$/, '')
+      .replace(/(able|ible)$/, '');
   }
 
-  // Guards against short, high-collision keywords (e.g. "ram", "c", "gb")
-  // silently substring-matching inside unrelated words ("c" inside almost
-  // any sentence, "ram" inside "program"/"framework", etc). Below a
-  // length threshold we require a whole-token match instead of a raw
-  // substring/`.includes()` check.
-  // Keywords shorter than this (e.g. "ram", "gpu", "cpu", "gb") require a
-  // whole-word match. Without this, plain substring checks would match
-  // "ram" inside "program"/"reprogram", "gpu" inside a longer token, etc.
-  const SHORT_KEYWORD_THRESHOLD = 4;
-
-  function containsAsToken(normalizedHaystack, needle) {
-    if (!needle) return false;
-    if (needle.length >= SHORT_KEYWORD_THRESHOLD) {
-      return normalizedHaystack.includes(needle);
-    }
-    // Short needle: only count it if it appears as a standalone word.
-    const re = new RegExp('(^|\\s)' + needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\s|$)');
-    return re.test(normalizedHaystack);
-  }
-
-  const SKILL_TOPICS = [
-    {
-      id: "greetings",
-      keywords: ["how are you", "hello", "hi", "hey", "yo", "sup", "what s up", "good morning", "good afternoon", "good evening", "what can you do", "help", "help me"],
-      response: {
-        text: `I'm doing great! 😊 I am your <strong>WuWa Config Patcher AI Assistant</strong>. Ask me anything about recommended CVars, RAM requirements, Shizuku setup, C# Environment, Section Guards, or Log Diagnostics!`,
-        link: "index.html",
-        linkText: "Explore Documentation Home"
-      }
-    },
-
-    {
-      id: "credits",
-      keywords: ["who are you", "who made you", "who created you", "who developed this", "who built this", "who is the developer", "creator of this app", "made this app"],
-      response: {
-        text: `I'm the built-in AI Assistant for <strong>WuWa Config Patcher</strong>, a Shizuku-based tool for tweaking Wuthering Waves graphics configs on Android. The app is built and maintained by <strong>Arglax</strong>. Ask me about CVars, Shizuku setup, C# Environment, or anything else in the app!`,
-        link: "index.html",
-        linkText: "Explore Documentation Home"
-      }
-    },
-
-    {
-      id: "thanks",
-      keywords: ["thanks", "thx", "ty", "appreciate it", "nice one", "cool", "awesome", "great", "perfect", "got it", "makes sense"],
-      response: {
-        text: `You're welcome! 🙌 Let me know if you have any other questions about CVars, Shizuku, C# Environment, or anything else in the app.`,
-        link: "index.html",
-        linkText: "Explore Documentation Home"
-      }
-    },
-
-    {
-      id: "goodbye",
-      keywords: ["bye", "goodbye", "see you", "see ya", "later", "im done", "that s all"],
-      response: {
-        text: `Take care! 👋 Come back anytime you need help with CVars, Shizuku setup, or config patching.`,
-        link: "index.html",
-        linkText: "Explore Documentation Home"
-      }
-    },
-
-    {
-      id: "section-guards",
-      keywords: ["what are cvar section guards", "cvar section guards", "section guard", "section guards", "engine section guards", "vibrant red", "misplaced cvars", "misplaced", "autofix", "auto-fix", "renderer", "streaming", "garbage", "cooker", "cvars=", "prefix"],
-      response: {
-        text: `<strong>Engine CVar Section Guards (CVarSectionGuard.kt):</strong><br>
-        Unreal Engine ignores misplaced CVars. The patcher enforces canonical section headers:<br>
-        • <code>r.</code> CVars $\\rightarrow$ <code>[/Script/Engine.RendererSettings]</code><br>
-        • <code>s.</code> CVars $\\rightarrow$ <code>[/Script/Engine.StreamingSettings]</code><br>
-        • <code>gc.</code> CVars $\\rightarrow$ <code>[/Script/Engine.GarbageCollectionSettings]</code><br>
-        • General CVars $\\rightarrow$ <code>[SystemSettings]</code><br><br>
-        Misplaced lines & <code>CVars=</code> prefixes are painted in bold <strong style="color: #FF2222;">Vibrant Red (#FF2222)</strong>. Tapping <strong>Save</strong> provides a 1-tap <strong>Auto-Fix Sections</strong> remediation button!`,
-        link: "pages/config-editor.html#cvar-guards",
-        linkText: "View CVar Section Guards Reference"
-      }
-    },
-
-    {
-      id: "csharp-environment",
-      keywords: ["how to enable c# environment", "c# environment", "csharp environment", "enable c# environment", "what is c# environment", "c#", "csharp", "c sharp", "mono", "scripting", "asterisk", "sharphereal", "force enable csharp", "unity", "pipeline"],
-      response: {
-        text: `<strong>Enabling C# Environment Scripting:</strong><br>
-        1. Go to <strong>Editor Tab &gt; Misc Patch</strong> subtab.<br>
-        2. Check <code>-ForceEnableCSharpEnvironment</code> and tap <strong>Patch</strong>.<br>
-        3. Launch Wuthering Waves. An <strong>asterisk (*)</strong> at the end of the client version string on the splash screen confirms C# is active!<br><br>
-        <em>Log Verification:</em> Decrypt <code>Client.log</code> in Utilities and search for <code>Sharphereal</code> initialization entries.<br>
-        <em>Hardware Note:</em> Requires at least <strong>8 GB RAM</strong>.`,
-        link: "pages/enable-csharp.html",
-        linkText: "View C# Environment Guide"
-      }
-    },
-
-    {
-      id: "log-tools",
-      keywords: ["i need help with log tools", "help with log tools", "log tools", "client.log", "decrypt log", "decrypted log", "log decryptor", "log explorer", "get device info", "delete logs"],
-      response: {
-        text: `<strong>Common Utilities & Log Tools:</strong><br>
-        • <strong>Decrypted Log Explorer:</strong> Search through <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>Vulkan</code>, <code>RHI</code>, <code>Sharphereal</code>).<br>
-        • <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>) or <strong>Scheme B</strong> (XOR <code>0x55</code>).<br>
-        • <strong>Get Device Info:</strong> Scans real GPU model, physical RAM, CPU topology, and game-evaluated <strong>Device Score</strong>.<br>
-        • <strong>Delete Logs:</strong> Clears bloated log files safely to free up internal storage.`,
-        link: "pages/utilities-diagnostics.html",
-        linkText: "Open Common Utilities & Log Diagnostics"
-      }
-    },
-
-    {
-      id: "ram-hardware",
-      keywords: ["recommended ram", "ram requirements", "ram requirement", "required ram", "hardware recommendations", "ram", "memory", "gb", "hardware", "device score", "spec", "specs", "gpu", "cpu"],
-      response: {
-        text: `<strong>RAM & Hardware Recommendations for WuWa Config Patcher:</strong><br>
-        • <strong>8 GB Physical RAM or higher:</strong> Recommended for running Extreme / High Visual presets and the <strong>C# Environment</strong> pipeline.<br>
-        • <strong>6 GB Physical RAM:</strong> Best suited for <code>STABLE</code> or <code>PERFORMANCE</code> presets.<br>
-        • <strong>Under 6 GB RAM:</strong> Recommended to use Low presets or Vanilla defaults to avoid memory pressure during map loading.<br><br>
-        <em>Check Your Device Score:</em> Go to <strong>Utilities &gt; Common &gt; Get Device Info</strong> (invokes <code>DeviceStatsCollector.kt</code>) to extract your exact GPU renderer, physical RAM, CPU topology, and game-evaluated <code>DeviceScore</code>!`,
-        link: "pages/utilities-diagnostics.html",
-        linkText: "View Hardware Diagnostics Guide"
-      }
-    },
-
-    {
-      id: "cvars-recommended",
-      keywords: ["what cvars can i put", "recommended cvars", "popular cvars", "cvar", "cvars", "graphic settings", "fps settings", "preset", "tweak", "tweaks"],
-      response: {
-        text: `<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>
-        • <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.5</code> (Section: <code>[SystemSettings]</code> — scales 3D render resolution).<br>
-        • <code>r.ShadowQuality</code> = <code>0</code> to <code>3</code> (Section: <code>[SystemSettings]</code> — shadow map resolution).<br>
-        • <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — bloom/glare post-processing).<br>
-        • <code>r.VSync</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — vertical sync toggle).<br>
-        • <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> — disables heavy fog for FPS boost).<br>
-        • <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> — background streaming thread).<br><br>
-        <em>Tip:</em> Always ensure CVars are placed in their proper section header, or use <strong>Auto-Fix Sections</strong> in Smart Mode!`,
-        link: "pages/advanced-tools.html#cvar-bank",
-        linkText: "Explore 1000+ CVar Bank & Reference"
-      }
-    },
-
-    {
-      id: "shizuku-setup",
-      keywords: ["how do i setup shizuku", "shizuku setup", "setup shizuku", "wireless debugging", "pairing", "shizuku", "backend", "access", "xiaomi", "miui", "hyperos"],
-      response: {
-        text: `<strong>Setting up Shizuku (Wireless Debugging):</strong><br>
-        1. Enable <strong>Developer Options</strong> in Android Settings (tap <em>Build Number</em> 7 times).<br>
-        2. Enable <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>
-        3. Open Shizuku, tap <strong>Pairing</strong> &gt; <strong>Pair device with pairing code</strong>.<br>
-        4. Enter the 6-digit code in Shizuku's notification prompt.<br>
-        5. Return to Shizuku, tap <strong>Start</strong>, and grant access in WuWa Config Patcher.<br><br>
-        <em>Xiaomi / HyperOS / MIUI Fix:</em> You must enable <strong>"USB Debugging (Security Settings)"</strong> inside Developer Options.`,
-        link: "pages/setup-shizuku.html",
-        linkText: "View Complete Setup Shizuku Guide"
-      }
-    },
-
-    {
-      id: "cvar-analyzer",
-      keywords: ["how does cvar analyzer work", "cvar analyzer", "analyze config", "config analyzer", "applied percentage", "failed cvars", "stripped cvars"],
-      response: {
-        text: `<strong>Config & Engine Diagnostics:</strong><br>
-        • <strong>Analyze Config (<code>CVarAnalyzer.kt</code>):</strong> Cross-checks active INI CVars against decrypted <code>Client.log</code> execution blocks to prove if commands applied, failed, or were deleted by game code.<br>
-        • <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>), <strong>Scheme B</strong> (XOR <code>0x55</code>), or plaintext.<br>
-        • <strong>Delete Logs:</strong> Executes elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim storage space.`,
-        link: "pages/advanced-tools.html#cvar-analyzer",
-        linkText: "Open CVar Analyzer & Log Tools"
-      }
-    },
-
-    {
-      id: "revert-vanilla",
-      keywords: ["revert to vanilla", "vanilla mode", "restore stock settings", "delete shaders", "shader cache", "revert", "vanilla", "stutter", "lag", "crash", "black screen"],
-      response: {
-        text: `<strong>Reverting to Clean Vanilla Defaults:</strong><br>
-        1. Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong>.<br>
-        2. Tap the red <strong>Revert to Vanilla</strong> button and confirm.<br>
-        3. This safely removes <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>, prompting the game to regenerate factory Kuro Games defaults upon launch.<br><br>
-        <em>Shader Compilation Crashes:</em> Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (<code>DeleteShadersDialog.kt</code>) to clear Vulkan or OpenGL shader caches!`,
-        link: "pages/patching-configs.html#revert",
-        linkText: "View Vanilla Revert & Shader Guide"
-      }
-    },
-
-    {
-      id: "bug-reporting",
-      keywords: ["report a bug", "bug reporting", "activity log", "activity_log.txt", "support", "discord", "github", "gcash", "donate", "danger zone"],
-      response: {
-        text: `<strong>Bug Reporting & Diagnostics:</strong><br>
-        • <strong>Activity Logger (<code>ActionLogger.kt</code>):</strong> Records all binder events and operations in <code>context.filesDir/activity_log.txt</code>.<br>
-        • <strong>Report a Bug Generator (<code>BugReportDialog.kt</code>):</strong> Tap <strong>"Report a Bug / Suggest a Feature"</strong> on Support tab to compile hardware specs and backend logs to send via Email or Discord.<br>
-        • <strong>Creator Support:</strong> Support Arglax directly via GCash / InstaPay QR dialog on the Support tab.`,
-        link: "pages/bug-reporting.html",
-        linkText: "View Support & Activity Logger Guide"
-      }
-    }
+  const SYNONYM_GROUPS = [
+    ['c#', 'csharp', 'mono', 'scripting', 'sharphereal'],
+    ['ram', 'memory', 'hardware', 'specs', 'specifications'],
+    ['cvars', 'cvar', 'tweaks', 'console', 'settings', 'config'],
+    ['shizuku', 'wireless', 'adb', 'debugging', 'pairing', 'pair'],
+    ['clean', 'restore', 'reset', 'vanilla', 'defaults']
   ];
+  const SYNONYM_MAP = new Map();
+  SYNONYM_GROUPS.forEach(group => group.forEach(word => SYNONYM_MAP.set(word, group)));
 
-  // Common English words that show up inside multi-word keyword phrases
-  // (e.g. "how does X work") but carry no topical meaning on their own.
-  // Left un-filtered, a query like "how does the program work" would
-  // partially match every phrase-keyword that also happens to contain
-  // "how"/"does"/"work", causing wrong topics to win. Excluding them from
-  // the token list used for partial matching fixes that.
-  const STOPWORDS = new Set([
-    'how', 'does', 'do', 'did', 'is', 'are', 'was', 'were', 'the', 'a', 'an',
-    'to', 'of', 'in', 'on', 'for', 'with', 'and', 'or', 'but', 'what', 'why',
-    'when', 'where', 'who', 'which', 'can', 'could', 'should', 'would',
-    'will', 'i', 'my', 'me', 'you', 'your', 'it', 'this', 'that', 'these',
-    'those', 'be', 'been', 'am', 'if', 'so', 'not', 'no', 'yes', 'please',
-    'work', 'works', 'about', 'there', 'have', 'has', 'had'
-  ]);
+  function expandAndStem(text) {
+    const rawTokens = text.toLowerCase().replace(/[^a-z0-9#\s]/g, ' ').split(/\s+/).filter(t => t.length > 0);
+    const expanded = new Set();
+    
+    rawTokens.forEach(token => {
+      expanded.add(stemWord(token));
+      const synonyms = SYNONYM_MAP.get(token);
+      if (synonyms) synonyms.forEach(s => expanded.add(stemWord(s)));
+    });
+    return Array.from(expanded);
+  }
 
-  function findBestMatch(rawQuery) {
-    if (!rawQuery) return null;
-    const rawLower = rawQuery.toLowerCase().trim();
-    const normalized = normalizeText(rawQuery);
-    const tokens = normalized.split(/\s+/).filter(t => t.length > 1 && !STOPWORDS.has(t));
+  function getBigrams(str) {
+    const v = [];
+    for (let i = 0; i < str.length - 1; i++) v.push(str.slice(i, i + 2));
+    return v;
+  }
 
-    let bestTopic = null;
-    let maxScore = 0;
-
-    SKILL_TOPICS.forEach((topic) => {
-      let score = 0;
-
-      topic.keywords.forEach((keyword) => {
-        const cleanKeyword = normalizeText(keyword);
-        if (!cleanKeyword) return; // keyword normalized to nothing — skip
-
-        // 1. Direct Multi-Word Phrase Match (+10 Score Priority)
-        if (cleanKeyword.includes(' ') && normalized.includes(cleanKeyword)) {
-          score += 10;
-        }
-        // 2. Exact Word / Whole-Token Match (+5 / +3 Score)
-        else if (containsAsToken(normalized, cleanKeyword)) {
-          score += cleanKeyword.length >= 4 ? 5 : 3;
-        }
-        // 3. Partial Token Match (+1.5 Score) — only for keywords with
-        // enough length that a partial match is still meaningful.
-        else if (cleanKeyword.length >= SHORT_KEYWORD_THRESHOLD) {
-          tokens.forEach((token) => {
-            if (token.length >= SHORT_KEYWORD_THRESHOLD &&
-                (cleanKeyword.includes(token) || token.includes(cleanKeyword))) {
-              score += 1.5;
-            }
-          });
-        }
-      });
-
-      if (score > maxScore) {
-        maxScore = score;
-        bestTopic = topic;
+  function stringSimilarity(s1, s2) {
+    if (s1 === s2) return 1.0;
+    if (s1.length < 2 || s2.length < 2) return 0.0;
+    const b1 = getBigrams(s1), b2 = getBigrams(s2);
+    let intersection = 0;
+    const map = new Map();
+    b1.forEach(bg => map.set(bg, (map.get(bg) || 0) + 1));
+    b2.forEach(bg => {
+      if (map.get(bg) > 0) {
+        map.set(bg, map.get(bg) - 1);
+        intersection++;
       }
     });
+    return (2.0 * intersection) / (b1.length + b2.length);
+  }
 
-    // High confidence match threshold
-    if (maxScore >= 2 && bestTopic) {
-      return bestTopic.response;
+  class BM25Engine {
+    constructor(k1 = 1.2, b = 0.75) {
+      this.k1 = k1;
+      this.b = b;
+      this.docs = [];
+      this.idf = new Map();
+      this.docTermFreqs = [];
+      this.docLengths = [];
+      this.avgDocLength = 0;
+      this.knownVocabulary = new Set();
     }
 
-    // Ranked search across SEARCH_DATABASE in search.js
-    if (window.WuWaSearch && window.WuWaSearch.SEARCH_DATABASE) {
-      const database = window.WuWaSearch.SEARCH_DATABASE;
-      let bestSearchItem = null;
-      let highestSearchScore = 0;
+    index(documents) {
+      this.docs = documents;
+      let totalLength = 0;
+      const docFreqs = new Map();
 
-      database.forEach((item) => {
-        const fullText = normalizeText(item.title + ' ' + item.section + ' ' + item.keywords + ' ' + item.snippet);
-        let searchScore = 0;
-
-        tokens.forEach((token) => {
-          if (fullText.includes(token)) searchScore += 1;
+      this.docs.forEach((doc, i) => {
+        const tokens = expandAndStem(doc.keywords.join(' ') + ' ' + doc.id);
+        this.docLengths[i] = tokens.length;
+        totalLength += tokens.length;
+        
+        const tf = new Map();
+        const uniqueTokens = new Set(tokens);
+        
+        tokens.forEach(token => {
+          tf.set(token, (tf.get(token) || 0) + 1);
+          this.knownVocabulary.add(token);
         });
+        this.docTermFreqs[i] = tf;
 
-        if (searchScore > highestSearchScore) {
-          highestSearchScore = searchScore;
-          bestSearchItem = item;
-        }
+        uniqueTokens.forEach(token => {
+          docFreqs.set(token, (docFreqs.get(token) || 0) + 1);
+        });
       });
 
-      if (bestSearchItem && highestSearchScore >= 1) {
-        return {
-          text: `<strong>${bestSearchItem.title}:</strong><br>${bestSearchItem.snippet}`,
-          link: bestSearchItem.url,
-          linkText: `Open ${bestSearchItem.title}`
-        };
+      this.avgDocLength = totalLength / (this.docs.length || 1);
+      
+      docFreqs.forEach((df, term) => {
+        const idfValue = Math.log(1 + (this.docs.length - df + 0.5) / (df + 0.5));
+        this.idf.set(term, Math.max(idfValue, 0.01));
+      });
+    }
+
+    correctTypos(tokens) {
+      return tokens.map(token => {
+        if (this.knownVocabulary.has(token)) return token;
+        let bestMatch = token;
+        let maxSim = 0;
+        this.knownVocabulary.forEach(vocab => {
+          const sim = stringSimilarity(token, vocab);
+          if (sim > maxSim) { maxSim = sim; bestMatch = vocab; }
+        });
+        return maxSim > 0.70 ? bestMatch : token;
+      });
+    }
+
+    search(query) {
+      const rawTokens = expandAndStem(query);
+      const tokens = this.correctTypos(rawTokens);
+      const scores = new Array(this.docs.length).fill(0);
+
+      tokens.forEach(token => {
+        const idf = this.idf.get(token);
+        if (!idf) return;
+
+        this.docs.forEach((doc, i) => {
+          const tf = this.docTermFreqs[i].get(token) || 0;
+          if (tf === 0) return;
+          const numerator = tf * (this.k1 + 1);
+          const denominator = tf + this.k1 * (1 - this.b + this.b * (this.docLengths[i] / this.avgDocLength));
+          scores[i] += idf * (numerator / denominator);
+        });
+      });
+
+      return scores
+        .map((score, index) => ({ doc: this.docs[index], score }))
+        .filter(res => res.score > 0)
+        .sort((a, b) => b.score - a.score);
+    }
+  }
+
+  let engine = new BM25Engine();
+  let loadedTopics = [];
+
+  // Active Disambiguation & Self-Learning
+  function reinforceTopic(userQuery, topicId) {
+    const memory = JSON.parse(localStorage.getItem(LEARNED_CACHE_KEY) || '{}');
+    const cleanKey = userQuery.toLowerCase().trim();
+    memory[cleanKey] = topicId;
+    localStorage.setItem(LEARNED_CACHE_KEY, JSON.stringify(memory));
+
+    // Reinforce live session weights
+    const target = loadedTopics.find(t => t.id === topicId);
+    if (target) {
+      const tokens = expandAndStem(userQuery);
+      target.keywords.push(...tokens);
+      engine.index(loadedTopics);
+    }
+  }
+
+  function getRankedMatches(rawQuery) {
+    if (!rawQuery) return { matches: [], learnedMatch: null };
+    const cleanQuery = rawQuery.toLowerCase().trim();
+
+    // Check learned memory
+    const memory = JSON.parse(localStorage.getItem(LEARNED_CACHE_KEY) || '{}');
+    if (memory[cleanQuery]) {
+      const directDoc = loadedTopics.find(t => t.id === memory[cleanQuery]);
+      if (directDoc) {
+        return { matches: [{ doc: directDoc, score: 99.0 }], learnedMatch: directDoc };
       }
     }
 
-    // Default Fallback
+    const matches = engine.search(rawQuery);
+    return { matches, learnedMatch: null };
+  }
+
+  function findBestMatch(rawQuery) {
+    const { matches, learnedMatch } = getRankedMatches(rawQuery);
+    if (learnedMatch) return learnedMatch.response;
+    if (matches.length > 0) return matches[0].doc.response;
+
     return {
-      text: `I'm the WuWa Config Patcher AI Assistant! Ask me about recommended CVars, RAM requirements, Shizuku setup, C# Environment, Section Guards, or CVar Analyzer.`,
+      text: `I couldn't find an exact match for that. You can ask me about recommended CVars, RAM requirements, Shizuku setup, or C# Environment.`,
       link: "index.html",
       linkText: "Explore Documentation Home"
     };
   }
 
+  // Asynchronously initialize from assets/ai-knowledge.json
+  async function initKnowledgeBase() {
+    try {
+      const targetPath = (window.WuWaPathResolver && window.WuWaPathResolver.resolvePath) 
+        ? window.WuWaPathResolver.resolvePath('assets/ai-knowledge.json') 
+        : 'assets/ai-knowledge.json';
+
+      const response = await fetch(targetPath);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      loadedTopics = await response.json();
+      engine.index(loadedTopics);
+    } catch (err) {
+      console.warn("Could not fetch remote assets/ai-knowledge.json, using baseline topics.", err);
+    }
+  }
+
+  initKnowledgeBase();
+
   window.WuWaAiKnowledge = {
-    SKILL_TOPICS,
-    normalizeText,
-    findBestMatch
+    findBestMatch,
+    getRankedMatches,
+    reinforceTopic,
+    initKnowledgeBase,
+    getLoadedTopics: () => loadedTopics
   };
 })(window);

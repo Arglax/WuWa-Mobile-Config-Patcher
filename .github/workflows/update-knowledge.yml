@@ -1,0 +1,69 @@
+name: Auto-Update AI Knowledge
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  update-json:
+    if: github.event.issue.state_reason == 'completed' && contains(github.event.issue.labels.*.name, 'ai-learning')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update Knowledge JSON via Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Parse Issue and Append Keywords
+        run: |
+          python - << 'EOF'
+          import json, os, re
+
+          issue_body = """${{ github.event.issue.body }}"""
+          topic_match = re.search(r'### Target Knowledge Topic\s*\n\s*([a-zA-Z0-9\-_]+)', issue_body)
+          keywords_match = re.search(r'### Phrases or Keywords\s*\n\s*([^\n]+)', issue_body)
+
+          if not topic_match or not keywords_match:
+              print("Could not parse issue fields.")
+              exit(0)
+
+          target_topic = topic_match.group(1).strip()
+          raw_keywords = [k.strip().lower() for k in keywords_match.group(1).split(',') if k.strip()]
+
+          json_path = 'assets/ai-knowledge.json'
+          if not os.path.exists(json_path):
+              print(f"File {json_path} not found.")
+              exit(1)
+
+          with open(json_path, 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          updated = False
+          for topic in data:
+              if topic.get('id') == target_topic:
+                  existing = set(topic.get('keywords', []))
+                  for kw in raw_keywords:
+                      if kw not in existing:
+                          topic['keywords'].append(kw)
+                          updated = True
+                  break
+
+          if updated:
+              with open(json_path, 'w', encoding='utf-8') as f:
+                  json.dump(data, f, indent=2, ensure_ascii=False)
+              print(f"Updated {target_topic} with: {raw_keywords}")
+          EOF
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/ai-knowledge.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update ai-knowledge.json from Issue #${{ github.event.issue.number }}" && git push)

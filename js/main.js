@@ -60,5 +60,21 @@
     }
 
     initSidebar();
+
+    // --- NEW: Service Worker Registration for Offline Caching ---
+    if ('serviceWorker' in navigator) {
+      // Delay registration until after page load to ensure UI performance
+      window.addEventListener('load', () => {
+        // Resolve path handles subfolder routing on GitHub Pages automatically
+        const swPath = resolvePath('sw.js');
+        navigator.serviceWorker.register(swPath)
+          .then(registration => {
+            console.log('Offline ServiceWorker registered successfully with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.warn('Offline ServiceWorker registration failed:', error);
+          });
+      });
+    }
   });
 })(window);

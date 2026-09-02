@@ -1,14 +1,16 @@
 /**
- * WuWa Mobile Config Patcher - V2 AI Engine
- * Features: Dynamic JSON Fetching, BM25 Ranking, Stemming, Bigram Typo Fix, and Local Learning
+ * WuWa Mobile Config Patcher - V2.5 AI Engine
+ * Features: Multi-Turn Context Window, BM25 Probabilistic Ranking, Algorithmic Suffix Stemming,
+ * Bigram Typo Correction, Dynamic JSON Asset Loading, and Local Association Memory.
  */
 (function (window) {
   'use strict';
 
   const LEARNED_CACHE_KEY = 'wuwa_ai_learned_associations';
 
+  // 1. Suffix Stemmer
   function stemWord(word) {
-    if (word.length < 4) return word;
+    if (!word || word.length < 4) return word;
     return word
       .replace(/(ing|edly|ingly|ed)$/, '')
       .replace(/(ies|s|es)$/, '')
@@ -17,17 +19,22 @@
       .replace(/(able|ible)$/, '');
   }
 
+  // 2. Technical Synonym Dictionary
   const SYNONYM_GROUPS = [
     ['c#', 'csharp', 'mono', 'scripting', 'sharphereal'],
-    ['ram', 'memory', 'hardware', 'specs', 'specifications'],
-    ['cvars', 'cvar', 'tweaks', 'console', 'settings', 'config'],
-    ['shizuku', 'wireless', 'adb', 'debugging', 'pairing', 'pair'],
-    ['clean', 'restore', 'reset', 'vanilla', 'defaults']
+    ['ram', 'memory', 'hardware', 'specs', 'specifications', 'score'],
+    ['cvars', 'cvar', 'tweaks', 'console', 'settings', 'config', 'presets', 'preset'],
+    ['shizuku', 'wireless', 'adb', 'debugging', 'pairing', 'pair', 'backend', 'elevation', 'root', 'libsu'],
+    ['clean', 'restore', 'reset', 'vanilla', 'defaults', 'revert'],
+    ['crash', 'crashing', 'lag', 'stutter', 'stuttering', 'freeze', 'freezing', 'blackscreen', 'black', 'bug', 'error', 'fails'],
+    ['shaders', 'shader', 'vulkan', 'opengl', 'binary', 'cache'],
+    ['forbidden', 'blacklisted', 'unsupported', 'stripped', 'deleted']
   ];
   const SYNONYM_MAP = new Map();
   SYNONYM_GROUPS.forEach(group => group.forEach(word => SYNONYM_MAP.set(word, group)));
 
   function expandAndStem(text) {
+    if (!text) return [];
     const rawTokens = text.toLowerCase().replace(/[^a-z0-9#\s]/g, ' ').split(/\s+/).filter(t => t.length > 0);
     const expanded = new Set();
     
@@ -39,6 +46,7 @@
     return Array.from(expanded);
   }
 
+  // 3. Typo Handling (Character Bigrams)
   function getBigrams(str) {
     const v = [];
     for (let i = 0; i < str.length - 1; i++) v.push(str.slice(i, i + 2));
@@ -61,6 +69,7 @@
     return (2.0 * intersection) / (b1.length + b2.length);
   }
 
+  // 4. BM25 Search Engine
   class BM25Engine {
     constructor(k1 = 1.2, b = 0.75) {
       this.k1 = k1;
@@ -79,7 +88,7 @@
       const docFreqs = new Map();
 
       this.docs.forEach((doc, i) => {
-        const tokens = expandAndStem(doc.keywords.join(' ') + ' ' + doc.id);
+        const tokens = expandAndStem((doc.keywords || []).join(' ') + ' ' + (doc.id || '') + ' ' + (doc.title || ''));
         this.docLengths[i] = tokens.length;
         totalLength += tokens.length;
         
@@ -118,9 +127,8 @@
       });
     }
 
-    search(query) {
-      const rawTokens = expandAndStem(query);
-      const tokens = this.correctTypos(rawTokens);
+    search(queryTokens) {
+      const tokens = this.correctTypos(queryTokens);
       const scores = new Array(this.docs.length).fill(0);
 
       tokens.forEach(token => {
@@ -143,30 +151,49 @@
     }
   }
 
-  let engine = new BM25Engine();
+  const engine = new BM25Engine();
   let loadedTopics = [];
 
-  // Active Disambiguation & Self-Learning
+  // 5. Context-Enriched Query Resolution
+function buildEnrichedQueryTokens(rawQuery, contextWindow) {
+    const currentTokens = expandAndStem(rawQuery);
+    
+    // If user's query is brief (<= 3 words), incorporate context from the last 6 messages
+    if (currentTokens.length <= 3 && Array.isArray(contextWindow) && contextWindow.length > 0) {
+      const recentHistory = contextWindow.slice(-6); // Only look at the last 6 messages
+      const contextTokens = [];
+      recentHistory.forEach(item => {
+        if (item.text) {
+          contextTokens.push(...expandAndStem(item.text));
+        }
+      });
+      // Mix current tokens with recent context
+      return Array.from(new Set([...currentTokens, ...contextTokens]));
+    }
+
+    return currentTokens;
+  }
+
   function reinforceTopic(userQuery, topicId) {
     const memory = JSON.parse(localStorage.getItem(LEARNED_CACHE_KEY) || '{}');
     const cleanKey = userQuery.toLowerCase().trim();
     memory[cleanKey] = topicId;
     localStorage.setItem(LEARNED_CACHE_KEY, JSON.stringify(memory));
 
-    // Reinforce live session weights
     const target = loadedTopics.find(t => t.id === topicId);
     if (target) {
       const tokens = expandAndStem(userQuery);
+      if (!target.keywords) target.keywords = [];
       target.keywords.push(...tokens);
       engine.index(loadedTopics);
     }
   }
 
-  function getRankedMatches(rawQuery) {
+  function getRankedMatches(rawQuery, contextWindow = []) {
     if (!rawQuery) return { matches: [], learnedMatch: null };
     const cleanQuery = rawQuery.toLowerCase().trim();
 
-    // Check learned memory
+    // Check learned association override
     const memory = JSON.parse(localStorage.getItem(LEARNED_CACHE_KEY) || '{}');
     if (memory[cleanQuery]) {
       const directDoc = loadedTopics.find(t => t.id === memory[cleanQuery]);
@@ -175,27 +202,27 @@
       }
     }
 
-    const matches = engine.search(rawQuery);
+    const queryTokens = buildEnrichedQueryTokens(rawQuery, contextWindow);
+    const matches = engine.search(queryTokens);
     return { matches, learnedMatch: null };
   }
 
-  function findBestMatch(rawQuery) {
-    const { matches, learnedMatch } = getRankedMatches(rawQuery);
+  function findBestMatch(rawQuery, contextWindow = []) {
+    const { matches, learnedMatch } = getRankedMatches(rawQuery, contextWindow);
     if (learnedMatch) return learnedMatch.response;
     if (matches.length > 0) return matches[0].doc.response;
 
     return {
-      text: `I couldn't find an exact match for that. You can ask me about recommended CVars, RAM requirements, Shizuku setup, or C# Environment.`,
+      text: `I couldn't find a direct match. Did you experience a game crash, stutter, Shizuku connection issue, or need help with CVars and section guards? Try asking: "how to fix crash", "recommended ram", or "shizuku setup".`,
       link: "index.html",
       linkText: "Explore Documentation Home"
     };
   }
 
-  // Asynchronously initialize from assets/ai-knowledge.json
   async function initKnowledgeBase() {
     try {
-      const targetPath = (window.WuWaPathResolver && window.WuWaPathResolver.resolvePath) 
-        ? window.WuWaPathResolver.resolvePath('assets/ai-knowledge.json') 
+      const targetPath = (window.WuWaPathResolver && window.WuWaPathResolver.resolvePath)
+        ? window.WuWaPathResolver.resolvePath('assets/ai-knowledge.json')
         : 'assets/ai-knowledge.json';
 
       const response = await fetch(targetPath);

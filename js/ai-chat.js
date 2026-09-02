@@ -1,37 +1,19 @@
 /**
- * WuWa Mobile Config Patcher - Floating AI Chat Assistant Widget
- * Features: 5-Message Conversation Context Window, BM25 Offline Search,
- * Gemini API Multi-Turn Chat, Remediation Disambiguation, and 3-Strike Toxicity Guard.
+ * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.6.0 merged)
  */
 (function (window) {
   'use strict';
+
+  const WORKER_PROXY_URL = 'https://wuwa-ai-proxy.your-subdomain.workers.dev';
 
   const GEMINI_KEY_STORAGE = 'wuwa_gemini_api_key';
   const STRIKE_STORAGE = 'wuwa_ai_strikes';
   const BAN_STORAGE = 'wuwa_ai_ban_until';
   const CONTEXT_STORAGE = 'wuwa_ai_context_history';
   const MAX_CONTEXT_TURNS = 25;
+  const BAN_DURATION_MS = 3600000; // 1 hour
 
   const TOXICITY_REGEX = /\b(fuck|fucking|fucker|fuk|shit|shitting|shitty|bitch|asshole|bastard|idiot|stupid|dumb|dumbass|stfu|cunt|dick|pussy|shut\s*up|hate\s*you|useless\s*bot|garbage\s*bot|trash\s*bot)\b/i;
-
-  const AI_SYSTEM_PROMPT = `You are WuWa Assistant, an expert AI helper for the Android app 'WuWa Config Patcher' (v1.5.1, package io.github.arglax.configpatcher, developed by Arglax).
-Core Knowledge Summary:
-- 1-Click Patching: Injects graphic INIs (Engine.ini, DeviceProfiles.ini, Scalability.ini) into scoped storage via Shizuku/Root. Backup snapshot created in app_main_storage/backups/.
-- Elevation Backends: ROOT (Red #E35D6A), SHIZUKU (Green #47D764), AXMANAGER (Blue #2AA37D), SHIZUKU_UNAUTHORIZED (Orange #F7C948), NONE (Gray #A8B4AF).
-- Live Config Editor: Smart Mode (A-Z sort, auto-fix, bulk delete), Text Mode (isolation search, font slider, defensive OffsetMapping crash protection for \\r\\n), One-Line Mode.
-- Section Guards (CVarSectionGuard.kt): Enforces canonical section headers (r. -> RendererSettings, s. -> StreamingSettings, gc. -> GarbageCollectionSettings, cook. -> CookerSettings, SystemSettings). Misplaced CVars highlighted in Vibrant Red (#FF2222). Engine.ini prefixes auto-stripped.
-- C# Environment: -ForceEnableCSharpEnvironment in UE4CommandLine.txt (Requires 8GB+ RAM). Confirmed by asterisk (*) on client splash screen and Sharphereal in Client.log.
-- Utilities: Decrypted Log Explorer (Client.log with line numbers & filter chips), Get Device Info (GPU, RAM, Device Score, C# env), Log Decryptor (Scheme A XOR 0xA5/0xEF, Scheme B XOR 0x55, Plaintext), Delete Logs (rm -rf), Revert to Vanilla (deletes modified INIs to restore clean defaults).
-- Advanced Tools: CVar Analyzer (cross-checks active INIs against decrypted log), 1000+ CVar Bank (AlteriaX Pastebin & UE Docs), Duplicate Flagger, Strip Forbidden (auto-strips 51 WuWa v3.6 forbidden CVars), Log CVar Extractor, Main Storage Reader.
-- Danger Zone: Delete Shaders (VulkanProgramBinaryCache & ProgramBinaryCache), Clear Cache/Data/Activity Log.
-- Troubleshooting Hierarchy: If user describes a bug/crash:
-  1. Suggest Reverting to Vanilla (Utilities > Common > Vanilla mode).
-  2. Suggest Deleting Shaders (Settings > Danger Zone > Delete Shaders).
-  3. Suggest checking RAM requirements (turn off C# if <8GB RAM).
-  4. Suggest running Strip Forbidden in Advanced Tools.
-  5. Only if all self-remediation steps fail, instruct user to open Bug Report Generator (Support > Report a Bug) to send activity_log.txt and hardware diagnostics to developer Arglax on Discord or GitHub.
-
-Answer user questions clearly, accurately, with markdown formatting and direct documentation links. Maintain a polite and helpful tone.`;
 
   const QUICK_PROMPTS = [
     { label: "🛠️ Recommended CVars", query: "what cvars can i put" },
@@ -42,19 +24,17 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
     { label: "🔍 CVar Analyzer", query: "How does CVar Analyzer work?" }
   ];
 
-  // Conversation Context Memory Management
+  // --------------------------------------------------------------------
+  // Context memory
+  // --------------------------------------------------------------------
   function loadContextHistory() {
-    try {
-      return JSON.parse(sessionStorage.getItem(CONTEXT_STORAGE) || '[]');
-    } catch (e) {
-      return [];
-    }
+    try { return JSON.parse(sessionStorage.getItem(CONTEXT_STORAGE) || '[]'); }
+    catch (e) { return []; }
   }
 
   function saveContextHistory(history) {
-    try {
-      sessionStorage.setItem(CONTEXT_STORAGE, JSON.stringify(history.slice(-MAX_CONTEXT_TURNS * 2)));
-    } catch (e) {}
+    try { sessionStorage.setItem(CONTEXT_STORAGE, JSON.stringify(history.slice(-MAX_CONTEXT_TURNS * 2))); }
+    catch (e) {}
   }
 
   function resolvePath(targetUrl) {
@@ -64,13 +44,30 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
     return targetUrl;
   }
 
-  async function queryGeminiApi(apiKey, userPrompt, contextHistory) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
-    
-    // Assemble system prompt and up to 5 prior message turns
+  // --------------------------------------------------------------------
+  // Cloud AI (proxy-first, KB-grounded, conversational)
+  // --------------------------------------------------------------------
+  function buildSystemPrompt() {
+    let knowledgeBaseString = "No documentation loaded.";
+    if (window.WuWaAiKnowledge && window.WuWaAiKnowledge.getLoadedTopics) {
+      knowledgeBaseString = JSON.stringify(window.WuWaAiKnowledge.getLoadedTopics());
+    }
+
+    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.5.1) developed by Arglax.
+App Documentation Source of Truth:
+${knowledgeBaseString}
+
+RULES:
+1. For casual greetings, small talk (e.g., "how old are you", "who are you"), respond naturally and conversationally in a polite, friendly tone.
+2. For app questions, answer using ONLY the provided documentation JSON. Include Markdown links matching 'linkText' and 'link': [Link Text](link_url).
+3. If the user describes a bug/crash, follow the remediation sequence (Vanilla Revert -> Delete Shaders -> Strip Forbidden -> Check RAM -> Report to Arglax).`;
+  }
+
+  async function queryAI(userPrompt, contextHistory, customApiKey) {
+    const dynamicPrompt = buildSystemPrompt();
     const contents = [
-      { role: "user", parts: [{ text: AI_SYSTEM_PROMPT }] },
-      { role: "model", parts: [{ text: "Understood. I am ready to assist users of WuWa Config Patcher with full technical accuracy." }] }
+      { role: "user", parts: [{ text: dynamicPrompt }] },
+      { role: "model", parts: [{ text: "Understood. I will converse naturally for small talk and use the documentation for technical questions." }] }
     ];
 
     contextHistory.slice(-MAX_CONTEXT_TURNS * 2).forEach(msg => {
@@ -80,45 +77,61 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
       });
     });
 
-    contents.push({
-      role: "user",
-      parts: [{ text: userPrompt }]
-    });
+    contents.push({ role: "user", parts: [{ text: userPrompt }] });
 
-    const response = await fetch(url, {
+    let targetUrl = customApiKey
+      ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(customApiKey)}`
+      : WORKER_PROXY_URL;
+
+    const response = await fetch(targetUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ contents })
     });
 
-    if (!response.ok) throw new Error(`Gemini API error: ${response.status}`);
+    if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
     const data = await response.json();
     if (data.candidates && data.candidates[0] && data.candidates[0].content) {
       return data.candidates[0].content.parts.map(p => p.text).join('\n');
     }
-    throw new Error('Invalid Gemini API response format');
+    throw new Error('Invalid AI response structure');
   }
 
+  // --------------------------------------------------------------------
+  // Strike / ban system
+  // --------------------------------------------------------------------
   function checkBanStatus() {
     const banUntil = parseInt(localStorage.getItem(BAN_STORAGE) || '0', 10);
     if (banUntil && Date.now() < banUntil) {
-      const remainingMinutes = Math.ceil((banUntil - Date.now()) / 60000);
-      return { banned: true, remainingMinutes };
+      return { banned: true, remainingMinutes: Math.ceil((banUntil - Date.now()) / 60000) };
     }
     if (banUntil && Date.now() >= banUntil) {
+      // Ban expired — reset strikes so the user starts clean
       localStorage.removeItem(BAN_STORAGE);
       localStorage.setItem(STRIKE_STORAGE, '0');
     }
     return { banned: false, remainingMinutes: 0 };
   }
 
+  function registerToxicStrike() {
+    let strikes = parseInt(localStorage.getItem(STRIKE_STORAGE) || '0', 10) + 1;
+    localStorage.setItem(STRIKE_STORAGE, strikes.toString());
+    if (strikes >= 3) {
+      localStorage.setItem(BAN_STORAGE, (Date.now() + BAN_DURATION_MS).toString());
+    }
+    return strikes;
+  }
+
+  // --------------------------------------------------------------------
+  // DOM
+  // --------------------------------------------------------------------
   function renderWidgetDOM() {
     if (document.getElementById('ai-chat-root')) return;
 
     const root = document.createElement('div');
     root.id = 'ai-chat-root';
     root.innerHTML = `
-      <button id="ai-chat-fab" class="ai-chat-fab" aria-label="Open AI Assistant Chat" title="Open WuWa AI Assistant">
+      <button id="ai-chat-fab" class="ai-chat-fab" aria-label="Open AI Assistant" title="Open AI Assistant">
         <span class="fab-icon">💬</span>
         <span class="fab-label">AI Assistant</span>
       </button>
@@ -129,41 +142,40 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
             <span class="ai-avatar">🤖</span>
             <div>
               <h4>WuWa AI Assistant</h4>
-              <span class="ai-status">Online • Knowledge v1.5.1 (Context Memory)</span>
+              <span id="ai-connection-status" class="ai-status">Checking connection...</span>
             </div>
           </div>
           <div class="header-actions">
-            <button id="ai-chat-clear-btn" class="chat-header-btn" title="Clear Conversation History">🗑️</button>
+            <button id="ai-chat-clear-btn" class="chat-header-btn" title="Clear History">🗑️</button>
             <button id="ai-chat-settings-btn" class="chat-header-btn" title="API Settings">⚙️</button>
-            <button id="ai-chat-close-btn" class="chat-header-btn" title="Close Chat">&times;</button>
+            <button id="ai-chat-close-btn" class="chat-header-btn" title="Close">&times;</button>
           </div>
         </div>
 
         <div id="ai-chat-settings" class="ai-chat-settings hidden">
-          <h5>Gemini API Settings (Optional)</h5>
-          <p>Supply a free Google Gemini API Key for multi-turn generative conversation. If omitted, instant zero-latency local BM25 ranking is used.</p>
-          <input type="password" id="gemini-api-key-input" placeholder="Paste Gemini API Key (AIzaSy...)" autocomplete="off">
+          <h5>Custom Gemini API Settings (Optional)</h5>
+          <p>The assistant works automatically online for free. Paste a personal key to use your own quota.</p>
+          <input type="password" id="gemini-api-key-input" placeholder="Paste Gemini API Key (AQ... or AIza...)" autocomplete="off">
           <div class="settings-btn-row">
             <button id="save-gemini-key-btn" class="btn-chat-action">Save Key</button>
-            <button id="clear-gemini-key-btn" class="btn-chat-secondary">Clear</button>
+            <button id="clear-gemini-key-btn" class="btn-chat-secondary">Use Default</button>
           </div>
         </div>
 
         <div id="ai-chat-messages" class="ai-chat-messages">
           <div class="chat-msg msg-ai">
             <div class="msg-bubble">
-              👋 Hello! I am your <strong>WuWa Config Patcher Assistant</strong>. Ask me anything about CVars, RAM recommendations, Shizuku setup, C# Environment, or resolving game crashes!
+              👋 Hello! I am your <strong>WuWa Config Patcher Assistant</strong>. Ask me anything about presets, CVars, Shizuku, or game troubleshooting!
             </div>
           </div>
-
           <div class="prompt-chips-container" id="prompt-chips-container">
             ${QUICK_PROMPTS.map(p => `<button class="prompt-chip" data-query="${p.query}">${p.label}</button>`).join('')}
           </div>
         </div>
 
         <form id="ai-chat-form" class="ai-chat-input-row">
-          <input type="text" id="ai-chat-input" placeholder="Ask a question about the app or troubleshooting..." autocomplete="off">
-          <button type="submit" id="ai-chat-send-btn" class="ai-chat-send-btn" title="Send Message">➢</button>
+          <input type="text" id="ai-chat-input" placeholder="Ask a question..." autocomplete="off">
+          <button type="submit" id="ai-chat-send-btn" class="ai-chat-send-btn">➢</button>
         </form>
       </div>
     `;
@@ -186,6 +198,7 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
     const input = document.getElementById('ai-chat-input');
     const sendBtn = document.getElementById('ai-chat-send-btn');
     const messages = document.getElementById('ai-chat-messages');
+    const statusEl = document.getElementById('ai-connection-status');
 
     function lockInput(placeholderText) {
       input.disabled = true;
@@ -196,16 +209,33 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
     function unlockInput() {
       input.disabled = false;
       sendBtn.disabled = false;
-      input.placeholder = "Ask a question about the app or troubleshooting...";
+      input.placeholder = "Ask a question...";
     }
+
+    function updateStatusIndicator() {
+      const customKey = localStorage.getItem(GEMINI_KEY_STORAGE);
+      if (!navigator.onLine) {
+        statusEl.textContent = "Offline • Local BM25 Engine Active";
+        statusEl.style.color = "#f59e0b";
+      } else if (customKey) {
+        statusEl.textContent = "Online • Custom Gemini Key Active";
+        statusEl.style.color = "#10b981";
+      } else {
+        statusEl.textContent = "Online • Shared Assistant Active";
+        statusEl.style.color = "#10b981";
+      }
+    }
+
+    window.addEventListener('online', updateStatusIndicator);
+    window.addEventListener('offline', updateStatusIndicator);
 
     fab.addEventListener('click', () => {
       windowEl.classList.toggle('hidden');
       if (!windowEl.classList.contains('hidden')) {
+        updateStatusIndicator();
         const status = checkBanStatus();
         if (status.banned) {
           lockInput(`Suspended (${status.remainingMinutes}m remaining)`);
-          appendSystemMsg(`🚫 System Notice: The AI Assistant is temporarily suspended. Please return in ${status.remainingMinutes} minute(s).`);
         } else {
           unlockInput();
           input.focus();
@@ -215,10 +245,9 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
 
     closeBtn.addEventListener('click', () => windowEl.classList.add('hidden'));
 
-    // Clear context history
     clearBtn.addEventListener('click', () => {
       sessionStorage.removeItem(CONTEXT_STORAGE);
-      appendSystemMsg("🧹 Conversation history cleared. New topic context started.");
+      appendSystemMsg("🧹 Conversation history cleared.");
     });
 
     settingsBtn.addEventListener('click', () => {
@@ -229,22 +258,18 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
     });
 
     saveKeyBtn.addEventListener('click', () => {
-      const val = apiKeyInput.value.trim();
-      if (val) {
-        localStorage.setItem(GEMINI_KEY_STORAGE, val);
-        appendSystemMsg("Gemini API key saved! Multi-turn Gemini 1.5 Flash activated.");
-      } else {
-        localStorage.removeItem(GEMINI_KEY_STORAGE);
-        appendSystemMsg("Gemini API key cleared. Instant offline BM25 knowledge search activated.");
-      }
+      localStorage.setItem(GEMINI_KEY_STORAGE, apiKeyInput.value.trim());
       settingsEl.classList.add('hidden');
+      updateStatusIndicator();
+      appendSystemMsg("✓ Custom Gemini API key saved.");
     });
 
     clearKeyBtn.addEventListener('click', () => {
       localStorage.removeItem(GEMINI_KEY_STORAGE);
       apiKeyInput.value = '';
-      appendSystemMsg("Gemini API key cleared. Instant offline BM25 knowledge search activated.");
       settingsEl.classList.add('hidden');
+      updateStatusIndicator();
+      appendSystemMsg("✓ Reset to default shared assistant proxy.");
     });
 
     document.querySelectorAll('.prompt-chip').forEach(chip => {
@@ -254,13 +279,11 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const query = input.value.trim();
-      if (query) {
-        handleUserQuery(query);
-        input.value = '';
-      }
+      if (query) { handleUserQuery(query); input.value = ''; }
     });
 
     async function handleUserQuery(query) {
+      // 1. Ban check
       const status = checkBanStatus();
       if (status.banned) {
         appendUserMsg(query);
@@ -269,17 +292,15 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
         return;
       }
 
+      // 2. Toxicity / strike escalation
       if (TOXICITY_REGEX.test(query)) {
         appendUserMsg(query);
-        let strikes = parseInt(localStorage.getItem(STRIKE_STORAGE) || '0', 10) + 1;
-        localStorage.setItem(STRIKE_STORAGE, strikes.toString());
-
+        const strikes = registerToxicStrike();
         if (strikes === 1) {
           appendSystemMsg(`⚠️ Warning (1/3): Please keep the conversation respectful.`);
         } else if (strikes === 2) {
           appendSystemMsg(`⚠️ Warning (2/3): Final warning. Continued profanity will trigger a 1-hour suspension.`);
         } else {
-          localStorage.setItem(BAN_STORAGE, (Date.now() + 3600000).toString());
           lockInput("Suspended (60m remaining)");
           appendSystemMsg(`🚫 Suspended for 1 hour due to repeated conduct violations.`);
         }
@@ -288,31 +309,35 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
 
       appendUserMsg(query);
       const contextHistory = loadContextHistory();
-      const apiKey = localStorage.getItem(GEMINI_KEY_STORAGE);
+      const customApiKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       const loadingEl = appendAiMsg("Thinking...");
 
-      // 1. Live Gemini Mode (Generative + Multi-Turn)
-      if (apiKey) {
+      // 3. Cloud AI first (proxy or custom key)
+      if (navigator.onLine) {
         try {
-          const aiResponse = await queryGeminiApi(apiKey, query, contextHistory);
-          const formatted = window.WuWaFormatter ? window.WuWaFormatter.formatText(aiResponse) : aiResponse;
+          const aiResponse = await queryAI(query, contextHistory, customApiKey);
+          let formatted = window.WuWaFormatter ? window.WuWaFormatter.formatText(aiResponse) : aiResponse;
+
+          formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+            const resolved = resolvePath(url);
+            return `<br><a href="${resolved}" class="chat-doc-link">🔗 ${text} →</a>`;
+          });
+
           loadingEl.querySelector('.msg-bubble').innerHTML = formatted.replace(/\n/g, '<br>');
-          
           contextHistory.push({ role: 'user', text: query });
           contextHistory.push({ role: 'assistant', text: aiResponse });
           saveContextHistory(contextHistory);
-          
           scrollToBottom();
           return;
         } catch (err) {
-          console.warn("Gemini API failed, switching to local BM25 engine.", err);
+          console.warn("Proxy/Gemini API failed. Falling back to local BM25.", err);
         }
       }
 
-      // 2. Local BM25 Engine with Context Memory
+      // 4. Local BM25 fallback (offline or cloud failure), with disambiguation/learning
       setTimeout(() => {
         if (!window.WuWaAiKnowledge) {
-          loadingEl.querySelector('.msg-bubble').textContent = "Knowledge engine initializing, please retry.";
+          loadingEl.querySelector('.msg-bubble').textContent = "Offline engine loading...";
           return;
         }
 
@@ -344,12 +369,11 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
         const topMatch = matches[0];
         renderResponse(loadingEl, topMatch.doc.response);
 
-        // Update context window
         contextHistory.push({ role: 'user', text: query });
         contextHistory.push({ role: 'assistant', text: topMatch.doc.response.text });
         saveContextHistory(contextHistory);
 
-        // Ambiguity Check: If 2nd result score is very close, display disambiguation learning buttons
+        // Ambiguity check: if 2nd result score is close, offer disambiguation/learning
         if (matches.length > 1 && (topMatch.score - matches[1].score) < 0.6) {
           renderDisambiguation(loadingEl, query, [
             { id: topMatch.doc.id, title: topMatch.doc.title || topMatch.doc.id },
@@ -415,18 +439,13 @@ Answer user questions clearly, accurately, with markdown formatting and direct d
       scrollToBottom();
     }
 
-    function scrollToBottom() {
-      messages.scrollTop = messages.scrollHeight;
-    }
+    function scrollToBottom() { messages.scrollTop = messages.scrollHeight; }
 
     function escapeHtml(str) {
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
   }
 
-  function initAiChat() {
-    renderWidgetDOM();
-  }
-
+  function initAiChat() { renderWidgetDOM(); }
   window.WuWaAiChat = { initAiChat };
 })(window);

@@ -1,5 +1,5 @@
 /**
- * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.6.0 merged)
+ * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.0)
  */
 (function (window) {
   'use strict';
@@ -12,6 +12,7 @@
   const CONTEXT_STORAGE = 'wuwa_ai_context_history';
   const MAX_CONTEXT_TURNS = 25;
   const BAN_DURATION_MS = 3600000; // 1 hour
+  const CLOUD_TIMEOUT_MS = 15000; // 15s — don't let a slow/dead proxy stall the UI
 
   const TOXICITY_REGEX = /\b(fuck|fucking|fucker|fuk|shit|shitting|shitty|bitch|asshole|bastard|idiot|stupid|dumb|dumbass|stfu|cunt|dick|pussy|shut\s*up|hate\s*you|useless\s*bot|garbage\s*bot|trash\s*bot)\b/i;
 
@@ -45,29 +46,166 @@
   }
 
   // --------------------------------------------------------------------
-  // Cloud AI (proxy-first, KB-grounded, conversational)
+  // Response formatting helpers (shared by cloud + local BM25 paths)
   // --------------------------------------------------------------------
-  function buildSystemPrompt() {
-    let knowledgeBaseString = "No documentation loaded.";
-    if (window.WuWaAiKnowledge && window.WuWaAiKnowledge.getLoadedTopics) {
-      knowledgeBaseString = JSON.stringify(window.WuWaAiKnowledge.getLoadedTopics());
-    }
+
+  // Turns **bold** markdown (which Gemini sometimes emits instead of <strong>) into HTML.
+  function markdownBoldToHtml(text) {
+    return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
+  // Groups a <br>-delimited (or \n-delimited, already normalized to <br>) blob of HTML
+  // into properly spaced paragraphs, bullet lists, numbered lists, and callouts instead
+  // of one dense wall of text separated by bare <br> tags.
+  function formatMessageHtml(rawHtml) {
+    if (!rawHtml) return rawHtml;
+
+    // Collapse runs of 2+ <br> into an explicit paragraph break marker, then mark
+    // remaining single <br> as line breaks within a paragraph.
+    const normalized = rawHtml
+      .replace(/(<br\s*\/?>\s*){2,}/gi, '@@PARA@@')
+      .replace(/<br\s*\/?>/gi, '@@LINE@@');
+
+    const paragraphs = normalized.split('@@PARA@@').map(p => p.trim()).filter(Boolean);
+
+    const htmlParas = paragraphs.map(para => {
+      const lines = para.split('@@LINE@@').map(l => l.trim()).filter(Boolean);
+      let out = '';
+      let listBuffer = [];
+      let listType = null; // 'ul' | 'ol'
+
+      function flushList() {
+        if (listBuffer.length) {
+          out += `<${listType} class="msg-list">${listBuffer.map(li => `<li>${li}</li>`).join('')}</${listType}>`;
+          listBuffer = [];
+          listType = null;
+        }
+      }
+
+      lines.forEach(line => {
+        const bulletMatch = line.match(/^[•\-]\s*(.*)$/);
+        const numberedMatch = line.match(/^(\d+)[.)]\s*(.*)$/);
+        const isCallout = /^⚠️/.test(line);
+
+        if (bulletMatch) {
+          if (listType && listType !== 'ul') flushList();
+          listType = 'ul';
+          listBuffer.push(bulletMatch[1]);
+        } else if (numberedMatch) {
+          if (listType && listType !== 'ol') flushList();
+          listType = 'ol';
+          listBuffer.push(numberedMatch[2]);
+        } else {
+          flushList();
+          out += isCallout
+            ? `<p class="msg-callout">${line}</p>`
+            : `<p class="msg-line">${line}</p>`;
+        }
+      });
+      flushList();
+
+      return `<div class="msg-para">${out}</div>`;
+    });
+
+    return htmlParas.join('');
+  }
+
+  // If the cloud model forgot to append a documentation link, fall back to whatever
+  // the local BM25 engine ranks as the top match for this query so linking accuracy
+  // never fully depends on the LLM.
+  function ensureHyperlink(responseText, userQuery, contextHistory) {
+    const hasLink = /\[[^\]]+\]\([^)]+\)/.test(responseText);
+    if (hasLink) return responseText;
+    if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getRankedMatches) return responseText;
+
+    const { matches } = window.WuWaAiKnowledge.getRankedMatches(userQuery, contextHistory);
+    if (!matches || matches.length === 0) return responseText;
+
+    const top = matches[0].doc.response;
+    if (!top || !top.link) return responseText;
+
+    return `${responseText}\n\n[${top.linkText}](${top.link})`;
+  }
+
+  // Extracts the last markdown link from a cloud response, resolves it, and returns
+  // { bodyText, linkHtml } so the link can be rendered as its own styled block below
+  // the message instead of being buried mid-paragraph.
+  function extractLinkBlock(aiResponse) {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    let match, lastMatch = null;
+    while ((match = linkRegex.exec(aiResponse)) !== null) lastMatch = match;
+
+    if (!lastMatch) return { bodyText: aiResponse, linkHtml: '' };
+
+    const bodyText = aiResponse.slice(0, lastMatch.index) + aiResponse.slice(lastMatch.index + lastMatch[0].length);
+    const resolved = resolvePath(lastMatch[2]);
+    const linkHtml = `<div class="msg-link-block"><a href="${resolved}" class="chat-doc-link">🔗 ${lastMatch[1]} →</a></div>`;
+    return { bodyText, linkHtml };
+  }
+
+  // --------------------------------------------------------------------
+  // Cloud AI (proxy-first, BM25-weighted grounding, conversational)
+  // --------------------------------------------------------------------
+
+  // Pre-ranks the knowledge base for this exact user message via the local BM25 engine
+  // so the cloud model gets a short, weighted shortlist instead of the entire KB.
+  function buildPriorityContext(userQuery, contextHistory) {
+    if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getRankedMatches) return null;
+    const { matches } = window.WuWaAiKnowledge.getRankedMatches(userQuery, contextHistory);
+    if (!matches || matches.length === 0) return null;
+
+    return matches.slice(0, 4).map((m, i) => ({
+      rank: i + 1,
+      relevanceScore: Number(m.score.toFixed(2)),
+      id: m.doc.id,
+      title: m.doc.title,
+      link: m.doc.response.link,
+      linkText: m.doc.response.linkText,
+      summary: (m.doc.response.text || '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 400)
+    }));
+  }
+
+  // Lightweight index (no body text) of every page, used only as a fallback so the
+  // model can still pick a sensible link when BM25 finds no strong keyword match.
+  function buildTopicIndex() {
+    if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getLoadedTopics) return [];
+    return window.WuWaAiKnowledge.getLoadedTopics().map(t => ({
+      id: t.id,
+      title: t.title,
+      link: t.response && t.response.link,
+      linkText: t.response && t.response.linkText
+    }));
+  }
+
+  function buildSystemPrompt(userQuery, contextHistory) {
+    const priorityMatches = buildPriorityContext(userQuery, contextHistory);
+    const topicIndex = buildTopicIndex();
 
     return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.5.1) developed by Arglax.
-App Documentation Source of Truth:
-${knowledgeBaseString}
+
+PRIORITY_MATCHES (pre-ranked for THIS message by a local BM25 keyword search — rank 1 is the strongest match, ordered highest to lowest relevance):
+${priorityMatches ? JSON.stringify(priorityMatches) : "None — no strong keyword match was found for this message."}
+
+FULL_TOPIC_INDEX (every documentation page that exists, for when none of the priority matches fit):
+${JSON.stringify(topicIndex)}
 
 RULES:
-1. For casual greetings, small talk (e.g., "how old are you", "who are you"), respond naturally and conversationally in a polite, friendly tone.
-2. For app questions, answer using ONLY the provided documentation JSON. Include Markdown links matching 'linkText' and 'link': [Link Text](link_url).
-3. If the user describes a bug/crash, follow the remediation sequence (Vanilla Revert -> Delete Shaders -> Strip Forbidden -> Check RAM -> Report to Arglax).`;
+1. For casual greetings or small talk (e.g., "how old are you", "who are you"), respond naturally and conversationally, in a polite, friendly tone, and skip the link.
+2. For app/technical questions, ground your answer in the PRIORITY_MATCHES summaries above — do not invent CVar names, file paths, or steps that aren't implied by them.
+3. Hyperlinking: when your answer relies on a specific documentation page, end your reply with exactly ONE markdown link copied verbatim from that page's "link" and "linkText" fields, formatted as [linkText](link). Default to the rank-1 PRIORITY_MATCHES entry unless the conversation clearly points to a different one. Never fabricate a URL, and never link when the message was just small talk.
+4. Structure longer answers clearly: short paragraphs, numbered steps for procedures, bullet points for lists — separate distinct ideas with a blank line rather than one dense paragraph.
+5. If the user describes a bug/crash, follow the remediation sequence (Vanilla Revert -> Delete Shaders -> Strip Forbidden -> Check RAM -> Report to Arglax).`;
   }
 
   async function queryAI(userPrompt, contextHistory, customApiKey) {
-    const dynamicPrompt = buildSystemPrompt();
+    const dynamicPrompt = buildSystemPrompt(userPrompt, contextHistory);
     const contents = [
       { role: "user", parts: [{ text: dynamicPrompt }] },
-      { role: "model", parts: [{ text: "Understood. I will converse naturally for small talk and use the documentation for technical questions." }] }
+      { role: "model", parts: [{ text: "Understood. I will converse naturally for small talk, ground technical answers in PRIORITY_MATCHES, and link to the top-ranked page verbatim." }] }
     ];
 
     contextHistory.slice(-MAX_CONTEXT_TURNS * 2).forEach(msg => {
@@ -83,18 +221,26 @@ RULES:
       ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(customApiKey)}`
       : WORKER_PROXY_URL;
 
-    const response = await fetch(targetUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents })
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CLOUD_TIMEOUT_MS);
 
-    if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
-    const data = await response.json();
-    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-      return data.candidates[0].content.parts.map(p => p.text).join('\n');
+    try {
+      const response = await fetch(targetUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents }),
+        signal: controller.signal
+      });
+
+      if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+      const data = await response.json();
+      if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+        return data.candidates[0].content.parts.map(p => p.text).join('\n');
+      }
+      throw new Error('Invalid AI response structure');
+    } finally {
+      clearTimeout(timeoutId);
     }
-    throw new Error('Invalid AI response structure');
   }
 
   // --------------------------------------------------------------------
@@ -125,12 +271,44 @@ RULES:
   // --------------------------------------------------------------------
   // DOM
   // --------------------------------------------------------------------
+
+  // Scoped formatting rules for the paragraph/list/callout structure produced by
+  // formatMessageHtml(). Injected inline so it applies regardless of whatever external
+  // stylesheet the host page already loads for the rest of the widget chrome.
+  const RESPONSE_FORMATTING_STYLE = `
+    #ai-chat-root .msg-bubble { line-height: 1.55; }
+    #ai-chat-root .msg-para { margin: 0 0 10px 0; }
+    #ai-chat-root .msg-para:last-child { margin-bottom: 0; }
+    #ai-chat-root .msg-line { margin: 0 0 6px 0; }
+    #ai-chat-root .msg-line:last-child { margin-bottom: 0; }
+    #ai-chat-root .msg-list { margin: 4px 0 10px 20px; padding: 0; }
+    #ai-chat-root .msg-list:last-child { margin-bottom: 0; }
+    #ai-chat-root .msg-list li { margin-bottom: 5px; line-height: 1.5; }
+    #ai-chat-root .msg-list li:last-child { margin-bottom: 0; }
+    #ai-chat-root .msg-callout {
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 3px solid #f59e0b;
+      padding: 6px 10px;
+      border-radius: 4px;
+      margin: 8px 0 10px 0;
+    }
+    #ai-chat-root .msg-bubble code {
+      background: rgba(127, 127, 127, 0.16);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    #ai-chat-root .msg-link-block { margin-top: 10px; }
+    #ai-chat-root .chat-doc-link { display: inline-block; }
+  `;
+
   function renderWidgetDOM() {
     if (document.getElementById('ai-chat-root')) return;
 
     const root = document.createElement('div');
     root.id = 'ai-chat-root';
     root.innerHTML = `
+      <style>${RESPONSE_FORMATTING_STYLE}</style>
       <button id="ai-chat-fab" class="ai-chat-fab" aria-label="Open AI Assistant" title="Open AI Assistant">
         <span class="fab-icon">💬</span>
         <span class="fab-label">AI Assistant</span>
@@ -312,25 +490,29 @@ RULES:
       const customApiKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       const loadingEl = appendAiMsg("Thinking...");
 
-      // 3. Cloud AI first (proxy or custom key)
+      // 3. Cloud AI first (default path whenever online) — BM25-weighted grounding
+      //    decides the hyperlink, Gemini handles the conversational wording.
       if (navigator.onLine) {
         try {
-          const aiResponse = await queryAI(query, contextHistory, customApiKey);
-          let formatted = window.WuWaFormatter ? window.WuWaFormatter.formatText(aiResponse) : aiResponse;
+          let aiResponse = await queryAI(query, contextHistory, customApiKey);
+          aiResponse = ensureHyperlink(aiResponse, query, contextHistory);
 
-          formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
-            const resolved = resolvePath(url);
-            return `<br><a href="${resolved}" class="chat-doc-link">🔗 ${text} →</a>`;
-          });
+          const { bodyText, linkHtml } = extractLinkBlock(aiResponse);
 
-          loadingEl.querySelector('.msg-bubble').innerHTML = formatted.replace(/\n/g, '<br>');
+          let processed = window.WuWaFormatter ? window.WuWaFormatter.formatText(bodyText) : bodyText;
+          processed = markdownBoldToHtml(processed);
+          processed = processed.replace(/\n/g, '<br>');
+          const structuredHtml = formatMessageHtml(processed);
+
+          loadingEl.querySelector('.msg-bubble').innerHTML = structuredHtml + linkHtml;
+
           contextHistory.push({ role: 'user', text: query });
           contextHistory.push({ role: 'assistant', text: aiResponse });
           saveContextHistory(contextHistory);
           scrollToBottom();
           return;
         } catch (err) {
-          console.warn("Proxy/Gemini API failed. Falling back to local BM25.", err);
+          console.warn("Proxy/Gemini API failed or timed out. Falling back to local BM25.", err);
         }
       }
 
@@ -353,7 +535,7 @@ RULES:
 
         if (matches.length === 0) {
           const fallback = {
-            text: `I couldn't locate a precise match for that. Are you trying to resolve a crash, configure Shizuku, or find recommended CVars?`,
+            text: `I couldn't locate a precise match for that.<br>Are you trying to resolve a crash, configure Shizuku, or find recommended CVars?`,
             link: "index.html",
             linkText: "Explore Documentation Home"
           };
@@ -386,8 +568,11 @@ RULES:
     function renderResponse(container, responseObj) {
       const resolved = resolvePath(responseObj.link);
       const textFormatted = window.WuWaFormatter ? window.WuWaFormatter.formatText(responseObj.text) : responseObj.text;
-      const linkHtml = responseObj.link ? `<br><a href="${resolved}" class="chat-doc-link">🔗 ${responseObj.linkText} →</a>` : '';
-      container.querySelector('.msg-bubble').innerHTML = `${textFormatted}${linkHtml}`;
+      const structuredHtml = formatMessageHtml(textFormatted);
+      const linkHtml = responseObj.link
+        ? `<div class="msg-link-block"><a href="${resolved}" class="chat-doc-link">🔗 ${responseObj.linkText} →</a></div>`
+        : '';
+      container.querySelector('.msg-bubble').innerHTML = structuredHtml + linkHtml;
       scrollToBottom();
     }
 

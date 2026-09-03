@@ -4,7 +4,7 @@
 (function (window) {
   'use strict';
 
-  const WORKER_PROXY_URL = 'https://wuwa-ai-proxy.your-subdomain.workers.dev';
+  const WORKER_PROXY_URL = 'wuwa-ai-proxy.arglaxaqw.workers.dev';
 
   const GEMINI_KEY_STORAGE = 'wuwa_gemini_api_key';
   const STRIKE_STORAGE = 'wuwa_ai_strikes';

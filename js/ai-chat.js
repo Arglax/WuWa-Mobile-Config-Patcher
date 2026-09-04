@@ -12,11 +12,8 @@
   const CONTEXT_STORAGE = 'wuwa_ai_context_history';
   const MAX_CONTEXT_TURNS = 25;
   const BAN_DURATION_MS = 3600000; // 1 hour
-  const CLOUD_TIMEOUT_MS = 15000; // 15s — don't let a slow/dead proxy stall the UI
+  const CLOUD_TIMEOUT_MS = 30000; // 30s for sht net people
 
-  // Guarantees the worker URL always has an explicit scheme — a bare hostname
-  // (no https://) is silently treated by fetch() as a relative path and will 404,
-  // which would make every cloud call fail and permanently fall back to BM25.
   function normalizeWorkerUrl(url) {
     if (!url) return url;
     return /^https?:\/\//i.test(url) ? url : `https://${url}`;

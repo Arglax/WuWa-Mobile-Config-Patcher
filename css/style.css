@@ -1,4 +1,6 @@
-/* Eye-Friendly Dark Emerald Teal & Amber Theme — WuWa Config Patcher Documentation (v1.5.0) */
+/**
+ * WuWa Mobile Config Patcher — Documentation Site Stylesheet (v1.5.0)
+ */
 :root {
     --bg-main: #06100e;
     --bg-surface: #0c1917;
@@ -106,6 +108,32 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
+}
+
+/* Hamburger toggle — injected into .app-header by initMobileNav() in js/main.js */
+.mobile-nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-main);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    margin-right: 8px;
+    position: relative;
+    z-index: 600;
+}
+
+.mobile-nav-toggle:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
 }
 
 /* Theme Toggle Button */
@@ -133,6 +161,7 @@ body {
     position: relative;
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .search-icon {
@@ -150,6 +179,8 @@ body {
     color: var(--text-main);
     font-size: 13px;
     width: 220px;
+    max-width: 100%;
+    min-width: 0;
     transition: all 0.2s ease;
 }
 
@@ -178,6 +209,13 @@ body {
     border-color: var(--accent-cyan);
     color: var(--accent-cyan);
 }
+
+.github-link {
+    flex-shrink: 0;
+}
+
+/* .github-link-text span is wrapped around the link's text node at runtime by js/main.js so it
+   can be hidden independently of the SVG icon on narrow screens (see responsive block below). */
 
 /* ==========================================================================
    Search Dropdown Results
@@ -283,7 +321,30 @@ body {
     top: 70px;
     height: calc(100vh - 70px);
     overflow-y: auto;
-    transition: background-color 0.25s ease, border-color 0.25s ease;
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+/* Backdrop behind the off-canvas sidebar on mobile — injected by initMobileNav() in js/main.js */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    /* Below .app-header's z-index (100) on purpose: the header has an opaque background, so it
+       stays visually intact and the hamburger button stays clickable while the overlay dims the
+       content behind it. Still above the sidebar drawer's content siblings. */
+    z-index: 90;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+body.nav-locked {
+    overflow: hidden;
 }
 
 .sidebar-section {
@@ -611,6 +672,22 @@ code {
     background-color: var(--bg-card);
     font-weight: 700;
     color: var(--accent-gold);
+}
+
+/* Auto-applied around plain .doc-table elements by initResponsiveTables() in js/main.js */
+.table-scroll {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin: 20px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll .doc-table {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    min-width: 480px;
 }
 
 .frozen-table-container {
@@ -1271,8 +1348,98 @@ code {
 
 /* ==========================================================================
    Responsive Breakpoints
+   900px = header/nav switches to hamburger + off-canvas sidebar drawer.
+   768/600/480/420/380 = progressive tightening of header, content, grids,
+   tables and the AI chat widget for phone-width viewports.
    ========================================================================== */
+
+/* ---- 900px: header layout + off-canvas sidebar drawer ---- */
+@media screen and (max-width: 900px) {
+    .mobile-nav-toggle {
+        display: inline-flex;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 70px;
+        height: calc(100vh - 70px);
+        width: min(82vw, 300px);
+        z-index: 500;
+        transform: translateX(-100%);
+        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+
+    .main-container {
+        min-height: calc(100vh - 110px);
+    }
+}
+
+/* ---- 768px: header controls shrink, content padding tightens ---- */
 @media screen and (max-width: 768px) {
+    .app-header {
+        padding: 0 12px;
+    }
+
+    .header-brand {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .header-brand h1 {
+        font-size: 15px;
+        max-width: 38vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .version-badge {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .theme-toggle-btn {
+        padding: 8px;
+    }
+
+    .theme-toggle-btn .theme-text {
+        display: none;
+    }
+
+    .search-box {
+        flex: 1 1 auto;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .search-dropdown {
+        position: fixed;
+        top: 70px;
+        left: 8px;
+        right: 8px;
+        width: auto;
+        max-width: none;
+    }
+
+    .content-area {
+        padding: 1.5rem 5%;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
     .ai-chat-fab {
         bottom: 16px;
         right: 16px;
@@ -1290,6 +1457,59 @@ code {
     }
 }
 
+/* ---- 600px: GitHub label hides (icon-only), modal tightens ---- */
+@media screen and (max-width: 600px) {
+    .github-link-text {
+        display: none;
+    }
+    .github-link {
+        padding: 8px 10px;
+    }
+
+    .modal-window {
+        width: 94%;
+    }
+    .modal-body {
+        padding: 1rem;
+    }
+    .modal-header, .modal-footer {
+        padding: 0.85rem 1rem;
+    }
+}
+
+/* ---- 480px: brand truncates further, tables/grids go single-column ---- */
+@media screen and (max-width: 480px) {
+    .brand-logo {
+        width: 32px;
+        height: 32px;
+    }
+    .header-brand h1 {
+        max-width: 28vw;
+        font-size: 14px;
+    }
+
+    .content-area {
+        padding: 1.25rem 4%;
+    }
+    .section-header h2 {
+        font-size: 18px;
+    }
+    .doc-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .doc-table th, .doc-table td,
+    .frozen-table th, .frozen-table td {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}
+
+/* ---- 420px: AI chat FAB collapses to a real floating icon button ---- */
 @media screen and (max-width: 420px) {
     .ai-chat-window {
         bottom: 60px;
@@ -1305,5 +1525,31 @@ code {
     }
     .msg-bubble, .msg-ai .msg-bubble, .msg-user .msg-bubble {
         font-size: 12px;
+    }
+
+    .ai-chat-fab {
+        width: 52px;
+        height: 52px;
+        padding: 0;
+        border-radius: 50%;
+        justify-content: center;
+        bottom: 16px;
+        right: 16px;
+    }
+    .ai-chat-fab .fab-label {
+        display: none;
+    }
+    .ai-chat-fab .fab-icon {
+        font-size: 22px;
+    }
+}
+
+/* ---- 380px: last-resort single-column safety net for card grids ---- */
+@media screen and (max-width: 380px) {
+    .features-grid, .editor-modes-container, .utilities-grid {
+        grid-template-columns: 1fr;
+    }
+    .header-brand h1 {
+        max-width: 22vw;
     }
 }

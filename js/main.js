@@ -1,10 +1,7 @@
 /**
  * WuWa Mobile Config Patcher - Main Orchestrator Script
- * Imports and initializes metadata, search, sidebar, code copy, modal, theme, and AI chat components.
- * Also injects mobile-only UI (hamburger + sidebar drawer overlay) and wraps wide tables for
- * horizontal scrolling, so no per-page HTML edits are needed for responsive behavior.
+ * Imports and initializes i18n, metadata, search, sidebar, code copy, modal, theme, and AI chat components.
  */
-
 (function (window) {
   'use strict';
 
@@ -30,7 +27,6 @@
     });
   }
 
-  // Hamburger toggle + off-canvas drawer for the sidebar on phones/small tablets.
   function initMobileNav() {
     const header = document.querySelector('.app-header');
     const sidebar = document.querySelector('.sidebar');
@@ -82,8 +78,6 @@
     });
   }
 
-  // Splits the trailing text of .github-link into its own span so CSS can hide just the
-  // label (not the SVG icon) on narrow screens.
   function wrapGithubLinkText() {
     document.querySelectorAll('.github-link').forEach((link) => {
       if (link.querySelector('.github-link-text')) return;
@@ -96,9 +90,6 @@
     });
   }
 
-  // Wraps plain .doc-table elements in a horizontally-scrollable container so wide tables
-  // don't blow out the layout on narrow viewports. Skips tables already in a scroll wrapper
-  // (e.g. .frozen-table-container, which ships its own).
   function initResponsiveTables() {
     document.querySelectorAll('table.doc-table').forEach((table) => {
       if (table.closest('.table-scroll') || table.closest('.frozen-table-container')) return;
@@ -113,6 +104,11 @@
     const resolvePath = (window.WuWaPathResolver && window.WuWaPathResolver.resolvePath)
       ? window.WuWaPathResolver.resolvePath
       : (p) => p;
+
+    // 1. Initialize Localization first so dynamic text applies to DOM
+    if (window.WuWaI18n && window.WuWaI18n.initI18n) {
+      window.WuWaI18n.initI18n();
+    }
 
     if (window.WuWaMetadata && window.WuWaMetadata.loadGlobalMetadata) {
       window.WuWaMetadata.loadGlobalMetadata(resolvePath);
@@ -147,11 +143,8 @@
     wrapGithubLinkText();
     initResponsiveTables();
 
-    // --- NEW: Service Worker Registration for Offline Caching ---
     if ('serviceWorker' in navigator) {
-      // Delay registration until after page load to ensure UI performance
       window.addEventListener('load', () => {
-        // Resolve path handles subfolder routing on GitHub Pages automatically
         const swPath = resolvePath('sw.js');
         navigator.serviceWorker.register(swPath)
           .then(registration => {

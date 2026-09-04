@@ -1,12 +1,18 @@
 /**
  * WuWa Mobile Config Patcher - Interactive Feature Cards & Dual-Tab Modal Engine
  * Supports tab switching: End-User Quick Steps vs. Technical & Creator Mechanics.
+ * Integrated with WuWaI18n localization.
  */
 (function (window) {
   'use strict';
 
+  function t(key, fallback) {
+    return (window.WuWaI18n && window.WuWaI18n.t) ? window.WuWaI18n.t(key, fallback) : fallback;
+  }
+
   const FEATURE_DETAILS = {
     '1-click-patching': {
+      titleKey: 'card_1click_title',
       title: '1-Click Patching Workflow',
       route: 'pages/patching-configs.html',
       casual: `
@@ -40,6 +46,7 @@
     },
 
     'live-config-editor': {
+      titleKey: 'card_editor_title',
       title: 'Live Config Editor & Modes',
       route: 'pages/config-editor.html',
       casual: `
@@ -70,6 +77,7 @@
     },
 
     'engine-section-guards': {
+      titleKey: 'card_guards_title',
       title: 'Engine CVar Section Guards',
       route: 'pages/config-editor.html#cvar-guards',
       casual: `
@@ -107,6 +115,7 @@
     },
 
     'force-csharp': {
+      titleKey: 'card_csharp_title',
       title: 'Force C# Environment Scripting',
       route: 'pages/enable-csharp.html',
       casual: `
@@ -137,6 +146,7 @@
     },
 
     'log-tools': {
+      titleKey: 'card_logtools_title',
       title: 'Log Tools & Decryptor Suite',
       route: 'pages/utilities-diagnostics.html',
       casual: `
@@ -162,6 +172,7 @@
     },
 
     'cvar-bank': {
+      titleKey: 'card_cvarbank_title',
       title: 'CVar Bank & Diagnostic Tools',
       route: 'pages/advanced-tools.html',
       casual: `
@@ -193,6 +204,8 @@
     return window.WuWaFormatter ? window.WuWaFormatter.formatText(html) : html;
   }
 
+  let activeFeatureId = null;
+
   function initFeatureModals() {
     const cards = document.querySelectorAll('.clickable-card');
     const modal = document.getElementById('feature-modal');
@@ -207,6 +220,17 @@
     const tabTechnicalBtn = document.getElementById('modal-tab-technical');
     const tabContentCasual = document.getElementById('tab-content-casual');
     const tabContentTechnical = document.getElementById('tab-content-technical');
+
+    function updateModalTexts() {
+      if (tabCasualBtn) tabCasualBtn.textContent = t('modal_casual_tab', 'End-User Quick Steps');
+      if (tabTechnicalBtn) tabTechnicalBtn.textContent = t('modal_technical_tab', 'Creator & Technical Mechanics');
+      if (pageLink) pageLink.textContent = t('modal_full_page', 'View Full Documentation Page');
+
+      if (activeFeatureId && FEATURE_DETAILS[activeFeatureId]) {
+        const detail = FEATURE_DETAILS[activeFeatureId];
+        modalTitle.textContent = detail.titleKey ? t(detail.titleKey, detail.title) : detail.title;
+      }
+    }
 
     function switchTab(activeTab) {
       if (activeTab === 'casual') {
@@ -230,16 +254,15 @@
     cards.forEach((card) => {
       card.addEventListener('click', () => {
         const featureId = card.getAttribute('data-feature');
+        activeFeatureId = featureId;
         const detail = FEATURE_DETAILS[featureId];
 
-        if (detail) {
-          modalTitle.textContent = detail.title;
-          pageLink.href = resolvePath(detail.route);
-          pageLink.textContent = 'View Full Documentation Page';
+        updateModalTexts();
 
+        if (detail) {
+          pageLink.href = resolvePath(detail.route);
           if (tabContentCasual) tabContentCasual.innerHTML = formatHtml(detail.casual);
           if (tabContentTechnical) tabContentTechnical.innerHTML = formatHtml(detail.technical);
-
           switchTab('casual');
         } else {
           const cardTitle = card.querySelector('h4') ? card.querySelector('h4').textContent : 'Feature Details';
@@ -254,7 +277,11 @@
       });
     });
 
-    const closeModal = () => modal.classList.remove('active');
+    const closeModal = () => {
+      modal.classList.remove('active');
+      activeFeatureId = null;
+    };
+
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
@@ -265,6 +292,8 @@
         closeModal();
       }
     });
+
+    window.addEventListener('wuwa:langchange', updateModalTexts);
   }
 
   window.WuWaModal = { initFeatureModals, FEATURE_DETAILS };

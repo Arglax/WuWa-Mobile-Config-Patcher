@@ -1,5 +1,6 @@
 /**
  * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.5)
+ * Enhanced with Dynamic i18n Localization & Multilingual Cloud AI Prompts.
  */
 (function (window) {
   'use strict';
@@ -11,8 +12,21 @@
   const BAN_STORAGE = 'wuwa_ai_ban_until';
   const CONTEXT_STORAGE = 'wuwa_ai_context_history';
   const MAX_CONTEXT_TURNS = 25;
-  const BAN_DURATION_MS = 3600000; // 1 hour
-  const CLOUD_TIMEOUT_MS = 30000;  // 30s timeout guard
+  const BAN_DURATION_MS = 3600000;
+  const CLOUD_TIMEOUT_MS = 30000;
+
+  function t(key, fallback = '', replacements = {}) {
+    if (window.WuWaI18n && window.WuWaI18n.t) {
+      return window.WuWaI18n.t(key, fallback, replacements);
+    }
+    let res = fallback || key;
+    if (replacements && typeof res === 'string') {
+      Object.keys(replacements).forEach(k => {
+        res = res.replace(new RegExp(`\\{${k}\\}`, 'g'), replacements[k]);
+      });
+    }
+    return res;
+  }
 
   function normalizeWorkerUrl(url) {
     if (!url) return url;
@@ -21,18 +35,17 @@
 
   const TOXICITY_REGEX = /\b(fuck|fucking|fucker|fuk|shit|shitting|shitty|bitch|asshole|bastard|idiot|stupid|dumb|dumbass|stfu|cunt|dick|pussy|shut\s*up|hate\s*you|useless\s*bot|garbage\s*bot|trash\s*bot)\b/i;
 
-  const QUICK_PROMPTS = [
-    { label: "🛠️ Recommended CVars", query: "what cvars can i put" },
-    { label: "📱 RAM & Hardware", query: "recommended ram" },
-    { label: "⚡ Shizuku Setup", query: "How do I setup Shizuku?" },
-    { label: "🚀 C# Environment", query: "How to enable C# Environment?" },
-    { label: "🛡️ Section Guards", query: "What are CVar Section Guards?" },
-    { label: "🔍 CVar Analyzer", query: "How does CVar Analyzer work?" }
-  ];
+  function getQuickPrompts() {
+    return [
+      { key: "prompt_cvars", label: t("prompt_cvars", "🛠️ Recommended CVars"), query: "what cvars can i put" },
+      { key: "prompt_ram", label: t("prompt_ram", "📱 RAM & Hardware"), query: "recommended ram" },
+      { key: "prompt_shizuku", label: t("prompt_shizuku", "⚡ Shizuku Setup"), query: "How do I setup Shizuku?" },
+      { key: "prompt_csharp", label: t("prompt_csharp", "🚀 C# Environment"), query: "How to enable C# Environment?" },
+      { key: "prompt_guards", label: t("prompt_guards", "🛡️ Section Guards"), query: "What are CVar Section Guards?" },
+      { key: "prompt_analyzer", label: t("prompt_analyzer", "🔍 CVar Analyzer"), query: "How does CVar Analyzer work?" }
+    ];
+  }
 
-  // --------------------------------------------------------------------
-  // Context Memory
-  // --------------------------------------------------------------------
   function loadContextHistory() {
     try { return JSON.parse(sessionStorage.getItem(CONTEXT_STORAGE) || '[]'); }
     catch (e) { return []; }
@@ -51,29 +64,22 @@
     return targetUrl;
   }
 
-  // --------------------------------------------------------------------
-  // Response Formatting Helpers (Shared by Cloud & Local Engine)
-  // --------------------------------------------------------------------
   function markdownToHtml(text) {
     if (!text) return '';
     return text
-      // Bold **text** or __text__
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/__([^_]+)__/g, '<strong>$1</strong>')
-      // Inline code `code`
       .replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
   function formatMessageHtml(rawHtml) {
     if (!rawHtml) return rawHtml;
 
-    // Normalize markdown/plain line breaks and HTML breaks
     const preprocessed = rawHtml
       .replace(/\r\n/g, '\n')
       .replace(/\n\n+/g, '<br><br>')
       .replace(/\n/g, '<br>');
 
-    // Collapse runs of 2+ <br> into explicit paragraph markers
     const normalized = preprocessed
       .replace(/(<br\s*\/?>\s*){2,}/gi, '@@PARA@@')
       .replace(/<br\s*\/?>/gi, '@@LINE@@');
@@ -84,7 +90,7 @@
       const lines = para.split('@@LINE@@').map(l => l.trim()).filter(Boolean);
       let out = '';
       let listBuffer = [];
-      let listType = null; // 'ul' | 'ol'
+      let listType = null;
 
       function flushList() {
         if (listBuffer.length) {
@@ -131,7 +137,7 @@
     const top = learnedMatch ? learnedMatch.response : (matches && matches[0] ? matches[0].doc.response : null);
     if (!top || !top.link) return responseText;
 
-    return `${responseText}\n\n[${top.linkText || 'View Related Documentation'}](${top.link})`;
+    return `${responseText}\n\n[${top.linkText || t('ai_doc_link_text', 'View Documentation')}](${top.link})`;
   }
 
   function extractLinkBlock(aiResponse) {
@@ -147,9 +153,6 @@
     return { bodyText, linkHtml };
   }
 
-  // --------------------------------------------------------------------
-  // Cloud AI Grounding (BM25 Pre-Ranking Context Builder)
-  // --------------------------------------------------------------------
   function buildPriorityContext(userQuery, contextHistory) {
     if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getRankedMatches) return null;
     const { matches } = window.WuWaAiKnowledge.getRankedMatches(userQuery, contextHistory);
@@ -161,7 +164,7 @@
       id: m.doc.id,
       title: m.doc.title,
       link: m.doc.response ? m.doc.response.link : 'index.html',
-      linkText: m.doc.response ? m.doc.response.linkText : 'Documentation',
+      linkText: m.doc.response ? m.doc.response.linkText : t('ai_doc_link_text', 'View Documentation'),
       summary: ((m.doc.response && m.doc.response.text) || '')
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
@@ -183,20 +186,29 @@
   function buildSystemPrompt(userQuery, contextHistory) {
     const priorityMatches = buildPriorityContext(userQuery, contextHistory);
     const topicIndex = buildTopicIndex();
+    const curLang = window.WuWaI18n ? window.WuWaI18n.getCurrentLang() : 'en';
+    const langConfig = (window.WuWaI18n && window.WuWaI18n.LANGUAGES && window.WuWaI18n.LANGUAGES[curLang])
+      ? window.WuWaI18n.LANGUAGES[curLang]
+      : { name: 'English', code: 'en' };
 
     return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.5.1) developed by Arglax.
 
-PRIORITY_MATCHES (pre-ranked for THIS message by a local BM25 keyword search — rank 1 is the strongest match, ordered highest to lowest relevance):
-${priorityMatches ? JSON.stringify(priorityMatches) : "None — no strong keyword match was found for this message."}
+CRITICAL LANGUAGE REQUIREMENT:
+The user's preferred language is ${langConfig.name} (Code: ${curLang}).
+You MUST reply completely, naturally, and accurately in ${langConfig.name}.
+Translate all advice, descriptions, steps, and conversational speech into ${langConfig.name}. Keep exact technical terms (e.g. Engine.ini, DeviceProfiles.ini, r.ShadowQuality, -ForceEnableCSharpEnvironment, Shizuku, libsu) in their original technical format.
 
-FULL_TOPIC_INDEX (every documentation page that exists, for when none of the priority matches fit):
+PRIORITY_MATCHES (pre-ranked for THIS message by local BM25 search):
+${priorityMatches ? JSON.stringify(priorityMatches) : "None."}
+
+FULL_TOPIC_INDEX:
 ${JSON.stringify(topicIndex)}
 
 RULES:
-1. For casual greetings or small talk (e.g., "how old are you", "who are you"), respond naturally and conversationally in a polite, friendly tone, and skip the link.
-2. For app/technical questions, ground your answer strictly in the PRIORITY_MATCHES summaries above — do not invent CVar names, file paths, or steps that aren't implied by them.
-3. Hyperlinking: when your answer relies on a specific documentation page, end your reply with exactly ONE markdown link copied verbatim from that page's "link" and "linkText" fields, formatted as [linkText](link). Default to the rank-1 PRIORITY_MATCHES entry unless the conversation clearly points to a different one. Never fabricate a URL, and never link when the message was just small talk.
-4. Structure longer answers clearly: short paragraphs, numbered steps for procedures, bullet points for lists — separate distinct ideas with a blank line rather than one dense paragraph.
+1. For casual greetings or small talk, respond conversationally and naturally in ${langConfig.name}, skipping any link.
+2. For app/technical questions, ground your answer in PRIORITY_MATCHES. Do not invent CVar names or file paths.
+3. Hyperlinking: when your answer relies on a documentation page, end your reply with ONE markdown link formatted as [linkText](link).
+4. Structure answers with short paragraphs and bullet points.
 5. If the user describes a bug/crash, follow the remediation sequence (Vanilla Revert -> Delete Shaders -> Strip Forbidden -> Check RAM -> Report to Arglax).`;
   }
 
@@ -204,7 +216,7 @@ RULES:
     const dynamicPrompt = buildSystemPrompt(userPrompt, contextHistory);
     const contents = [
       { role: "user", parts: [{ text: dynamicPrompt }] },
-      { role: "model", parts: [{ text: "Understood. I will converse naturally for small talk, ground technical answers in PRIORITY_MATCHES, and link to the top-ranked page verbatim." }] }
+      { role: "model", parts: [{ text: "Understood. I will converse naturally, translate all explanations into the specified language, and adhere to the PRIORITY_MATCHES grounding." }] }
     ];
 
     contextHistory.slice(-MAX_CONTEXT_TURNS * 2).forEach(msg => {
@@ -242,9 +254,6 @@ RULES:
     }
   }
 
-  // --------------------------------------------------------------------
-  // Strike & Suspension System
-  // --------------------------------------------------------------------
   function checkBanStatus() {
     const banUntil = parseInt(localStorage.getItem(BAN_STORAGE) || '0', 10);
     if (banUntil && Date.now() < banUntil) {
@@ -266,9 +275,6 @@ RULES:
     return strikes;
   }
 
-  // --------------------------------------------------------------------
-  // Scoped CSS & DOM Injections
-  // --------------------------------------------------------------------
   const RESPONSE_FORMATTING_STYLE = `
     #ai-chat-root .msg-bubble { line-height: 1.55; }
     #ai-chat-root .msg-para { margin: 0 0 10px 0; }
@@ -313,7 +319,7 @@ RULES:
       <style>${RESPONSE_FORMATTING_STYLE}</style>
       <button id="ai-chat-fab" class="ai-chat-fab" aria-label="Open AI Assistant" title="Open AI Assistant">
         <span class="fab-icon">💬</span>
-        <span class="fab-label">AI Assistant</span>
+        <span class="fab-label" id="ai-chat-fab-label">${t('ai_fab_label', 'AI Assistant')}</span>
       </button>
 
       <div id="ai-chat-window" class="ai-chat-window hidden" role="dialog" aria-modal="true">
@@ -321,8 +327,8 @@ RULES:
           <div class="header-info">
             <span class="ai-avatar">🤖</span>
             <div>
-              <h4>WuWa AI Assistant</h4>
-              <span id="ai-connection-status" class="ai-status">Checking connection...</span>
+              <h4 id="ai-chat-header-title">${t('ai_assistant_title', 'WuWa AI Assistant')}</h4>
+              <span id="ai-connection-status" class="ai-status">${t('ai_status_checking', 'Checking connection...')}</span>
             </div>
           </div>
           <div class="header-actions">
@@ -333,28 +339,28 @@ RULES:
         </div>
 
         <div id="ai-chat-settings" class="ai-chat-settings hidden">
-          <h5>Custom Gemini API Settings (Optional)</h5>
-          <p>The assistant works automatically online for free. Paste a personal key to use your own quota.</p>
-          <input type="password" id="gemini-api-key-input" placeholder="Paste Gemini API Key (AQ... or AIza...)" autocomplete="off">
+          <h5 id="ai-settings-title">${t('ai_settings_title', 'Custom Gemini API Settings (Optional)')}</h5>
+          <p id="ai-settings-desc">${t('ai_settings_desc', 'The assistant works automatically online for free. Paste a personal key to use your own quota.')}</p>
+          <input type="password" id="gemini-api-key-input" placeholder="${t('ai_settings_placeholder', 'Paste Gemini API Key (AQ... or AIza...)')}" autocomplete="off">
           <div class="settings-btn-row">
-            <button id="save-gemini-key-btn" class="btn-chat-action">Save Key</button>
-            <button id="clear-gemini-key-btn" class="btn-chat-secondary">Use Default</button>
+            <button id="save-gemini-key-btn" class="btn-chat-action">${t('ai_btn_save_key', 'Save Key')}</button>
+            <button id="clear-gemini-key-btn" class="btn-chat-secondary">${t('ai_btn_use_default', 'Use Default')}</button>
           </div>
         </div>
 
         <div id="ai-chat-messages" class="ai-chat-messages">
-          <div class="chat-msg msg-ai">
+          <div class="chat-msg msg-ai" id="ai-chat-welcome-msg">
             <div class="msg-bubble">
-              👋 Hello! I am your <strong>WuWa Config Patcher Assistant</strong>. Ask me anything about presets, CVars, Shizuku, or game troubleshooting!
+              ${t('ai_msg_welcome', '👋 Hello! I am your <strong>WuWa Config Patcher Assistant</strong>. Ask me anything about presets, CVars, Shizuku, or game troubleshooting!')}
             </div>
           </div>
           <div class="prompt-chips-container" id="prompt-chips-container">
-            ${QUICK_PROMPTS.map(p => `<button class="prompt-chip" data-query="${p.query}">${p.label}</button>`).join('')}
+            ${getQuickPrompts().map(p => `<button class="prompt-chip" data-key="${p.key}" data-query="${p.query}">${p.label}</button>`).join('')}
           </div>
         </div>
 
         <form id="ai-chat-form" class="ai-chat-input-row">
-          <input type="text" id="ai-chat-input" placeholder="Ask a question..." autocomplete="off">
+          <input type="text" id="ai-chat-input" placeholder="${t('ai_input_placeholder', 'Ask a question...')}" autocomplete="off">
           <button type="submit" id="ai-chat-send-btn" class="ai-chat-send-btn">➢</button>
         </form>
       </div>
@@ -379,35 +385,65 @@ RULES:
     const sendBtn = document.getElementById('ai-chat-send-btn');
     const messages = document.getElementById('ai-chat-messages');
     const statusEl = document.getElementById('ai-connection-status');
+    const promptChipsContainer = document.getElementById('prompt-chips-container');
 
     function lockInput(placeholderText) {
       input.disabled = true;
       sendBtn.disabled = true;
-      input.placeholder = placeholderText || "AI Assistant temporarily suspended.";
+      input.placeholder = placeholderText || t('ai_suspended', 'AI Assistant temporarily suspended.');
     }
 
     function unlockInput() {
       input.disabled = false;
       sendBtn.disabled = false;
-      input.placeholder = "Ask a question...";
+      input.placeholder = t('ai_input_placeholder', 'Ask a question...');
     }
 
     function updateStatusIndicator() {
       const customKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       if (!navigator.onLine) {
-        statusEl.textContent = "Offline • Local Hybrid Engine Active";
+        statusEl.textContent = t('ai_status_offline', 'Offline • Local Hybrid Engine Active');
         statusEl.style.color = "#f59e0b";
       } else if (customKey) {
-        statusEl.textContent = "Online • Custom Gemini Key Active";
+        statusEl.textContent = t('ai_status_online_custom', 'Online • Custom Gemini Key Active');
         statusEl.style.color = "#10b981";
       } else {
-        statusEl.textContent = "Online • Shared Assistant Active";
+        statusEl.textContent = t('ai_status_online_shared', 'Online • Shared Assistant Active');
         statusEl.style.color = "#10b981";
       }
     }
 
+    function updateLocalizedUI() {
+      const fabLabel = document.getElementById('ai-chat-fab-label');
+      const headerTitle = document.getElementById('ai-chat-header-title');
+      const settingsTitle = document.getElementById('ai-settings-title');
+      const settingsDesc = document.getElementById('ai-settings-desc');
+
+      if (fabLabel) fabLabel.textContent = t('ai_fab_label', 'AI Assistant');
+      if (headerTitle) headerTitle.textContent = t('ai_assistant_title', 'WuWa AI Assistant');
+      if (settingsTitle) settingsTitle.textContent = t('ai_settings_title', 'Custom Gemini API Settings (Optional)');
+      if (settingsDesc) settingsDesc.textContent = t('ai_settings_desc', 'The assistant works automatically online for free. Paste a personal key to use your own quota.');
+      if (apiKeyInput) apiKeyInput.placeholder = t('ai_settings_placeholder', 'Paste Gemini API Key (AQ... or AIza...)');
+      if (saveKeyBtn) saveKeyBtn.textContent = t('ai_btn_save_key', 'Save Key');
+      if (clearKeyBtn) clearKeyBtn.textContent = t('ai_btn_use_default', 'Use Default');
+
+      if (!input.disabled) {
+        input.placeholder = t('ai_input_placeholder', 'Ask a question...');
+      }
+
+      if (promptChipsContainer) {
+        promptChipsContainer.innerHTML = getQuickPrompts()
+          .map(p => `<button class="prompt-chip" data-key="${p.key}" data-query="${p.query}">${p.label}</button>`)
+          .join('');
+        bindPromptChips();
+      }
+
+      updateStatusIndicator();
+    }
+
     window.addEventListener('online', updateStatusIndicator);
     window.addEventListener('offline', updateStatusIndicator);
+    window.addEventListener('wuwa:langchange', updateLocalizedUI);
 
     fab.addEventListener('click', () => {
       windowEl.classList.toggle('hidden');
@@ -415,7 +451,7 @@ RULES:
         updateStatusIndicator();
         const status = checkBanStatus();
         if (status.banned) {
-          lockInput(`Suspended (${status.remainingMinutes}m remaining)`);
+          lockInput(t('ai_suspended', `Suspended (${status.remainingMinutes}m remaining)`, { m: status.remainingMinutes }));
         } else {
           unlockInput();
           input.focus();
@@ -427,7 +463,7 @@ RULES:
 
     clearBtn.addEventListener('click', () => {
       sessionStorage.removeItem(CONTEXT_STORAGE);
-      appendSystemMsg("🧹 Conversation history cleared.");
+      appendSystemMsg(t('ai_clear_history', "🧹 Conversation history cleared."));
     });
 
     settingsBtn.addEventListener('click', () => {
@@ -441,7 +477,7 @@ RULES:
       localStorage.setItem(GEMINI_KEY_STORAGE, apiKeyInput.value.trim());
       settingsEl.classList.add('hidden');
       updateStatusIndicator();
-      appendSystemMsg("✓ Custom Gemini API key saved.");
+      appendSystemMsg(t('ai_key_saved', "✓ Custom Gemini API key saved."));
     });
 
     clearKeyBtn.addEventListener('click', () => {
@@ -449,12 +485,15 @@ RULES:
       apiKeyInput.value = '';
       settingsEl.classList.add('hidden');
       updateStatusIndicator();
-      appendSystemMsg("✓ Reset to default shared assistant proxy.");
+      appendSystemMsg(t('ai_key_cleared', "✓ Reset to default shared assistant proxy."));
     });
 
-    document.querySelectorAll('.prompt-chip').forEach(chip => {
-      chip.addEventListener('click', () => handleUserQuery(chip.getAttribute('data-query')));
-    });
+    function bindPromptChips() {
+      document.querySelectorAll('.prompt-chip').forEach(chip => {
+        chip.onclick = () => handleUserQuery(chip.getAttribute('data-query'));
+      });
+    }
+    bindPromptChips();
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -466,26 +505,25 @@ RULES:
     });
 
     async function handleUserQuery(query) {
-      // 1. Suspension check
       const status = checkBanStatus();
       if (status.banned) {
         appendUserMsg(query);
-        lockInput(`Suspended (${status.remainingMinutes}m remaining)`);
-        appendSystemMsg(`🚫 Suspended (${status.remainingMinutes}m remaining).`);
+        const banMsg = t('ai_suspended', `Suspended (${status.remainingMinutes}m remaining)`, { m: status.remainingMinutes });
+        lockInput(banMsg);
+        appendSystemMsg(`🚫 ${banMsg}`);
         return;
       }
 
-      // 2. Toxicity filter & strike counter
       if (TOXICITY_REGEX.test(query)) {
         appendUserMsg(query);
         const strikes = registerToxicStrike();
         if (strikes === 1) {
-          appendSystemMsg(`⚠️ Warning (1/3): Please keep the conversation respectful.`);
+          appendSystemMsg(t('ai_warning_1', "⚠️ Warning (1/3): Please keep the conversation respectful."));
         } else if (strikes === 2) {
-          appendSystemMsg(`⚠️ Warning (2/3): Final warning. Continued profanity will trigger a 1-hour suspension.`);
+          appendSystemMsg(t('ai_warning_2', "⚠️ Warning (2/3): Final warning. Continued profanity will trigger a 1-hour suspension."));
         } else {
-          lockInput("Suspended (60m remaining)");
-          appendSystemMsg(`🚫 Suspended for 1 hour due to repeated conduct violations.`);
+          lockInput(t('ai_suspended', "Suspended (60m remaining)", { m: 60 }));
+          appendSystemMsg(t('ai_banned_msg', "🚫 Suspended for 1 hour due to repeated conduct violations."));
         }
         return;
       }
@@ -493,9 +531,8 @@ RULES:
       appendUserMsg(query);
       const contextHistory = loadContextHistory();
       const customApiKey = localStorage.getItem(GEMINI_KEY_STORAGE);
-      const loadingEl = appendAiMsg("Thinking...");
+      const loadingEl = appendAiMsg(t('ai_thinking', "Thinking..."));
 
-      // 3. Online AI Execution (Default path when connected)
       if (navigator.onLine) {
         try {
           let aiResponse = await queryAI(query, contextHistory, customApiKey);
@@ -519,16 +556,14 @@ RULES:
         }
       }
 
-      // 4. Local Hybrid Mini-LLM Fallback (Offline or Network Error)
       setTimeout(() => {
         if (!window.WuWaAiKnowledge) {
-          loadingEl.querySelector('.msg-bubble').textContent = "Offline engine loading, please retry in a moment.";
+          loadingEl.querySelector('.msg-bubble').textContent = t('ai_offline_loading', "Offline engine loading, please retry in a moment.");
           return;
         }
 
         const { matches, learnedMatch } = window.WuWaAiKnowledge.getRankedMatches(query, contextHistory);
 
-        // Path A: Learned override or synthesized intent (RAM advisor, Red CVar fix, Xiaomi Shizuku wizard)
         if (learnedMatch) {
           renderResponse(loadingEl, learnedMatch.response);
           contextHistory.push({ role: 'user', text: query });
@@ -537,23 +572,21 @@ RULES:
           return;
         }
 
-        // Path B: Zero document matches
         if (!matches || matches.length === 0) {
           const fallback = {
-            text: `I couldn't locate a precise match for that.<br>Are you trying to resolve a crash, configure Shizuku, or find recommended CVars?`,
+            text: t('ai_offline_fallback', `I couldn't locate a precise match for that.<br>Are you trying to resolve a crash, configure Shizuku, or find recommended CVars?`),
             link: "index.html",
-            linkText: "Explore Documentation Home"
+            linkText: t('ai_explore_docs', "Explore Documentation Home")
           };
           renderResponse(loadingEl, fallback);
           renderDisambiguation(loadingEl, query, [
-            { id: "troubleshoot-crash-lag", title: "Game Crash / Stutter Fix" },
-            { id: "cvars-recommended", title: "Recommended CVars" },
-            { id: "elevated-backends", title: "Shizuku & Root Setup" }
+            { id: "troubleshoot-crash-lag", title: t('nav_troubleshooting', "Game Crash / Stutter Fix") },
+            { id: "cvars-recommended", title: t('prompt_cvars', "Recommended CVars") },
+            { id: "elevated-backends", title: t('prompt_shizuku', "Shizuku & Root Setup") }
           ]);
           return;
         }
 
-        // Path C: Primary BM25 match
         const topMatch = matches[0];
         renderResponse(loadingEl, topMatch.doc.response);
 
@@ -561,7 +594,6 @@ RULES:
         contextHistory.push({ role: 'assistant', text: topMatch.doc.response.text });
         saveContextHistory(contextHistory);
 
-        // Path D: Close-score disambiguation learning prompt (BM25+ calibrated threshold)
         if (matches.length > 1) {
           const delta = topMatch.score - matches[1].score;
           const relativeDelta = delta / (topMatch.score || 1.0);
@@ -581,7 +613,7 @@ RULES:
       const parsedMarkdown = markdownToHtml(textFormatted);
       const structuredHtml = formatMessageHtml(parsedMarkdown);
       const linkHtml = responseObj.link
-        ? `<div class="msg-link-block"><a href="${resolved}" class="chat-doc-link">🔗 ${responseObj.linkText || 'View Documentation'} →</a></div>`
+        ? `<div class="msg-link-block"><a href="${resolved}" class="chat-doc-link">🔗 ${responseObj.linkText || t('ai_doc_link_text', 'View Documentation')} →</a></div>`
         : '';
 
       container.querySelector('.msg-bubble').innerHTML = structuredHtml + linkHtml;
@@ -591,18 +623,18 @@ RULES:
     function renderDisambiguation(container, rawQuery, topics) {
       const clarifyBox = document.createElement('div');
       clarifyBox.className = 'clarify-box';
-      clarifyBox.innerHTML = `<em>Help me learn: Which topic did you intend?</em><br>`;
+      clarifyBox.innerHTML = `<em>${t('ai_clarify_title', 'Help me learn: Which topic did you intend?')}</em><br>`;
 
-      topics.forEach(t => {
+      topics.forEach(tDoc => {
         const btn = document.createElement('button');
         btn.className = 'prompt-chip';
         btn.style.margin = '4px 4px 0 0';
-        btn.textContent = t.title;
+        btn.textContent = tDoc.title;
         btn.onclick = () => {
           if (window.WuWaAiKnowledge && window.WuWaAiKnowledge.reinforceTopic) {
-            window.WuWaAiKnowledge.reinforceTopic(rawQuery, t.id);
+            window.WuWaAiKnowledge.reinforceTopic(rawQuery, tDoc.id);
           }
-          clarifyBox.innerHTML = `<em>✓ Learned! Future queries for "${rawQuery}" will prioritize "${t.title}".</em>`;
+          clarifyBox.innerHTML = `<em>${t('ai_clarify_learned', '✓ Learned! Future queries will prioritize "{title}".', { title: tDoc.title })}</em>`;
         };
         clarifyBox.appendChild(btn);
       });

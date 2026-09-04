@@ -1,5 +1,5 @@
 /**
- * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.0)
+ * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.5)
  */
 (function (window) {
   'use strict';
@@ -12,7 +12,7 @@
   const CONTEXT_STORAGE = 'wuwa_ai_context_history';
   const MAX_CONTEXT_TURNS = 25;
   const BAN_DURATION_MS = 3600000; // 1 hour
-  const CLOUD_TIMEOUT_MS = 30000; // 30s for sht net people
+  const CLOUD_TIMEOUT_MS = 30000;  // 30s timeout guard
 
   function normalizeWorkerUrl(url) {
     if (!url) return url;
@@ -31,7 +31,7 @@
   ];
 
   // --------------------------------------------------------------------
-  // Context memory
+  // Context Memory
   // --------------------------------------------------------------------
   function loadContextHistory() {
     try { return JSON.parse(sessionStorage.getItem(CONTEXT_STORAGE) || '[]'); }
@@ -44,6 +44,7 @@
   }
 
   function resolvePath(targetUrl) {
+    if (!targetUrl) return '#';
     if (window.WuWaPathResolver && window.WuWaPathResolver.resolvePath) {
       return window.WuWaPathResolver.resolvePath(targetUrl);
     }
@@ -51,23 +52,29 @@
   }
 
   // --------------------------------------------------------------------
-  // Response formatting helpers (shared by cloud + local BM25 paths)
+  // Response Formatting Helpers (Shared by Cloud & Local Engine)
   // --------------------------------------------------------------------
-
-  // Turns **bold** markdown (which Gemini sometimes emits instead of <strong>) into HTML.
-  function markdownBoldToHtml(text) {
-    return text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  function markdownToHtml(text) {
+    if (!text) return '';
+    return text
+      // Bold **text** or __text__
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+      // Inline code `code`
+      .replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
-  // Groups a <br>-delimited (or \n-delimited, already normalized to <br>) blob of HTML
-  // into properly spaced paragraphs, bullet lists, numbered lists, and callouts instead
-  // of one dense wall of text separated by bare <br> tags.
   function formatMessageHtml(rawHtml) {
     if (!rawHtml) return rawHtml;
 
-    // Collapse runs of 2+ <br> into an explicit paragraph break marker, then mark
-    // remaining single <br> as line breaks within a paragraph.
-    const normalized = rawHtml
+    // Normalize markdown/plain line breaks and HTML breaks
+    const preprocessed = rawHtml
+      .replace(/\r\n/g, '\n')
+      .replace(/\n\n+/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+
+    // Collapse runs of 2+ <br> into explicit paragraph markers
+    const normalized = preprocessed
       .replace(/(<br\s*\/?>\s*){2,}/gi, '@@PARA@@')
       .replace(/<br\s*\/?>/gi, '@@LINE@@');
 
@@ -88,7 +95,7 @@
       }
 
       lines.forEach(line => {
-        const bulletMatch = line.match(/^[•\-]\s*(.*)$/);
+        const bulletMatch = line.match(/^[•\-*]\s+(.*)$/);
         const numberedMatch = line.match(/^(\d+)[.)]\s*(.*)$/);
         const isCallout = /^⚠️/.test(line);
 
@@ -115,26 +122,18 @@
     return htmlParas.join('');
   }
 
-  // If the cloud model forgot to append a documentation link, fall back to whatever
-  // the local BM25 engine ranks as the top match for this query so linking accuracy
-  // never fully depends on the LLM.
   function ensureHyperlink(responseText, userQuery, contextHistory) {
     const hasLink = /\[[^\]]+\]\([^)]+\)/.test(responseText);
     if (hasLink) return responseText;
     if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getRankedMatches) return responseText;
 
-    const { matches } = window.WuWaAiKnowledge.getRankedMatches(userQuery, contextHistory);
-    if (!matches || matches.length === 0) return responseText;
-
-    const top = matches[0].doc.response;
+    const { matches, learnedMatch } = window.WuWaAiKnowledge.getRankedMatches(userQuery, contextHistory);
+    const top = learnedMatch ? learnedMatch.response : (matches && matches[0] ? matches[0].doc.response : null);
     if (!top || !top.link) return responseText;
 
-    return `${responseText}\n\n[${top.linkText}](${top.link})`;
+    return `${responseText}\n\n[${top.linkText || 'View Related Documentation'}](${top.link})`;
   }
 
-  // Extracts the last markdown link from a cloud response, resolves it, and returns
-  // { bodyText, linkHtml } so the link can be rendered as its own styled block below
-  // the message instead of being buried mid-paragraph.
   function extractLinkBlock(aiResponse) {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     let match, lastMatch = null;
@@ -149,11 +148,8 @@
   }
 
   // --------------------------------------------------------------------
-  // Cloud AI (proxy-first, BM25-weighted grounding, conversational)
+  // Cloud AI Grounding (BM25 Pre-Ranking Context Builder)
   // --------------------------------------------------------------------
-
-  // Pre-ranks the knowledge base for this exact user message via the local BM25 engine
-  // so the cloud model gets a short, weighted shortlist instead of the entire KB.
   function buildPriorityContext(userQuery, contextHistory) {
     if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getRankedMatches) return null;
     const { matches } = window.WuWaAiKnowledge.getRankedMatches(userQuery, contextHistory);
@@ -164,9 +160,9 @@
       relevanceScore: Number(m.score.toFixed(2)),
       id: m.doc.id,
       title: m.doc.title,
-      link: m.doc.response.link,
-      linkText: m.doc.response.linkText,
-      summary: (m.doc.response.text || '')
+      link: m.doc.response ? m.doc.response.link : 'index.html',
+      linkText: m.doc.response ? m.doc.response.linkText : 'Documentation',
+      summary: ((m.doc.response && m.doc.response.text) || '')
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
         .trim()
@@ -174,8 +170,6 @@
     }));
   }
 
-  // Lightweight index (no body text) of every page, used only as a fallback so the
-  // model can still pick a sensible link when BM25 finds no strong keyword match.
   function buildTopicIndex() {
     if (!window.WuWaAiKnowledge || !window.WuWaAiKnowledge.getLoadedTopics) return [];
     return window.WuWaAiKnowledge.getLoadedTopics().map(t => ({
@@ -199,8 +193,8 @@ FULL_TOPIC_INDEX (every documentation page that exists, for when none of the pri
 ${JSON.stringify(topicIndex)}
 
 RULES:
-1. For casual greetings or small talk (e.g., "how old are you", "who are you"), respond naturally and conversationally, in a polite, friendly tone, and skip the link.
-2. For app/technical questions, ground your answer in the PRIORITY_MATCHES summaries above — do not invent CVar names, file paths, or steps that aren't implied by them.
+1. For casual greetings or small talk (e.g., "how old are you", "who are you"), respond naturally and conversationally in a polite, friendly tone, and skip the link.
+2. For app/technical questions, ground your answer strictly in the PRIORITY_MATCHES summaries above — do not invent CVar names, file paths, or steps that aren't implied by them.
 3. Hyperlinking: when your answer relies on a specific documentation page, end your reply with exactly ONE markdown link copied verbatim from that page's "link" and "linkText" fields, formatted as [linkText](link). Default to the rank-1 PRIORITY_MATCHES entry unless the conversation clearly points to a different one. Never fabricate a URL, and never link when the message was just small talk.
 4. Structure longer answers clearly: short paragraphs, numbered steps for procedures, bullet points for lists — separate distinct ideas with a blank line rather than one dense paragraph.
 5. If the user describes a bug/crash, follow the remediation sequence (Vanilla Revert -> Delete Shaders -> Strip Forbidden -> Check RAM -> Report to Arglax).`;
@@ -222,7 +216,7 @@ RULES:
 
     contents.push({ role: "user", parts: [{ text: userPrompt }] });
 
-    let targetUrl = customApiKey
+    const targetUrl = customApiKey
       ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(customApiKey)}`
       : normalizeWorkerUrl(WORKER_PROXY_URL);
 
@@ -249,7 +243,7 @@ RULES:
   }
 
   // --------------------------------------------------------------------
-  // Strike / ban system
+  // Strike & Suspension System
   // --------------------------------------------------------------------
   function checkBanStatus() {
     const banUntil = parseInt(localStorage.getItem(BAN_STORAGE) || '0', 10);
@@ -257,7 +251,6 @@ RULES:
       return { banned: true, remainingMinutes: Math.ceil((banUntil - Date.now()) / 60000) };
     }
     if (banUntil && Date.now() >= banUntil) {
-      // Ban expired — reset strikes so the user starts clean
       localStorage.removeItem(BAN_STORAGE);
       localStorage.setItem(STRIKE_STORAGE, '0');
     }
@@ -274,12 +267,8 @@ RULES:
   }
 
   // --------------------------------------------------------------------
-  // DOM
+  // Scoped CSS & DOM Injections
   // --------------------------------------------------------------------
-
-  // Scoped formatting rules for the paragraph/list/callout structure produced by
-  // formatMessageHtml(). Injected inline so it applies regardless of whatever external
-  // stylesheet the host page already loads for the rest of the widget chrome.
   const RESPONSE_FORMATTING_STYLE = `
     #ai-chat-root .msg-bubble { line-height: 1.55; }
     #ai-chat-root .msg-para { margin: 0 0 10px 0; }
@@ -305,6 +294,14 @@ RULES:
     }
     #ai-chat-root .msg-link-block { margin-top: 10px; }
     #ai-chat-root .chat-doc-link { display: inline-block; }
+    #ai-chat-root .clarify-box {
+      margin-top: 10px;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(127, 127, 127, 0.4);
+      border-radius: 6px;
+      font-size: 0.85em;
+    }
   `;
 
   function renderWidgetDOM() {
@@ -398,7 +395,7 @@ RULES:
     function updateStatusIndicator() {
       const customKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       if (!navigator.onLine) {
-        statusEl.textContent = "Offline • Local BM25 Engine Active";
+        statusEl.textContent = "Offline • Local Hybrid Engine Active";
         statusEl.style.color = "#f59e0b";
       } else if (customKey) {
         statusEl.textContent = "Online • Custom Gemini Key Active";
@@ -462,11 +459,14 @@ RULES:
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const query = input.value.trim();
-      if (query) { handleUserQuery(query); input.value = ''; }
+      if (query) {
+        handleUserQuery(query);
+        input.value = '';
+      }
     });
 
     async function handleUserQuery(query) {
-      // 1. Ban check
+      // 1. Suspension check
       const status = checkBanStatus();
       if (status.banned) {
         appendUserMsg(query);
@@ -475,7 +475,7 @@ RULES:
         return;
       }
 
-      // 2. Toxicity / strike escalation
+      // 2. Toxicity filter & strike counter
       if (TOXICITY_REGEX.test(query)) {
         appendUserMsg(query);
         const strikes = registerToxicStrike();
@@ -495,8 +495,7 @@ RULES:
       const customApiKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       const loadingEl = appendAiMsg("Thinking...");
 
-      // 3. Cloud AI first (default path whenever online) — BM25-weighted grounding
-      //    decides the hyperlink, Gemini handles the conversational wording.
+      // 3. Online AI Execution (Default path when connected)
       if (navigator.onLine) {
         try {
           let aiResponse = await queryAI(query, contextHistory, customApiKey);
@@ -505,8 +504,7 @@ RULES:
           const { bodyText, linkHtml } = extractLinkBlock(aiResponse);
 
           let processed = window.WuWaFormatter ? window.WuWaFormatter.formatText(bodyText) : bodyText;
-          processed = markdownBoldToHtml(processed);
-          processed = processed.replace(/\n/g, '<br>');
+          processed = markdownToHtml(processed);
           const structuredHtml = formatMessageHtml(processed);
 
           loadingEl.querySelector('.msg-bubble').innerHTML = structuredHtml + linkHtml;
@@ -517,19 +515,20 @@ RULES:
           scrollToBottom();
           return;
         } catch (err) {
-          console.warn("Proxy/Gemini API failed or timed out. Falling back to local BM25.", err);
+          console.warn("Proxy/Gemini API failed or timed out. Falling back to local hybrid engine.", err);
         }
       }
 
-      // 4. Local BM25 fallback (offline or cloud failure), with disambiguation/learning
+      // 4. Local Hybrid Mini-LLM Fallback (Offline or Network Error)
       setTimeout(() => {
         if (!window.WuWaAiKnowledge) {
-          loadingEl.querySelector('.msg-bubble').textContent = "Offline engine loading...";
+          loadingEl.querySelector('.msg-bubble').textContent = "Offline engine loading, please retry in a moment.";
           return;
         }
 
         const { matches, learnedMatch } = window.WuWaAiKnowledge.getRankedMatches(query, contextHistory);
 
+        // Path A: Learned override or synthesized intent (RAM advisor, Red CVar fix, Xiaomi Shizuku wizard)
         if (learnedMatch) {
           renderResponse(loadingEl, learnedMatch.response);
           contextHistory.push({ role: 'user', text: query });
@@ -538,7 +537,8 @@ RULES:
           return;
         }
 
-        if (matches.length === 0) {
+        // Path B: Zero document matches
+        if (!matches || matches.length === 0) {
           const fallback = {
             text: `I couldn't locate a precise match for that.<br>Are you trying to resolve a crash, configure Shizuku, or find recommended CVars?`,
             link: "index.html",
@@ -553,6 +553,7 @@ RULES:
           return;
         }
 
+        // Path C: Primary BM25 match
         const topMatch = matches[0];
         renderResponse(loadingEl, topMatch.doc.response);
 
@@ -560,23 +561,29 @@ RULES:
         contextHistory.push({ role: 'assistant', text: topMatch.doc.response.text });
         saveContextHistory(contextHistory);
 
-        // Ambiguity check: if 2nd result score is close, offer disambiguation/learning
-        if (matches.length > 1 && (topMatch.score - matches[1].score) < 0.6) {
-          renderDisambiguation(loadingEl, query, [
-            { id: topMatch.doc.id, title: topMatch.doc.title || topMatch.doc.id },
-            { id: matches[1].doc.id, title: matches[1].doc.title || matches[1].doc.id }
-          ]);
+        // Path D: Close-score disambiguation learning prompt (BM25+ calibrated threshold)
+        if (matches.length > 1) {
+          const delta = topMatch.score - matches[1].score;
+          const relativeDelta = delta / (topMatch.score || 1.0);
+          if (delta < 0.8 || relativeDelta < 0.15) {
+            renderDisambiguation(loadingEl, query, [
+              { id: topMatch.doc.id, title: topMatch.doc.title || topMatch.doc.id },
+              { id: matches[1].doc.id, title: matches[1].doc.title || matches[1].doc.id }
+            ]);
+          }
         }
-      }, 70);
+      }, 50);
     }
 
     function renderResponse(container, responseObj) {
       const resolved = resolvePath(responseObj.link);
       const textFormatted = window.WuWaFormatter ? window.WuWaFormatter.formatText(responseObj.text) : responseObj.text;
-      const structuredHtml = formatMessageHtml(textFormatted);
+      const parsedMarkdown = markdownToHtml(textFormatted);
+      const structuredHtml = formatMessageHtml(parsedMarkdown);
       const linkHtml = responseObj.link
-        ? `<div class="msg-link-block"><a href="${resolved}" class="chat-doc-link">🔗 ${responseObj.linkText} →</a></div>`
+        ? `<div class="msg-link-block"><a href="${resolved}" class="chat-doc-link">🔗 ${responseObj.linkText || 'View Documentation'} →</a></div>`
         : '';
+
       container.querySelector('.msg-bubble').innerHTML = structuredHtml + linkHtml;
       scrollToBottom();
     }
@@ -584,8 +591,6 @@ RULES:
     function renderDisambiguation(container, rawQuery, topics) {
       const clarifyBox = document.createElement('div');
       clarifyBox.className = 'clarify-box';
-      clarifyBox.style.marginTop = '8px';
-      clarifyBox.style.fontSize = '0.85em';
       clarifyBox.innerHTML = `<em>Help me learn: Which topic did you intend?</em><br>`;
 
       topics.forEach(t => {
@@ -594,8 +599,10 @@ RULES:
         btn.style.margin = '4px 4px 0 0';
         btn.textContent = t.title;
         btn.onclick = () => {
-          window.WuWaAiKnowledge.reinforceTopic(rawQuery, t.id);
-          clarifyBox.innerHTML = `<em>✓ Learned! Future queries will prioritize "${t.title}".</em>`;
+          if (window.WuWaAiKnowledge && window.WuWaAiKnowledge.reinforceTopic) {
+            window.WuWaAiKnowledge.reinforceTopic(rawQuery, t.id);
+          }
+          clarifyBox.innerHTML = `<em>✓ Learned! Future queries for "${rawQuery}" will prioritize "${t.title}".</em>`;
         };
         clarifyBox.appendChild(btn);
       });

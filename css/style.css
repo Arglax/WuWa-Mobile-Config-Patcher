@@ -1553,3 +1553,62 @@ code {
         max-width: 22vw;
     }
 }
+
+/* ==========================================================================
+   Language Selector UI
+   ========================================================================== */
+.lang-selector-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.lang-selector-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-selector-container:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.lang-select-code {
+    margin-right: 6px;
+    text-transform: uppercase;
+}
+
+.lang-select-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.lang-arrow {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* Responsive adjustment for the header */
+@media screen and (max-width: 768px) {
+    .lang-select-code {
+        display: none;
+    }
+    .lang-selector-container {
+        padding: 8px 10px;
+    }
+}

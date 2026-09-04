@@ -526,6 +526,45 @@ RULES:
           appendSystemMsg(t('ai_banned_msg', "🚫 Suspended for 1 hour due to repeated conduct violations."));
         }
         return;
+
+        // --- Language UI Help & Command Interception ---
+      const langHelpMatch = query.match(/(?:how\s*(?:do|to|can)\s*i\s*change\s*language|help\s*me\s*select\s*language|where\s*is\s*language)/i);
+      const langCommandMatch = query.match(/(?:change|switch|set|translate)\s*(?:the\s*)?(?:language|lang)\s*(?:to|in)?\s*([a-zA-Z\-\s]+)/i) || 
+                               query.match(/^(?:speak|talk)\s*(?:in\s*)?([a-zA-Z\-\s]+)$/i);
+
+      if (langHelpMatch && !langCommandMatch) {
+        appendUserMsg(query);
+        appendAiMsg(t('ai_lang_help', "You can change the language using the dropdown menu at the top right of the header. Alternatively, just tell me: <strong>'change language to Spanish'</strong> or <strong>'speak in JA'</strong>!"));
+        return;
+      }
+
+      if (langCommandMatch) {
+        appendUserMsg(query);
+        const requestedLang = langCommandMatch[1].replace(/please/i, '').trim().toLowerCase();
+        let foundCode = null;
+        let foundName = null;
+
+        if (window.WuWaI18n && window.WuWaI18n.LANGUAGES) {
+          for (const [code, config] of Object.entries(window.WuWaI18n.LANGUAGES)) {
+            if (code.toLowerCase() === requestedLang || 
+                config.name.toLowerCase() === requestedLang || 
+                requestedLang.startsWith(config.name.toLowerCase()) || 
+                requestedLang.startsWith(code.toLowerCase())) {
+              foundCode = code;
+              foundName = config.name;
+              break;
+            }
+          }
+        }
+
+        if (foundCode) {
+          window.WuWaI18n.setLanguage(foundCode);
+          appendAiMsg(t('ai_lang_changed', `✅ Language successfully changed to {name}. I will now respond in this language.`, { name: foundName }));
+        } else {
+          appendAiMsg(t('ai_lang_unsupported', `❌ Sorry, the language "{lang}" is not currently supported. Supported options include: EN, PT, ES, ZH-CN, ZH-TW, JA, ID, VI, AR.`, { lang: requestedLang }));
+        }
+        return;
+      }
       }
 
       appendUserMsg(query);

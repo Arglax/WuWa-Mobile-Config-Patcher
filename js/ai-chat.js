@@ -14,6 +14,14 @@
   const BAN_DURATION_MS = 3600000; // 1 hour
   const CLOUD_TIMEOUT_MS = 15000; // 15s — don't let a slow/dead proxy stall the UI
 
+  // Guarantees the worker URL always has an explicit scheme — a bare hostname
+  // (no https://) is silently treated by fetch() as a relative path and will 404,
+  // which would make every cloud call fail and permanently fall back to BM25.
+  function normalizeWorkerUrl(url) {
+    if (!url) return url;
+    return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+  }
+
   const TOXICITY_REGEX = /\b(fuck|fucking|fucker|fuk|shit|shitting|shitty|bitch|asshole|bastard|idiot|stupid|dumb|dumbass|stfu|cunt|dick|pussy|shut\s*up|hate\s*you|useless\s*bot|garbage\s*bot|trash\s*bot)\b/i;
 
   const QUICK_PROMPTS = [
@@ -219,7 +227,7 @@ RULES:
 
     let targetUrl = customApiKey
       ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(customApiKey)}`
-      : WORKER_PROXY_URL;
+      : normalizeWorkerUrl(WORKER_PROXY_URL);
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), CLOUD_TIMEOUT_MS);

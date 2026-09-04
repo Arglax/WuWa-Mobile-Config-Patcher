@@ -2,29 +2,120 @@
   {
     "id": "greetings",
     "title": "Greetings & Overview",
-    "keywords": ["how are you", "hello", "hi", "hey", "yo", "sup", "what s up", "good morning", "good afternoon", "good evening", "what can you do", "help", "help me", "start"],
+    "keywords": [
+      "how are you",
+      "hello",
+      "hi",
+      "hey",
+      "yo",
+      "sup",
+      "what s up",
+      "good morning",
+      "good afternoon",
+      "good evening",
+      "what can you do",
+      "help",
+      "help me",
+      "start"
+    ],
     "response": {
-      "text": "Hello! 😊 I am your <strong>WuWa Config Patcher AI Assistant</strong>. I can assist you with 1-Click Patching, Live Config Editing, CVar Section Guards, C# Environment, Shizuku & Root elevation, Log Decryption, CVar Analyzer, Hardware recommendations, and troubleshooting game bugs or crashes!",
+      "text": "Hello! 😊 I am your <strong>WuWa Config Patcher AI Assistant</strong>. I can assist you with 1-Click Patching, Live Config Editing, CVar Section Guards, C# Environment, Shizuku &amp; Root elevation, Log Decryption, CVar Analyzer, the CVar Bank, Duplicate Flagger, Forbidden CVar Stripper, Hardware/RAM recommendations, Settings &amp; Danger Zone tools, and troubleshooting game bugs or crashes!",
       "link": "index.html",
       "linkText": "Explore Documentation Home"
     }
   },
   {
     "id": "credits",
-    "title": "Developer & Repository Info",
-    "keywords": ["who are you", "who made you", "who created you", "who developed this", "who built this", "who is the developer", "creator of this app", "made this app", "arglax", "github repo", "release repository"],
+    "title": "Developer, Version & Repository Info",
+    "keywords": [
+      "who are you",
+      "who made you",
+      "who created you",
+      "who developed this",
+      "who built this",
+      "who is the developer",
+      "creator of this app",
+      "made this app",
+      "arglax",
+      "github repo",
+      "release repository",
+      "version",
+      "app version",
+      "versioncode",
+      "tech stack",
+      "kotlin",
+      "jetpack compose",
+      "sdk",
+      "min android",
+      "target sdk",
+      "update checker",
+      "app-version.txt"
+    ],
     "response": {
-      "text": "<strong>WuWa Config Patcher (v1.5.1)</strong> is an open-source Android utility developed by <strong>Arglax</strong> (<code>io.github.arglax.configpatcher</code>). It is 100% free and open source. Releases and updates are hosted on GitHub at <code>Arglax/WuWa-Mobile-Config-Patcher</code>.",
+      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.5.1</code>, <code>versionCode = 31</code>) is a 100% free and open-source elevated Android utility developed by <strong>Arglax</strong>.<br><br><strong>Tech stack:</strong> Kotlin 2.4.10, Jetpack Compose (Material 3), OkHttp 4, Retrofit 2 with KotlinX Serialization, AndroidX DocumentFile (SAF), Rikka Shizuku API, topjohnwu <code>libsu</code> Core 6.0.0, and Firebase BoM 34.16.0.<br><strong>SDK targets:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update checking:</strong> The app queries <code>app-version.txt</code> on the GitHub repo via <code>UpdateChecker.kt</code> and shows an update dialog when a newer release is available. You can also tap <strong>Check for Updates</strong> under Settings &gt; Application Info.<br><br>Releases and source are hosted on GitHub at <code>Arglax/WuWa-Mobile-Config-Patcher</code>. Supported game package variants: global, bilibili, kuro, tw, jp, and kr.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Creator Support & Developer Notes"
     }
   },
   {
+    "id": "app-navigation",
+    "title": "App Structure & 5-Tab Navigation",
+    "keywords": [
+      "what tabs",
+      "how many tabs",
+      "app structure",
+      "app navigation",
+      "main screens",
+      "bottom nav",
+      "tab 1",
+      "tab 2",
+      "tab 3",
+      "tab 4",
+      "tab 5",
+      "configscreen",
+      "editorscreen",
+      "utilitiesscreen",
+      "settingsscreen",
+      "supportscreen",
+      "where do i find",
+      "which tab",
+      "layout of the app"
+    ],
+    "response": {
+      "text": "<strong>WuWa Config Patcher</strong> uses a single-activity layout with a 5-tab bottom navigation bar:<br>1. <strong>Config</strong> (<code>ConfigScreen</code>) — Presets, repository sync, and 1-Click Patch.<br>2. <strong>Editor</strong> (<code>EditorScreen</code>) — Smart / Text / One-Line config editing and Misc Patch.<br>3. <strong>Utilities</strong> (<code>UtilitiesScreen</code>) — Common subtab (logs, device info, vanilla revert) and Advanced subtab (CVar Analyzer, CVar Bank, Duplicate Flagger, Forbidden Stripper, Main Storage).<br>4. <strong>Settings</strong> (<code>SettingsScreen</code>) — Preferences, Elevated Access Status, Quick Jumps, and the Danger Zone.<br>5. <strong>Support</strong> (<code>SupportScreen</code>) — Developer notes, donations, bug report generator, Discord/GitHub links, and the WuWaLab companion app showcase.",
+      "link": "index.html",
+      "linkText": "Explore Documentation Home"
+    }
+  },
+  {
     "id": "one-click-patching",
     "title": "1-Click & Custom Preset Patching",
-    "keywords": ["how to patch", "1 click patch", "one click patch", "patching", "apply preset", "presets", "stable", "performance", "high visual", "community", "sync files", "refresh", "gear icon", "advanced patch", "launch game"],
+    "keywords": [
+      "how to patch",
+      "1 click patch",
+      "one click patch",
+      "patching",
+      "apply preset",
+      "presets",
+      "stable",
+      "performance",
+      "high visual",
+      "community",
+      "other",
+      "sync files",
+      "refresh",
+      "gear icon",
+      "advanced patch",
+      "launch game",
+      "repository source",
+      "custom repository",
+      "local repository",
+      "githubapi",
+      "custom-metadata.txt",
+      "zipextractor"
+    ],
     "response": {
-      "text": "<strong>1-Click Preset Patching Workflow (Tab 1: ConfigScreen):</strong><br>1. <strong>Select Repository:</strong> Choose <code>Arglax (Default)</code>, <code>Custom Online Repository</code>, or <code>Local Repository</code>.<br>2. <strong>Sync:</strong> Tap <strong>Sync Files & Refresh</strong> (or pull down to refresh) to extract archives via <code>ZipExtractor.kt</code>.<br>3. <strong>Select Preset:</strong> Browse categories (<code>STABLE</code>, <code>PERFORMANCE</code>, <code>HIGH_VISUAL</code>, <code>COMMUNITY</code>). Nested INIs in deep subfolders are auto-detected by <code>ConfigScanner.kt</code>.<br>4. <strong>Patch:</strong> Tap <strong>1-Click Patch</strong>. It creates a backup in <code>app_main_storage/backups/</code> and injects configs via elevated Shizuku/Root IPC.<br>• <em>Per-File Patching:</em> Tap the <strong>Gear Icon (⚙️)</strong> next to 1-Click Patch (<code>AdvancedPatchDialog.kt</code>) to select individual INI files.<br>• Tap <strong>Launch Game</strong> to launch Wuthering Waves immediately.",
+      "text": "<strong>1-Click Preset Patching Workflow (Tab 1: ConfigScreen):</strong><br>1. <strong>Select Repository:</strong> Choose <code>Arglax (Default)</code> (connects to GitHub API via <code>GitHubApi.kt</code> to fetch <code>custom-metadata.txt</code> and zip archives), <code>Custom Online Repository</code> (direct HTTP/HTTPS .zip URL), or <code>Local Repository</code> (SAF folder picker via <code>OpenDocumentTree()</code>).<br>2. <strong>Sync:</strong> Tap <strong>Sync Files &amp; Refresh</strong> (or pull down to refresh). This extracts archives via <code>ZipExtractor.kt</code> into <code>context.cacheDir/repo_cache/</code> and parses folders with <code>ConfigScanner.kt</code> / <code>ConfigNode.kt</code>, using <code>folder.walkTopDown()</code> to find nested .ini files in deep subfolders.<br>3. <strong>Select Preset:</strong> Browse categories (<code>STABLE</code>, <code>PERFORMANCE</code>, <code>HIGH_VISUAL</code>, <code>COMMUNITY</code>, <code>OTHER</code>) assigned by <code>PresetCategorization.kt</code>.<br>4. <strong>Patch:</strong> Tap <strong>1-Click Patch</strong>. It creates a timestamped backup in <code>app_main_storage/backups/</code> via <code>MainStorageManager.kt</code> and injects configs via elevated Shizuku/Root IPC (<code>ShizukuManager.applyAllIniFiles</code>).<br>• <em>Per-File Patching:</em> Tap the <strong>Gear Icon (⚙️)</strong> next to 1-Click Patch (<code>AdvancedPatchDialog.kt</code>) to check/uncheck individual INI files.<br>• Tap <strong>Launch Game</strong> to detect the installed package variant (global/bilibili/kuro/tw/jp/kr) and launch Wuthering Waves immediately.",
       "link": "pages/patching-configs.html",
       "linkText": "View 1-Click Patching Guide"
     }
@@ -32,9 +123,28 @@
   {
     "id": "config-editor-modes",
     "title": "Live Config Editor & Modes",
-    "keywords": ["config editor", "editor modes", "smart mode", "text mode", "one line mode", "sort a z", "bulk delete", "isolation search", "font size", "replace all", "offsetmapping crash", "carriage return", "engine ini", "deviceprofiles ini", "gameusersettings ini"],
+    "keywords": [
+      "config editor",
+      "editor modes",
+      "smart mode",
+      "text mode",
+      "one line mode",
+      "sort a z",
+      "bulk delete",
+      "isolation search",
+      "font size",
+      "replace all",
+      "offsetmapping crash",
+      "carriage return",
+      "engine ini",
+      "deviceprofiles ini",
+      "gameusersettings ini",
+      "scalability ini",
+      "crash when pasting",
+      "line ending crash"
+    ],
     "response": {
-      "text": "<strong>Live Config Editor (Tab 2: EditorScreen):</strong><br>Supports editing <code>Engine.ini</code> (Gold), <code>DeviceProfiles.ini</code> (Gold), and <code>GameUserSettings.ini</code> (Green) with 0ms in-memory tab switching.<br>• <strong>Smart Mode:</strong> Sectioned UI cards. Features <strong>Sort A-Z</strong> (<code>sortSmartSectionsAlphabetically()</code>), <strong>Auto-Fix / Auto-Categorize</strong>, value steppers (with negative number support), and multi-select bulk delete.<br>• <strong>Text Mode:</strong> Syntax-highlighted raw editor with line numbers, <strong>Isolation Search Mode</strong>, Find & Replace, and font slider (8sp-24sp). Includes defensive <code>OffsetMapping</code> clamping to prevent crashes with Windows <code>\\r\\n</code> line breaks.<br>• <strong>One-Line Mode:</strong> Rapid dropdown selector with live buffer preview card before saving.",
+      "text": "<strong>Live Config Editor (Tab 2: EditorScreen):</strong><br>Supports editing <code>Engine.ini</code> (Gold), <code>DeviceProfiles.ini</code> (Gold), <code>Scalability.ini</code>, and <code>GameUserSettings.ini</code> (Green) via the top-left file dropdown. Files are read off device via <code>ShizukuManager.readLogFile()</code> and cached in memory for 0ms tab switching.<br><br>• <strong>Smart Mode:</strong> Sectioned UI cards. Features <strong>Sort A-Z</strong> (<code>sortSmartSectionsAlphabetically()</code>), <strong>Auto-Fix / Auto-Categorize</strong>, value steppers (with negative number support), and multi-select bulk delete.<br>• <strong>Text Mode:</strong> Syntax-highlighted raw editor with line numbers, <strong>Isolation Search Mode</strong>, Find &amp; Replace (\"Replace Next\"/\"Replace All\"), and a font size slider (8sp-24sp). <code>highlightIniContent</code> splits on <code>\\n</code> to preserve <code>\\r</code> exactly, and a defensive <code>safeMapping</code> <code>OffsetMapping</code> clamps offsets to prevent <code>IllegalStateException</code> crashes when pasting text with Windows <code>\\r\\n</code> line endings — <code>MainViewModel.kt</code> also normalizes line endings in memory.<br>• <strong>One-Line Mode:</strong> Rapid dropdown selector with live buffer preview card before saving, plus interactive Add/Edit CVar dialogs with real-time section guard validation notes.",
       "link": "pages/config-editor.html",
       "linkText": "View Config Editor Documentation"
     }
@@ -42,9 +152,31 @@
   {
     "id": "section-guards",
     "title": "Engine CVar Section Guards",
-    "keywords": ["what are cvar section guards", "cvar section guards", "section guard", "section guards", "engine section guards", "vibrant red", "misplaced cvars", "misplaced", "autofix", "auto fix", "auto categorize", "renderer", "streaming", "garbage", "cooker", "cvars=", "prefix", "ff2222"],
+    "keywords": [
+      "what are cvar section guards",
+      "cvar section guards",
+      "section guard",
+      "section guards",
+      "engine section guards",
+      "vibrant red",
+      "misplaced cvars",
+      "misplaced",
+      "autofix",
+      "auto fix",
+      "auto categorize",
+      "renderer",
+      "streaming",
+      "garbage",
+      "cooker",
+      "network settings",
+      "networkemulationprofiles",
+      "verifypeer",
+      "cvars=",
+      "prefix",
+      "ff2222"
+    ],
     "response": {
-      "text": "<strong>Engine CVar Section Guards (<code>CVarSectionGuard.kt</code>):</strong><br>Unreal Engine ignores misplaced CVars. The patcher enforces canonical section headers:<br>• <code>r.</code> CVars → <code>[/Script/Engine.RendererSettings]</code><br>• <code>s.</code> CVars → <code>[/Script/Engine.StreamingSettings]</code><br>• <code>gc.</code> CVars → <code>[/Script/Engine.GarbageCollectionSettings]</code><br>• <code>n.</code> / <code>p.</code> network CVars → <code>[/Script/Engine.NetworkSettings]</code><br>• <code>cook.</code> CVars → <code>[/Script/UnrealEd.CookerSettings]</code><br>• General CVars → <code>[SystemSettings]</code> or <code>[ConsoleVariables]</code><br><br><strong>Protection Rules:</strong><br>1. Misplaced lines & <code>CVars=</code> / <code>+CVars=</code> prefixes in <code>Engine.ini</code> are highlighted in bold <strong style=\"color: #FF2222;\">Vibrant Red (#FF2222)</strong>.<br>2. Tapping <strong>Save</strong> displays an <strong>Auto-Fix Sections</strong> remediation button that strips invalid prefixes and groups CVars into their canonical headers.<br>3. <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and never moved or flagged.<br>4. <code>DeviceProfiles.ini</code> entries are automatically maintained as <code>CVars=Key=Value</code> without disturbing metadata pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>).",
+      "text": "<strong>Engine CVar Section Guards (<code>CVarSectionGuard.kt</code>):</strong><br>Unreal Engine ignores misplaced CVars. The patcher enforces canonical section headers:<br>• <code>r.</code> CVars → <code>[/Script/Engine.RendererSettings]</code> (except <code>r.SupportAllShaderPermutations</code>)<br>• <code>r.SupportAllShaderPermutations</code>, any other <code>r.</code> CVar, or <code>dp.</code> commands → also accepted by <code>[/Script/Engine.RendererOverrideSettings]</code> (whitelisted during Auto-Fix)<br>• <code>s.</code> CVars → <code>[/Script/Engine.StreamingSettings]</code><br>• <code>gc.</code> CVars → <code>[/Script/Engine.GarbageCollectionSettings]</code><br>• <code>n.VerifyPeer</code>, <code>p.EnableMultiplayerWorldOriginRebasing</code>, <code>NetworkEmulationProfiles</code> → <code>[/Script/Engine.NetworkSettings]</code><br>• <code>cook.</code> CVars → <code>[/Script/UnrealEd.CookerSettings]</code><br>• General CVars → <code>[SystemSettings]</code> or <code>[ConsoleVariables]</code> (universal containers that accept ANY CVars)<br><br><strong>Protection Rules:</strong><br>1. Misplaced lines & <code>CVars=</code> / <code>+CVars=</code> / <code>.CVars=</code> prefixes in <code>Engine.ini</code> are highlighted in bold <strong style=\"color: #FF2222;\">Vibrant Red (#FF2222)</strong>.<br>2. Tapping <strong>Save</strong> shows three options: <strong>Auto-Fix Sections</strong> (strips invalid prefixes and groups CVars into canonical headers), <strong>I know what I'm doing</strong> (bypasses and saves as-is), or <strong>Cancel</strong>.<br>3. <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and NEVER moved, flagged, or altered.<br>4. <code>DeviceProfiles.ini</code> entries are automatically formatted as <code>CVars=Key=Value</code> without disturbing metadata pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>, <code>DeviceType</code>, <code>HardwareLevel</code>).",
       "link": "pages/config-editor.html#cvar-guards",
       "linkText": "View CVar Section Guards Reference"
     }
@@ -52,9 +184,26 @@
   {
     "id": "csharp-environment",
     "title": "Force Enable C# Environment",
-    "keywords": ["how to enable c# environment", "c# environment", "csharp environment", "enable c# environment", "what is c# environment", "c#", "csharp", "c sharp", "mono", "scripting", "asterisk", "sharphereal", "force enable csharp", "ue4commandline", "skip splash"],
+    "keywords": [
+      "how to enable c# environment",
+      "c# environment",
+      "csharp environment",
+      "enable c# environment",
+      "what is c# environment",
+      "c#",
+      "csharp",
+      "c sharp",
+      "mono",
+      "scripting",
+      "asterisk",
+      "sharphereal",
+      "force enable csharp",
+      "ue4commandline",
+      "skip splash",
+      "8gb ram c#"
+    ],
     "response": {
-      "text": "<strong>Enabling C# Environment Scripting (Tab 2: Misc Patch):</strong><br>Kuro Games built an experimental C# scripting runtime for Wuthering Waves that improves frame pacing, reduces CPU overhead, and speeds up asset streaming.<br><br><strong>How to Enable:</strong><br>1. Go to <strong>Editor Tab &gt; Misc Patch</strong> subtab.<br>2. Check <code>-ForceEnableCSharpEnvironment</code> (and optionally <code>-SkipSplash</code>) and tap <strong>Patch</strong>. This pushes flags to <code>.../files/UE4Game/Client/UE4CommandLine.txt</code>.<br>3. <strong>Verification:</strong> Launch the game. An <strong>asterisk (*)</strong> at the end of the client version string on the splash screen confirms C# is active! In <strong>Utilities &gt; Decrypted Log Explorer</strong>, search for <code>Sharphereal</code> entries.<br><br>⚠️ <em>Hardware Note:</em> Requires at least <strong>8 GB RAM</strong>. On devices with less than 8 GB RAM, disable this flag to prevent memory pressure crashes.",
+      "text": "<strong>Enabling C# Environment Scripting (Tab 2: Misc Patch):</strong><br>Kuro Games built an experimental C# scripting runtime for Wuthering Waves that improves frame pacing, reduces CPU overhead, and speeds up asset streaming on supported hardware.<br><br><strong>How to Enable:</strong><br>1. Go to <strong>Editor Tab &gt; Misc Patch</strong> subtab.<br>2. Check <code>-ForceEnableCSharpEnvironment</code> (and optionally <code>-SkipSplash</code>) and tap <strong>Patch</strong>. This pushes flags to <code>.../files/UE4Game/Client/UE4CommandLine.txt</code>.<br>3. <strong>Verification:</strong> Launch the game. An <strong>asterisk (*)</strong> at the end of the client version string on the splash screen confirms C# is active! In <strong>Utilities &gt; Decrypted Log Explorer</strong>, search for <code>Sharphereal</code> entries.<br><br>⚠️ <em>Hardware Note:</em> <strong>8 GB RAM is the minimum recommended requirement for C#.</strong> Devices with under 8 GB RAM may experience severe memory pressure or force-closing during combat scenes or map loading — disable this flag on those devices. See the full RAM tier breakdown for what to expect at each RAM level.<br><br><strong>Reverting:</strong> If your device is unstable with C# enabled, reopen Misc Patch and uncheck <code>-ForceEnableCSharpEnvironment</code>, or tap <strong>Revert to Vanilla</strong> in Utilities.",
       "link": "pages/enable-csharp.html",
       "linkText": "View C# Environment Guide"
     }
@@ -62,9 +211,28 @@
   {
     "id": "elevated-backends",
     "title": "Elevated Access Hierarchy & Shizuku Setup",
-    "keywords": ["how do i setup shizuku", "shizuku setup", "setup shizuku", "wireless debugging", "pairing", "shizuku", "backend", "access", "xiaomi", "miui", "hyperos", "root", "libsu", "axmanager", "axeron", "shizuku unauthorized", "scoped storage"],
+    "keywords": [
+      "how do i setup shizuku",
+      "shizuku setup",
+      "setup shizuku",
+      "wireless debugging",
+      "pairing",
+      "shizuku",
+      "backend",
+      "access",
+      "xiaomi",
+      "miui",
+      "hyperos",
+      "root",
+      "libsu",
+      "axmanager",
+      "axeron",
+      "shizuku unauthorized",
+      "scoped storage",
+      "target sdk 36"
+    ],
     "response": {
-      "text": "<strong>Elevated Access Backends Hierarchy:</strong><br>Android 11+ enforces Scoped Storage. WuWa Config Patcher supports 5 elevation backends:<br>• <strong>ROOT (Red #E35D6A):</strong> Native SU shell execution via topjohnwu <code>libsu</code> Core (v6.0.0).<br>• <strong>SHIZUKU (Green #47D764):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code> (zero root needed).<br>• <strong>AXMANAGER (Blue #2AA37D):</strong> Axeron shell provider integration.<br>• <strong>SHIZUKU_UNAUTHORIZED (Orange #F7C948):</strong> Shizuku binder running, permission pending approval.<br>• <strong>NONE (Gray #A8B4AF):</strong> No elevated backend detected.<br><br><strong>Setting Up Shizuku:</strong><br>1. Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times in Android Settings).<br>2. Enable <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>3. Open Shizuku, tap <strong>Pairing</strong> &gt; <strong>Pair device with pairing code</strong>, and enter the 6-digit code.<br>4. Tap <strong>Start</strong> in Shizuku, then return to WuWa Config Patcher and grant permission.<br>• <em>Xiaomi / HyperOS / MIUI Fix:</em> You must enable <strong>\"USB Debugging (Security Settings)\"</strong> in Developer Options!",
+      "text": "<strong>Elevated Access Backends Hierarchy (target SDK 36 • Android 11–15+):</strong><br>Android 11+ enforces Scoped Storage. WuWa Config Patcher supports 5 elevation backends, checked in this priority order:<br>• <strong>SHIZUKU (Green #47D764):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code> (<code>ShizukuManager.kt</code>) — zero root needed.<br>• <strong>ROOT (Red #E35D6A):</strong> Native SU shell execution via topjohnwu <code>libsu</code> Core (v6.0.0), fallback if Shizuku is unavailable.<br>• <strong>AXMANAGER (Blue #2AA37D):</strong> Axeron shell provider integration (<code>AxManagerManager.kt</code>).<br>• <strong>SHIZUKU_UNAUTHORIZED (Orange #F7C948):</strong> Shizuku binder running, permission pending approval.<br>• <strong>NONE (Gray #A8B4AF):</strong> No elevated backend detected — the app prompts the setup wizard or falls back to Manual Mode.<br><br><strong>Setting Up Shizuku:</strong><br>1. Install <strong>Shizuku</strong> from Google Play or GitHub releases.<br>2. Connect to Wi-Fi (or enable Portable Wi-Fi Hotspot).<br>3. Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times in About Phone).<br>4. Enable <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>5. Open Shizuku, tap <strong>Pairing &gt; Developer Options &gt; Pair device with pairing code</strong>, and enter the 6-digit code.<br>6. Return to Shizuku and tap <strong>Start</strong> until status shows \"Shizuku is running\".<br>7. Open WuWa Config Patcher and grant Shizuku permission when prompted.<br>• <em>Xiaomi / HyperOS / MIUI Fix:</em> You must enable <strong>\"USB Debugging (Security Settings)\"</strong> in Developer Options (requires a signed-in Mi Account)!",
       "link": "pages/setup-shizuku.html",
       "linkText": "View Shizuku Setup & Permissions Guide"
     }
@@ -72,9 +240,21 @@
   {
     "id": "cvar-analyzer",
     "title": "CVar Analyzer Diagnostics",
-    "keywords": ["how does cvar analyzer work", "cvar analyzer", "analyze config", "config analyzer", "applied percentage", "failed cvars", "stripped cvars", "smart insights", "verification status", "frozen table"],
+    "keywords": [
+      "how does cvar analyzer work",
+      "cvar analyzer",
+      "analyze config",
+      "config analyzer",
+      "applied percentage",
+      "failed cvars",
+      "stripped cvars",
+      "smart insights",
+      "verification status",
+      "frozen table",
+      "configanalysisdialog"
+    ],
     "response": {
-      "text": "<strong>Analyze Config (<code>CVarAnalyzer.kt</code> — Tab 3: Advanced Subtab):</strong><br>Cross-checks active on-device INI CVars against decrypted <code>Client.log</code> execution blocks near the end of the log.<br>• <strong>KPIs:</strong> Displays Total CVars, Applied %, Failed count, and Deleted/Ignored count.<br>• <strong>Status Codes:</strong><br>  - <span style=\"color:#10b981;\">APPLIED:</span> CVar value matched the executed engine value.<br>  - <span style=\"color:#ef4444;\">FAILED / UNREAD:</span> Game engine skipped or did not read the line.<br>  - <span style=\"color:#f59e0b;\">DELETED BY GAME:</span> Game stripped or rejected the variable.<br>• <strong>Features:</strong> Filter by Status (<code>All</code> / <code>Applied</code> / <code>Failed</code> / <code>Deleted</code>), File Filter (<code>Engine.ini</code> / <code>DeviceProfiles.ini</code>), frozen left CVar column table, and Collapsible Smart Insights panel.",
+      "text": "<strong>Analyze Config (<code>CVarAnalyzer.kt</code> — Tab 3: Advanced Subtab):</strong><br>Cross-checks active on-device INI CVars against decrypted <code>Client.log</code> execution blocks, resolving the <strong>latest instance</strong> near the end of the log.<br>• <strong>Report Dialog (<code>ConfigAnalysisDialog.kt</code>):</strong> Displays Total CVars, Applied %, Failed count, and Deleted/Ignored count &amp; %, plus a collapsible Smart Insights panel with actionable recommendations.<br>• <strong>Status Codes:</strong><br>  - <span style=\"color:#10b981;\">APPLIED:</span> CVar value matched the executed engine value.<br>  - <span style=\"color:#ef4444;\">FAILED / UNREAD:</span> Game engine skipped or did not read the line.<br>  - <span style=\"color:#f59e0b;\">DELETED BY GAME:</span> Game stripped or rejected the variable.<br>• <strong>Features:</strong> Combined tap-to-cycle CVar Filter (<code>All</code> / <code>Applied</code> / <code>Failed</code> / <code>Deleted</code>) + File Filter (<code>All Files</code> / <code>Engine.ini</code> / <code>DeviceProfiles.ini</code>), a frozen left CVar-name column, and Copy/Save scope dialogs (Full Report vs Filtered CVar Names Only).",
       "link": "pages/advanced-tools.html#cvar-analyzer",
       "linkText": "Open CVar Analyzer Guide"
     }
@@ -82,19 +262,61 @@
   {
     "id": "cvar-bank-alteriax",
     "title": "CVar Bank & AlteriaX Available CVars",
-    "keywords": ["available cvars", "alteriax", "alteriax pastebin", "cvar bank", "reference library", "1000 cvars", "cvar database", "extract web cvars", "send to editor", "ue docs"],
+    "keywords": [
+      "available cvars",
+      "alteriax",
+      "alteriax pastebin",
+      "cvar bank",
+      "reference library",
+      "1000 cvars",
+      "cvar database",
+      "extract web cvars",
+      "send to editor",
+      "ue docs",
+      "card view",
+      "table view"
+    ],
     "response": {
-      "text": "<strong>CVar Bank & Reference Library (Tab 3: Advanced Subtab):</strong><br>A searchable library of 1000+ CVars loaded asynchronously from <code>assets/alteriax_cvars.txt</code> (AlteriaX Pastebin) and official Unreal Engine documentation.<br><br><strong>Features:</strong><br>• <strong>Source Filters:</strong> Filter by <code>All Sources</code>, <code>AlteriaX Pastebin</code>, or <code>Unreal Engine Docs</code>.<br>• <strong>Display:</strong> Toggle between Card View and high-density Table View.<br>• <strong>Extract Web CVars:</strong> Paste raw text or web pages to dynamically parse and import new CVars into your local database.<br>• <strong>Send to Editor:</strong> Tap \"Send to Editor\" beside any CVar to instantly jump to Config Editor and insert it into Smart Mode under its canonical section!",
+      "text": "<strong>CVar Bank & Reference Library (Tab 3: Advanced Subtab):</strong><br>A searchable library of 1000+ CVars loaded asynchronously via <code>loadAlteriaXAssetsIfNeeded()</code> on a background thread (<code>Dispatchers.IO</code>) from <code>assets/alteriax_cvars.txt</code> (AlteriaX Pastebin) and official Unreal Engine documentation.<br><br><strong>Features:</strong><br>• <strong>Source Filters:</strong> Filter by <code>All Sources</code>, <code>AlteriaX Pastebin</code>, or <code>Unreal Engine Docs</code>.<br>• <strong>Display:</strong> Toggle between Card View and high-density Table View.<br>• <strong>Extract Web CVars:</strong> Paste raw text or web pages to dynamically parse and import new CVars into your local database.<br>• <strong>Send to Editor:</strong> Tap \"Send to Editor\" beside any CVar to instantly jump to the Config Editor and insert it into Smart Mode under its canonical section!",
       "link": "pages/advanced-tools.html#cvar-bank",
       "linkText": "Explore 1000+ CVar Bank Reference"
     }
   },
   {
+    "id": "duplicate-flagger",
+    "title": "Duplicate CVar Flagger",
+    "keywords": [
+      "duplicate flagger",
+      "duplicate cvars",
+      "duplicate keys",
+      "duplicatecvarflagger",
+      "duplicateflaggerdialog",
+      "duplicate lines in ini",
+      "same cvar twice"
+    ],
+    "response": {
+      "text": "<strong>Duplicate Flagger (<code>DuplicateCvarFlagger.kt</code> — Tab 3: Advanced Subtab &gt; INI Integrity &amp; Cleanup):</strong><br>Scans your active INI files for duplicate CVar keys across lines and sections — duplicate keys can cause the game engine to silently apply the wrong value. It automatically protects metadata profile pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>) from being flagged as duplicates.<br><br>Results are shown in <strong><code>DuplicateFlaggerDialog.kt</code></strong> with a 1-tap resolution flow so you can quickly clean up conflicting entries before they cause unexpected behavior in-game.",
+      "link": "pages/advanced-tools.html",
+      "linkText": "View INI Integrity & Cleanup Tools"
+    }
+  },
+  {
     "id": "forbidden-cvars",
     "title": "Forbidden CVars (WuWa v3.6 List)",
-    "keywords": ["forbidden cvars", "blacklisted cvars", "strip forbidden", "forbidden_cvars.txt", "unsupported cvars", "engine crash cvars", "v3.6 forbidden"],
+    "keywords": [
+      "forbidden cvars",
+      "blacklisted cvars",
+      "strip forbidden",
+      "forbidden_cvars.txt",
+      "unsupported cvars",
+      "engine crash cvars",
+      "v3.6 forbidden",
+      "forbiddencvarstripper",
+      "forbiddencvardialog",
+      "auto strip all"
+    ],
     "response": {
-      "text": "<strong>Forbidden CVars (Updated as of WuWa v3.6):</strong><br>These CVars cause engine rejection, black screens, or game crashes when injected on mobile. The patcher provides <strong>Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) in <strong>Utilities &gt; Advanced</strong> to auto-strip all forbidden CVars with 1 tap!<br><br><strong>Reference Link:</strong> <a href=\"https://github.com/Arglax/Mobile-WuWa-Config/blob/main/.github/forbidden_cvars.txt\" target=\"_blank\">Arglax Mobile-WuWa-Config forbidden_cvars.txt</a><br><br><strong>Forbidden CVars List:</strong><br>• <code>Kuro.CppEffectsystem.UseLowMemoryPlayerEffectLruCapacity</code><br>• <code>r.AFME.Enable</code>, <code>r.AsyncComputePSO</code>, <code>r.DetailMode</code>, <code>r.FEstimation.Option</code><br>• <code>r.Kuro.SkeletalMesh.LODDistanceScale</code>, <code>r.Kuro.TexturePool.ExtraBudgetMB</code>, <code>r.KuroFI.Enable</code>, <code>r.KuroMaterialQualityLevel</code><br>• <code>r.LightMaxDrawDistanceScale</code>, <code>r.MaterialQualityLevel</code>, <code>r.MFRC.Enable</code>, <code>r.MipMapLODBias</code>, <code>r.Mobile.DeviceEvaluation</code>, <code>r.MobileContentScaleFactor</code><br>• <code>r.ParallelInitViews</code>, <code>r.RayTracing.LimitDevice</code>, <code>r.ScreenPercentage</code>, <code>r.ScreenSizeCullRatioFactor</code>, <code>r.SecondaryScreenPercentage.GameViewport</code><br>• <code>r.Shadow.DistanceScale</code>, <code>r.Shadow.MaxCSMResolution</code>, <code>r.Shadow.MaxResolution</code><br>• <code>r.streaming.AllowExtendedPoolSize</code>, <code>r.Streaming.Boost</code>, <code>r.Streaming.CPUReadback</code>, <code>r.Streaming.DistancePriority.Texture2DArrayPriority</code>, <code>r.streaming.ExtendedPoolSizeForceAllMipsThresholdPercentage</code>, <code>r.streaming.ExtendedPoolSizeThresholdPercentage</code>, <code>r.Streaming.KuroExtraPoolSize</code>, <code>r.Streaming.LimitPoolSizeTOVRAM</code>, <code>r.streaming.MaxExtendedPoolSizePercentage</code>, <code>r.streaming.MaxExtendedPoolsizeVRAMPercentage</code>, <code>r.Streaming.MaxNumTexturesTostreamPerFrame</code>, <code>r.Streaming.MaxTempMemoryAllowed</code>, <code>r.Streaming.MaxTempMemoryAllowedForTexture2DArray</code>, <code>r.Streaming.MinBoost</code>, <code>r.Streaming.MinMipForSplitRequest</code>, <code>r.Streaming.PoolSize</code>, <code>r.Streaming.PoolSizeExtraForTexture2DArray</code>, <code>r.Streaming.Texture2DArrayStreamOutHysteresis</code>, <code>r.Streaming.UseAllMips</code>, <code>r.Streaming.UseAsyncCPUReadback</code>, <code>r.Streaming.UseFixedPoolsize</code><br>• <code>r.Streamline.DLSSG.RetainResourceswhenoff</code>, <code>r.TextureGroup.Landscape.TextureLODBias</code>, <code>r.ViewDistanceScale</code>, <code>r.VolumetricFog</code>, <code>r.VRS.EnableMaterial</code>, <code>r.VRS.EnableMesh</code>, <code>s.PriorityAsyncLoadingExtraTime</code>",
+      "text": "<strong>Forbidden CVars (Updated as of WuWa v3.6):</strong><br>These CVars cause engine rejection, black screens, or game crashes when injected on mobile. The patcher provides <strong>Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) in <strong>Utilities &gt; Advanced</strong> to auto-strip all forbidden CVars with 1 tap via <code>ForbiddenCvarDialog.kt</code>'s <strong>Auto Strip All</strong> action!<br><br><strong>Reference Link:</strong> <a href=\"https://github.com/Arglax/Mobile-WuWa-Config/blob/main/.github/forbidden_cvars.txt\" target=\"_blank\">Arglax Mobile-WuWa-Config forbidden_cvars.txt</a><br><br><strong>Forbidden CVars List:</strong><br>• <code>Kuro.CppEffectsystem.UseLowMemoryPlayerEffectLruCapacity</code><br>• <code>r.AFME.Enable</code>, <code>r.AsyncComputePSO</code>, <code>r.DetailMode</code>, <code>r.FEstimation.Option</code><br>• <code>r.Kuro.SkeletalMesh.LODDistanceScale</code>, <code>r.Kuro.TexturePool.ExtraBudgetMB</code>, <code>r.KuroFI.Enable</code>, <code>r.KuroMaterialQualityLevel</code><br>• <code>r.LightMaxDrawDistanceScale</code>, <code>r.MaterialQualityLevel</code>, <code>r.MFRC.Enable</code>, <code>r.MipMapLODBias</code>, <code>r.Mobile.DeviceEvaluation</code>, <code>r.MobileContentScaleFactor</code><br>• <code>r.ParallelInitViews</code>, <code>r.RayTracing.LimitDevice</code>, <code>r.ScreenPercentage</code>, <code>r.ScreenSizeCullRatioFactor</code>, <code>r.SecondaryScreenPercentage.GameViewport</code><br>• <code>r.Shadow.DistanceScale</code>, <code>r.Shadow.MaxCSMResolution</code>, <code>r.Shadow.MaxResolution</code><br>• <code>r.streaming.AllowExtendedPoolSize</code>, <code>r.Streaming.Boost</code>, <code>r.Streaming.CPUReadback</code>, <code>r.Streaming.DistancePriority.Texture2DArrayPriority</code>, <code>r.streaming.ExtendedPoolSizeForceAllMipsThresholdPercentage</code>, <code>r.streaming.ExtendedPoolSizeThresholdPercentage</code>, <code>r.Streaming.KuroExtraPoolSize</code>, <code>r.Streaming.LimitPoolSizeTOVRAM</code>, <code>r.streaming.MaxExtendedPoolSizePercentage</code>, <code>r.streaming.MaxExtendedPoolsizeVRAMPercentage</code>, <code>r.Streaming.MaxNumTexturesTostreamPerFrame</code>, <code>r.Streaming.MaxTempMemoryAllowed</code>, <code>r.Streaming.MaxTempMemoryAllowedForTexture2DArray</code>, <code>r.Streaming.MinBoost</code>, <code>r.Streaming.MinMipForSplitRequest</code>, <code>r.Streaming.PoolSize</code>, <code>r.Streaming.PoolSizeExtraForTexture2DArray</code>, <code>r.Streaming.Texture2DArrayStreamOutHysteresis</code>, <code>r.Streaming.UseAllMips</code>, <code>r.Streaming.UseAsyncCPUReadback</code>, <code>r.Streaming.UseFixedPoolsize</code><br>• <code>r.Streamline.DLSSG.RetainResourceswhenoff</code>, <code>r.TextureGroup.Landscape.TextureLODBias</code>, <code>r.ViewDistanceScale</code>, <code>r.VolumetricFog</code>, <code>r.VRS.EnableMaterial</code>, <code>r.VRS.EnableMesh</code>, <code>s.PriorityAsyncLoadingExtraTime</code>",
       "link": "pages/advanced-tools.html",
       "linkText": "View Forbidden CVar Stripper Tools"
     }
@@ -102,9 +324,24 @@
   {
     "id": "cvars-recommended",
     "title": "Recommended CVars & Optimization",
-    "keywords": ["what cvars can i put", "recommended cvars", "popular cvars", "cvar", "cvars", "graphic settings", "fps settings", "preset", "tweak", "tweaks", "framerate", "fps unlock", "uncap fps", "graphics config"],
+    "keywords": [
+      "what cvars can i put",
+      "recommended cvars",
+      "popular cvars",
+      "cvar",
+      "cvars",
+      "graphic settings",
+      "fps settings",
+      "preset",
+      "tweak",
+      "tweaks",
+      "framerate",
+      "fps unlock",
+      "uncap fps",
+      "graphics config"
+    ],
     "response": {
-      "text": "<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>• <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.5</code> (Section: <code>[SystemSettings]</code> — scales 3D render resolution; use lower values for FPS boosts).<br>• <code>r.ShadowQuality</code> = <code>0</code> to <code>3</code> (Section: <code>[SystemSettings]</code> — shadow map detail).<br>• <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — bloom/glare post-processing).<br>• <code>r.VSync</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — vertical sync toggle).<br>• <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> — disables heavy volumetric fog).<br>• <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> — asynchronous background asset streaming).<br><br><em>Important:</em> Avoid adding variables from the Forbidden CVars list, and always use <strong>Auto-Fix Sections</strong> in Smart Mode to ensure canonical placement.",
+      "text": "<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>• <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.5</code> (Section: <code>[SystemSettings]</code> — scales 3D render resolution; use lower values on 6GB/8GB-tier devices for FPS boosts, and values closer to 1.5 only on 12GB/16GB-tier devices).<br>• <code>r.ShadowQuality</code> = <code>0</code> to <code>3</code> (Section: <code>[SystemSettings]</code> — shadow map detail).<br>• <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — bloom/glare post-processing).<br>• <code>r.VSync</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — vertical sync toggle).<br>• <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> — disables heavy volumetric fog).<br>• <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> — asynchronous background asset streaming).<br><br><em>Important:</em> Avoid adding variables from the Forbidden CVars list, and always use <strong>Auto-Fix Sections</strong> in Smart Mode to ensure canonical placement. Pick a starting point based on your device's RAM tier — see the Hardware & RAM guide.",
       "link": "pages/advanced-tools.html#cvar-bank",
       "linkText": "Explore 1000+ CVar Bank Reference"
     }
@@ -112,29 +349,135 @@
   {
     "id": "ram-hardware",
     "title": "Hardware & RAM Requirements",
-    "keywords": ["recommended ram", "ram requirements", "ram requirement", "required ram", "hardware recommendations", "ram", "memory", "gb", "hardware", "device score", "spec", "specs", "gpu", "cpu", "poco x6 pro"],
+    "keywords": [
+      "recommended ram",
+      "ram requirements",
+      "ram requirement",
+      "required ram",
+      "hardware recommendations",
+      "ram",
+      "memory",
+      "gb",
+      "hardware",
+      "device score",
+      "spec",
+      "specs",
+      "gpu",
+      "cpu",
+      "poco x6 pro",
+      "how much ram",
+      "4gb",
+      "6gb",
+      "8gb",
+      "12gb",
+      "16gb",
+      "low end",
+      "high end",
+      "extreme visuals",
+      "minimum ram",
+      "upgrade device"
+    ],
     "response": {
-      "text": "<strong>Hardware & RAM Recommendations:</strong><br>• <strong>8 GB Physical RAM or higher:</strong> Recommended for Extreme / High Visual presets and Kuro's <strong>C# Environment</strong>.<br>• <strong>6 GB Physical RAM:</strong> Best suited for <code>STABLE</code> or <code>PERFORMANCE</code> presets.<br>• <strong>Under 6 GB RAM:</strong> Recommended to run Vanilla defaults or Low presets to avoid low-memory kills during scene changes.<br><br><strong>Check Your Device Hardware:</strong><br>Go to <strong>Utilities &gt; Common &gt; Get Device Info</strong> (<code>DeviceStatsCollector.kt</code>). It extracts your exact GPU renderer, Vulkan driver version, physical RAM, CPU core topology, and game-evaluated <strong>Device Score</strong> directly from <code>Client.log</code>!",
+      "text": "<strong>Hardware & RAM Recommendations (by physical RAM tier):</strong><br>• <strong>16 GB or higher:</strong> High-end tier — comfortably runs Extreme / High Visual presets with headroom to spare.<br>• <strong>12 GB:</strong> Standard recommendation for most players — smooth performance across <code>STABLE</code>, <code>PERFORMANCE</code>, and most <code>HIGH_VISUAL</code> presets.<br>• <strong>8 GB:</strong> Minimum recommended requirement for the <strong>C# Environment</strong> (<code>-ForceEnableCSharpEnvironment</code>). Below this, C# scripting risks memory pressure and force-closes during combat scenes or map loading.<br>• <strong>6 GB:</strong> Minimum requirement for low-end configs — best suited to <code>STABLE</code> or <code>PERFORMANCE</code> presets with the C# Environment left disabled.<br>• <strong>4 GB:</strong> May strongly experience bad performance (stutters, force-closes, long load times). Vanilla defaults or the lowest presets are recommended, and a device upgrade is recommended for a meaningfully better experience.<br><br><strong>Check Your Device Hardware:</strong><br>Go to <strong>Utilities &gt; Common &gt; Get Device Info</strong> (<code>DeviceStatsCollector.kt</code>). It extracts your exact GPU renderer, Vulkan driver version, physical RAM, CPU core count, C# environment status, and game-evaluated <strong>Device Score</strong> directly from <code>Client.log</code>!",
       "link": "pages/utilities-diagnostics.html",
       "linkText": "View Hardware Diagnostics Guide"
     }
   },
   {
+    "id": "cvar-extractor-log-tools",
+    "title": "CVar Extractor & Main Storage Reader",
+    "keywords": [
+      "extract log cvars",
+      "cvarextractor",
+      "cvarextractordialog",
+      "static var",
+      "var 1",
+      "var 2",
+      "var 3",
+      "hyper",
+      "frequency remarks",
+      "main storage",
+      "mainstoragereaderdialog",
+      "restore backup",
+      "csv export",
+      "txt export"
+    ],
+    "response": {
+      "text": "<strong>CVar Extractor & Main Storage Reader (Tab 3: Advanced Subtab &gt; Log Extraction & Main Storage):</strong><br>• <strong>Extract Log CVars (<code>CVarExtractor.kt</code>):</strong> Parses decrypted <code>Client.log</code> line-by-line and tags each CVar with a change-frequency remark: <code>Static</code> (constants set once at engine init), <code>Var 1</code> / <code>Var 2</code> / <code>Var 3</code> (CVars modified during scene loading or graphic changes), or <code>Hyper</code> (rapidly updating runtime CVars per frame). Results open in <strong><code>CVarExtractorDialog.kt</code></strong> with TXT and CSV export options.<br>• <strong>Main Storage Reader (<code>MainStorageReaderDialog.kt</code>):</strong> Inspects persistent backups saved in <code>context.filesDir/app_main_storage/backups/</code>. View, copy, or share any timestamped INI backup, and use the 1-tap <strong>Restore Backup</strong> button to instantly revert to a previous configuration snapshot.",
+      "link": "pages/advanced-tools.html",
+      "linkText": "View Log Extraction & Main Storage Tools"
+    }
+  },
+  {
     "id": "utilities-log-tools",
     "title": "Utilities, Log Decryptor & Backups",
-    "keywords": ["log tools", "client.log", "decrypt log", "decrypted log", "log decryptor", "log explorer", "get device info", "delete logs", "export patch", "share patch", "main storage", "restore backup"],
+    "keywords": [
+      "log tools",
+      "client.log",
+      "decrypt log",
+      "decrypted log",
+      "log decryptor",
+      "log explorer",
+      "get device info",
+      "delete logs",
+      "export patch",
+      "share patch",
+      "main storage",
+      "restore backup",
+      "devicestatscollector"
+    ],
     "response": {
-      "text": "<strong>Utilities & Log Diagnostics (Tab 3: Common & Advanced):</strong><br>• <strong>Decrypted Log Explorer:</strong> Real-time viewer for <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>LogInit</code>, <code>LogTemp</code>, <code>Vulkan</code>, <code>RHI</code>).<br>• <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>), <strong>Scheme B</strong> (XOR <code>0x55</code>), or Plaintext fallback.<br>• <strong>Delete Logs:</strong> Runs elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim gigabytes of storage.<br>• <strong>Export & Sharing (<code>PatchExporter.kt</code>):</strong> Compresses active INIs into a custom-named ZIP or exports to SAF folders.<br>• <strong>Main Storage (<code>MainStorageReaderDialog.kt</code>):</strong> Inspects snapshots in <code>context.filesDir/app_main_storage/</code> with 1-tap <strong>Restore Backup</strong>.",
+      "text": "<strong>Utilities & Log Diagnostics (Tab 3: Common Subtab):</strong><br>• <strong>Decrypted Log Explorer:</strong> Real-time viewer for <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>LogInit</code>, <code>LogTemp</code>, <code>Vulkan</code>, <code>RHI</code>).<br>• <strong>Get Device Info (<code>DeviceStatsCollector.kt</code>):</strong> Extracts GPU renderer, Vulkan driver version, physical RAM, CPU core count, C# environment status, and game-evaluated Device Score.<br>• <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Decrypts obfuscated logs using <strong>Scheme A</strong> (XOR <code>0xA5/0xEF</code>), <strong>Scheme B</strong> (XOR <code>0x55</code>), or Plaintext fallback. Supports full-screen <code>DecryptedLogViewerDialog.kt</code> and Sharesheet export.<br>• <strong>Delete Logs:</strong> Runs elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim gigabytes of storage.<br>• <strong>Export & Sharing (<code>PatchExporter.kt</code>):</strong> Opens a picked SAF folder or compresses active INIs into a custom-named ZIP for the Android Sharesheet.<br>• <strong>Main Storage:</strong> Inspects snapshots in <code>context.filesDir/app_main_storage/</code> with 1-tap <strong>Restore Backup</strong>.<br><br><strong>Backend Activity Log:</strong> Tap <strong>View Backend Activity Log</strong> (<code>ActivityLogDialog.kt</code>) to see every trigger, IPC event, and exception recorded at <code>context.filesDir/activity_log.txt</code> — for example: <code>[timestamp] Checked section guards for Engine.ini before save. Found 2 misplaced/prefixed item(s).</code>",
       "link": "pages/utilities-diagnostics.html",
       "linkText": "Open Common Utilities & Diagnostics"
     }
   },
   {
+    "id": "settings-preferences-updates",
+    "title": "Settings: Preferences, Updates & Quick Jumps",
+    "keywords": [
+      "preferences",
+      "help tooltips",
+      "patch notifications",
+      "haptics",
+      "sound effects",
+      "dnd at work",
+      "do not disturb",
+      "reset to defaults",
+      "application info",
+      "check for updates",
+      "grant root",
+      "quick jumps",
+      "developer options shortcut",
+      "wireless debugging shortcut",
+      "shizuku app shortcut",
+      "metadata generator",
+      "whats new",
+      "changelog",
+      "the ultimate patching guide"
+    ],
+    "response": {
+      "text": "<strong>Settings Tab (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Guide:</strong> <strong>The Ultimate Patching Guide</strong> opens an in-app onboarding walkthrough; <strong>Official Documentation</strong> currently shows an \"Under Construction\" notice.<br>• <strong>Preferences Card:</strong> Toggle <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preference values.<br>• <strong>Application Info:</strong> Shows the current app version. Tap <strong>Check for Updates</strong> to query the GitHub release API (<code>UpdateChecker.kt</code>) against <code>app-version.txt</code>. The <strong>Elevated Access Status</strong> card shows your active backend badge, with a <strong>Grant Root</strong> button (prompts Magisk/KernelSU/APatch/SuperSU via <code>libsu</code>) and Shizuku Setup/Refresh buttons.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Developer Options, Wireless Debugging, the Shizuku app, the AXManager app, the WuWaLab companion app, and the Metadata Generator.<br>• <strong>What's New Card:</strong> Renders the current release's highlights, linking to <code>ChangelogDialog.kt</code>.",
+      "link": "pages/bug-reporting.html",
+      "linkText": "View Settings & Support Guide"
+    }
+  },
+  {
     "id": "danger-zone-settings",
     "title": "Settings & Danger Zone Cleanup",
-    "keywords": ["danger zone", "delete shaders", "shader cache", "vulkan shader", "opengl shader", "clear app cache", "clear app data", "clear activity log", "preferences", "quick jumps", "check for updates"],
+    "keywords": [
+      "danger zone",
+      "delete shaders",
+      "shader cache",
+      "vulkan shader",
+      "opengl shader",
+      "clear app cache",
+      "clear app data",
+      "clear activity log",
+      "guarded actions"
+    ],
     "response": {
-      "text": "<strong>Settings Screen & Danger Zone (Tab 4: SettingsScreen):</strong><br>• <strong>Danger Zone (3-Step Guarded Actions):</strong><br>  - <strong>Delete Shaders (<code>DeleteShadersDialog.kt</code>):</strong> Wipes Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) compiled shader caches to resolve graphic glitches and shader compile crashes after game updates.<br>  - <strong>Clear App Cache & History:</strong> Wipes temporary repository zip caches and editor undo/redo snapshot stacks.<br>  - <strong>Clear App Data & Exports:</strong> Complete factory reset for repository URLs and exports.<br>  - <strong>Clear Activity Log:</strong> Erases <code>context.filesDir/activity_log.txt</code>.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Developer Options, Wireless Debugging, Shizuku App, Axeron, and WuWaLab.",
+      "text": "<strong>Settings Screen & Danger Zone (Tab 4: SettingsScreen):</strong><br>• <strong>Danger Zone (normally collapsed; 3-step guarded confirmation actions):</strong><br>  - <strong>Delete Shaders (<code>DeleteShadersDialog.kt</code>):</strong> Wipes Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) compiled shader caches to resolve graphic glitches and shader compile crashes after game updates.<br>  - <strong>Clear App Cache & History:</strong> Wipes temporary repository zip caches and editor undo/redo snapshot stacks.<br>  - <strong>Clear App Data & Exports:</strong> Complete factory reset for custom repository URLs, exports, and preference toggles.<br>  - <strong>Clear Activity Log:</strong> Erases <code>context.filesDir/activity_log.txt</code>.<br>• See the Preferences &amp; Quick Jumps guide for the rest of the Settings tab (toggles, update checker, Grant Root, shortcuts).",
       "link": "pages/bug-reporting.html",
       "linkText": "View Settings & Danger Zone Guide"
     }
@@ -142,9 +485,21 @@
   {
     "id": "troubleshoot-crash-lag",
     "title": "Remediation: Game Crashing, Lag, Stutter, or Black Screen",
-    "keywords": ["game crash", "crashing", "black screen", "game stutter", "lagging", "fps drop", "freeze", "stuck on splash", "fix my game", "revert vanilla", "troubleshoot crash"],
+    "keywords": [
+      "game crash",
+      "crashing",
+      "black screen",
+      "game stutter",
+      "lagging",
+      "fps drop",
+      "freeze",
+      "stuck on splash",
+      "fix my game",
+      "revert vanilla",
+      "troubleshoot crash"
+    ],
     "response": {
-      "text": "<strong>Troubleshooting: Game Crashing, Black Screen, or Stuttering:</strong><br>Follow these remediation steps in order:<br><br><strong>Step 1: Revert to Clean Vanilla Defaults</strong><br>Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong> and tap the red <strong>Revert to Vanilla</strong> button. This deletes modified <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> so Kuro Games factory defaults regenerate on launch.<br><br><strong>Step 2: Delete Corrupted Shader Caches</strong><br>Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (<code>DeleteShadersDialog.kt</code>) and clear both Vulkan and OpenGL caches. Shader corruption often occurs following game version updates.<br><br><strong>Step 3: Strip Forbidden CVars</strong><br>Go to <strong>Utilities &gt; Advanced Subtab &gt; Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) and tap <strong>Auto Strip All</strong>.<br><br><strong>Step 4: Check C# Environment & RAM Pressure</strong><br>If your device has less than 8 GB RAM, open <strong>Editor &gt; Misc Patch</strong> and uncheck <code>-ForceEnableCSharpEnvironment</code>.<br><br><strong>Step 5: Still not resolved?</strong><br>If the issue persists, open <strong>Support &gt; Report a Bug</strong> (<code>BugReportDialog.kt</code>) to send your device diagnostics and <code>activity_log.txt</code> directly to developer <strong>Arglax</strong> on Discord or GitHub.",
+      "text": "<strong>Troubleshooting: Game Crashing, Black Screen, or Stuttering:</strong><br>Follow these remediation steps in order:<br><br><strong>Step 1: Revert to Clean Vanilla Defaults</strong><br>Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong> and tap the red <strong>Revert to Vanilla</strong> button. This deletes modified <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> so Kuro Games factory defaults regenerate on launch.<br><br><strong>Step 2: Delete Corrupted Shader Caches</strong><br>Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (<code>DeleteShadersDialog.kt</code>) and clear both Vulkan and OpenGL caches. Shader corruption often occurs following game version updates.<br><br><strong>Step 3: Strip Forbidden CVars</strong><br>Go to <strong>Utilities &gt; Advanced Subtab &gt; Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) and tap <strong>Auto Strip All</strong>.<br><br><strong>Step 4: Check C# Environment & RAM Pressure</strong><br>If your device has less than 8 GB RAM, open <strong>Editor &gt; Misc Patch</strong> and uncheck <code>-ForceEnableCSharpEnvironment</code>. See the RAM tier guide for what to expect at your device's RAM level.<br><br><strong>Step 5: Still not resolved?</strong><br>If the issue persists, open <strong>Support &gt; Report a Bug</strong> (<code>BugReportDialog.kt</code>) to send your device diagnostics and <code>activity_log.txt</code> directly to developer <strong>Arglax</strong> on Discord or GitHub.",
       "link": "pages/patching-configs.html#revert",
       "linkText": "View Vanilla Revert & Recovery Guide"
     }
@@ -152,7 +507,17 @@
   {
     "id": "troubleshoot-backend-shizuku",
     "title": "Remediation: Shizuku Not Working or Access NONE",
-    "keywords": ["shizuku not working", "access none", "backend none", "permission denied", "shizuku unauthorized", "cannot connect shizuku", "shizuku bug", "pairing failed", "hyperos fix"],
+    "keywords": [
+      "shizuku not working",
+      "access none",
+      "backend none",
+      "permission denied",
+      "shizuku unauthorized",
+      "cannot connect shizuku",
+      "shizuku bug",
+      "pairing failed",
+      "hyperos fix"
+    ],
     "response": {
       "text": "<strong>Troubleshooting: Elevated Access \"NONE\" or Shizuku Issues:</strong><br>Follow these steps to restore elevated permissions:<br><br><strong>Step 1: Check Shizuku Service Status</strong><br>Open the Shizuku standalone app. Ensure it reports <em>\"Shizuku is running\"</em>. If stopped, re-pair using <strong>Wireless Debugging</strong> and enter the 6-digit code.<br><br><strong>Step 2: Xiaomi / HyperOS / MIUI Mandatory Fix</strong><br>Inside Android <strong>Developer Options</strong>, you must enable <strong>\"USB Debugging (Security Settings)\"</strong> (requires Mi Account login). Without this, Xiaomi blocks Shizuku from executing file writes.<br><br><strong>Step 3: Refresh or Revoke Permission</strong><br>Go to <strong>Settings Tab &gt; Application Info</strong> in WuWa Config Patcher and tap the <strong>Refresh</strong> icon. If still failing, open the Shizuku app, revoke permissions for WuWa Config Patcher, force stop the patcher, and reopen it to prompt approval again.<br><br><strong>Step 4: Alternative Backends</strong><br>If your device is rooted, tap <strong>Grant Root</strong> in Settings to use native SU via <code>libsu</code>.<br><br><strong>Step 5: Still failing?</strong><br>Report the issue to developer <strong>Arglax</strong> via <strong>Support &gt; Report a Bug</strong> with your backend log.",
       "link": "pages/troubleshooting.html",
@@ -162,9 +527,18 @@
   {
     "id": "troubleshoot-editor-guards",
     "title": "Remediation: Vibrant Red CVars & Failed Section Checks",
-    "keywords": ["red text", "vibrant red", "cvars not applying", "failed cvars", "stripped cvars", "section error", "cant save config", "prefix error"],
+    "keywords": [
+      "red text",
+      "vibrant red",
+      "cvars not applying",
+      "failed cvars",
+      "stripped cvars",
+      "section error",
+      "cant save config",
+      "prefix error"
+    ],
     "response": {
-      "text": "<strong>Troubleshooting: Vibrant Red Text (#FF2222) & Misplaced CVars:</strong><br><br><strong>Step 1: Use 1-Tap Auto-Fix Sections</strong><br>When saving in Config Editor, tap <strong>Auto-Fix Sections</strong> in the dialog. The patcher will automatically strip illegal <code>CVars=</code> prefixes from <code>Engine.ini</code> and route variables to canonical headers (e.g. <code>r.</code> to <code>RendererSettings</code>, <code>s.</code> to <code>StreamingSettings</code>).<br><br><strong>Step 2: Verify in CVar Analyzer</strong><br>After launching the game, open <strong>Utilities &gt; Advanced &gt; Analyze Config</strong> (<code>CVarAnalyzer.kt</code>). If a CVar shows <strong>DELETED BY GAME</strong>, Kuro's runtime explicitly stripped it because it is either protected, obsolete, or listed in the Forbidden CVars bank.<br><br><strong>Step 3: Check Whitelisted Headers</strong><br>Remember that <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and never altered.",
+      "text": "<strong>Troubleshooting: Vibrant Red Text (#FF2222) & Misplaced CVars:</strong><br><br><strong>Step 1: Use 1-Tap Auto-Fix Sections</strong><br>When saving in Config Editor, tap <strong>Auto-Fix Sections</strong> in the dialog. The patcher will automatically strip illegal <code>CVars=</code> prefixes from <code>Engine.ini</code> and route variables to canonical headers (e.g. <code>r.</code> to RendererSettings, <code>s.</code> to StreamingSettings, <code>n.</code>/<code>p.</code> network CVars to NetworkSettings).<br><br><strong>Step 2: Verify in CVar Analyzer</strong><br>After launching the game, open <strong>Utilities &gt; Advanced &gt; Analyze Config</strong> (<code>CVarAnalyzer.kt</code>). If a CVar shows <strong>DELETED BY GAME</strong>, Kuro's runtime explicitly stripped it because it is either protected, obsolete, or listed in the Forbidden CVars bank.<br><br><strong>Step 3: Check Whitelisted Headers</strong><br>Remember that <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and never altered.",
       "link": "pages/config-editor.html#cvar-guards",
       "linkText": "View CVar Section Guards Reference"
     }
@@ -172,9 +546,23 @@
   {
     "id": "bug-reporting",
     "title": "Bug Reporting, Diagnostics & Developer Support",
-    "keywords": ["report a bug", "bug reporting", "activity log", "activity_log.txt", "support", "discord", "github", "gcash", "donate", "actionlogger", "bugreportdialog"],
+    "keywords": [
+      "report a bug",
+      "bug reporting",
+      "activity log",
+      "activity_log.txt",
+      "support",
+      "discord",
+      "github",
+      "gcash",
+      "instapay",
+      "donate",
+      "actionlogger",
+      "bugreportdialog",
+      "wuwalab"
+    ],
     "response": {
-      "text": "<strong>Bug Reporting & Creator Support (Tab 5: SupportScreen):</strong><br>• <strong>Backend Activity Log:</strong> Every action, Shizuku IPC binder call, and exception is logged to <code>context.filesDir/activity_log.txt</code> by <code>ActionLogger.kt</code>. Inspect it in <strong>Utilities &gt; View Backend Activity Log</strong>.<br>• <strong>Report a Bug Generator (<code>BugReportDialog.kt</code>):</strong> Tap <strong>\"Report a Bug / Suggest a Feature\"</strong> on the Support tab. It automatically packages device specs and recent logs to send directly to developer <strong>Arglax</strong> via Discord or GitHub Issues.<br>• <strong>Support Arglax:</strong> The application is 100% free and ad-free. You can donate directly via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).",
+      "text": "<strong>Bug Reporting & Creator Support (Tab 5: SupportScreen):</strong><br>• <strong>Backend Activity Log:</strong> Every action, Shizuku IPC binder call, and exception is logged to <code>context.filesDir/activity_log.txt</code> by <code>ActionLogger.log()</code> / <code>ActionLogger.logException()</code>. Inspect it in <strong>Utilities &gt; View Backend Activity Log</strong>.<br>• <strong>Report a Bug Generator (<code>BugReportDialog.kt</code>):</strong> Tap <strong>\"Report a Bug / Suggest a Feature\"</strong> on the Support tab. It automatically packages device specs and recent logs to send directly to developer <strong>Arglax</strong> via Email, Discord, or GitHub Issues.<br>• <strong>Community & Utilities:</strong> Direct links to Arglax's official Discord and GitHub, plus a showcase card for the <strong>WuWaLab</strong> companion app.<br>• <strong>Support Arglax:</strong> The application is 100% free and ad-free. You can donate directly via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).",
       "link": "pages/bug-reporting.html",
       "linkText": "View Support & Activity Logger Guide"
     }
@@ -182,7 +570,15 @@
   {
     "id": "manual-mode",
     "title": "Manual Mode Guide (Old School File Managers)",
-    "keywords": ["manual mode", "no shizuku", "fv file explorer", "zarchiver", "mt manager", "scoped storage bypass", "manual patch"],
+    "keywords": [
+      "manual mode",
+      "no shizuku",
+      "fv file explorer",
+      "zarchiver",
+      "mt manager",
+      "scoped storage bypass",
+      "manual patch"
+    ],
     "response": {
       "text": "<strong>Manual Mode (Android 11–13 Fallback):</strong><br>If unable to run Shizuku or Root:<br>1. Go to <strong>Utilities &gt; Export & Sharing &gt; Share Patch</strong> and extract the INIs.<br>2. Using FV File Explorer, ZArchiver, or MT Manager, copy the files to:<br><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/Client/Saved/Config/Android/</code><br><br>⚠️ <em>Android 14 / 15 Note:</em> Google has strictly locked down <code>/Android/data/</code> access on newer OS versions. Shizuku or Root access is required on Android 14 and 15+.",
       "link": "pages/manual-method.html",
@@ -192,7 +588,19 @@
   {
     "id": "thanks",
     "title": "Gratitude",
-    "keywords": ["thanks", "thx", "ty", "appreciate it", "nice one", "cool", "awesome", "great", "perfect", "got it", "makes sense"],
+    "keywords": [
+      "thanks",
+      "thx",
+      "ty",
+      "appreciate it",
+      "nice one",
+      "cool",
+      "awesome",
+      "great",
+      "perfect",
+      "got it",
+      "makes sense"
+    ],
     "response": {
       "text": "You're very welcome! 🙌 Feel free to ask if you need help with presets, CVars, Shizuku, or diagnostics.",
       "link": "index.html",
@@ -202,7 +610,15 @@
   {
     "id": "goodbye",
     "title": "Goodbye",
-    "keywords": ["bye", "goodbye", "see you", "see ya", "later", "im done", "that s all"],
+    "keywords": [
+      "bye",
+      "goodbye",
+      "see you",
+      "see ya",
+      "later",
+      "im done",
+      "that s all"
+    ],
     "response": {
       "text": "Take care! 👋 Come back anytime you need tuning or troubleshooting assistance for WuWa Config Patcher.",
       "link": "index.html",

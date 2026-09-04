@@ -153,6 +153,7 @@
 
   const engine = new BM25Engine();
   let loadedTopics = [];
+  let loadError = null;
 
   // 5. Context-Enriched Query Resolution
 function buildEnrichedQueryTokens(rawQuery, contextWindow) {
@@ -202,6 +203,12 @@ function buildEnrichedQueryTokens(rawQuery, contextWindow) {
       }
     }
 
+    const ownTokens = expandAndStem(rawQuery);
+    const ownMatches = engine.search(ownTokens);
+    if (ownMatches.length > 0) {
+      return { matches: ownMatches, learnedMatch: null };
+    }
+
     const queryTokens = buildEnrichedQueryTokens(rawQuery, contextWindow);
     const matches = engine.search(queryTokens);
     return { matches, learnedMatch: null };
@@ -229,8 +236,13 @@ function buildEnrichedQueryTokens(rawQuery, contextWindow) {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       loadedTopics = await response.json();
       engine.index(loadedTopics);
+      loadError = null;
     } catch (err) {
-      console.warn("Could not fetch remote assets/ai-knowledge.json, using baseline topics.", err);
+      // Most common cause: the page was opened as a file:// URL, which blocks fetch()
+      // for local JSON. Recorded here (not just console.warn) so ai-chat.js can surface
+      // a human-readable reason instead of a generic "no match found" dead end.
+      loadError = (err && err.message) ? err.message : String(err);
+      console.warn("Could not fetch assets/ai-knowledge.json — local BM25 engine has no docs.", err);
     }
   }
 
@@ -241,6 +253,7 @@ function buildEnrichedQueryTokens(rawQuery, contextWindow) {
     getRankedMatches,
     reinforceTopic,
     initKnowledgeBase,
-    getLoadedTopics: () => loadedTopics
+    getLoadedTopics: () => loadedTopics,
+    getStatus: () => ({ loaded: loadedTopics.length > 0, error: loadError })
   };
 })(window);

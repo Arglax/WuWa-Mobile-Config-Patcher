@@ -124,8 +124,8 @@
             <span class="mode-tag">Smart Mode</span>
             <h4>Structured Section Cards</h4>
             <ul>
-              <li><strong>Sort A-Z Button:</strong> Re-arranges entries within every section alphabetically by key name using <code>sortSmartSectionsAlphabetically()</code>.</li>
-              <li><strong>Auto-Fix / Auto-Categorize Button:</strong> Re-categorizes CVars into canonical section headers automatically.</li>
+              <li><strong>Sort A-Z Button:</strong> Re-arranges section headers in canonical engine order (<code>ConsoleVariables</code> $\rightarrow$ <code>SystemSettings</code> $\rightarrow$ <code>RendererOverrideSettings</code> $\rightarrow$ <code>RendererSettings</code> $\rightarrow$ <code>StreamingSettings</code> $\rightarrow$ <code>Core.System</code> last) and sorts CVars alphabetically.</li>
+              <li><strong>Auto-Fix / Auto-Categorize Button:</strong> Re-categorizes CVars into canonical section headers, purges useless empty section headers, and deduplicates CVars within each section.</li>
               <li><strong>Multi-Select & Bulk Delete:</strong> Enables checking multiple items in expanded sections and deleting them in a single batch.</li>
               <li><strong>Steppers & Negative Numbers:</strong> Inline steppers with full negative number support.</li>
             </ul>

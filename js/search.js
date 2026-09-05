@@ -141,8 +141,8 @@
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
       url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update github releases patcher v1.5.0 latest release",
-      snippet: "Download the latest APK release (v1.5.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
+      keywords: "download apk release update github releases patcher v1.6.0 latest release",
+      snippet: "Download the latest APK release (v1.6.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
     }
   ];
 

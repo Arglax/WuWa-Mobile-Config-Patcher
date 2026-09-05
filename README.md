@@ -2,7 +2,7 @@
 
 An ultra light-weight (6 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.5.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.6.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 ## 📚 Documentation & Releases
 
@@ -10,26 +10,33 @@ An ultra light-weight (6 MB) android application to improve streamlining of the 
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **WuWa AI Assistant Enabled:** The official documentation site now features an interactive **AI Assistant** (💬) to help answer your questions, explain CVar settings, troubleshoot Shizuku setups, and guide you directly to the relevant documentation pages!
+> **WuWa AI Assistant & Multi-Language Engine (v1.6.0):** The official documentation site and application feature a complete multi-language localization engine (supporting 12 languages) and an interactive **AI Assistant** (💬) to help answer your questions, explain CVar settings, troubleshoot Shizuku setups, and guide you directly to the relevant documentation pages!
 
 ---
 
-## Key Features
+<details>
+<summary><strong>✨ Key Features (v1.6.0)</strong> (click to expand)</summary>
+
+<br>
 
 | Feature | Description |
 |---|---|
+| **App-Wide Multi-Language Support** | Every screen, button, dialog, and tab is 100% translatable across 12 languages (English, 简体中文, 繁體中文, 日本語, 한국어, Español, Português, Bahasa Indonesia, Tiếng Việt, Tagalog/Filipino, and العربية). |
 | **1-Click Patching** | Uses Shizuku/AXManager/Root to write game configurations directly to protected game data folders with or without root access. |
-| **Safe Revert** | Restore stock game files instantly using standard or advanced revert options to clear modified `.ini` configurations. |
+| **Safe Revert (Triple Guard)** | Restore stock game files instantly using 3-step triple-guarded revert options to clear modified `.ini` configurations securely. |
+| **Multi-Backend Log Decryptor** | 1-tap log decryption supporting direct file access, Shizuku, and Root shell across all 7 regional game package variants (Global, Bilibili, Kuro, TW, JP, KR). |
 | **Advanced Multi-Select Patching** | Freely select specific combinations of `.ini` files to patch (`Engine.ini`, `DeviceProfiles.ini`, `Scalability.ini`, `GameUserSettings.ini`), or use the quick toggle to apply everything at once. |
 | **Flexible Config Sources** | Load configurations from direct download URLs (`.zip`), local directories, custom online repositories, or your active game folder. |
-| **Built-in Config Editor** | Edit CVars directly on your device with Smart Mode (steppers and negative values), Raw Mode (search & replace), Isolation Mode, and persistent Undo-Redo history. |
-| **Config Analyzer** | Automatically analyze and verify which CVar parameters are applied, overridden, or deleted by the Unreal Engine runtime. |
-| **C# Environment Patching** | Force enable the experimental C# scripting runtime for Vulkan optimization. |
-| **Automatic Log Extract & Decrypt** | 1-tap extraction of `Client.log` to public storage with automatic decryption into human-readable text for crash diagnosis. |
+| **Built-in Config Editor** | Edit CVars directly on your device with Smart Mode (auto-fix empty sections & A-Z sorting), Raw Text Mode, One-Line Mode, and persistent Undo-Redo history. |
+| **Config Analyzer** | Automatically analyze and verify which CVar parameters are applied, overridden, or deleted by the Unreal Engine runtime (filtering out metadata pointers). |
+| **Vulkan 1.3+ Hardware Inspector** | 2-column hardware inspector providing live device snapshots, C# environment checks, and Vulkan 1.3+ compatibility validation. |
 | **Storage & Diagnostics Toolkit** | Delete oversized or corrupted log files, export and share generated `.zip` patches, and view live device hardware snapshots. |
+| **Official Documentation & AI Integration** | Direct web launch component in Settings and Support to open technical manuals and interactive AI help in your default web browser. |
 | **Custom Metadata Reader** | Showcase and read styled author ownership tags, custom notes, and formatted changelogs in custom config packages. |
-| **Automatic Update Checker** | Receive startup notifications when newer versions are available with a one-tap link to official GitHub releases. |
 
+</details>
+
+---
 
 ## 🛠 Prerequisites
 >[!IMPORTANT]
@@ -38,14 +45,14 @@ An ultra light-weight (6 MB) android application to improve streamlining of the 
 > - **Shizuku** installed and running (required for direct game folder access without root)
 >  - Via wireless debugging (Android 11+) or a PC/ADB connection at least once for setup
 > - **~50 MB free storage** for the app + your exported patch backups
-> - **Wuthering Waves (Global)** installed
+> - **Wuthering Waves (Global or Regional Variants)** installed
 > - Internet connection (for syncing configs from the repository)
 > ## Recommended
 > - **Android 13+ (API 33)** or higher — smoother Shizuku wireless debugging pairing, matches modern devices better
 > - **Shizuku running persistently** (auto-start on boot via wireless debugging, where supported)
 > - **Stable Wi-Fi** for repository sync and patch downloads
 
-This app requires **[Shizuku](https://shizuku.rikka.app/) / [Shizuku_GitHub](https://github.com/RikkaApps/Shizuku/releases/tag/v13.6.0)** to function. Shizuku bypasses Android's scoped storage restrictions and grants the app permission to modify your game files.
+This app requires **[Shizuku](https://shizuku.rikka.app/) / [Shizuku_GitHub](https://github.com/RikkaApps/Shizuku/releases/tag/v13.6.0)** or Root access to function. Shizuku bypasses Android's scoped storage restrictions and grants the app permission to modify your game files.
 
 1. Install Shizuku from the Google Play Store or the official website.
 2. Enable Shizuku via **Wireless Debugging**, **PC-Terminal** (non-rooted devices), or **Root access**.
@@ -94,7 +101,7 @@ Since this app isn't from the Play Store, Android will flag it as unrecognized. 
 3. Once Shizuku shows as **Running** and permission is granted, **1-Click Patch** unlocks automatically.
 
 **To undo a patch:**
-Tap **Revert back to Default Config**, confirm the prompt, and you're back to stock settings. The game recreates its default files automatically on next launch.
+Tap **Revert to Vanilla**, confirm the 3-step guard prompt, and you're back to stock settings. The game recreates its default files automatically on next launch.
 
 <img src="assets/img_reverttoVanilla.jpg" width="280"> <img src="assets/img_configDeleted.jpg" width="280">
 
@@ -137,15 +144,19 @@ Switch the repository source to **Local Repository** and select a folder contain
 
 - **Language:** Kotlin
 - **UI Framework:** Jetpack Compose (Material 3)
-- **Permissions:** Shizuku API
+- **Permissions:** Shizuku API / Root (libsu)
 - **Architecture:** Repository-pattern driven, Coroutine-based concurrency
   
 ---
 
 ## Credits
-Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project.  
-1. nagasemana5608 / Kudoupulse  
-2. k4irzw67 / Kyo  
-3. oxygen_011  
-4. eggsee  
-5. ezequieldevteam  
+Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project:  
+1. **nagasemana5608 / Kudoupulse**  
+2. **k4irzw67 / Kyo**  
+3. **oxygen_011**  
+4. **eggsee**  
+5. **ezequieldevteam**  
+
+### Discord Server Boosters:
+- **cyanide21**
+- **ofekitoo**

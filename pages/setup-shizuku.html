@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prerequisites & Elevated Access — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.5.0">
+  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+      <span class="version-badge" data-meta="version_v">v1.7.0</span>
     </div>
 
     <div class="header-actions">
@@ -101,9 +101,9 @@
           </div>
 
           <div class="feature-card">
-            <span class="badge-backend badge-axmanager">AXMANAGER</span>
-            <h4 style="margin-top: 10px;">3. AXMANAGER</h4>
-            <p>Managed via <code>AxManagerManager.kt</code>. Axeron community provider helper integration.</p>
+            <span class="badge-backend badge-axmanager">AXMANAGER (NOT SUPPORTED)</span>
+            <h4 style="margin-top: 10px;">3. AXMANAGER (Not Yet Supported)</h4>
+            <p>Presence detection via <code>AxManagerManager.kt</code>. Explicitly marked as <em>Not Yet Supported</em> — shell execution relies strictly on Shizuku or Root.</p>
           </div>
 
           <div class="feature-card">
@@ -157,32 +157,26 @@
         </div>
 
         <div class="code-block">
-          <div class="code-header">Backend Verification Logic (ShizukuManager.kt)</div>
-          <pre><code>// 1. Shizuku Binder IPC Check (rikka.shizuku.api)
-val isShizukuAvailable = Shizuku.pingBinder()
-if (isShizukuAvailable && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
-    activeBackend = AccessBackend.SHIZUKU // Green Badge (#47D764)
-}
+          <div class="code-header">Backend Verification Logic (MainViewModel.kt & ShizukuManager.kt)</div>
+          <pre><code>// 1. Root Shell Permission Check (libsu Core v6.0.0)
+val rootGranted = RootChecker.isRootGranted()
 
-// 2. Direct Root Shell Fallback (libsu Core v6.0.0)
-else if (Shell.cmd("id").exec().isSuccess) {
-    activeBackend = AccessBackend.ROOT // Red Badge (#E35D6A)
-}
+// 2. Shizuku Binder IPC Check (rikka.shizuku.api)
+val shizukuAvailable = ShizukuManager.isAvailable()
+val shizukuPerm = ShizukuManager.hasPermission()
 
-// 3. Axeron Provider Detection (AxManagerManager.kt)
-else if (AxManager.isAvailable()) {
-    activeBackend = AccessBackend.AXMANAGER // Blue Badge (#2AA37D)
-}
-
-// 4. Unauthorized Pending Status
-else if (isShizukuAvailable) {
-    activeBackend = AccessBackend.SHIZUKU_UNAUTHORIZED // Orange Badge (#F7C948)
-}
-
-// 5. Fallback
-else {
-    activeBackend = AccessBackend.NONE // Gray Badge (#A8B4AF)
+activeAccessBackend = when {
+    rootGranted -> AccessBackend.ROOT // Red Badge (#E35D6A)
+    shizukuAvailable && shizukuPerm -> AccessBackend.SHIZUKU // Green Badge (#47D764)
+    shizukuAvailable -> AccessBackend.SHIZUKU_UNAUTHORIZED // Orange Badge (#FB8C00)
+    AxManagerManager.isInstalled(context) -> AccessBackend.AXMANAGER_UNSUPPORTED // Orange/Amber Badge (#FFB74D)
+    else -> AccessBackend.NONE // Gray Badge (#757575)
 }</code></pre>
+        </div>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">🩺 AUTOMATED ACCESS DIAGNOSIS (APP DOCTOR)</div>
+          If Shizuku drops connection or permission fails during execution, WuWa Config Patcher v1.7.0 displays actionable remediation popups (Stupid Mode), or you can run <strong>App Doctor</strong> in <em>Utilities &gt; Common</em> to auto-diagnose elevated access, game installation, and storage permissions.
         </div>
 
         <p class="lead-text">
@@ -195,17 +189,17 @@ else {
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.5.0"></script>
-  <script src="../js/search.js?v=1.5.0"></script>
-  <script src="../js/modal.js?v=1.5.0"></script>
-  <script src="../js/code-copy.js?v=1.5.0"></script>
-  <script src="../js/formatter.js?v=1.5.0"></script>
-  <script src="../js/theme.js?v=1.5.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.5.0"></script>
-  <script src="../js/ai-chat.js?v=1.5.0"></script>
-  <script src="../js/main.js?v=1.5.0"></script>
+  <script src="../js/metadata.js?v=1.7.0"></script>
+  <script src="../js/search.js?v=1.7.0"></script>
+  <script src="../js/modal.js?v=1.7.0"></script>
+  <script src="../js/code-copy.js?v=1.7.0"></script>
+  <script src="../js/formatter.js?v=1.7.0"></script>
+  <script src="../js/theme.js?v=1.7.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
+  <script src="../js/ai-chat.js?v=1.7.0"></script>
+  <script src="../js/main.js?v=1.7.0"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Config Editor & Section Guards — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.5.0">
+  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+      <span class="version-badge" data-meta="version_v">v1.7.0</span>
     </div>
 
     <div class="header-actions">
@@ -128,6 +128,7 @@
               <li><strong>Auto-Fix / Auto-Categorize Button:</strong> Re-categorizes CVars into canonical section headers, purges useless empty section headers, and deduplicates CVars within each section.</li>
               <li><strong>Multi-Select & Bulk Delete:</strong> Enables checking multiple items in expanded sections and deleting them in a single batch.</li>
               <li><strong>Steppers & Negative Numbers:</strong> Inline steppers with full negative number support.</li>
+              <li><strong>Disk-Persisted Undo & Redo:</strong> Dedicated header controls backed by <code>EditorHistoryManager.kt</code> (persisting up to 40 snapshots in <code>context.filesDir</code>) so history survives app kills or backgrounding without requiring Shizuku.</li>
             </ul>
           </div>
 
@@ -251,6 +252,11 @@
           <li><strong>-ForceEnableCSharpEnvironment:</strong> Checkbox to force enable Kuro's experimental C# scripting pipeline.</li>
           <li><strong>Custom Launch Flags:</strong> Dialog allowing users to enter custom engine launch flags.</li>
         </ul>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">⚠️ REQUIRES AT LEAST ONE OPTION</div>
+          Tapping <strong>Patch</strong> with no options selected or custom variables entered displays a warning status popup instructing you to select an option or enter a flag first, rather than silently doing nothing.
+        </div>
       </section>
 
     </main>
@@ -258,17 +264,17 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.5.0"></script>
-  <script src="../js/search.js?v=1.5.0"></script>
-  <script src="../js/modal.js?v=1.5.0"></script>
-  <script src="../js/code-copy.js?v=1.5.0"></script>
-  <script src="../js/formatter.js?v=1.5.0"></script>
-  <script src="../js/theme.js?v=1.5.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.5.0"></script>
-  <script src="../js/ai-chat.js?v=1.5.0"></script>
-  <script src="../js/main.js?v=1.5.0"></script>
+  <script src="../js/metadata.js?v=1.7.0"></script>
+  <script src="../js/search.js?v=1.7.0"></script>
+  <script src="../js/modal.js?v=1.7.0"></script>
+  <script src="../js/code-copy.js?v=1.7.0"></script>
+  <script src="../js/formatter.js?v=1.7.0"></script>
+  <script src="../js/theme.js?v=1.7.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
+  <script src="../js/ai-chat.js?v=1.7.0"></script>
+  <script src="../js/main.js?v=1.7.0"></script>
 </body>
 </html>

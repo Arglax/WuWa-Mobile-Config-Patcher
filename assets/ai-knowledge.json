@@ -22,7 +22,7 @@
       "welcome guide"
     ],
     "response": {
-      "text": "Hello! 😊 I am your <strong>WuWa Config Patcher Assistant</strong>.<br><br>I can guide you through every feature of the patcher:<br>• <strong>1-Click Preset Patching:</strong> Deploy curated stable, performance, or extreme visuals configs.<br>• <strong>Live INI Editor:</strong> Edit <code>Engine.ini</code> and <code>DeviceProfiles.ini</code> with Smart, Text, and One-Line modes.<br>• <strong>Section Guards & Auto-Fix:</strong> Correct misplaced CVars and strip invalid prefixes instantly.<br>• <strong>C# Scripting Runtime:</strong> Force-enable Kuro's experimental C# environment for smoother frame pacing.<br>• <strong>Elevated Access Backends:</strong> Configure Shizuku (ADB wireless debugging) or native Root (<code>libsu</code>).<br>• <strong>Diagnostics & Tools:</strong> CVar Analyzer, AlteriaX CVar Bank, Duplicate Flagger, Forbidden Stripper, and Log Decryptor.",
+      "text": "Hello! 😊 I am your <strong>WuWa Config Patcher Assistant</strong>.<br><br>I can guide you through every feature of the patcher:<br>• <strong>1-Click Preset Patching:</strong> Deploy curated stable, performance, or extreme visuals configs.<br>• <strong>Live INI Editor:</strong> Edit <code>Engine.ini</code> and <code>DeviceProfiles.ini</code> with Smart, Text, and One-Line modes.<br>• <strong>Section Guards & Auto-Fix:</strong> Correct misplaced CVars and strip invalid prefixes instantly.<br>• <strong>C# Scripting Runtime:</strong> Force-enable Kuro's experimental C# environment for smoother frame pacing.<br>• <strong>Elevated Access Backends:</strong> Configure Shizuku (ADB wireless debugging) or native Root (<code>libsu</code>).<br>• <strong>Diagnostics & Tools:</strong> App Doctor (Self-Diagnose & Repair), CVar Analyzer, AlteriaX CVar Bank, Duplicate Flagger, Forbidden Stripper, and Log Decryptor.",
       "link": "index.html",
       "linkText": "Explore Documentation Home"
     }
@@ -55,7 +55,7 @@
       "changelog dialog"
     ],
     "response": {
-      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.5.1</code>, <code>versionCode = 31</code>) is a free, open-source elevated Android utility built by developer <strong>Arglax</strong>.<br><br><strong>Architecture & Tech Stack:</strong><br>• <strong>Language & UI:</strong> Kotlin 2.4.10, Jetpack Compose with Material 3 design system.<br>• <strong>Networking & Serialization:</strong> OkHttp 4, Retrofit 2 with KotlinX Serialization.<br>• <strong>Storage & Elevation:</strong> AndroidX DocumentFile (SAF), Rikka Shizuku API (target SDK 36), topjohnwu <code>libsu</code> Core 6.0.0, and Firebase BoM 34.16.0.<br>• <strong>OS Target:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update Checking:</strong><br>The app verifies releases against <code>app-version.txt</code> hosted on the GitHub repository via <code>UpdateChecker.kt</code>. You can trigger manual checks under Settings &gt; Application Info.<br><br><strong>Supported Package Variants:</strong><br>• Global (<code>com.kurogame.wutheringwaves.global</code>)<br>• Bilibili, Kuro (Mainland), TW, JP, and KR variants.",
+      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.7.0</code>, <code>versionCode = 35</code>) is a free, open-source elevated Android utility built by developer <strong>Arglax</strong>.<br><br><strong>Architecture & Tech Stack:</strong><br>• <strong>Language & UI:</strong> Kotlin 2.4.10, Jetpack Compose with Material 3 design system.<br>• <strong>Networking & Serialization:</strong> OkHttp 4, Retrofit 2 with KotlinX Serialization.<br>• <strong>Storage & Elevation:</strong> AndroidX DocumentFile (SAF), Rikka Shizuku API (target SDK 36), topjohnwu <code>libsu</code> Core 6.0.0, and Firebase BoM 34.16.0.<br>• <strong>OS Target:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update Checking:</strong><br>The app verifies releases against <code>app-version.txt</code> hosted on the GitHub repository via <code>UpdateChecker.kt</code>. You can trigger manual checks under Settings &gt; Application Info.<br><br><strong>Supported Package Variants:</strong><br>• Global (<code>com.kurogame.wutheringwaves.global</code>)<br>• Bilibili, Kuro (Mainland), TW, JP, and KR variants.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Creator Notes & Repository"
     }
@@ -81,7 +81,7 @@
       "single activity architecture"
     ],
     "response": {
-      "text": "<strong>WuWa Config Patcher</strong> is structured around a single-activity layout with 5 bottom navigation tabs:<br><br>1. <strong>Config (<code>ConfigScreen</code>):</strong> Select repositories (Default GitHub, Custom HTTP ZIP, or Local SAF), browse categorized presets, and run <strong>1-Click Patch</strong> or per-file selective patching.<br>2. <strong>Editor (<code>EditorScreen</code>):</strong> Live on-device INI editor supporting Smart, Raw Text, and One-Line dropdown editing, alongside the Misc Patch subtab (C# flag and skip splash).<br>3. <strong>Utilities (<code>UtilitiesScreen</code>):</strong> Split into <strong>Common</strong> (Decrypted Log Explorer, Device Info, Vanilla Revert, Share Patch) and <strong>Advanced</strong> (CVar Analyzer, 1000+ CVar Bank, Duplicate Flagger, Forbidden Stripper, Main Storage).<br>4. <strong>Settings (<code>SettingsScreen</code>):</strong> Configure tooltips, haptics, and DND; check update status; test elevation backends; and access guarded Danger Zone recovery tools.<br>5. <strong>Support (<code>SupportScreen</code>):</strong> Interactive Bug Report generator, Discord and GitHub links, GCash/InstaPay donation modal, and WuWaLab showcase.",
+      "text": "<strong>WuWa Config Patcher</strong> is structured around a single-activity layout with 5 bottom navigation tabs:<br><br>1. <strong>Config (<code>ConfigScreen</code>):</strong> Select repositories (Default GitHub, Custom HTTP ZIP, or Local SAF), browse categorized presets, and run <strong>1-Click Patch</strong> or per-file selective patching.<br>2. <strong>Editor (<code>EditorScreen</code>):</strong> Live on-device INI editor supporting Smart, Raw Text, and One-Line dropdown editing, alongside the Misc Patch subtab (C# flag and skip splash).<br>3. <strong>Utilities (<code>UtilitiesScreen</code>):</strong> Split into <strong>Common</strong> (App Doctor Self-Diagnose & Repair, Decrypted Log Explorer, Device Info, Vanilla Revert, Share Patch) and <strong>Advanced</strong> (CVar Analyzer, 1000+ CVar Bank, Duplicate Flagger, Forbidden Stripper, Main Storage).<br>4. <strong>Settings (<code>SettingsScreen</code>):</strong> Configure Stupid Mode, tooltips, haptics, and DND; check update status; test elevation backends; and access guarded Danger Zone recovery tools.<br>5. <strong>Support (<code>SupportScreen</code>):</strong> Interactive Bug Report generator, Discord and GitHub links, GCash/InstaPay donation modal, and WuWaLab showcase.",
       "link": "index.html",
       "linkText": "Explore Documentation Home"
     }
@@ -209,6 +209,8 @@
       "elevated access backend hierarchy",
       "root backend libsu core",
       "axmanager backend axeron",
+      "axmanager not supported",
+      "axeron unsupported",
       "shizuku unauthorized status fix",
       "xiaomi usb debugging security settings",
       "hyperos shizuku write permission fix",
@@ -218,9 +220,69 @@
       "backend status gray none"
     ],
     "response": {
-      "text": "<strong>Elevated Access Backends Hierarchy (Target SDK 36 • Android 11–15+):</strong><br>Because Android strictly enforces Scoped Storage on <code>/Android/data/</code>, the patcher detects elevated providers in this order:<br>• <strong>SHIZUKU (Green #47D764):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code> (<code>ShizukuManager.kt</code>) — 100% rootless.<br>• <strong>ROOT (Red #E35D6A):</strong> Native SU shell execution via topjohnwu <code>libsu</code> Core 6.0.0.<br>• <strong>AXMANAGER (Blue #2AA37D):</strong> Axeron shell provider integration (<code>AxManagerManager.kt</code>).<br>• <strong>SHIZUKU_UNAUTHORIZED (Orange #F7C948):</strong> Shizuku service running, permission prompt pending approval.<br>• <strong>NONE (Gray #A8B4AF):</strong> No provider active. Prompts the setup wizard or falls back to Manual Mode.<br><br><strong>Setting Up Shizuku:</strong><br>1. Install <strong>Shizuku</strong> from Google Play or GitHub.<br>2. Connect to Wi-Fi (or a Portable Wi-Fi Hotspot).<br>3. Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times).<br>4. Enable both <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>5. In Shizuku, tap <strong>Pairing &gt; Developer Options &gt; Pair device with pairing code</strong> and enter the 6-digit code.<br>6. Return to Shizuku, tap <strong>Start</strong>, then launch WuWa Config Patcher and grant permission.<br><br>⚠️ <em>Xiaomi / HyperOS / MIUI Fix:</em> You <strong>must</strong> enable <strong>\"USB Debugging (Security Settings)\"</strong> inside Developer Options (requires a signed-in Mi Account), otherwise Xiaomi will silently block file writes!",
+      "text": "<strong>Elevated Access Backends Hierarchy (Target SDK 36 • Android 11–15+):</strong><br>Because Android strictly enforces Scoped Storage on <code>/Android/data/</code>, the patcher detects elevated providers in this order:<br>• <strong>SHIZUKU (Green #47D764):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code> (<code>ShizukuManager.kt</code>) — 100% rootless.<br>• <strong>ROOT (Red #E35D6A):</strong> Native SU shell execution via topjohnwu <code>libsu</code> Core 6.0.0.<br>• <strong>AXMANAGER (Not Yet Supported):</strong> Axeron shell provider check (<code>AxManagerManager.kt</code>). Having AXManager installed alone does NOT grant active patch permissions (only Shizuku and Root are active patching backends). AXManager is explicitly marked 'Not Yet Supported' across the app.<br>• <strong>SHIZUKU_UNAUTHORIZED (Orange #F7C948):</strong> Shizuku service running, permission prompt pending approval.<br>• <strong>NONE (Gray #A8B4AF):</strong> No provider active. Prompts the setup wizard or falls back to Manual Mode.<br><br><strong>Setting Up Shizuku:</strong><br>1. Install <strong>Shizuku</strong> from Google Play or GitHub.<br>2. Connect to Wi-Fi (or a Portable Wi-Fi Hotspot).<br>3. Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times).<br>4. Enable both <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>5. In Shizuku, tap <strong>Pairing &gt; Developer Options &gt; Pair device with pairing code</strong> and enter the 6-digit code.<br>6. Return to Shizuku, tap <strong>Start</strong>, then launch WuWa Config Patcher and grant permission.<br><br>⚠️ <em>Xiaomi / HyperOS / MIUI Fix:</em> You <strong>must</strong> enable <strong>\"USB Debugging (Security Settings)\"</strong> inside Developer Options (requires a signed-in Mi Account), otherwise Xiaomi will silently block file writes!",
       "link": "pages/setup-shizuku.html",
       "linkText": "View Shizuku Setup & Permissions Guide"
+    }
+  },
+  {
+    "id": "app-doctor",
+    "title": "App Doctor: Self-Diagnose & Auto-Repair",
+    "keywords": [
+      "app doctor",
+      "self diagnose",
+      "self repair",
+      "appdoctor",
+      "automated troubleshooting",
+      "diagnostic scan",
+      "auto fix repository",
+      "cache health check",
+      "zero byte storage files",
+      "recent log errors",
+      "config path reachability",
+      "app doctor dialog"
+    ],
+    "response": {
+      "text": "<strong>App Doctor (Self-Diagnose & Auto-Repair — Tab 3: Common Subtab):</strong><br>An automated troubleshooting tool (<code>AppDoctor.kt</code>) that audits a fixed set of real failure modes, auto-fixes safe issues, and provides actionable findings for unresolved items.<br><br><strong>What App Doctor Audits & Auto-Fixes:</strong><br>1. <strong>Elevated Access:</strong> Verifies if Shizuku or Root is granted and operational.<br>2. <strong>Wuthering Waves Installed:</strong> Checks if the game package (<code>com.kurogame.wutheringwaves.global</code>) exists on the device.<br>3. <strong>Game Config Files Reachable:</strong> Confirms the game config directory is accessible.<br>4. <strong>Config Repository:</strong> Audits repository files; if missing or corrupted, automatically triggers a re-sync.<br>5. <strong>Cache & Download Folder Health:</strong> Scans temporary directories for orphaned or corrupt ZIP/extraction folders and performs auto-cleanup.<br>6. <strong>App Storage Reports:</strong> Checks persistent storage (<code>app_main_storage/</code>) and removes zero-byte corrupt files.<br>7. <strong>Recent Errors:</strong> Scans the action log over the last 24 hours and explicitly lists exact error entries directly inside the diagnostic card, identifying patterns like repeated Shizuku or Root permission failures.",
+      "link": "pages/utilities-diagnostics.html",
+      "linkText": "View App Doctor & Diagnostics Guide"
+    }
+  },
+  {
+    "id": "stupid-mode",
+    "title": "Stupid Mode (Status Message Popups)",
+    "keywords": [
+      "stupid mode",
+      "status message popup",
+      "popup notifications",
+      "toast vs popup",
+      "disable stupid mode",
+      "turn off stupid mode",
+      "remediation hint popup",
+      "dismissible popup",
+      "spoonfeeding"
+    ],
+    "response": {
+      "text": "<strong>Stupid Mode (Settings Preference — Default ON):</strong><br>When Stupid Mode is enabled, every status, success, warning, or error message pops up as a full, standalone dismissible window (<code>StatusPopupDialog.kt</code>) carrying direct remediation hints on failure, rather than a short-lived toast notification.<br><br><strong>How to Turn Off:</strong><br>Go to <strong>Tab 4: SettingsScreen</strong>, scroll to the <strong>Preferences</strong> card, and toggle off <strong>Stupid Mode</strong> to switch back to lightweight toast notifications.",
+      "link": "pages/bug-reporting.html",
+      "linkText": "View Settings Preferences Guide"
+    }
+  },
+  {
+    "id": "failure-popups-remediation",
+    "title": "Failure Popups with Remediation Hints",
+    "keywords": [
+      "failure popup remediation",
+      "shizuku failure hint",
+      "what to do on failure",
+      "remediation instructions",
+      "shizuku not running popup",
+      "grant permission popup"
+    ],
+    "response": {
+      "text": "<strong>Failure Popups with Remediation Hints:</strong><br>When a Shizuku-dependent or elevated action fails, WuWa Config Patcher shows an actionable popup containing step-by-step remediation instructions instead of a generic error message.<br><br>• <strong>Shizuku Not Running:</strong> Instructs you to open the Shizuku app and tap Start (or force-stop and restart it if already running), then tap Refresh next to Elevated Access Status in Settings.<br>• <strong>Shizuku Permission Denied:</strong> Directs you to Settings &gt; Elevated Access Status, tap the (?) icon, authorize the app when Shizuku prompts you, and tap Refresh.",
+      "link": "pages/troubleshooting.html",
+      "linkText": "View Troubleshooting & Remediation Guide"
     }
   },
   {
@@ -299,15 +361,17 @@
       "strip forbidden cvars button",
       "forbidden_cvars txt reference",
       "unsupported mobile cvars",
-      "cvars that crash the game",
+      "forbidden cvars not dangerous",
+      "are forbidden cvars dangerous",
+      "do forbidden cvars crash game",
+      "harmless ignored cvars",
       "v3.6 forbidden cvar list",
       "forbiddencvarstripper utility",
       "forbiddencvardialog cleanup",
-      "auto strip all forbidden cvars",
-      "black screen cvars mobile"
+      "auto strip all forbidden cvars"
     ],
     "response": {
-      "text": "<strong>Forbidden CVars (Updated as of WuWa v3.6):</strong><br>These CVars cause engine rejections, black screens, or game force-closes when applied on mobile devices. Use <strong>Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) in <strong>Utilities &gt; Advanced</strong> to auto-strip them with 1 tap via <code>ForbiddenCvarDialog.kt</code>!<br><br><strong>High-Risk Forbidden CVars:</strong><br>• <code>Kuro.CppEffectsystem.UseLowMemoryPlayerEffectLruCapacity</code><br>• <code>r.AFME.Enable</code>, <code>r.AsyncComputePSO</code>, <code>r.DetailMode</code>, <code>r.FEstimation.Option</code><br>• <code>r.Kuro.SkeletalMesh.LODDistanceScale</code>, <code>r.Kuro.TexturePool.ExtraBudgetMB</code>, <code>r.KuroFI.Enable</code>, <code>r.KuroMaterialQualityLevel</code><br>• <code>r.LightMaxDrawDistanceScale</code>, <code>r.MaterialQualityLevel</code>, <code>r.MFRC.Enable</code>, <code>r.MipMapLODBias</code>, <code>r.Mobile.DeviceEvaluation</code>, <code>r.MobileContentScaleFactor</code><br>• <code>r.ParallelInitViews</code>, <code>r.RayTracing.LimitDevice</code>, <code>r.ScreenPercentage</code>, <code>r.ScreenSizeCullRatioFactor</code>, <code>r.SecondaryScreenPercentage.GameViewport</code><br>• <code>r.Shadow.DistanceScale</code>, <code>r.Shadow.MaxCSMResolution</code>, <code>r.Shadow.MaxResolution</code><br>• <code>r.streaming.AllowExtendedPoolSize</code>, <code>r.Streaming.Boost</code>, <code>r.Streaming.CPUReadback</code>, <code>r.Streaming.PoolSize</code>, <code>r.Streaming.UseFixedPoolsize</code><br>• <code>r.Streamline.DLSSG.RetainResourceswhenoff</code>, <code>r.VolumetricFog</code>, <code>r.VRS.EnableMaterial</code>, <code>s.PriorityAsyncLoadingExtraTime</code>",
+      "text": "<strong>Forbidden CVars (WuWa v3.6 List):</strong><br><strong>Truth: Forbidden CVars are NOT dangerous and do NOT cause game crashes!</strong> They are simply console variables that Wuthering Waves' engine runtime automatically ignores or deletes upon startup.<br><br>Use <strong>Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) in <strong>Utilities &gt; Advanced</strong> to auto-strip them in 1 tap via <code>ForbiddenCvarDialog.kt</code> to keep your <code>Engine.ini</code> and <code>DeviceProfiles.ini</code> clean and free of dead lines.<br><br><strong>Known Forbidden CVars:</strong><br>• <code>sys.ForceCrash</code>, <code>r.DebugDisableUiSceneRendering</code>, <code>r.ForceDebug</code>, <code>r.AllowCommandExecution</code>, <code>r.GTS.ForceAsync</code>, <code>r.Kuro.AutoCoolEnable</code>, <code>r.DisableSplash</code>",
       "link": "pages/advanced-tools.html",
       "linkText": "View Forbidden CVar Stripper Tools"
     }
@@ -331,7 +395,7 @@
       "render scale cvar mobile"
     ],
     "response": {
-      "text": "<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>• <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.2</code> (Section: <code>[SystemSettings]</code> — scales 3D internal render resolution; lower for FPS gains, raise for visual sharpness).<br>• <code>r.ShadowQuality</code> = <code>0</code> to <code>2</code> (Section: <code>[SystemSettings]</code> — shadow cascade map resolution).<br>• <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — post-processing glare and bloom).<br>• <code>r.VSync</code> = <code>0</code> (Section: <code>[SystemSettings]</code> — disables VSync to reduce input lag).<br>• <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> — disables heavy volumetric fog).<br>• <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> — background asset loading thread).<br><br>⚠️ <em>Important:</em> Never inject variables present on the Forbidden CVars list, and always tap <strong>Auto-Fix Sections</strong> when saving in Smart Mode.",
+      "text": "<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>• <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.2</code> (Section: <code>[SystemSettings]</code> — scales 3D internal render resolution; lower for FPS gains, raise for visual sharpness).<br>• <code>r.ShadowQuality</code> = <code>0</code> to <code>2</code> (Section: <code>[SystemSettings]</code> — shadow cascade map resolution).<br>• <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — post-processing glare and bloom).<br>• <code>r.VSync</code> = <code>0</code> (Section: <code>[SystemSettings]</code> — disables VSync to reduce input lag).<br>• <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> — disables heavy volumetric fog).<br>• <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> — background asset loading thread).<br><br>⚠️ <em>Important:</em> Forbidden CVars are harmlessly ignored at runtime, but always tap <strong>Auto-Fix Sections</strong> when saving in Smart Mode.",
       "link": "pages/advanced-tools.html#cvar-bank",
       "linkText": "Explore 1000+ CVar Bank Reference"
     }
@@ -451,6 +515,7 @@
     "keywords": [
       "common utilities subtab tools",
       "client log tools overview",
+      "app doctor self diagnose self repair",
       "decrypt log file button",
       "decrypted log explorer viewer",
       "get device info hardware collector",
@@ -462,7 +527,7 @@
       "devicestatscollector kt"
     ],
     "response": {
-      "text": "<strong>Utilities & Log Diagnostics (Tab 3: Common Subtab):</strong><br>• <strong>Decrypted Log Explorer:</strong> Real-time viewer for <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>Vulkan</code>, <code>RHI</code>).<br>• <strong>Get Device Info (<code>DeviceStatsCollector.kt</code>):</strong> Pulls exact GPU renderer strings, Vulkan driver versions, physical RAM, CPU cores, C# environment status, and game-evaluated <strong>Device Score</strong>.<br>• <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Supports Scheme A (XOR <code>0xA5/0xEF</code>), Scheme B (XOR <code>0x55</code>), and Plaintext with full-screen viewer and export.<br>• <strong>Delete Logs:</strong> Runs elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim gigabytes of storage.<br>• <strong>Export & Sharing (<code>PatchExporter.kt</code>):</strong> Exports configured INIs into a custom-named ZIP or copies them to a chosen SAF folder.<br>• <strong>Backend Activity Log:</strong> Tap <strong>View Backend Activity Log</strong> (<code>ActivityLogDialog.kt</code>) to inspect <code>activity_log.txt</code> for IPC calls, section guard events, and stack traces.",
+      "text": "<strong>Utilities & Log Diagnostics (Tab 3: Common Subtab):</strong><br>• <strong>App Doctor (Self-Diagnose & Auto-Repair — <code>AppDoctor.kt</code>):</strong> Automated troubleshooting auditing elevated access, game install, config reachability, repository validity + re-sync, cache health, 0-byte persistent file cleanup, and recent log error patterns.<br>• <strong>Decrypted Log Explorer:</strong> Real-time viewer for <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>Vulkan</code>, <code>RHI</code>).<br>• <strong>Get Device Info (<code>DeviceStatsCollector.kt</code>):</strong> Pulls exact GPU renderer strings, Vulkan driver versions, physical RAM, CPU cores, C# environment status, and game-evaluated <strong>Device Score</strong>.<br>• <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Supports Scheme A (XOR <code>0xA5/0xEF</code>), Scheme B (XOR <code>0x55</code>), and Plaintext with full-screen viewer and export.<br>• <strong>Delete Logs:</strong> Runs elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim gigabytes of storage.<br>• <strong>Export & Sharing (<code>PatchExporter.kt</code>):</strong> Exports configured INIs into a custom-named ZIP or copies them to a chosen SAF folder.<br>• <strong>Backend Activity Log:</strong> Tap <strong>View Backend Activity Log</strong> (<code>ActivityLogDialog.kt</code>) to inspect <code>activity_log.txt</code> for IPC calls, section guard events, and stack traces.",
       "link": "pages/utilities-diagnostics.html",
       "linkText": "Open Common Utilities & Diagnostics"
     }
@@ -473,6 +538,7 @@
     "keywords": [
       "settings tab options overview",
       "preferences toggles list",
+      "stupid mode toggle",
       "help tooltips toggle",
       "patch notifications toggle",
       "haptics and sound effects toggles",
@@ -488,7 +554,7 @@
       "whats new changelog card"
     ],
     "response": {
-      "text": "<strong>Settings Screen (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Onboarding:</strong> <strong>The Ultimate Patching Guide</strong> provides an interactive setup walkthrough.<br>• <strong>Preferences Card:</strong> Toggle <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preferences.<br>• <strong>Application Info:</strong> Displays current version (<code>v1.5.1</code>). Tap <strong>Check for Updates</strong> to query GitHub releases via <code>UpdateChecker.kt</code>.<br>• <strong>Elevated Access Status:</strong> View your active provider badge, with <strong>Grant Root</strong> (prompts Magisk/KernelSU/APatch via <code>libsu</code>) and Shizuku refresh actions.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Android Developer Options, Wireless Debugging, the Shizuku app, AXManager, WuWaLab, and the Metadata Generator.<br>• <strong>What's New:</strong> Highlights recent changelog updates via <code>ChangelogDialog.kt</code>.",
+      "text": "<strong>Settings Screen (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Onboarding:</strong> <strong>The Ultimate Patching Guide</strong> provides an interactive setup walkthrough.<br>• <strong>Preferences Card:</strong> Toggle <code>Stupid Mode</code> (full status popups vs toasts), <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preferences.<br>• <strong>Application Info:</strong> Displays current version (<code>v1.7.0</code>). Tap <strong>Check for Updates</strong> to query GitHub releases via <code>UpdateChecker.kt</code>.<br>• <strong>Elevated Access Status:</strong> View your active provider badge, with <strong>Grant Root</strong> (prompts Magisk/KernelSU/APatch via <code>libsu</code>) and Shizuku refresh actions. Note: AXManager is marked 'Not Yet Supported'.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Android Developer Options, Wireless Debugging, the Shizuku app, AXManager, WuWaLab, and the Metadata Generator.<br>• <strong>What's New:</strong> Highlights recent changelog updates via <code>ChangelogDialog.kt</code>.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Settings & Support Guide"
     }
@@ -532,7 +598,7 @@
       "emergency game repair checklist"
     ],
     "response": {
-      "text": "<strong>Game Crash, Black Screen & Stutter Remediation Sequence:</strong><br>Follow these steps in order to resolve crashes:<br><br>1. <strong>Revert to Clean Vanilla Defaults:</strong> Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong> and tap <strong>Revert to Vanilla</strong>. This deletes modified <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> so clean factory defaults regenerate on launch.<br>2. <strong>Delete Corrupted Shader Caches:</strong> Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (<code>DeleteShadersDialog.kt</code>) and wipe both Vulkan and OpenGL caches.<br>3. <strong>Strip Forbidden CVars:</strong> Go to <strong>Utilities &gt; Advanced &gt; Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) and tap <strong>Auto Strip All</strong>.<br>4. <strong>Check C# Environment & RAM:</strong> If your device has less than 8 GB RAM, open <strong>Editor &gt; Misc Patch</strong> and uncheck <code>-ForceEnableCSharpEnvironment</code>.<br>5. <strong>Send Diagnostics:</strong> If crashing persists, tap <strong>Support &gt; Report a Bug</strong> (<code>BugReportDialog.kt</code>) to send your device specs and <code>activity_log.txt</code> to Arglax.",
+      "text": "<strong>Game Crash, Black Screen & Stutter Remediation Sequence:</strong><br>Follow these steps in order to resolve crashes:<br><br>1. <strong>Revert to Clean Vanilla Defaults:</strong> Go to <strong>Utilities &gt; Common &gt; Vanilla mode</strong> and tap <strong>Revert to Vanilla</strong>. This deletes modified <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> so clean factory defaults regenerate on launch.<br>2. <strong>Delete Corrupted Shader Caches:</strong> Go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> (<code>DeleteShadersDialog.kt</code>) and wipe both Vulkan and OpenGL caches.<br>3. <strong>Strip Forbidden CVars:</strong> Go to <strong>Utilities &gt; Advanced &gt; Strip Forbidden</strong> (<code>ForbiddenCvarStripper.kt</code>) and tap <strong>Auto Strip All</strong> (forbidden CVars are harmlessly ignored by the engine, but stripping them keeps your INIs clean).<br>4. <strong>Check C# Environment & RAM:</strong> If your device has less than 8 GB RAM, open <strong>Editor &gt; Misc Patch</strong> and uncheck <code>-ForceEnableCSharpEnvironment</code>.<br>5. <strong>Send Diagnostics:</strong> If crashing persists, tap <strong>Support &gt; Report a Bug</strong> (<code>BugReportDialog.kt</code>) to send your device specs and <code>activity_log.txt</code> to Arglax.",
       "link": "pages/patching-configs.html#revert",
       "linkText": "View Vanilla Revert & Recovery Guide"
     }

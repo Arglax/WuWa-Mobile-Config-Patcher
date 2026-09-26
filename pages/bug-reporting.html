@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Support, Bug Reporting & Settings — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.5.0">
+  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+      <span class="version-badge" data-meta="version_v">v1.7.0</span>
     </div>
 
     <div class="header-actions">
@@ -97,7 +97,7 @@
           <div class="feature-card">
             <div class="card-icon">🐛</div>
             <h4>Report a Bug Generator (<code>BugReportDialog.kt</code>)</h4>
-            <p>Tap <strong>"Report a Bug / Suggest a Feature"</strong> on the Support tab to open <code>BugReportDialog.kt</code>. It compiles hardware specs and backend logs to submit via Email, Discord, or GitHub Issues.</p>
+            <p>Tap <strong>"Report a Bug / Suggest a Feature"</strong> on the Support tab to open <code>BugReportDialog.kt</code>. Supports 3 feedback categories (Bug Report, Feature Request, General Feedback) and interactive screen checkboxes (Config, Editor, Utilities, Support, Settings and sub-features). It compiles system hardware specs, app version, elevated access status, and recent action log lines to submit via Email, Discord, or GitHub Issues.</p>
           </div>
 
           <div class="feature-card">
@@ -115,6 +115,61 @@
 
       <section class="doc-section">
         <div class="section-header">
+          <h2>Settings Preferences & System Toggles</h2>
+          <span class="author-tag">Tab 4: SettingsScreen &gt; Preferences</span>
+        </div>
+
+        <p class="lead-text">
+          The <strong>Preferences Card</strong> on the Settings tab allows customizing application behavior, feedback cues, notification schedules, and information clarity:
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-icon">🌐</div>
+            <h4>App Language Selector</h4>
+            <p>Change overall application localization language (via <code>I18n.kt</code>), supporting English, Chinese, Japanese, Korean, Spanish, Portuguese, Indonesian, Vietnamese, Tagalog, and Arabic.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">💡</div>
+            <h4>Help Tooltips</h4>
+            <p>Toggle the visibility of interactive help icons and <code>(?)</code> buttons throughout the application layout.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🔔</div>
+            <h4>Patch Notifications</h4>
+            <p>Opt in or out of push notifications when new config update releases and preset packages are published.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">📳</div>
+            <h4>Haptics</h4>
+            <p>Enable or disable physical device vibration feedback on button presses, saves, and action completions.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🔊</div>
+            <h4>Sound Effects</h4>
+            <p>Toggle audio feedback, including button click sounds and synthesized success or error audio beeps (<code>AppSoundManager.kt</code>).</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">🌙</div>
+            <h4>DND at Work</h4>
+            <p>Automatically mutes patch release push notifications during local office/work hours (8:00 AM – 5:00 PM local time).</p>
+          </div>
+
+          <div class="feature-card" style="grid-column: 1 / -1;">
+            <div class="card-icon">🤪</div>
+            <h4>Stupid Mode (v1.7.0 New — Default: ON)</h4>
+            <p>Described in-app as <em>"Make information clearer and easier to spot. 90% Spoonfeeding."</em> When enabled, every status, warning, or error message displays as a full, standalone dismissible popup window (<code>StatusPopupDialog.kt</code>) carrying explicit remediation instructions (e.g. step-by-step guidance to start Shizuku or fix invalid inputs) instead of a quick-fading toast notification. Disabling this toggle restores standard lightweight Android toast messages.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-header">
           <h2>Settings Screen: Danger Zone Actions</h2>
           <span class="author-tag">Tab 4: SettingsScreen &gt; Danger Zone</span>
         </div>
@@ -126,7 +181,7 @@
         <div class="method-card">
           <h4>Guarded System Maintenance Routines</h4>
           <ul>
-            <li><strong>Clear App Cache &amp; History:</strong> Wipes temporary repository zip caches and editor undo/redo snapshot stacks.</li>
+            <li><strong>Clear App Cache &amp; History:</strong> Wipes temporary repository zip caches, staging files, and editor undo/redo snapshot stacks.</li>
             <li><strong>Clear App Data &amp; Exports:</strong> Complete factory reset clearing custom repository URLs, exported zips, and preference toggles.</li>
             <li><strong>Clear Activity Log:</strong> Erases <code>context.filesDir/activity_log.txt</code>.</li>
             <li><strong>Delete Shaders (<code>DeleteShadersDialog.kt</code>):</strong> Deletes Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) compiled shader caches to fix rendering artifacts after game updates.</li>
@@ -141,7 +196,7 @@
         </div>
 
         <p class="lead-text">
-          The <strong>What's New Card</strong> renders current release highlights (`v1.5.0`) linking directly to <code>ChangelogDialog.kt</code>.
+          The <strong>What's New Card</strong> renders current release highlights (<code>v1.7.0</code>) linking directly to <code>ChangelogDialog.kt</code> and the in-app update installer.
         </p>
       </section>
 
@@ -150,17 +205,17 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.7.0</span></span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.5.0"></script>
-  <script src="../js/search.js?v=1.5.0"></script>
-  <script src="../js/modal.js?v=1.5.0"></script>
-  <script src="../js/code-copy.js?v=1.5.0"></script>
-  <script src="../js/formatter.js?v=1.5.0"></script>
-  <script src="../js/theme.js?v=1.5.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.5.0"></script>
-  <script src="../js/ai-chat.js?v=1.5.0"></script>
-  <script src="../js/main.js?v=1.5.0"></script>
+  <script src="../js/metadata.js?v=1.7.0"></script>
+  <script src="../js/search.js?v=1.7.0"></script>
+  <script src="../js/modal.js?v=1.7.0"></script>
+  <script src="../js/code-copy.js?v=1.7.0"></script>
+  <script src="../js/formatter.js?v=1.7.0"></script>
+  <script src="../js/theme.js?v=1.7.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
+  <script src="../js/ai-chat.js?v=1.7.0"></script>
+  <script src="../js/main.js?v=1.7.0"></script>
 </body>
 </html>

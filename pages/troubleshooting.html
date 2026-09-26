@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Troubleshooting & FAQ — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.5.0">
+  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+      <span class="version-badge" data-meta="version_v">v1.7.0</span>
     </div>
 
     <div class="header-actions">
@@ -79,7 +79,7 @@
       <section class="doc-section">
         <div class="section-header">
           <h2>Troubleshooting & Frequently Asked Questions</h2>
-          <span class="author-tag">v1.5.0 Support Reference</span>
+          <span class="author-tag">v1.7.0 Support Reference</span>
         </div>
 
         <div class="method-card">
@@ -87,8 +87,9 @@
           <p>If your Elevated Access Status shows "NONE" despite Shizuku running in the background:</p>
           <ol class="step-list">
             <li>Go to the <strong>Settings</strong> tab and check the Elevated Access Status card.</li>
-            <li>Tap the refresh button next to the Shizuku setup wizard.</li>
+            <li>Tap <strong>Grant Access</strong> or the refresh button next to the Shizuku setup wizard.</li>
             <li>If it fails, open the Shizuku app, revoke permissions for WuWa Config Patcher, and force stop the patcher. Reopen the patcher to trigger the prompt again via <code>rikka.shizuku.api</code>.</li>
+            <li>When Shizuku-dependent actions fail, the app displays a clear popup explaining exact next steps (such as starting/restarting Shizuku, re-granting permission, or tapping Grant Access in Settings).</li>
           </ol>
         </div>
 
@@ -96,7 +97,7 @@
           <h4>2. Game Stuttering or Crashing After Patching</h4>
           <p>Not all mobile devices handle extreme visual presets well. To safely reset your game graphics to Kuro Games' defaults:</p>
           <ol class="step-list">
-            <li>Navigate to the <strong>Utilities</strong> tab $\rightarrow$ <strong>Common Subtab</strong>.</li>
+            <li>Navigate to the <strong>Utilities</strong> tab &rarr; <strong>Common Subtab</strong>.</li>
             <li>Tap the primary red <strong>Revert to Vanilla</strong> button.</li>
             <li>Confirm the prompt. This automatically executes a safe deletion of <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>.</li>
           </ol>
@@ -107,7 +108,7 @@
           <ul class="step-list">
             <li><span class="badge-backend badge-root">ROOT</span> — Red badge (#E35D6A): Direct elevated <code>libsu</code> shell execution.</li>
             <li><span class="badge-backend badge-shizuku">SHIZUKU</span> — Green badge (#47D764): Primary wireless debugging ADB backend.</li>
-            <li><span class="badge-backend badge-axmanager">AXMANAGER</span> — Blue badge (#2AA37D): Axeron community provider helper.</li>
+            <li><span class="badge-backend badge-axmanager">AXMANAGER</span> — Blue badge (#2AA37D): Axeron community provider helper (Not Yet Supported — presence detection only; does not execute commands or manage permissions).</li>
             <li><span class="badge-backend badge-unauthorized">SHIZUKU_UNAUTHORIZED</span> — Orange badge (#F7C948): Shizuku binder running, permission pending.</li>
             <li><span class="badge-backend badge-none">NONE</span> — Gray badge (#A8B4AF): No elevated backend available.</li>
           </ul>
@@ -127,7 +128,7 @@
           <h4>5. Internal Device Storage Full from Game Logs</h4>
           <p>Wuthering Waves can generate massive log files over time. To clean them:</p>
           <ol class="step-list">
-            <li>Go to <strong>Utilities</strong> $\rightarrow$ <strong>Common Subtab</strong> $\rightarrow$ <strong>Log Tools</strong>.</li>
+            <li>Go to <strong>Utilities</strong> &rarr; <strong>Common Subtab</strong> &rarr; <strong>Log Tools</strong>.</li>
             <li>Tap <strong>Delete Logs</strong> to execute an elevated <code>rm -rf</code> on the <code>.../Saved/Logs/</code> directory safely.</li>
           </ol>
         </div>
@@ -141,23 +142,45 @@
             <li>Select and delete Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) shader caches to force a clean shader rebuild upon next launch.</li>
           </ol>
         </div>
+
+        <div class="method-card">
+          <h4>7. Patches Fail to Apply or Repository Presets Disappeared</h4>
+          <p>If 1-Click Patching fails, presets disappear, or repository download errors occur:</p>
+          <ol class="step-list">
+            <li>Go to <strong>Utilities</strong> &rarr; <strong>Common Subtab</strong>.</li>
+            <li>Tap <strong>App Doctor (Self-Diagnose &amp; Repair)</strong> to run an automated 7-point diagnostic audit.</li>
+            <li>App Doctor tests elevated access, game package presence, config path reachability, repository integrity (auto re-syncing missing/corrupt presets), download cache health, storage files, and recent error logs.</li>
+            <li>If an issue requires manual action, follow the listed remediation hint or tap <strong>Report to Arglax</strong> to attach your diagnostic log to a bug report.</li>
+          </ol>
+        </div>
+
+        <div class="method-card">
+          <h4>8. Actionable Failure Popups &amp; Remediation Hints</h4>
+          <p>In v1.7.0, error and warning messages provide actionable guidance instead of vague failures or silent drops:</p>
+          <ol class="step-list">
+            <li><strong>Shizuku Failures:</strong> Popups explain exactly what to do next (start Shizuku, restart service, re-grant permission, or tap Grant Access in Settings).</li>
+            <li><strong>Share Decrypted Log (No Log Present):</strong> Displays a popup prompting you to tap <strong>Decrypt Log</strong> first before sharing.</li>
+            <li><strong>Misc Patch (No Selections):</strong> Displays a popup notifying you that no patch options were selected.</li>
+            <li><strong>Stupid Mode (Default ON):</strong> All status messages display as full dismissible popup windows (configurable in Settings).</li>
+          </ol>
+        </div>
       </section>
     </main>
   </div>
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.5.0"></script>
-  <script src="../js/search.js?v=1.5.0"></script>
-  <script src="../js/modal.js?v=1.5.0"></script>
-  <script src="../js/code-copy.js?v=1.5.0"></script>
-  <script src="../js/formatter.js?v=1.5.0"></script>
-  <script src="../js/theme.js?v=1.5.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.5.0"></script>
-  <script src="../js/ai-chat.js?v=1.5.0"></script>
-  <script src="../js/main.js?v=1.5.0"></script>
+  <script src="../js/metadata.js?v=1.7.0"></script>
+  <script src="../js/search.js?v=1.7.0"></script>
+  <script src="../js/modal.js?v=1.7.0"></script>
+  <script src="../js/code-copy.js?v=1.7.0"></script>
+  <script src="../js/formatter.js?v=1.7.0"></script>
+  <script src="../js/theme.js?v=1.7.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
+  <script src="../js/ai-chat.js?v=1.7.0"></script>
+  <script src="../js/main.js?v=1.7.0"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /**
- * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.5)
+ * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.0)
  * Enhanced with Dynamic i18n Localization & Multilingual Cloud AI Prompts.
  */
 (function (window) {
@@ -191,15 +191,16 @@
       ? window.WuWaI18n.LANGUAGES[curLang]
       : { name: 'English', code: 'en' };
 
-    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.6.0) developed by Arglax.
+    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.7.0) developed by Arglax.
 
 CRITICAL LANGUAGE REQUIREMENT:
 The user's preferred language is ${langConfig.name} (Code: ${curLang}).
 You MUST reply completely, naturally, and accurately in ${langConfig.name}.
 Translate all advice, descriptions, steps, and conversational speech into ${langConfig.name}. Keep exact technical terms (e.g. Engine.ini, DeviceProfiles.ini, r.ShadowQuality, -ForceEnableCSharpEnvironment, Shizuku, libsu) in their original technical format.
 
-END-USER APP NAVIGATION ROUTES GUIDE (v1.6.0):
+END-USER APP NAVIGATION ROUTES GUIDE (v1.7.0):
 When the user asks where a feature is located or how to navigate to it, provide these exact step-by-step navigation routes:
+• App Doctor (Self-Diagnose & Repair): Utilities -> Common -> App Doctor
 • Duplicate Flagger: Utilities -> Advanced -> Duplicate Flagger
 • CVar Bank & Reference Library: Utilities -> Advanced -> CVar Bank
 • Config Analysis Report: Utilities -> Advanced -> Analyze Config
@@ -215,6 +216,7 @@ When the user asks where a feature is located or how to navigate to it, provide 
 • Live Config Editor: Editor -> Config Editor (Switch modes: Smart / Text / One-Line)
 • Smart Mode Auto-Fix & A-Z Sort: Editor -> Config Editor -> Smart Mode -> Auto-Fix / Sort A-Z
 • Misc Patch (UE Command Line): Editor -> Misc Patch
+• Stupid Mode Toggle: Settings -> Preferences -> Stupid Mode
 • App Language Selector: Settings -> App Language
 • Check for App Updates: Settings -> Application Info -> Check for Updates
 • Grant Root Access: Settings -> Application Info -> Grant Root

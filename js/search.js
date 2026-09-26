@@ -78,7 +78,7 @@
       title: "Prerequisites & Elevated Access Backends",
       section: "Prerequisites",
       url: "pages/setup-shizuku.html",
-      keywords: "shizuku wireless debugging pc adb terminal root magisk kernelsu apatch permissions setup wizard pairing code port axmanager backend hierarchy ShizukuManager.kt libsu AccessBackend Xiaomi HyperOS MIUI USB debugging security settings",
+      keywords: "shizuku wireless debugging pc adb terminal root magisk kernelsu apatch permissions setup wizard pairing code port axmanager backend hierarchy ShizukuManager.kt libsu AccessBackend Xiaomi HyperOS MIUI USB debugging security settings axmanager not supported axeron unsupported",
       snippet: "Step-by-step guide to configuring Shizuku (Wireless Debugging), Root (libsu), or AxManager backends for Android 11+ scoped storage."
     },
     {
@@ -92,7 +92,7 @@
       title: "Live Config Editor & Modes",
       section: "Core Workflows",
       url: "pages/config-editor.html",
-      keywords: "config editor smart mode text raw mode one-line mode cvars isolation search mode search and replace font slider sort A-Z sortSmartSectionsAlphabetically auto-fix auto-categorize bulk delete Engine.ini DeviceProfiles.ini GameUserSettings.ini CVarSectionGuard.kt misplaced red #FF2222 CVars= prefix formatting rule UE4CommandLine.txt -SkipSplash -ForceEnableCSharpEnvironment",
+      keywords: "config editor smart mode text raw mode one-line mode cvars isolation search mode search and replace font slider sort A-Z sortSmartSectionsAlphabetically auto-fix auto-categorize bulk delete Engine.ini DeviceProfiles.ini GameUserSettings.ini CVarSectionGuard.kt misplaced red #FF2222 CVars= prefix formatting rule UE4CommandLine.txt -SkipSplash -ForceEnableCSharpEnvironment misc patch failure popup remediation",
       snippet: "Edit .ini parameters directly on your phone with Smart Mode, Raw Text Mode, One-Line Mode, A-Z sorting, and section guard enforcement."
     },
     {
@@ -106,14 +106,14 @@
       title: "Common Utilities & Log Decryptor",
       section: "Utilities Suite",
       url: "pages/utilities-diagnostics.html",
-      keywords: "utilities client.log decrypt log log explorer filter chips LogConfig GameThread Sharphereal LogInit LogTemp Vulkan RHI Get Device Info DeviceStatsCollector.kt GPU RAM CPU score export patch share zip LogDecryptor.kt Scheme A Scheme B DecryptedLogViewerDialog.kt delete logs rm -rf Vanilla mode Revert to Vanilla AdvancedRevertDialog.kt ActivityLogDialog.kt activity_log.txt",
+      keywords: "utilities client.log decrypt log log explorer filter chips LogConfig GameThread Sharphereal LogInit LogTemp Vulkan RHI Get Device Info DeviceStatsCollector.kt GPU RAM CPU score export patch share zip LogDecryptor.kt Scheme A Scheme B DecryptedLogViewerDialog.kt delete logs rm -rf Vanilla mode Revert to Vanilla AdvancedRevertDialog.kt ActivityLogDialog.kt activity_log.txt app doctor self diagnose self-diagnose self repair self-repair AppDoctor.kt auto-fix repository cache cleanup zero-byte storage",
       snippet: "Inspect decrypted Client.log files, extract hardware diagnostics, compress patch zips, delete oversized log files, and view backend activity logs."
     },
     {
       title: "Advanced Tools & Diagnostic Suite",
       section: "Advanced Section",
       url: "pages/advanced-tools.html",
-      keywords: "advanced tools CVarAnalyzer.kt analyze config ConfigAnalysisDialog.kt Total CVars Applied Failed Deleted frozen table column CVar Bank alteriax 1000+ database alteriax_cvars.txt unreal docs Extract Web CVars Send to Editor DuplicateCvarFlagger.kt DuplicateFlaggerDialog.kt BaseProfileName DeviceScore ForbiddenCvarStripper.kt ForbiddenCvarDialog.kt Auto Strip All CVarExtractor.kt CVarExtractorDialog.kt frequency remarks Static Var 1 Var 2 Var 3 Hyper MainStorageReaderDialog.kt app_main_storage Restore Backup",
+      keywords: "advanced tools CVarAnalyzer.kt analyze config ConfigAnalysisDialog.kt Total CVars Applied Failed Deleted frozen table column CVar Bank alteriax 1000+ database alteriax_cvars.txt unreal docs Extract Web CVars Send to Editor DuplicateCvarFlagger.kt DuplicateFlaggerDialog.kt BaseProfileName DeviceScore ForbiddenCvarStripper.kt ForbiddenCvarDialog.kt Auto Strip All CVarExtractor.kt CVarExtractorDialog.kt frequency remarks Static Var 1 Var 2 Var 3 Hyper MainStorageReaderDialog.kt app_main_storage Restore Backup forbidden cvar not dangerous forbidden cvars harmless ignored deleted by runtime",
       snippet: "Exhaustive technical tools for config creators: CVar Analyzer log verification, 1000+ CVar Bank, Duplicate Flagger, Forbidden Stripper, CVar Extractor, and Main Storage snapshot restores."
     },
     {
@@ -127,22 +127,22 @@
       title: "Troubleshooting & FAQ",
       section: "Help & Support",
       url: "pages/troubleshooting.html",
-      keywords: "troubleshooting faq black screen flickering crash force close 60% shader compilation shizuku connection permission access badges NONE refresh Vibrant Red guard auto-fix delete logs delete shaders VulkanProgramBinaryCache ProgramBinaryCache",
+      keywords: "troubleshooting faq black screen flickering crash force close 60% shader compilation shizuku connection permission access badges NONE refresh Vibrant Red guard auto-fix delete logs delete shaders VulkanProgramBinaryCache ProgramBinaryCache failure popup remediation shizuku failure hint axmanager not supported axmanager unsupported",
       snippet: "Solutions for Shizuku connection errors, game stuttering, Vibrant Red section guard warnings, log storage issues, and shader cache deletion."
     },
     {
       title: "Support, Bug Reporting & Settings",
       section: "Help & Support",
       url: "pages/bug-reporting.html",
-      keywords: "bug report activity log ActionLogger.kt ActionLogger.log BugReportDialog.kt GCash InstaPay GCashDialog.kt settings danger zone clear cache clear data clear activity log delete shaders DeleteShadersDialog.kt Whats New ChangelogDialog.kt discord github arglax",
+      keywords: "bug report activity log ActionLogger.kt ActionLogger.log BugReportDialog.kt GCash InstaPay GCashDialog.kt settings danger zone clear cache clear data clear activity log delete shaders DeleteShadersDialog.kt Whats New ChangelogDialog.kt discord github arglax stupid mode spoonfeeding status popup preference toggle",
       snippet: "Generate detailed diagnostic bug reports with backend activity logs, support developer donations, and manage Settings Danger Zone cleanups."
     },
     {
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
       url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update github releases patcher v1.6.0 latest release",
-      snippet: "Download the latest APK release (v1.6.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
+      keywords: "download apk release update github releases patcher v1.7.0 latest release",
+      snippet: "Download the latest APK release (v1.7.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
     }
   ];
 

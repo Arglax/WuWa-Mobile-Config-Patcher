@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1-Click & Custom Preset Patching — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.5.0">
+  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+      <span class="version-badge" data-meta="version_v">v1.7.0</span>
     </div>
 
     <div class="header-actions">
@@ -109,9 +109,10 @@
             <span class="mode-tag">Repository Sources</span>
             <h4>1. Repository Source Selector</h4>
             <ul>
-              <li><strong>Arglax (Default):</strong> Connects to GitHub API (<code>GitHubApi.kt</code>) to fetch preset metadata (<code>custom-metadata.txt</code>) and zip archives.</li>
+              <li><strong>Arglax (Default):</strong> Connects to GitHub API (<code>GitHubApi.kt</code>) to fetch preset metadata (<code>custom-metadata.txt</code>) and zip archives. Downloads share the app's network connection efficiently for snappier syncing.</li>
               <li><strong>Custom Online Repository:</strong> Direct HTTP/HTTPS <code>.zip</code> download URL input.</li>
               <li><strong>Local Repository:</strong> Calls SAF tree picker (<code>OpenDocumentTree()</code>) to select local directories containing offline INI presets.</li>
+              <li><strong>Personal (Active Game Folder):</strong> Direct access to active on-device game configs with live vs app modification timestamp tracking.</li>
             </ul>
           </div>
 
@@ -130,8 +131,8 @@
             <h4>3. Categorization & 1-Click Injection</h4>
             <ul>
               <li>Categorizes presets into <code>STABLE</code>, <code>PERFORMANCE</code>, <code>HIGH_VISUAL</code>, <code>COMMUNITY</code>, and <code>OTHER</code> via <code>PresetCategorization.kt</code>.</li>
-              <li><strong>Timestamped Backup:</strong> <code>MainStorageManager.kt</code> creates a backup snapshot in <code>app_main_storage/backups/</code>.</li>
-              <li>Injects files via <code>ShizukuManager.applyAllIniFiles</code> directly into <code>.../Saved/Config/Android/</code>.</li>
+              <li><strong>Pre-mitigation & Backup:</strong> Automatically pre-creates missing <code>.ini</code> files with default templates before patching, and saves a timestamped backup in <code>app_main_storage/backups/</code>.</li>
+              <li>Injects files via elevated shell directly into <code>.../Saved/Config/Android/</code> (supporting <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, and <code>GameUserSettings.ini</code>).</li>
             </ul>
           </div>
         </div>
@@ -172,17 +173,17 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.5.0"></script>
-  <script src="../js/search.js?v=1.5.0"></script>
-  <script src="../js/modal.js?v=1.5.0"></script>
-  <script src="../js/code-copy.js?v=1.5.0"></script>
-  <script src="../js/formatter.js?v=1.5.0"></script>
-  <script src="../js/theme.js?v=1.5.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.5.0"></script>
-  <script src="../js/ai-chat.js?v=1.5.0"></script>
-  <script src="../js/main.js?v=1.5.0"></script>
+  <script src="../js/metadata.js?v=1.7.0"></script>
+  <script src="../js/search.js?v=1.7.0"></script>
+  <script src="../js/modal.js?v=1.7.0"></script>
+  <script src="../js/code-copy.js?v=1.7.0"></script>
+  <script src="../js/formatter.js?v=1.7.0"></script>
+  <script src="../js/theme.js?v=1.7.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
+  <script src="../js/ai-chat.js?v=1.7.0"></script>
+  <script src="../js/main.js?v=1.7.0"></script>
 </body>
 </html>

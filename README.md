@@ -2,7 +2,7 @@
 
 An ultra light-weight (6 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.6.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.7.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 ## 📚 Documentation & Releases
 
@@ -10,23 +10,27 @@ An ultra light-weight (6 MB) android application to improve streamlining of the 
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **WuWa AI Assistant & Multi-Language Engine (v1.6.0):** The official documentation site and application feature a complete multi-language localization engine (supporting 12 languages) and an interactive **AI Assistant** (💬) to help answer your questions, explain CVar settings, troubleshoot Shizuku setups, and guide you directly to the relevant documentation pages!
+> **App Doctor, Stupid Mode & Action Remediation (v1.7.0):** Features automated system self-diagnosis & repair (App Doctor in Utilities > Common), full standalone status windows with actionable remediation hints (Stupid Mode), multi-language localization (12 languages), and an interactive **AI Assistant** (💬) to troubleshoot setups, explain CVars, and optimize Wuthering Waves!
 
 ---
 
 <details>
-<summary><strong>✨ Key Features (v1.6.0)</strong> (click to expand)</summary>
+<summary><strong>✨ Key Features (v1.7.0)</strong> (click to expand)</summary>
 
 <br>
 
 | Feature | Description |
 |---|---|
+| **App Doctor (Self-Diagnose & Repair)** | Automated system diagnostic tool in Utilities > Common that audits elevated access, game installation, storage paths, repository health, and auto-fixes safe issues. |
+| **Stupid Mode & Standalone Popups** | Every status message pops up as a standalone window with step-by-step remediation hints for action failures (default ON, toggleable in Settings). |
+| **Helpful Action Failure Popups** | Failures (such as lost Shizuku service, unselected files, or missing logs) provide actionable remediation steps rather than vague messages or silent skips. |
 | **App-Wide Multi-Language Support** | Every screen, button, dialog, and tab is 100% translatable across 12 languages (English, 简体中文, 繁體中文, 日本語, 한국어, Español, Português, Bahasa Indonesia, Tiếng Việt, Tagalog/Filipino, and العربية). |
-| **1-Click Patching** | Uses Shizuku/AXManager/Root to write game configurations directly to protected game data folders with or without root access. |
+| **1-Click Patching** | Uses Shizuku or Root to write game configurations directly to protected game data folders with or without root access (AXManager is detected as Not Yet Supported). |
 | **Safe Revert (Triple Guard)** | Restore stock game files instantly using 3-step triple-guarded revert options to clear modified `.ini` configurations securely. |
 | **Multi-Backend Log Decryptor** | 1-tap log decryption supporting direct file access, Shizuku, and Root shell across all 7 regional game package variants (Global, Bilibili, Kuro, TW, JP, KR). |
 | **Advanced Multi-Select Patching** | Freely select specific combinations of `.ini` files to patch (`Engine.ini`, `DeviceProfiles.ini`, `Scalability.ini`, `GameUserSettings.ini`), or use the quick toggle to apply everything at once. |
 | **Flexible Config Sources** | Load configurations from direct download URLs (`.zip`), local directories, custom online repositories, or your active game folder. |
+| **Snappier Repository Syncing** | Repository updates and asset downloads share the app's network connection more efficiently for faster syncing. |
 | **Built-in Config Editor** | Edit CVars directly on your device with Smart Mode (auto-fix empty sections & A-Z sorting), Raw Text Mode, One-Line Mode, and persistent Undo-Redo history. |
 | **Config Analyzer** | Automatically analyze and verify which CVar parameters are applied, overridden, or deleted by the Unreal Engine runtime (filtering out metadata pointers). |
 | **Vulkan 1.3+ Hardware Inspector** | 2-column hardware inspector providing live device snapshots, C# environment checks, and Vulkan 1.3+ compatibility validation. |

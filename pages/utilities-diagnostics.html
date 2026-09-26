@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Common Utilities & Log Diagnostics — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.5.0">
+  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
   <link rel="icon" type="image/png" href="../images/logo.png">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
         <h1>WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.5.0</span>
+      <span class="version-badge" data-meta="version_v">v1.7.0</span>
     </div>
 
     <div class="header-actions">
@@ -90,7 +90,7 @@
         </div>
 
         <p class="lead-text">
-          The <strong>Common Subtab</strong> on the Utilities tab provides essential tools for log decryption, live log filtering, device hardware scans, config exporting, and vanilla game reverts.
+          The <strong>Common Subtab</strong> on the Utilities tab provides essential tools for automated app diagnostics, log decryption, live log filtering, device hardware scans, config exporting, and vanilla game reverts.
         </p>
 
         <div class="utilities-grid">
@@ -100,18 +100,23 @@
           </div>
 
           <div class="util-item">
+            <h4>🩺 Self-Diagnose &amp; Repair (App Doctor)</h4>
+            <p>Automated self-diagnostic and repair tool (<code>AppDoctor.kt</code>) that audits 7 core system health indicators: Elevated Access status (Shizuku/Root), Wuthering Waves application package installation, game config directory reachability, config repository validity (auto re-syncs if missing or corrupt), cache &amp; download folder health (auto-cleans broken or orphaned zips), app storage report integrity (purges zero-byte files), and recent-error pattern scans from the action log. Automatically repairs safe issues or routes unresolved errors to the Bug Report flow.</p>
+          </div>
+
+          <div class="util-item">
             <h4>📱 Get Device Info</h4>
             <p>Invokes <code>DeviceStatsCollector.kt</code> to extract your exact GPU renderer model, Vulkan driver version, physical RAM, CPU core count, C# environment status, and game-evaluated <strong>Device Score</strong> from log headers.</p>
           </div>
 
           <div class="util-item">
-            <h4>📦 Export & Sharing</h4>
+            <h4>📦 Export &amp; Sharing</h4>
             <p>Opens SAF tree folder (<code>PatchExporter.kt</code>) or compresses active live INI configs into a ZIP archive with custom naming dialog before opening the Android Sharesheet.</p>
           </div>
 
           <div class="util-item">
             <h4>🔓 Log Decryptor Engine</h4>
-            <p>Decrypts obfuscated game logs via <code>LogDecryptor.kt</code> (supporting <strong>Scheme A</strong> XOR <code>0xA5/0xEF</code>, <strong>Scheme B</strong> XOR <code>0x55</code>, or plaintext fallback). Supports full-screen <code>DecryptedLogViewerDialog.kt</code> and Sharesheet export.</p>
+            <p>Decrypts obfuscated game logs via <code>LogDecryptor.kt</code> (supporting <strong>Scheme A</strong> XOR <code>0xA5/0xEF</code>, <strong>Scheme B</strong> XOR <code>0x55</code>, or plaintext fallback). Supports full-screen <code>DecryptedLogViewerDialog.kt</code> and Sharesheet export (with automatic popup prompt if no log is present).</p>
           </div>
 
           <div class="util-item">
@@ -156,17 +161,17 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.5.0</span></span>
+    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.7.0</span></span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.5.0"></script>
-  <script src="../js/search.js?v=1.5.0"></script>
-  <script src="../js/modal.js?v=1.5.0"></script>
-  <script src="../js/code-copy.js?v=1.5.0"></script>
-  <script src="../js/formatter.js?v=1.5.0"></script>
-  <script src="../js/theme.js?v=1.5.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.5.0"></script>
-  <script src="../js/ai-chat.js?v=1.5.0"></script>
-  <script src="../js/main.js?v=1.5.0"></script>
+  <script src="../js/metadata.js?v=1.7.0"></script>
+  <script src="../js/search.js?v=1.7.0"></script>
+  <script src="../js/modal.js?v=1.7.0"></script>
+  <script src="../js/code-copy.js?v=1.7.0"></script>
+  <script src="../js/formatter.js?v=1.7.0"></script>
+  <script src="../js/theme.js?v=1.7.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
+  <script src="../js/ai-chat.js?v=1.7.0"></script>
+  <script src="../js/main.js?v=1.7.0"></script>
 </body>
 </html>

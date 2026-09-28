@@ -1,8 +1,8 @@
 # WuWa Config Patcher
 
-An ultra light-weight (6 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
+An ultra light-weight (10 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.7.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.8.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 ## 📚 Documentation & Releases
 
@@ -10,12 +10,12 @@ An ultra light-weight (6 MB) android application to improve streamlining of the 
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **App Doctor, Stupid Mode & Action Remediation (v1.7.0):** Features automated system self-diagnosis & repair (App Doctor in Utilities > Common), full standalone status windows with actionable remediation hints (Stupid Mode), multi-language localization (12 languages), and an interactive **AI Assistant** (💬) to troubleshoot setups, explain CVars, and optimize Wuthering Waves!
+> **App Doctor, Stupid Mode & Action Remediation (v1.8.0):** Features automated system self-diagnosis & repair (App Doctor in Utilities > Common), full standalone status windows with actionable remediation hints (Stupid Mode), multi-language localization (12 languages), and an interactive **AI Assistant** (💬) to troubleshoot setups, explain CVars, and optimize Wuthering Waves!
 
 ---
 
 <details>
-<summary><strong>✨ Key Features (v1.7.0)</strong> (click to expand)</summary>
+<summary><strong>✨ Key Features (v1.8.0)</strong> (click to expand)</summary>
 
 <br>
 

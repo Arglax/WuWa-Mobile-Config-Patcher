@@ -3,39 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Troubleshooting & FAQ — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
-  <link rel="icon" type="image/png" href="../images/logo.png">
+  <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Troubleshooting guide, symptom-cause-fix solutions, and FAQ for WuWa Config Patcher.">
+  <title>Troubleshooting &amp; FAQ — WuWa Config Patcher v1.9.0</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
 <body>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
 
   <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
-      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
-        <h1>WuWa Config Patcher</h1>
+      <a href="../index.html" class="subpage-header-link">
+        <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
+        <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.7.0</span>
+      <span class="version-badge" data-meta="version_v">v1.9.0</span>
     </div>
 
     <div class="header-actions">
       <!-- Theme Toggle Button -->
       <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
-        <span class="theme-icon">☀️</span>
+        <span class="theme-icon" aria-hidden="true">☀️</span>
         <span class="theme-text">Light Mode</span>
       </button>
 
+      <div class="lang-selector-wrapper"></div>
+
       <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
-        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." data-i18n="search_placeholder" autocomplete="off" aria-label="Search documentation">
+        <div id="search-results-dropdown" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
       </div>
       <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
-        GitHub Repo
+        <span data-i18n="btn_github">GitHub Repo</span>
       </a>
     </div>
   </header>
@@ -43,144 +52,150 @@
   <div class="main-container">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <h3>GETTING STARTED</h3>
-        <ul>
-          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
-          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>CORE WORKFLOWS (END-USER)</h3>
-        <ul>
-          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
-          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
-          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
-          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>CREATOR & ADVANCED TOOLS</h3>
-        <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
-          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
-          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
-          <li><a href="troubleshooting.html" class="nav-link active">Troubleshooting & FAQ</a></li>
-          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
-        </ul>
-      </div>
-    </aside>
-
-    <main class="content-area">
-      <section class="doc-section">
-        <div class="section-header">
-          <h2>Troubleshooting & Frequently Asked Questions</h2>
-          <span class="author-tag">v1.7.0 Support Reference</span>
-        </div>
-
-        <div class="method-card">
-          <h4>1. Shizuku is Running, but App Shows "NONE" or Requests Access</h4>
-          <p>If your Elevated Access Status shows "NONE" despite Shizuku running in the background:</p>
-          <ol class="step-list">
-            <li>Go to the <strong>Settings</strong> tab and check the Elevated Access Status card.</li>
-            <li>Tap <strong>Grant Access</strong> or the refresh button next to the Shizuku setup wizard.</li>
-            <li>If it fails, open the Shizuku app, revoke permissions for WuWa Config Patcher, and force stop the patcher. Reopen the patcher to trigger the prompt again via <code>rikka.shizuku.api</code>.</li>
-            <li>When Shizuku-dependent actions fail, the app displays a clear popup explaining exact next steps (such as starting/restarting Shizuku, re-granting permission, or tapping Grant Access in Settings).</li>
-          </ol>
-        </div>
-
-        <div class="method-card">
-          <h4>2. Game Stuttering or Crashing After Patching</h4>
-          <p>Not all mobile devices handle extreme visual presets well. To safely reset your game graphics to Kuro Games' defaults:</p>
-          <ol class="step-list">
-            <li>Navigate to the <strong>Utilities</strong> tab &rarr; <strong>Common Subtab</strong>.</li>
-            <li>Tap the primary red <strong>Revert to Vanilla</strong> button.</li>
-            <li>Confirm the prompt. This automatically executes a safe deletion of <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code>.</li>
-          </ol>
-        </div>
-
-        <div class="method-card">
-          <h4>3. What do the Access Badges Mean?</h4>
-          <ul class="step-list">
-            <li><span class="badge-backend badge-root">ROOT</span> — Red badge (#E35D6A): Direct elevated <code>libsu</code> shell execution.</li>
-            <li><span class="badge-backend badge-shizuku">SHIZUKU</span> — Green badge (#47D764): Primary wireless debugging ADB backend.</li>
-            <li><span class="badge-backend badge-axmanager">AXMANAGER</span> — Blue badge (#2AA37D): Axeron community provider helper (Not Yet Supported — presence detection only; does not execute commands or manage permissions).</li>
-            <li><span class="badge-backend badge-unauthorized">SHIZUKU_UNAUTHORIZED</span> — Orange badge (#F7C948): Shizuku binder running, permission pending.</li>
-            <li><span class="badge-backend badge-none">NONE</span> — Gray badge (#A8B4AF): No elevated backend available.</li>
+      <nav aria-label="Main Navigation">
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_getting_started">GETTING STARTED</h3>
+          <ul>
+            <li><a href="../index.html" class="nav-link" data-i18n="nav_overview">Overview &amp; Features</a></li>
+            <li><a href="setup-shizuku.html" class="nav-link" data-i18n="nav_prerequisites">Prerequisites &amp; Setup</a></li>
           </ul>
         </div>
 
-        <div class="method-card">
-          <h4>4. Editor Saves are Flagged in Vibrant Red (#FF2222)</h4>
-          <p>The Config Editor enforces strict CVar Section Guards via <code>CVarSectionGuard.kt</code>. Misplaced lines or <code>Engine.ini</code> <code>CVars=</code> prefixes are painted bold <strong class="guard-red-highlight">Vibrant Red</strong>.</p>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
+          <ul>
+            <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
+            <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
+            <li><a href="config-editor.html" class="nav-link" data-i18n="nav_editor">Live Config Editor</a></li>
+            <li><a href="enable-csharp.html" class="nav-link" data-i18n="nav_csharp">Enabling C# Environment</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_creator_tools">CREATOR &amp; ADVANCED TOOLS</h3>
+          <ul>
+            <li><a href="utilities-diagnostics.html" class="nav-link" data-i18n="nav_utilities">Utilities &amp; Log Diagnostics</a></li>
+            <li><a href="advanced-tools.html" class="nav-link" data-i18n="nav_advanced_suite">Advanced Diagnostic Suite</a></li>
+            <li><a href="config-editor.html#cvar-guards" class="nav-link" data-i18n="nav_cvar_guards">Engine CVar Section Guards</a></li>
+            <li><a href="advanced-tools.html#cvar-bank" class="nav-link" data-i18n="nav_cvar_bank">CVar Bank &amp; Reference Library</a></li>
+            <li><a href="manual-method.html" class="nav-link" data-i18n="nav_manual">Manual Mode Guide (Old School)</a></li>
+            <li><a href="troubleshooting.html" class="nav-link active" data-i18n="nav_troubleshooting">Troubleshooting &amp; FAQ</a></li>
+            <li><a href="bug-reporting.html" class="nav-link" data-i18n="nav_support">Support &amp; Activity Logger</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <main id="main-content" class="content-area">
+
+      <!-- Table of Contents -->
+      <nav class="toc-container" aria-label="On this page navigation">
+        <div class="toc-title">On this page</div>
+        <ul class="toc-list">
+          <li><a href="#shizuku-issues" class="toc-link">1. Shizuku Access &amp; Permission Issues</a></li>
+          <li><a href="#game-stutter" class="toc-link">2. Game Stuttering or Crashing After Patching</a></li>
+          <li><a href="#access-badges" class="toc-link">3. Access Badges Explained</a></li>
+          <li><a href="#section-guards" class="toc-link">4. Red Section Guard Warnings in Editor</a></li>
+          <li><a href="#cvar-verification" class="toc-link">5. Verifying Executed CVars in Game</a></li>
+          <li><a href="#app-doctor-auto-repair" class="toc-link">6. App Doctor Self-Diagnosis &amp; Auto-Repair</a></li>
+        </ul>
+      </nav>
+
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Troubleshooting &amp; Frequently Asked Questions</h2>
+          <span class="author-tag">v1.9.0 (versionCode 73) Support Reference</span>
+        </div>
+
+        <div id="shizuku-issues" class="method-card">
+          <h3>1. Symptom: Shizuku is Running, but App Shows "NONE" or Requests Access</h3>
+          <p><strong>Likely Cause:</strong> Shizuku binder service connection dropped or permission prompt was not granted to WuWa Config Patcher.</p>
+          <p><strong>Access Method:</strong> Shizuku (Wireless ADB)</p>
+          <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
-            <li>When you tap <strong>Save</strong>, select <strong>Auto-Fix Sections</strong> in the warning prompt.</li>
-            <li>The app will automatically route your CVars to canonical section headers (e.g. <code>s.</code> commands to <code>[/Script/Engine.StreamingSettings]</code>) and strip invalid <code>CVars=</code> prefixes.</li>
-            <li>Note: <code>[Core.Paths]</code>, <code>[Core.System]</code>, and <code>[/Script/Engine.RendererOverrideSettings]</code> are whitelisted and never altered.</li>
+            <li>Go to the <strong>Settings</strong> tab and check the Elevated Access Status card.</li>
+            <li>Tap <strong>Grant Access</strong> or the refresh button next to the Shizuku setup wizard.</li>
+            <li>If it fails, open the Shizuku app, revoke permissions for WuWa Config Patcher, force stop the patcher, and reopen it to re-trigger the permission binder prompt (via <code>rikka.shizuku.api</code>).</li>
+            <li>Run <strong>App Doctor</strong> in <em>Utilities &gt; Common</em> (<code>AppDoctorDialog.kt</code>) to auto-verify permissions.</li>
           </ol>
         </div>
 
-        <div class="method-card">
-          <h4>5. Internal Device Storage Full from Game Logs</h4>
-          <p>Wuthering Waves can generate massive log files over time. To clean them:</p>
+        <div id="game-stutter" class="method-card">
+          <h3>2. Symptom: Game Stuttering, Black Screen, or Crashing After Patching</h3>
+          <p><strong>Likely Cause:</strong> Unstable CVar combination, unsafe Garbage Collection (<code>gc.*</code>) tweaks, or incompatible shader cache.</p>
+          <p><strong>Access Method:</strong> Shizuku / Root / Manual</p>
+          <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
-            <li>Go to <strong>Utilities</strong> &rarr; <strong>Common Subtab</strong> &rarr; <strong>Log Tools</strong>.</li>
-            <li>Tap <strong>Delete Logs</strong> to execute an elevated <code>rm -rf</code> on the <code>.../Saved/Logs/</code> directory safely.</li>
+            <li>Navigate to <strong>Utilities</strong> &rarr; <strong>Common Subtab</strong>.</li>
+            <li>Tap the primary red <strong>Revert to Vanilla</strong> button.</li>
+            <li>Confirm the 3-step triple guard prompt. This deletes modified <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, and <code>Scalability.ini</code> files so Wuthering Waves regenerates factory defaults upon next launch.</li>
+            <li>To clear corrupted compiled shaders, go to <strong>Settings &gt; Danger Zone &gt; Delete Shaders</strong> and clear Vulkan/OpenGL shader caches.</li>
           </ol>
         </div>
 
-        <div class="method-card">
-          <h4>6. Shader Compilation Crashes or Graphical Artifacts</h4>
-          <p>If you experience rendering artifacts or crashes during shader compilation after game updates:</p>
+        <div id="access-badges" class="method-card">
+          <h3>3. Symptom: Access Badges Explained</h3>
+          <ul class="step-list">
+            <li><span class="badge-backend badge-root">ROOT</span> &mdash; Red badge (#E35D6A): Direct elevated <code>libsu</code> shell execution.</li>
+            <li><span class="badge-backend badge-shizuku">SHIZUKU</span> &mdash; Green badge (#47D764): Primary wireless debugging ADB backend.</li>
+            <li><span class="badge-backend badge-axmanager">AXMANAGER</span> &mdash; Blue badge (#38BDF8): Axeron community manager service binder integration for elevated IPC execution.</li>
+            <li><span class="badge-backend badge-unauthorized">SHIZUKU_UNAUTHORIZED</span> &mdash; Orange badge (#F7C948): Shizuku binder running, permission pending.</li>
+            <li><span class="badge-backend badge-none">NONE</span> &mdash; Gray badge (#A8B4AF): No elevated backend available.</li>
+          </ul>
+        </div>
+
+        <div id="section-guards" class="method-card">
+          <h3>4. Symptom: Editor Lines Flagged in Vibrant Red (#FF2222)</h3>
+          <p><strong>Likely Cause:</strong> Misplaced CVars (e.g., placing <code>r.*</code> rendering settings under incorrect section headers) or illegal <code>CVars=</code> prefixes in <code>Engine.ini</code>.</p>
+          <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
-            <li>Go to <strong>Settings Tab &gt; Danger Zone</strong>.</li>
-            <li>Tap <strong>Delete Shaders</strong>. This opens <code>DeleteShadersDialog.kt</code>.</li>
-            <li>Select and delete Vulkan (<code>VulkanProgramBinaryCache</code>) or OpenGL (<code>ProgramBinaryCache</code>) shader caches to force a clean shader rebuild upon next launch.</li>
+            <li>In the Live Config Editor, tap <strong>Save</strong>.</li>
+            <li>Select <strong>Auto-Fix Sections</strong> in the warning prompt.</li>
+            <li>The app automatically routes variables to canonical section headers (e.g. <code>s.*</code> to <code>[/Script/Engine.StreamingSettings]</code>) and strips invalid <code>CVars=</code> prefixes via <code>CVarSectionGuard.kt</code>.</li>
           </ol>
         </div>
 
-        <div class="method-card">
-          <h4>7. Patches Fail to Apply or Repository Presets Disappeared</h4>
-          <p>If 1-Click Patching fails, presets disappear, or repository download errors occur:</p>
+        <div id="cvar-verification" class="method-card">
+          <h3>5. Symptom: How to Verify If Applied CVars Executed in Game</h3>
+          <p><strong>Access Method:</strong> Shizuku / Root</p>
+          <p><strong>Fix Procedure:</strong></p>
+          <ol class="step-list">
+            <li>Go to <strong>Utilities &gt; Decrypted Log Explorer</strong> and decrypt your active game log.</li>
+            <li>Go to the <strong>Advanced Subtab</strong> and tap <strong>Analyze Config (CVar Analyzer)</strong>.</li>
+            <li>The <code>ConfigAnalysisDialog.kt</code> cross-checks your INI parameters with decrypted <code>Client.log</code> output to report exact status: <span class="status-applied">APPLIED</span>, <span class="status-failed">FAILED</span>, or <span class="status-warning">DELETED BY GAME</span>.</li>
+          </ol>
+        </div>
+
+        <div id="app-doctor-auto-repair" class="method-card">
+          <h3>6. Symptom: Patches Fail to Apply or Repository Presets Disappeared</h3>
+          <p><strong>Likely Cause:</strong> Missing elevated permission, orphaned cache ZIPs, or corrupt preset repository data.</p>
+          <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
             <li>Go to <strong>Utilities</strong> &rarr; <strong>Common Subtab</strong>.</li>
-            <li>Tap <strong>App Doctor (Self-Diagnose &amp; Repair)</strong> to run an automated 7-point diagnostic audit.</li>
-            <li>App Doctor tests elevated access, game package presence, config path reachability, repository integrity (auto re-syncing missing/corrupt presets), download cache health, storage files, and recent error logs.</li>
-            <li>If an issue requires manual action, follow the listed remediation hint or tap <strong>Report to Arglax</strong> to attach your diagnostic log to a bug report.</li>
+            <li>Tap <strong>App Doctor (Self-Diagnose &amp; Repair)</strong>.</li>
+            <li>App Doctor runs a 7-point audit (elevated access, game installation, config path reachability, repository validity, download cache health, storage files, and recent error logs).</li>
+            <li>Tap <strong>Auto-Repair</strong> to fix safe issues automatically, or tap <strong>Report a Bug</strong> to attach diagnostic logs.</li>
           </ol>
         </div>
 
-        <div class="method-card">
-          <h4>8. Actionable Failure Popups &amp; Remediation Hints</h4>
-          <p>In v1.7.0, error and warning messages provide actionable guidance instead of vague failures or silent drops:</p>
-          <ol class="step-list">
-            <li><strong>Shizuku Failures:</strong> Popups explain exactly what to do next (start Shizuku, restart service, re-grant permission, or tap Grant Access in Settings).</li>
-            <li><strong>Share Decrypted Log (No Log Present):</strong> Displays a popup prompting you to tap <strong>Decrypt Log</strong> first before sharing.</li>
-            <li><strong>Misc Patch (No Selections):</strong> Displays a popup notifying you that no patch options were selected.</li>
-            <li><strong>Stupid Mode (Default ON):</strong> All status messages display as full dismissible popup windows (configurable in Settings).</li>
-          </ol>
-        </div>
       </section>
     </main>
   </div>
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.7.0"></script>
-  <script src="../js/search.js?v=1.7.0"></script>
-  <script src="../js/modal.js?v=1.7.0"></script>
-  <script src="../js/code-copy.js?v=1.7.0"></script>
-  <script src="../js/formatter.js?v=1.7.0"></script>
-  <script src="../js/theme.js?v=1.7.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
-  <script src="../js/ai-chat.js?v=1.7.0"></script>
-  <script src="../js/main.js?v=1.7.0"></script>
+  <script src="../js/i18n.js?v=1.9.0"></script>
+  <script src="../js/metadata.js?v=1.9.0"></script>
+  <script src="../js/search.js?v=1.9.0"></script>
+  <script src="../js/modal.js?v=1.9.0"></script>
+  <script src="../js/code-copy.js?v=1.9.0"></script>
+  <script src="../js/formatter.js?v=1.9.0"></script>
+  <script src="../js/theme.js?v=1.9.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
+  <script src="../js/ai-chat.js?v=1.9.0"></script>
+  <script src="../js/main.js?v=1.9.0"></script>
 </body>
 </html>

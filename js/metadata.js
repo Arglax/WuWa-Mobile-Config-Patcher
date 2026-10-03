@@ -1,13 +1,13 @@
 /**
  * WuWa Mobile Config Patcher - Metadata Manager Module
- * Handles loading, parsing, and applying app metadata (v1.7.0, build info, release URLs).
+ * Handles loading, parsing, and applying app metadata (v1.9.0, build info, release URLs).
  */
 (function (window) {
   'use strict';
 
   const DEFAULT_METADATA = {
-    version: "1.7.0",
-    version_code: "35",
+    version: "1.9.0",
+    version_code: "73",
     app_id: "io.github.arglax.configpatcher",
     app_size: "6 MB",
     release_url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
@@ -79,7 +79,7 @@
   }
 
   function applyMetadataToDOM(meta) {
-    const cleanVersion = (meta.version || '1.7.0').replace(/^v/i, '');
+    const cleanVersion = (meta.version || '1.9.0').replace(/^v/i, '');
     const versionWithV = 'v' + cleanVersion;
 
     document.querySelectorAll('[data-meta]').forEach((el) => {

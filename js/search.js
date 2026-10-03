@@ -1,6 +1,6 @@
 /**
  * WuWa Mobile Config Patcher - Search Engine Module
- * Dynamic relative path resolution, searchable index, live dropdown, and keyboard shortcuts.
+ * Dynamic relative path resolution, searchable index, live dropdown, debouncing, aria-live, and keyboard shortcuts.
  */
 (function (window) {
   'use strict';
@@ -65,35 +65,35 @@
     return resolved + hash;
   }
 
-  // 9-Page Search Database
+  // Search Database
   const SEARCH_DATABASE = [
     {
       title: "Overview & System Architecture",
       section: "Getting Started",
       url: "index.html",
-      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
+      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v1.9.0 versionCode 51 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
       snippet: "An elevated Android application granting 1-click graphics patching, live INI editing, CVar section enforcement, and raw engine diagnostics for Wuthering Waves."
     },
     {
       title: "Prerequisites & Elevated Access Backends",
       section: "Prerequisites",
       url: "pages/setup-shizuku.html",
-      keywords: "shizuku wireless debugging pc adb terminal root magisk kernelsu apatch permissions setup wizard pairing code port axmanager backend hierarchy ShizukuManager.kt libsu AccessBackend Xiaomi HyperOS MIUI USB debugging security settings axmanager not supported axeron unsupported",
+      keywords: "shizuku wireless debugging pc adb terminal root magisk kernelsu apatch permissions setup wizard pairing code port axmanager backend hierarchy ShizukuManager.kt libsu AccessBackend Xiaomi HyperOS MIUI USB debugging security settings axmanager supported axeron manager daemon",
       snippet: "Step-by-step guide to configuring Shizuku (Wireless Debugging), Root (libsu), or AxManager backends for Android 11+ scoped storage."
     },
     {
       title: "1-Click & Custom Preset Patching",
       section: "Core Workflows",
       url: "pages/patching-configs.html",
-      keywords: "patching engine presets graphics fps ini files 1-click patch revert to vanilla repository source arglax default custom online url local saf folder ZipExtractor.kt ConfigScanner.kt ConfigNode.kt folder.walkTopDown() AdvancedPatchDialog.kt per-file granular MainStorageManager.kt backups",
-      snippet: "Learn how to sync online repositories, select custom graphics presets, apply multi-ini patches, configure per-file patching, and revert safely."
+      keywords: "patching engine presets graphics fps ini files 1-click patch preset comparison tool compare presets side-by-side revert to vanilla repository source arglax default custom online url local saf folder ZipExtractor.kt ConfigScanner.kt ConfigNode.kt folder.walkTopDown() AdvancedPatchDialog.kt per-file granular MainStorageManager.kt backups",
+      snippet: "Learn how to sync online repositories, select custom graphics presets, compare presets side-by-side, apply multi-ini patches, configure per-file patching, and revert safely."
     },
     {
       title: "Live Config Editor & Modes",
       section: "Core Workflows",
       url: "pages/config-editor.html",
-      keywords: "config editor smart mode text raw mode one-line mode cvars isolation search mode search and replace font slider sort A-Z sortSmartSectionsAlphabetically auto-fix auto-categorize bulk delete Engine.ini DeviceProfiles.ini GameUserSettings.ini CVarSectionGuard.kt misplaced red #FF2222 CVars= prefix formatting rule UE4CommandLine.txt -SkipSplash -ForceEnableCSharpEnvironment misc patch failure popup remediation",
-      snippet: "Edit .ini parameters directly on your phone with Smart Mode, Raw Text Mode, One-Line Mode, A-Z sorting, and section guard enforcement."
+      keywords: "config editor smart mode text raw mode one-line mode cvars isolation search mode search and replace font slider sort A-Z sortSmartSectionsAlphabetically auto-fix auto-categorize bulk delete Engine.ini DeviceProfiles.ini GameUserSettings.ini CVarSectionGuard.kt misplaced red #FF2222 flagged cvars garbage collection guard gc.* deviceprofiles custom cvar notice CVars= prefix formatting rule UE4CommandLine.txt -SkipSplash -ForceEnableCSharpEnvironment misc patch failure popup remediation",
+      snippet: "Edit .ini parameters directly on your phone with Smart Mode, Raw Text Mode, One-Line Mode, A-Z sorting, section guard enforcement, and GC guard checks."
     },
     {
       title: "Enable C# Environment",
@@ -134,17 +134,25 @@
       title: "Support, Bug Reporting & Settings",
       section: "Help & Support",
       url: "pages/bug-reporting.html",
-      keywords: "bug report activity log ActionLogger.kt ActionLogger.log BugReportDialog.kt GCash InstaPay GCashDialog.kt settings danger zone clear cache clear data clear activity log delete shaders DeleteShadersDialog.kt Whats New ChangelogDialog.kt discord github arglax stupid mode spoonfeeding status popup preference toggle",
-      snippet: "Generate detailed diagnostic bug reports with backend activity logs, support developer donations, and manage Settings Danger Zone cleanups."
+      keywords: "bug report activity log ActionLogger.kt ActionLogger.log BugReportDialog.kt GCash InstaPay GCashDialog.kt settings danger zone clear cache clear data clear activity log delete shaders DeleteShadersDialog.kt Whats New ChangelogDialog.kt discord github arglax stupid mode spoonfeeding status popup preference toggle smart version upgrade preference reset usage telemetry web dashboard custom theme swatch builder",
+      snippet: "Generate detailed diagnostic bug reports with backend activity logs, customize M3 theme swatches, view usage telemetry, support developer donations, and manage Settings Danger Zone cleanups."
     },
     {
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
       url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update github releases patcher v1.7.0 latest release",
-      snippet: "Download the latest APK release (v1.7.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
+      keywords: "download apk release update github releases patcher v1.9.0 versionCode 73 latest release",
+      snippet: "Download the latest APK release (v1.9.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
     }
   ];
+
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
 
   function initSearch() {
     const searchContainers = document.querySelectorAll('.search-box');
@@ -154,14 +162,54 @@
       const resultsContainer = container.querySelector('.search-dropdown');
       if (!input || !resultsContainer) return;
 
+      // Screen reader live region
+      let liveRegion = container.querySelector('.search-live-status');
+      if (!liveRegion) {
+        liveRegion = document.createElement('div');
+        liveRegion.className = 'search-live-status sr-only';
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.setAttribute('aria-atomic', 'true');
+        liveRegion.style.cssText = 'position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);';
+        container.appendChild(liveRegion);
+      }
+
       let selectedIndex = -1;
+
+      function renderPopularSuggestions() {
+        const popular = [
+          { title: "⚡ Prerequisites & Shizuku Setup", url: "pages/setup-shizuku.html", desc: "Wireless ADB IPC setup" },
+          { title: "🎯 1-Click & Custom Presets", url: "pages/patching-configs.html", desc: "Sync and patch graphics INIs" },
+          { title: "🛠️ Live Config Editor", url: "pages/config-editor.html", desc: "Smart, Raw Text, and One-Line editing" },
+          { title: "🔍 Advanced Diagnostic Suite", url: "pages/advanced-tools.html", desc: "CVar Analyzer, CVar Bank & Storage" }
+        ];
+
+        const suggestionsHtml = popular.map((item, idx) => `
+          <a href="${resolvePath(item.url)}" class="search-result-item" data-index="${idx}">
+            <div class="result-content">
+              <div class="result-header">
+                <span class="result-title">${escapeHtml(item.title)}</span>
+                <span class="result-section">POPULAR</span>
+              </div>
+              <div class="result-snippet">${escapeHtml(item.desc)}</div>
+            </div>
+          </a>
+        `).join('');
+
+        resultsContainer.innerHTML = `
+          <div style="padding: 8px 12px; font-size: 11px; font-weight: 800; color: var(--gold-text); text-transform: uppercase;">
+            Suggested Pages
+          </div>
+          ${suggestionsHtml}
+        `;
+        resultsContainer.classList.remove('hidden');
+        selectedIndex = -1;
+      }
 
       function renderResults(query) {
         const trimmed = query.trim().toLowerCase();
         if (!trimmed) {
-          resultsContainer.innerHTML = '';
-          resultsContainer.classList.add('hidden');
-          selectedIndex = -1;
+          renderPopularSuggestions();
+          if (liveRegion) liveRegion.textContent = 'Search active. Displaying popular page suggestions.';
           return;
         }
 
@@ -186,6 +234,7 @@
           `;
           resultsContainer.classList.remove('hidden');
           selectedIndex = -1;
+          if (liveRegion) liveRegion.textContent = `No search results found for ${trimmed}.`;
           return;
         }
 
@@ -198,7 +247,7 @@
             const highlightedSnippet = highlightMatches(item.snippet, queryWords);
 
             return `
-              <a href="${resolvedUrl}" ${targetAttr} class="search-result-item" data-index="${idx}">
+              <a href="${resolvedUrl}" ${targetAttr} class="search-result-item" data-index="${idx}" role="option" aria-selected="false">
                 <div class="result-content">
                   <div class="result-header">
                     <span class="result-title">${highlightedTitle}</span>
@@ -214,11 +263,14 @@
         resultsContainer.innerHTML = itemsHtml;
         resultsContainer.classList.remove('hidden');
         selectedIndex = -1;
+        if (liveRegion) liveRegion.textContent = `${matched.length} search results available. Use arrow keys to navigate.`;
       }
 
-      input.addEventListener('input', (e) => renderResults(e.target.value));
+      const debouncedRender = debounce((val) => renderResults(val), 150);
+
+      input.addEventListener('input', (e) => debouncedRender(e.target.value));
       input.addEventListener('focus', (e) => {
-        if (e.target.value.trim()) renderResults(e.target.value);
+        renderResults(e.target.value);
       });
 
       input.addEventListener('keydown', (e) => {
@@ -251,7 +303,7 @@
       });
     });
 
-    // Global Shortcut Focus: '/' or 'Ctrl+K'
+    // Global Shortcut Focus: '/' or 'Ctrl+K' / 'Cmd+K'
     document.addEventListener('keydown', (e) => {
       if (
         (e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) &&
@@ -271,9 +323,11 @@
     items.forEach((item, i) => {
       if (i === index) {
         item.classList.add('selected');
+        item.setAttribute('aria-selected', 'true');
         item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else {
         item.classList.remove('selected');
+        item.setAttribute('aria-selected', 'false');
       }
     });
   }

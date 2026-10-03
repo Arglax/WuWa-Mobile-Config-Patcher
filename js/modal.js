@@ -1,7 +1,7 @@
 /**
  * WuWa Mobile Config Patcher - Interactive Feature Cards & Dual-Tab Modal Engine
  * Supports tab switching: End-User Quick Steps vs. Technical & Creator Mechanics.
- * Integrated with WuWaI18n localization.
+ * Integrated with WuWaI18n localization, focus trap, and focus restoration.
  */
 (function (window) {
   'use strict';
@@ -40,6 +40,183 @@
             <li><strong>Archive Processing:</strong> Archives are extracted via <code>ZipExtractor.kt</code> into <code>context.cacheDir/repo_cache/</code>. Directories are recursively scanned using <code>ConfigScanner.kt</code> and <code>ConfigNode.kt</code> (using <code>folder.walkTopDown()</code> for deep subfolder discovery).</li>
             <li><strong>Automated Backup:</strong> Before writing, <code>MainStorageManager.kt</code> creates a live timestamped backup snapshot in <code>context.filesDir/app_main_storage/backups/</code>.</li>
             <li><strong>Elevated File Write:</strong> Files (<code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>) are pushed directly to <code>.../Saved/Config/Android/</code> using elevated <code>ShizukuManager.applyAllIniFiles</code> (or native root <code>libsu</code> <code>Shell.cmd</code>).</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'gc-guard': {
+      titleKey: 'card_gcguard_title',
+      title: 'Flagged CVars & Garbage Collection Guard',
+      route: 'pages/config-editor.html#cvar-guards',
+      casual: `
+        <div class="modal-section-block">
+          <h4>🛡️ Garbage Collection & Stability Guard</h4>
+          <p>Certain Unreal Engine Garbage Collection parameters (such as aggressive <code>gc.</code> CVars) can cause micro-stutters or crash game processes. The Garbage Collection Guard actively monitors pre-save buffer configurations:</p>
+          <ul>
+            <li><strong>Pre-Save Enforcement:</strong> Intercepts config save requests containing risky <code>gc.*</code> settings.</li>
+            <li><strong>Warning Popups:</strong> Displays dedicated modal warnings outlining potential stability impacts before writing to storage.</li>
+            <li><strong>1-Tap Batch Actions:</strong> Safely remediate detected <code>gc.*</code> lines via 1-tap <em>Batch Comment</em> or <em>Batch Delete</em>.</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ CVarSectionGuard & Pre-Save Pipeline</h4>
+          <ul>
+            <li><strong>Rule Enforcement Engine:</strong> Scans INI tree buffers for active <code>gc.</code> key patterns prior to committing file output.</li>
+            <li><strong>Safety Dialog Dispatch:</strong> Triggers <code>GcWarningDialog.kt</code> if unrecommended GC thresholds are exceeded.</li>
+            <li><strong>Batch Processing:</strong> Appends <code>;</code> line comments or removes matching AST nodes across selected INI sections while preserving profile metadata.</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'device-profiles-notice': {
+      titleKey: 'card_deviceprofiles_title',
+      title: 'DeviceProfiles Custom CVars Protection Notice',
+      route: 'pages/patching-configs.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>⚠️ Safeguard for DeviceProfiles.ini</h4>
+          <p><code>DeviceProfiles.ini</code> contains crucial device feature flags such as Vulkan rendering and Frame Generation toggles. Overwriting this file unguided can revert performance settings.</p>
+          <ul>
+            <li><strong>Custom CVars Notice:</strong> Triggers a warning modal when applying presets that overwrite <code>DeviceProfiles.ini</code>.</li>
+            <li><strong>Selective File Overrides:</strong> Option to omit <code>DeviceProfiles.ini</code> patching while applying <code>Engine.ini</code> and <code>Scalability.ini</code>.</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ Overwrite Guard Architecture</h4>
+          <ul>
+            <li><strong>Profile Metadata Protection:</strong> Safeguards <code>BaseProfileName</code> and <code>DeviceScore</code> parameters during patching.</li>
+            <li><strong>Selective Injection Pipeline:</strong> Uses <code>MainStorageManager.kt</code> file mask filters to selectively bypass DeviceProfiles writes based on user preference toggles.</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'version-upgrade-reset': {
+      titleKey: 'card_upgradereset_title',
+      title: 'Smart Version Upgrade Preference Reset',
+      route: 'pages/troubleshooting.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>🔄 Automated Preference & Safety Alignment</h4>
+          <p>When updating WuWa Config Patcher to a major new release (e.g. v1.9.0), internal preference keys auto-align to re-prompt safety warnings and feature introductions.</p>
+          <ul>
+            <li><strong>Safety Re-prompt:</strong> Ensures critical warnings (like GC guards and storage permissions) are re-displayed upon updating.</li>
+            <li><strong>Onboarding Refresh:</strong> Introduces newly added capabilities and updated safety guidelines automatically.</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ Version Migration Controller</h4>
+          <ul>
+            <li><strong>Version Code Tracker:</strong> Compares cached <code>last_run_version_code</code> against active <code>BuildConfig.VERSION_CODE</code> (51).</li>
+            <li><strong>State Migration:</strong> Resets transient dialog suppressed flags in <code>SharedPreferences</code> while preserving user custom themes and preset repositories.</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'preset-differ': {
+      titleKey: 'card_presetdiffer_title',
+      title: 'Preset Comparison Tool (PresetDiffer)',
+      route: 'pages/patching-configs.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>⚖️ Side-by-Side Preset CVar Diffing</h4>
+          <p>Compare two preset configs or evaluate a preset against your currently active live config before patching.</p>
+          <ul>
+            <li><strong>Visual Diff View:</strong> Highlights added, modified, and removed CVars with color-coded badges.</li>
+            <li><strong>Section Breakdown:</strong> Displays section header changes (<code>RendererSettings</code>, <code>SystemSettings</code>, etc.).</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ PresetDiffer Engine</h4>
+          <ul>
+            <li><strong>INI Parsing & Diff Computation:</strong> <code>PresetDiffer.kt</code> parses both INI buffers into key-value tree maps and computes symmetric set differences.</li>
+            <li><strong>Diff Classifications:</strong> Categorizes properties into <code>ADDED</code>, <code>MODIFIED</code>, <code>REMOVED</code>, and <code>UNCHANGED</code> with instant search filtering.</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'custom-theme-engine': {
+      titleKey: 'card_themeengine_title',
+      title: 'Custom Theme Engine & Live Swatches',
+      route: 'pages/utilities-diagnostics.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>🎨 Personalize Your App Appearance</h4>
+          <p>Custom Theme Engine provides dynamic color customization with instant live swatches and dark mode variants.</p>
+          <ul>
+            <li><strong>Live Color Swatches:</strong> Choose from curated palette presets or customize primary accent colors.</li>
+            <li><strong>AMOLED Dark Mode:</strong> Pure black theme for OLED/AMOLED displays to maximize battery efficiency.</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ Dynamic Compose Material3 Palette Engine</h4>
+          <ul>
+            <li><strong>Dynamic Color Scheme:</strong> Dynamically injects Compose Material3 <code>ColorScheme</code> objects across application screens.</li>
+            <li><strong>Persistent Swatch Preferences:</strong> Theme settings persist across restarts via <code>ThemePreferences.kt</code>.</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'app-doctor': {
+      titleKey: 'card_appdoctor_title',
+      title: 'App Doctor Self-Diagnosis & Auto-Repair',
+      route: 'pages/utilities-diagnostics.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>🩺 Automated Health Audits & 1-Tap Repairs</h4>
+          <p>App Doctor audits your environment to identify storage issues, elevated access drops, or missing configuration paths.</p>
+          <ul>
+            <li><strong>System Diagnostics:</strong> Checks Shizuku service binding, game package installation, and storage permissions.</li>
+            <li><strong>1-Tap Auto-Repair:</strong> Automatically repairs missing config directory trees and restores default repository indexes.</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ AppDoctor.kt Health Checker</h4>
+          <ul>
+            <li><strong>Diagnostic Rules:</strong> Executes an async rule suite validating Shizuku IPC binder status, Scoped Storage access, directory existence, and repository connectivity.</li>
+            <li><strong>Remediation Pipeline:</strong> Invokes targeted repair functions (e.g., <code>mkdir -p</code> scoped storage folders, re-binding IPC services) with live diagnostic log output.</li>
+          </ul>
+        </div>
+      `
+    },
+
+    'usage-telemetry': {
+      titleKey: 'card_telemetry_title',
+      title: 'Anonymous Usage Telemetry & Analytics Dashboard',
+      route: 'pages/bug-reporting.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>📊 Opt-In Anonymous Telemetry</h4>
+          <p>Help improve WuWa Config Patcher stability with privacy-first anonymous diagnostic telemetry.</p>
+          <ul>
+            <li><strong>100% Anonymous:</strong> No personal details or device identifiers are ever tracked or transmitted.</li>
+            <li><strong>Real-Time Analytics Dashboard:</strong> View aggregated app statistics, crash counts, and backend distribution.</li>
+          </ul>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ Telemetry Architecture</h4>
+          <ul>
+            <li><strong>Privacy Sanitize Engine:</strong> Strips paths, personal tokens, and hardware serials before event dispatch.</li>
+            <li><strong>Opt-In Control:</strong> Controlled via <code>TelemetryPreferences.kt</code> with instant disable switch.</li>
           </ul>
         </div>
       `
@@ -205,11 +382,16 @@
   }
 
   let activeFeatureId = null;
+  let lastFocusedTrigger = null;
 
   function initFeatureModals() {
     const cards = document.querySelectorAll('.clickable-card');
     const modal = document.getElementById('feature-modal');
     if (!modal || cards.length === 0) return;
+
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'modal-title');
 
     const resolvePath = (window.WuWaPathResolver && window.WuWaPathResolver.resolvePath) ? window.WuWaPathResolver.resolvePath : (p) => p;
 
@@ -236,11 +418,15 @@
       if (activeTab === 'casual') {
         tabCasualBtn.classList.add('active');
         tabTechnicalBtn.classList.remove('active');
+        tabCasualBtn.setAttribute('aria-selected', 'true');
+        tabTechnicalBtn.setAttribute('aria-selected', 'false');
         tabContentCasual.style.display = 'block';
         tabContentTechnical.style.display = 'none';
       } else {
         tabTechnicalBtn.classList.add('active');
         tabCasualBtn.classList.remove('active');
+        tabTechnicalBtn.setAttribute('aria-selected', 'true');
+        tabCasualBtn.setAttribute('aria-selected', 'false');
         tabContentCasual.style.display = 'none';
         tabContentTechnical.style.display = 'block';
       }
@@ -251,8 +437,21 @@
       tabTechnicalBtn.addEventListener('click', () => switchTab('technical'));
     }
 
+    // Modal Focus Trap Helper
+    function getFocusableElements() {
+      return Array.from(modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )).filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    }
+
     cards.forEach((card) => {
-      card.addEventListener('click', () => {
+      // Make feature cards accessible buttons
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-haspopup', 'dialog');
+
+      const handleOpen = () => {
+        lastFocusedTrigger = document.activeElement;
         const featureId = card.getAttribute('data-feature');
         activeFeatureId = featureId;
         const detail = FEATURE_DETAILS[featureId];
@@ -274,12 +473,32 @@
         }
 
         modal.classList.add('active');
+        document.body.classList.add('nav-locked');
+
+        // Focus initial element in modal
+        setTimeout(() => {
+          if (closeBtn) closeBtn.focus();
+        }, 50);
+      };
+
+      card.addEventListener('click', handleOpen);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleOpen();
+        }
       });
     });
 
     const closeModal = () => {
       modal.classList.remove('active');
+      document.body.classList.remove('nav-locked');
       activeFeatureId = null;
+
+      // Restore focus to trigger button
+      if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === 'function') {
+        lastFocusedTrigger.focus();
+      }
     };
 
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -288,8 +507,29 @@
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
+      if (!modal.classList.contains('active')) return;
+
+      if (e.key === 'Escape') {
         closeModal();
+      } else if (e.key === 'Tab') {
+        // Focus Trap Wrap
+        const focusables = getFocusableElements();
+        if (focusables.length === 0) return;
+
+        const firstEl = focusables[0];
+        const lastEl = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
       }
     });
 

@@ -3,39 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support, Bug Reporting & Settings — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
-  <link rel="icon" type="image/png" href="../images/logo.png">
+  <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Support, diagnostic bug reporting generator, and settings preferences guide for WuWa Config Patcher.">
+  <title>Support, Bug Reporting &amp; Settings — WuWa Config Patcher v1.9.0</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
 <body>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
 
   <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
-      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
-        <h1>WuWa Config Patcher</h1>
+      <a href="../index.html" class="subpage-header-link">
+        <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
+        <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.7.0</span>
+      <span class="version-badge" data-meta="version_v">v1.9.0</span>
     </div>
 
     <div class="header-actions">
       <!-- Theme Toggle Button -->
       <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
-        <span class="theme-icon">☀️</span>
+        <span class="theme-icon" aria-hidden="true">☀️</span>
         <span class="theme-text">Light Mode</span>
       </button>
 
+      <div class="lang-selector-wrapper"></div>
+
       <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
-        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." data-i18n="search_placeholder" autocomplete="off" aria-label="Search documentation">
+        <div id="search-results-dropdown" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
       </div>
       <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
-        GitHub Repo
+        <span data-i18n="btn_github">GitHub Repo</span>
       </a>
     </div>
   </header>
@@ -43,43 +52,45 @@
   <div class="main-container">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <h3>GETTING STARTED</h3>
-        <ul>
-          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
-          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
-        </ul>
-      </div>
+      <nav aria-label="Main Navigation">
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_getting_started">GETTING STARTED</h3>
+          <ul>
+            <li><a href="../index.html" class="nav-link" data-i18n="nav_overview">Overview &amp; Features</a></li>
+            <li><a href="setup-shizuku.html" class="nav-link" data-i18n="nav_prerequisites">Prerequisites &amp; Setup</a></li>
+          </ul>
+        </div>
 
-      <div class="sidebar-section">
-        <h3>CORE WORKFLOWS (END-USER)</h3>
-        <ul>
-          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
-          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
-          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
-          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
-        </ul>
-      </div>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
+          <ul>
+            <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
+            <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
+            <li><a href="config-editor.html" class="nav-link" data-i18n="nav_editor">Live Config Editor</a></li>
+            <li><a href="enable-csharp.html" class="nav-link" data-i18n="nav_csharp">Enabling C# Environment</a></li>
+          </ul>
+        </div>
 
-      <div class="sidebar-section">
-        <h3>CREATOR & ADVANCED TOOLS</h3>
-        <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
-          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
-          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
-          <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
-          <li><a href="bug-reporting.html" class="nav-link active">Support & Activity Logger</a></li>
-        </ul>
-      </div>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_creator_tools">CREATOR &amp; ADVANCED TOOLS</h3>
+          <ul>
+            <li><a href="utilities-diagnostics.html" class="nav-link" data-i18n="nav_utilities">Utilities &amp; Log Diagnostics</a></li>
+            <li><a href="advanced-tools.html" class="nav-link" data-i18n="nav_advanced_suite">Advanced Diagnostic Suite</a></li>
+            <li><a href="config-editor.html#cvar-guards" class="nav-link" data-i18n="nav_cvar_guards">Engine CVar Section Guards</a></li>
+            <li><a href="advanced-tools.html#cvar-bank" class="nav-link" data-i18n="nav_cvar_bank">CVar Bank &amp; Reference Library</a></li>
+            <li><a href="manual-method.html" class="nav-link" data-i18n="nav_manual">Manual Mode Guide (Old School)</a></li>
+            <li><a href="troubleshooting.html" class="nav-link" data-i18n="nav_troubleshooting">Troubleshooting &amp; FAQ</a></li>
+            <li><a href="bug-reporting.html" class="nav-link active" data-i18n="nav_support">Support &amp; Activity Logger</a></li>
+          </ul>
+        </div>
+      </nav>
     </aside>
 
-    <main class="content-area">
+    <main id="main-content" class="content-area">
       
-      <section class="doc-section">
+      <section id="bug-reporting" class="doc-section">
         <div class="section-header">
-          <h2>Support & Diagnostic Bug Reporting</h2>
+          <h2>Support &amp; Diagnostic Bug Reporting</h2>
           <span class="author-tag">Tab 5: SupportScreen</span>
         </div>
 
@@ -102,20 +113,20 @@
 
           <div class="feature-card">
             <div class="card-icon">☕</div>
-            <h4>Donations & Creator Support</h4>
-            <p>WuWa Config Patcher is 100% free and ad-free. You can support Arglax directly via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).</p>
+            <h4>Donations &amp; Creator Support</h4>
+            <p>WuWa Config Patcher is maintained by Arglax as a free project. You can support development directly via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).</p>
           </div>
         </div>
 
-        <div class="alert alert-tip" style="margin-top: 20px;">
-          <div class="alert-title">DEVELOPER NOTES & RELEASE REPOSITORY</div>
-          View release notes from Arglax regarding the platform migration to <strong>WuWa-Mobile-Config-Patcher</strong> on GitHub. Tap <strong>"Visit New Release Repository"</strong> on the Support tab to access releases directly at <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases" target="_blank" style="color: var(--accent-gold); font-weight: 800;">GitHub Releases</a>.
+        <div class="alert alert-tip mt-20">
+          <div class="alert-title">DEVELOPER NOTES &amp; RELEASE REPOSITORY</div>
+          View release notes maintained by Arglax regarding the platform migration to <strong>WuWa-Mobile-Config-Patcher</strong> on GitHub. Tap <strong>"Visit New Release Repository"</strong> on the Support tab to access releases directly at <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases" target="_blank" class="toc-link">GitHub Releases</a>.
         </div>
       </section>
 
-      <section class="doc-section">
+      <section id="settings" class="doc-section">
         <div class="section-header">
-          <h2>Settings Preferences & System Toggles</h2>
+          <h2>Settings Preferences &amp; System Toggles</h2>
           <span class="author-tag">Tab 4: SettingsScreen &gt; Preferences</span>
         </div>
 
@@ -157,18 +168,18 @@
           <div class="feature-card">
             <div class="card-icon">🌙</div>
             <h4>DND at Work</h4>
-            <p>Automatically mutes patch release push notifications during local office/work hours (8:00 AM – 5:00 PM local time).</p>
+            <p>Automatically mutes patch release push notifications during local office/work hours (8:00 AM &ndash; 5:00 PM local time).</p>
           </div>
 
-          <div class="feature-card" style="grid-column: 1 / -1;">
+          <div class="feature-card grid-col-full">
             <div class="card-icon">🤪</div>
-            <h4>Stupid Mode (v1.7.0 New — Default: ON)</h4>
+            <h4>Stupid Mode (Default: ON)</h4>
             <p>Described in-app as <em>"Make information clearer and easier to spot. 90% Spoonfeeding."</em> When enabled, every status, warning, or error message displays as a full, standalone dismissible popup window (<code>StatusPopupDialog.kt</code>) carrying explicit remediation instructions (e.g. step-by-step guidance to start Shizuku or fix invalid inputs) instead of a quick-fading toast notification. Disabling this toggle restores standard lightweight Android toast messages.</p>
           </div>
         </div>
       </section>
 
-      <section class="doc-section">
+      <section id="danger-zone" class="doc-section">
         <div class="section-header">
           <h2>Settings Screen: Danger Zone Actions</h2>
           <span class="author-tag">Tab 4: SettingsScreen &gt; Danger Zone</span>
@@ -179,7 +190,7 @@
         </p>
 
         <div class="method-card">
-          <h4>Guarded System Maintenance Routines</h4>
+          <h3>Guarded System Maintenance Routines</h3>
           <ul>
             <li><strong>Clear App Cache &amp; History:</strong> Wipes temporary repository zip caches, staging files, and editor undo/redo snapshot stacks.</li>
             <li><strong>Clear App Data &amp; Exports:</strong> Complete factory reset clearing custom repository URLs, exported zips, and preference toggles.</li>
@@ -189,33 +200,52 @@
         </div>
       </section>
 
-      <section class="doc-section">
+      <section id="whats-new" class="doc-section">
         <div class="section-header">
-          <h2>What's New Card (<code>ChangelogDialog.kt</code>)</h2>
-          <span class="author-tag">Tab 4: SettingsScreen</span>
+          <h2>What's New Card (v1.9.0 • Build 73 Highlights)</h2>
+          <span class="author-tag">ChangelogDialog.kt</span>
         </div>
 
         <p class="lead-text">
-          The <strong>What's New Card</strong> renders current release highlights (<code>v1.7.0</code>) linking directly to <code>ChangelogDialog.kt</code> and the in-app update installer.
+          The <strong>What's New Card</strong> renders current release highlights for <strong>v1.9.0 (versionCode 73)</strong>, linking directly to <code>ChangelogDialog.kt</code> and the in-app update installer:
         </p>
+
+        <div class="method-card">
+          <h3>v1.9.0 (versionCode 73) Release Highlights</h3>
+          <ul>
+            <li><strong>Advanced Diagnostic Suite &amp; Config Analysis Tool (<code>CVarAnalyzer.kt</code>):</strong> Real-time cross-checking of active on-device INI CVars against decrypted game log streams. Features KPI summary metrics (Applied %, Failed count, Deleted/Ignored count &amp; %), collapsible Smart Insights tuning panel, horizontal CVar &amp; File filter bar, and frozen column comparison table.</li>
+            <li><strong>1000+ CVar Bank &amp; Reference Library:</strong> Asynchronous database loading from <code>assets/alteriax_cvars.txt</code> and UE docs with source/category filtering, Card/Table view toggles, Web CVar Extractor dialog, and 1-tap "Send to Editor" integration.</li>
+            <li><strong>App Doctor Self-Diagnosis &amp; Auto-Repair (<code>AppDoctor.kt</code>):</strong> Automated 7-point health check auditing elevated access, game package installation, config path reachability, repository validity (auto re-sync), download cache health, storage report integrity, and error log patterns with 1-tap repair.</li>
+            <li><strong>Custom Theme Builder &amp; Color Swatches (<code>ThemeSystem.kt</code>):</strong> Predefined theme swatches plus interactive custom primary, secondary, and accent color selection with live preview and persistent storage.</li>
+            <li><strong>INI Integrity Tools:</strong> Dedicated CVar Section Guards (<code>CVarSectionGuard.kt</code>), Duplicate CVar Flagger (<code>DuplicateCvarFlagger.kt</code>), Forbidden CVar Stripper (<code>ForbiddenCvarStripper.kt</code>), and CVar Extractor (<code>CVarExtractor.kt</code>).</li>
+            <li><strong>Telemetry &amp; Analytics Privacy Dashboard:</strong> User privacy controls and opt-in/opt-out telemetry toggles with zero PII collection.</li>
+          </ul>
+        </div>
       </section>
+
+      <!-- Page Pagination Nav -->
+      <div class="page-pagination">
+        <a href="troubleshooting.html" class="btn-primary">← Troubleshooting &amp; FAQ</a>
+        <a href="../index.html" class="btn-primary">Overview &amp; Features →</a>
+      </div>
 
     </main>
   </div>
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Developed by Arglax • Official Documentation Site • <span data-meta="version_v">v1.7.0</span></span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.7.0"></script>
-  <script src="../js/search.js?v=1.7.0"></script>
-  <script src="../js/modal.js?v=1.7.0"></script>
-  <script src="../js/code-copy.js?v=1.7.0"></script>
-  <script src="../js/formatter.js?v=1.7.0"></script>
-  <script src="../js/theme.js?v=1.7.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
-  <script src="../js/ai-chat.js?v=1.7.0"></script>
-  <script src="../js/main.js?v=1.7.0"></script>
+  <script src="../js/i18n.js?v=1.9.0"></script>
+  <script src="../js/metadata.js?v=1.9.0"></script>
+  <script src="../js/search.js?v=1.9.0"></script>
+  <script src="../js/modal.js?v=1.9.0"></script>
+  <script src="../js/code-copy.js?v=1.9.0"></script>
+  <script src="../js/formatter.js?v=1.9.0"></script>
+  <script src="../js/theme.js?v=1.9.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
+  <script src="../js/ai-chat.js?v=1.9.0"></script>
+  <script src="../js/main.js?v=1.9.0"></script>
 </body>
 </html>

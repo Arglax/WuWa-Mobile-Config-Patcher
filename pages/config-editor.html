@@ -3,39 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Config Editor & Section Guards — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
-  <link rel="icon" type="image/png" href="../images/logo.png">
+  <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Live Config Editor, CVar section guards, flagged CVar rules, and UE4CommandLine patching guide in WuWa Config Patcher.">
+  <title>Live Config Editor &amp; Section Guards — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
 <body>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
 
   <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
-      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
-        <h1>WuWa Config Patcher</h1>
+      <a href="../index.html" class="subpage-header-link">
+        <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
+        <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.7.0</span>
+      <span class="version-badge" data-meta="version_v">v1.9.0</span>
     </div>
 
     <div class="header-actions">
       <!-- Theme Toggle Button -->
       <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
-        <span class="theme-icon">☀️</span>
+        <span class="theme-icon" aria-hidden="true">☀️</span>
         <span class="theme-text">Light Mode</span>
       </button>
 
+      <div class="lang-selector-wrapper"></div>
+
       <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
-        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." data-i18n="search_placeholder" autocomplete="off" aria-label="Search documentation">
+        <div id="search-results-dropdown" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
       </div>
       <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
-        GitHub Repo
+        <span data-i18n="btn_github">GitHub Repo</span>
       </a>
     </div>
   </header>
@@ -43,39 +52,53 @@
   <div class="main-container">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <h3>GETTING STARTED</h3>
-        <ul>
-          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
-          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
-        </ul>
-      </div>
+      <nav aria-label="Main Navigation">
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_getting_started">GETTING STARTED</h3>
+          <ul>
+            <li><a href="../index.html" class="nav-link" data-i18n="nav_overview">Overview &amp; Features</a></li>
+            <li><a href="setup-shizuku.html" class="nav-link" data-i18n="nav_prerequisites">Prerequisites &amp; Setup</a></li>
+          </ul>
+        </div>
 
-      <div class="sidebar-section">
-        <h3>CORE WORKFLOWS (END-USER)</h3>
-        <ul>
-          <li><a href="patching-configs.html" class="nav-link">1-Click & Custom Presets</a></li>
-          <li><a href="patching-configs.html#revert" class="nav-link">Reverting to Vanilla</a></li>
-          <li><a href="config-editor.html" class="nav-link active">Live Config Editor</a></li>
-          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
-        </ul>
-      </div>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
+          <ul>
+            <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
+            <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
+            <li><a href="config-editor.html" class="nav-link active" data-i18n="nav_editor">Live Config Editor</a></li>
+            <li><a href="enable-csharp.html" class="nav-link" data-i18n="nav_csharp">Enabling C# Environment</a></li>
+          </ul>
+        </div>
 
-      <div class="sidebar-section">
-        <h3>CREATOR & ADVANCED TOOLS</h3>
-        <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
-          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
-          <li><a href="#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
-          <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
-          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
-        </ul>
-      </div>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_creator_tools">CREATOR &amp; ADVANCED TOOLS</h3>
+          <ul>
+            <li><a href="utilities-diagnostics.html" class="nav-link" data-i18n="nav_utilities">Utilities &amp; Log Diagnostics</a></li>
+            <li><a href="advanced-tools.html" class="nav-link" data-i18n="nav_advanced_suite">Advanced Diagnostic Suite</a></li>
+            <li><a href="#cvar-guards" class="nav-link" data-i18n="nav_cvar_guards">Engine CVar Section Guards</a></li>
+            <li><a href="#flagged-cvars" class="nav-link">Flagged CVars &amp; GC Guard</a></li>
+            <li><a href="advanced-tools.html#cvar-bank" class="nav-link" data-i18n="nav_cvar_bank">CVar Bank &amp; Reference Library</a></li>
+            <li><a href="manual-method.html" class="nav-link" data-i18n="nav_manual">Manual Mode Guide (Old School)</a></li>
+            <li><a href="troubleshooting.html" class="nav-link" data-i18n="nav_troubleshooting">Troubleshooting &amp; FAQ</a></li>
+            <li><a href="bug-reporting.html" class="nav-link" data-i18n="nav_support">Support &amp; Activity Logger</a></li>
+          </ul>
+        </div>
+      </nav>
     </aside>
 
-    <main class="content-area">
+    <main id="main-content" class="content-area">
+
+      <!-- Table of Contents -->
+      <nav class="toc-container" aria-label="On this page navigation">
+        <div class="toc-title">On this page</div>
+        <ul class="toc-list">
+          <li><a href="#config-editor" class="toc-link">Live Config Editor Overview</a></li>
+          <li><a href="#cvar-guards" class="toc-link">Engine CVar Section Guards &amp; Enforcement</a></li>
+          <li><a href="#flagged-cvars" class="toc-link">Flagged CVars &amp; Garbage Collection Guard</a></li>
+          <li><a href="#misc-patch" class="toc-link">Misc Patching (UE4CommandLine.txt)</a></li>
+        </ul>
+      </nav>
 
       <section id="config-editor" class="doc-section">
         <div class="section-header">
@@ -97,19 +120,19 @@
         
         <div class="screenshot-grid">
           <div class="screenshot-card">
-            <img src="../images/smart.jpg" alt="Smart Mode UI Preview" class="screenshot-img">
+            <img src="../images/smart.jpg" alt="Smart Mode UI Preview showing sectioned cards and CVar controls" class="screenshot-img" width="800" height="450" loading="lazy">
             <div class="screenshot-caption">Smart Mode</div>
             <div class="screenshot-subtext">Sectioned UI with value steppers, A-Z sorting, Auto-Fix, and bulk delete controls.</div>
           </div>
 
           <div class="screenshot-card">
-            <img src="../images/text.jpg" alt="Text Raw Mode UI Preview" class="screenshot-img">
+            <img src="../images/text.jpg" alt="Text Raw Mode UI Preview showing syntax highlighted INI editor" class="screenshot-img" width="800" height="450" loading="lazy">
             <div class="screenshot-caption">Text (Raw) Mode</div>
             <div class="screenshot-subtext">Full manual text editor with line numbers, font size slider, and Isolation Search Mode.</div>
           </div>
 
           <div class="screenshot-card">
-            <img src="../images/oneline.jpg" alt="One-Line Mode UI Preview" class="screenshot-img">
+            <img src="../images/oneline.jpg" alt="One-Line Mode UI Preview showing single CVar injection controls" class="screenshot-img" width="800" height="450" loading="lazy">
             <div class="screenshot-caption">One-Line Mode</div>
             <div class="screenshot-subtext">Key-value dropdown editor for rapid single CVar adjustments with a live buffer preview card.</div>
           </div>
@@ -124,11 +147,11 @@
             <span class="mode-tag">Smart Mode</span>
             <h4>Structured Section Cards</h4>
             <ul>
-              <li><strong>Sort A-Z Button:</strong> Re-arranges section headers in canonical engine order (<code>ConsoleVariables</code> $\rightarrow$ <code>SystemSettings</code> $\rightarrow$ <code>RendererOverrideSettings</code> $\rightarrow$ <code>RendererSettings</code> $\rightarrow$ <code>StreamingSettings</code> $\rightarrow$ <code>Core.System</code> last) and sorts CVars alphabetically.</li>
+              <li><strong>Sort A-Z Button:</strong> Re-arranges section headers in canonical engine order (<code>ConsoleVariables</code> &rarr; <code>SystemSettings</code> &rarr; <code>RendererOverrideSettings</code> &rarr; <code>RendererSettings</code> &rarr; <code>StreamingSettings</code> &rarr; <code>Core.System</code> last) and sorts CVars alphabetically.</li>
               <li><strong>Auto-Fix / Auto-Categorize Button:</strong> Re-categorizes CVars into canonical section headers, purges useless empty section headers, and deduplicates CVars within each section.</li>
-              <li><strong>Multi-Select & Bulk Delete:</strong> Enables checking multiple items in expanded sections and deleting them in a single batch.</li>
-              <li><strong>Steppers & Negative Numbers:</strong> Inline steppers with full negative number support.</li>
-              <li><strong>Disk-Persisted Undo & Redo:</strong> Dedicated header controls backed by <code>EditorHistoryManager.kt</code> (persisting up to 40 snapshots in <code>context.filesDir</code>) so history survives app kills or backgrounding without requiring Shizuku.</li>
+              <li><strong>Multi-Select &amp; Bulk Delete:</strong> Enables checking multiple items in expanded sections and deleting them in a single batch.</li>
+              <li><strong>Steppers &amp; Negative Numbers:</strong> Inline steppers with full negative number support.</li>
+              <li><strong>Disk-Persisted Undo &amp; Redo:</strong> Dedicated header controls backed by <code>EditorHistoryManager.kt</code> (persisting up to 40 snapshots in <code>context.filesDir</code>) so history survives app kills or backgrounding without requiring Shizuku.</li>
             </ul>
           </div>
 
@@ -137,7 +160,7 @@
             <h4>Manual Syntax-Highlighted Editor</h4>
             <ul>
               <li><strong>Isolation Search Mode:</strong> Filters raw text buffers to display only lines matching the search query.</li>
-              <li><strong>Search & Replace Toolbar:</strong> Features "Replace Next" and "Replace All" actions across large config files.</li>
+              <li><strong>Search &amp; Replace Toolbar:</strong> Features "Replace Next" and "Replace All" actions across large config files.</li>
               <li><strong>Font Size Control:</strong> Adjustable slider from 8sp to 24sp for comfortable viewing.</li>
             </ul>
           </div>
@@ -157,7 +180,7 @@
       <!-- Section Guards -->
       <section id="cvar-guards" class="doc-section">
         <div class="section-header">
-          <h2>Engine CVar Section Guards & Enforcement</h2>
+          <h2>Engine CVar Section Guards &amp; Enforcement</h2>
           <span class="author-tag">CVarSectionGuard.kt</span>
         </div>
 
@@ -170,7 +193,7 @@
             <tr>
               <th>Category</th>
               <th>Canonical Section Header</th>
-              <th>Guard Rule & Prefix</th>
+              <th>Guard Rule &amp; Prefix</th>
             </tr>
           </thead>
           <tbody>
@@ -218,9 +241,9 @@
         </table>
 
         <div class="alert alert-important">
-          <div class="alert-title">VIBRANT RED HIGHLIGHTING (#FF2222) & SAVE PROMPTS</div>
-          Misplaced CVars across Smart Mode, Text Mode, and One-Line previews are painted in bold <strong class="guard-red-highlight">Vibrant Red (#FF2222)</strong>. Tapping <strong>Save</strong> checks for misplaced lines and presents:
-          <ul style="margin-top: 8px;">
+          <div class="alert-title">VIBRANT RED HIGHLIGHTING (#FF2222) &amp; SAVE PROMPTS</div>
+          Misplaced CVars across Smart Mode, Text Mode, and One-Line previews are painted in bold <strong class="status-failed">Vibrant Red (#FF2222)</strong>. Tapping <strong>Save</strong> checks for misplaced lines and presents:
+          <ul class="mt-8">
             <li><strong>Auto-Fix Sections:</strong> Auto-groups CVars into canonical headers or <code>[SystemSettings]</code> and saves.</li>
             <li><strong>I know what I'm doing:</strong> Bypasses warnings and saves as-is.</li>
             <li><strong>Cancel:</strong> Cancels save.</li>
@@ -228,11 +251,64 @@
         </div>
 
         <div class="alert alert-tip">
-          <div class="alert-title">ENGINE.INI PREFIX FLAGGING & DEVICEPROFILES.INI RULE</div>
+          <div class="alert-title">ENGINE.INI PREFIX FLAGGING &amp; DEVICEPROFILES.INI RULE</div>
           <ul>
             <li><strong>Engine.ini Prefix Stripping:</strong> Any line starting with <code>CVars=</code>, <code>+CVars=</code>, or <code>.CVars=</code> is flagged in Vibrant Red. Auto-Fix automatically strips the prefix while retaining the actual CVar key and value.</li>
             <li><strong>DeviceProfiles.ini Formatting:</strong> Automatically formats CVar lines as <code>CVars=Key=Value</code> while preserving metadata profile pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>, <code>DeviceType</code>, <code>HardwareLevel</code>).</li>
           </ul>
+        </div>
+      </section>
+
+      <!-- Flagged CVars & GC Guard -->
+      <section id="flagged-cvars" class="doc-section">
+        <div class="section-header">
+          <h2>Flagged CVars &amp; Garbage Collection Guard (v1.9.0)</h2>
+          <span class="author-tag">FlaggedCvarManager.kt &amp; FlaggedCvarDialog.kt</span>
+        </div>
+
+        <p class="lead-text">
+          In v1.9.0, the editor introduces a real-time <strong>Pre-Save Flagged CVar Guard</strong>. This system automatically inspects configuration content prior to saving for unsafe parameters that cause game crashes, severe memory pressure, or rendering degradation.
+        </p>
+
+        <div class="editor-modes-container">
+          <div class="editor-mode-box">
+            <span class="mode-tag">Garbage Collection Guard</span>
+            <h4>Garbage Collection (<code>gc.*</code>) Crash Protection</h4>
+            <p>
+              Modifying UE4 Garbage Collection settings on Android (e.g., <code>gc.MaxObjectsNotConsideredByGC</code>, <code>gc.TimeBetweenPurgingPendingKillObjects</code>) frequently triggers fatal memory corruption or instant crashes upon entering combat or changing scenes. All <code>gc.*</code> CVars are flagged by default.
+            </p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">Custom Flag Rules</span>
+            <h4>Custom Rule Matcher</h4>
+            <p>
+              Users can configure custom rules in <em>Settings &gt; Flagged CVars Rules</em>. Supports exact key-value matching (e.g. <code>r.ShadowQuality=5</code>), wildcard key matching (e.g. <code>r.RayTracing*</code>), or pattern groups (e.g. <code>sg.*</code>).
+            </p>
+          </div>
+
+          <div class="editor-mode-box">
+            <span class="mode-tag">1-Tap Remediation</span>
+            <h4>1-Tap Batch Comment / Batch Delete</h4>
+            <p>
+              When flagged CVars are detected, <code>FlaggedCvarDialog</code> displays a prominent crash warning with instant remediation options:
+            </p>
+            <ul>
+              <li><strong>Batch Comment Out:</strong> Safely prepends <code>;</code> to all flagged CVars so the engine ignores them without deleting your notes.</li>
+              <li><strong>Batch Delete:</strong> Instantly purges all matching flagged CVar lines before saving.</li>
+              <li><strong>Save As-Is:</strong> Bypasses warnings for advanced power users.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-important">
+          <div class="alert-title">DEVICEPROFILES CUSTOM CVARS NOTICE (VULKAN &amp; FRAME GEN PROTECTION)</div>
+          When editing <code>DeviceProfiles.ini</code>, the editor runs specialized checks (<code>DeviceProfilesChecker.kt</code>) before saving. If custom CVars are added that could break mobile GPU profile inheritance, Vulkan API rendering pipelines, or Frame Generation features, a dedicated <strong>DeviceProfiles Notice Dialog</strong> warns you before writing to disk. Includes a "Don't show again" toggle.
+        </div>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">🔄 SMART VERSION UPGRADE PREFERENCE RESET</div>
+          When WuWa Config Patcher is upgraded to a new version (e.g. v1.9.0), <code>AppPreferences.checkAndHandleAppVersionUpgrade()</code> automatically resets all "Don't show again" warning preferences. This ensures users re-evaluate safety popups, Flagged CVar guards, and DeviceProfiles notices against the latest Wuthering Waves engine updates.
         </div>
       </section>
 
@@ -259,22 +335,29 @@
         </div>
       </section>
 
+      <!-- Page Pagination Nav -->
+      <div class="page-pagination">
+        <a href="patching-configs.html" class="btn-primary">← 1-Click &amp; Custom Presets</a>
+        <a href="enable-csharp.html" class="btn-primary">Enabling C# Environment →</a>
+      </div>
+
     </main>
   </div>
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.7.0"></script>
-  <script src="../js/search.js?v=1.7.0"></script>
-  <script src="../js/modal.js?v=1.7.0"></script>
-  <script src="../js/code-copy.js?v=1.7.0"></script>
-  <script src="../js/formatter.js?v=1.7.0"></script>
-  <script src="../js/theme.js?v=1.7.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
-  <script src="../js/ai-chat.js?v=1.7.0"></script>
-  <script src="../js/main.js?v=1.7.0"></script>
+  <script src="../js/i18n.js?v=1.9.0"></script>
+  <script src="../js/metadata.js?v=1.9.0"></script>
+  <script src="../js/search.js?v=1.9.0"></script>
+  <script src="../js/modal.js?v=1.9.0"></script>
+  <script src="../js/code-copy.js?v=1.9.0"></script>
+  <script src="../js/formatter.js?v=1.9.0"></script>
+  <script src="../js/theme.js?v=1.9.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
+  <script src="../js/ai-chat.js?v=1.9.0"></script>
+  <script src="../js/main.js?v=1.9.0"></script>
 </body>
 </html>

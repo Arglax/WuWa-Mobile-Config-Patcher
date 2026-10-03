@@ -7,20 +7,37 @@
 
   const STORAGE_KEY = 'wuwa_docs_theme';
 
+  function getSystemPreference() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    }
+    return 'dark';
+  }
+
   function getSavedTheme() {
-    return localStorage.getItem(STORAGE_KEY) || 'dark';
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === 'light' || stored === 'dark') {
+        return stored;
+      }
+    } catch (e) {
+      console.warn('localStorage access denied or unavailable for theme storage:', e);
+    }
+    return getSystemPreference();
   }
 
   function setTheme(theme) {
+    const validTheme = (theme === 'light') ? 'light' : 'dark';
     const root = document.documentElement;
-    if (theme === 'light') {
-      root.setAttribute('data-theme', 'light');
-    } else {
-      root.removeAttribute('data-theme');
-      root.setAttribute('data-theme', 'dark');
+    root.setAttribute('data-theme', validTheme);
+
+    try {
+      localStorage.setItem(STORAGE_KEY, validTheme);
+    } catch (e) {
+      console.warn('localStorage write failed:', e);
     }
-    localStorage.setItem(STORAGE_KEY, theme);
-    updateToggleButtons(theme);
+
+    updateToggleButtons(validTheme);
   }
 
   function updateToggleButtons(theme) {
@@ -32,10 +49,12 @@
         if (iconSpan) iconSpan.textContent = '🌙';
         if (textSpan) textSpan.textContent = 'Dark Mode';
         btn.setAttribute('title', 'Switch to Dark Mode');
+        btn.setAttribute('aria-label', 'Switch to Dark Mode');
       } else {
         if (iconSpan) iconSpan.textContent = '☀️';
         if (textSpan) textSpan.textContent = 'Light Mode';
         btn.setAttribute('title', 'Switch to Light Mode');
+        btn.setAttribute('aria-label', 'Switch to Light Mode');
       }
     });
   }
@@ -44,6 +63,23 @@
     const current = getSavedTheme();
     const next = current === 'dark' ? 'light' : 'dark';
     setTheme(next);
+  }
+
+  // Apply theme immediately to prevent flashing during page load
+  const initialTheme = getSavedTheme();
+  document.documentElement.setAttribute('data-theme', initialTheme);
+
+  // Listen for system theme changes if user has no stored preference
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      try {
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          setTheme(e.matches ? 'light' : 'dark');
+        }
+      } catch (err) {
+        setTheme(e.matches ? 'light' : 'dark');
+      }
+    });
   }
 
   function initTheme() {

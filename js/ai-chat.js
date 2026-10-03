@@ -1,5 +1,5 @@
 /**
- * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.7.0)
+ * WuWa Config Patcher - Floating AI Chat Assistant Widget (v1.9.0)
  * Enhanced with Dynamic i18n Localization & Multilingual Cloud AI Prompts.
  */
 (function (window) {
@@ -191,39 +191,12 @@
       ? window.WuWaI18n.LANGUAGES[curLang]
       : { name: 'English', code: 'en' };
 
-    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.7.0) developed by Arglax.
+    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v1.9.0) Maintained by Arglax.
 
 CRITICAL LANGUAGE REQUIREMENT:
 The user's preferred language is ${langConfig.name} (Code: ${curLang}).
 You MUST reply completely, naturally, and accurately in ${langConfig.name}.
 Translate all advice, descriptions, steps, and conversational speech into ${langConfig.name}. Keep exact technical terms (e.g. Engine.ini, DeviceProfiles.ini, r.ShadowQuality, -ForceEnableCSharpEnvironment, Shizuku, libsu) in their original technical format.
-
-END-USER APP NAVIGATION ROUTES GUIDE (v1.7.0):
-When the user asks where a feature is located or how to navigate to it, provide these exact step-by-step navigation routes:
-• App Doctor (Self-Diagnose & Repair): Utilities -> Common -> App Doctor
-• Duplicate Flagger: Utilities -> Advanced -> Duplicate Flagger
-• CVar Bank & Reference Library: Utilities -> Advanced -> CVar Bank
-• Config Analysis Report: Utilities -> Advanced -> Analyze Config
-• Auto Strip Forbidden CVars: Utilities -> Advanced -> Strip Forbidden
-• Log CVar Extractor: Utilities -> Advanced -> Extract Log CVars
-• Main Storage Reader: Utilities -> Advanced -> Main Storage
-• Get Device Info & Hardware Stats: Utilities -> Common -> Get Device Info
-• Decrypted Log Explorer: Utilities -> Common -> Decrypted Log Explorer
-• Decrypt Log: Utilities -> Common -> Decrypt Log
-• Revert to Vanilla: Utilities -> Common -> Revert to Vanilla
-• View Backend Activity Log: Utilities -> Common -> View Backend Activity Log (or Support -> Report a Bug)
-• 1-Click Patching & Presets: Config -> Config Presets -> Select Preset -> 1-Click Patch
-• Live Config Editor: Editor -> Config Editor (Switch modes: Smart / Text / One-Line)
-• Smart Mode Auto-Fix & A-Z Sort: Editor -> Config Editor -> Smart Mode -> Auto-Fix / Sort A-Z
-• Misc Patch (UE Command Line): Editor -> Misc Patch
-• Stupid Mode Toggle: Settings -> Preferences -> Stupid Mode
-• App Language Selector: Settings -> App Language
-• Check for App Updates: Settings -> Application Info -> Check for Updates
-• Grant Root Access: Settings -> Application Info -> Grant Root
-• Quick Jumps (Shizuku, Wireless Debugging, WuWaLab): Settings -> Quick Jumps
-• Delete Shader Caches: Settings -> Danger Zone -> Delete Shaders
-• Report a Bug / Feature Request: Support -> Support -> Report a Bug / Suggest a Feature
-• Official Web Documentation & AI Assistant: Support -> Support -> Official Documentation & AI Assistant
 
 PRIORITY_MATCHES (pre-ranked for THIS message by local BM25 search):
 ${priorityMatches ? JSON.stringify(priorityMatches) : "None."}
@@ -313,8 +286,8 @@ RULES:
     #ai-chat-root .msg-list li { margin-bottom: 5px; line-height: 1.5; }
     #ai-chat-root .msg-list li:last-child { margin-bottom: 0; }
     #ai-chat-root .msg-callout {
-      background: rgba(245, 158, 11, 0.12);
-      border-left: 3px solid #f59e0b;
+      background: rgba(231, 179, 74, 0.12);
+      border-left: 3px solid var(--accent-gold);
       padding: 6px 10px;
       border-radius: 4px;
       margin: 8px 0 10px 0;
@@ -335,6 +308,14 @@ RULES:
       border-radius: 6px;
       font-size: 0.85em;
     }
+    #ai-chat-root .ai-privacy-notice {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+      line-height: 1.3;
+    }
   `;
 
   function renderWidgetDOM() {
@@ -345,23 +326,23 @@ RULES:
     root.innerHTML = `
       <style>${RESPONSE_FORMATTING_STYLE}</style>
       <button id="ai-chat-fab" class="ai-chat-fab" aria-label="Open AI Assistant" title="Open AI Assistant">
-        <span class="fab-icon">💬</span>
+        <span class="fab-icon" aria-hidden="true">💬</span>
         <span class="fab-label" id="ai-chat-fab-label">${t('ai_fab_label', 'AI Assistant')}</span>
       </button>
 
-      <div id="ai-chat-window" class="ai-chat-window hidden" role="dialog" aria-modal="true">
+      <div id="ai-chat-window" class="ai-chat-window hidden" role="dialog" aria-modal="true" aria-labelledby="ai-chat-header-title">
         <div class="ai-chat-header">
           <div class="header-info">
-            <span class="ai-avatar">🤖</span>
+            <span class="ai-avatar" aria-hidden="true">🤖</span>
             <div>
               <h4 id="ai-chat-header-title">${t('ai_assistant_title', 'WuWa AI Assistant')}</h4>
               <span id="ai-connection-status" class="ai-status">${t('ai_status_checking', 'Checking connection...')}</span>
             </div>
           </div>
           <div class="header-actions">
-            <button id="ai-chat-clear-btn" class="chat-header-btn" title="Clear History">🗑️</button>
-            <button id="ai-chat-settings-btn" class="chat-header-btn" title="API Settings">⚙️</button>
-            <button id="ai-chat-close-btn" class="chat-header-btn" title="Close">&times;</button>
+            <button id="ai-chat-clear-btn" class="chat-header-btn" title="Clear History" aria-label="Clear History">🗑️</button>
+            <button id="ai-chat-settings-btn" class="chat-header-btn" title="API Settings" aria-label="API Settings">⚙️</button>
+            <button id="ai-chat-close-btn" class="chat-header-btn" title="Close" aria-label="Close Assistant">&times;</button>
           </div>
         </div>
 
@@ -375,7 +356,7 @@ RULES:
           </div>
         </div>
 
-        <div id="ai-chat-messages" class="ai-chat-messages">
+        <div id="ai-chat-messages" class="ai-chat-messages" aria-live="polite" aria-atomic="false">
           <div class="chat-msg msg-ai" id="ai-chat-welcome-msg">
             <div class="msg-bubble">
               ${t('ai_msg_welcome', '👋 Hello! I am your <strong>WuWa Config Patcher Assistant</strong>. Ask me anything about presets, CVars, Shizuku, or game troubleshooting!')}
@@ -386,9 +367,13 @@ RULES:
           </div>
         </div>
 
+        <div class="ai-privacy-notice">
+          🔒 Queries and conversation context are processed online via <code>wuwa-ai-proxy.arglaxaqw.workers.dev</code> or Google Gemini API.
+        </div>
+
         <form id="ai-chat-form" class="ai-chat-input-row">
-          <input type="text" id="ai-chat-input" placeholder="${t('ai_input_placeholder', 'Ask a question...')}" autocomplete="off">
-          <button type="submit" id="ai-chat-send-btn" class="ai-chat-send-btn">➢</button>
+          <input type="text" id="ai-chat-input" placeholder="${t('ai_input_placeholder', 'Ask a question...')}" autocomplete="off" aria-label="Type your message">
+          <button type="submit" id="ai-chat-send-btn" class="ai-chat-send-btn" aria-label="Send Message">➢</button>
         </form>
       </div>
     `;
@@ -414,6 +399,8 @@ RULES:
     const statusEl = document.getElementById('ai-connection-status');
     const promptChipsContainer = document.getElementById('prompt-chips-container');
 
+    if (!fab || !windowEl || !form || !input || !sendBtn || !messages) return;
+
     function lockInput(placeholderText) {
       input.disabled = true;
       sendBtn.disabled = true;
@@ -427,16 +414,17 @@ RULES:
     }
 
     function updateStatusIndicator() {
+      if (!statusEl) return;
       const customKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       if (!navigator.onLine) {
         statusEl.textContent = t('ai_status_offline', 'Offline • Local Hybrid Engine Active');
-        statusEl.style.color = "#f59e0b";
+        statusEl.style.color = "var(--accent-gold)";
       } else if (customKey) {
         statusEl.textContent = t('ai_status_online_custom', 'Online • Custom Gemini Key Active');
-        statusEl.style.color = "#10b981";
+        statusEl.style.color = "var(--accent-green)";
       } else {
         statusEl.textContent = t('ai_status_online_shared', 'Online • Shared Assistant Active');
-        statusEl.style.color = "#10b981";
+        statusEl.style.color = "var(--accent-green)";
       }
     }
 
@@ -486,34 +474,42 @@ RULES:
       }
     });
 
-    closeBtn.addEventListener('click', () => windowEl.classList.add('hidden'));
+    if (closeBtn) closeBtn.addEventListener('click', () => windowEl.classList.add('hidden'));
 
-    clearBtn.addEventListener('click', () => {
-      sessionStorage.removeItem(CONTEXT_STORAGE);
-      appendSystemMsg(t('ai_clear_history', "🧹 Conversation history cleared."));
-    });
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        sessionStorage.removeItem(CONTEXT_STORAGE);
+        appendSystemMsg(t('ai_clear_history', "🧹 Conversation history cleared."));
+      });
+    }
 
-    settingsBtn.addEventListener('click', () => {
-      settingsEl.classList.toggle('hidden');
-      if (!settingsEl.classList.contains('hidden')) {
-        apiKeyInput.value = localStorage.getItem(GEMINI_KEY_STORAGE) || '';
-      }
-    });
+    if (settingsBtn && settingsEl) {
+      settingsBtn.addEventListener('click', () => {
+        settingsEl.classList.toggle('hidden');
+        if (!settingsEl.classList.contains('hidden') && apiKeyInput) {
+          apiKeyInput.value = localStorage.getItem(GEMINI_KEY_STORAGE) || '';
+        }
+      });
+    }
 
-    saveKeyBtn.addEventListener('click', () => {
-      localStorage.setItem(GEMINI_KEY_STORAGE, apiKeyInput.value.trim());
-      settingsEl.classList.add('hidden');
-      updateStatusIndicator();
-      appendSystemMsg(t('ai_key_saved', "✓ Custom Gemini API key saved."));
-    });
+    if (saveKeyBtn && settingsEl && apiKeyInput) {
+      saveKeyBtn.addEventListener('click', () => {
+        localStorage.setItem(GEMINI_KEY_STORAGE, apiKeyInput.value.trim());
+        settingsEl.classList.add('hidden');
+        updateStatusIndicator();
+        appendSystemMsg(t('ai_key_saved', "✓ Custom Gemini API key saved."));
+      });
+    }
 
-    clearKeyBtn.addEventListener('click', () => {
-      localStorage.removeItem(GEMINI_KEY_STORAGE);
-      apiKeyInput.value = '';
-      settingsEl.classList.add('hidden');
-      updateStatusIndicator();
-      appendSystemMsg(t('ai_key_cleared', "✓ Reset to default shared assistant proxy."));
-    });
+    if (clearKeyBtn && settingsEl && apiKeyInput) {
+      clearKeyBtn.addEventListener('click', () => {
+        localStorage.removeItem(GEMINI_KEY_STORAGE);
+        apiKeyInput.value = '';
+        settingsEl.classList.add('hidden');
+        updateStatusIndicator();
+        appendSystemMsg(t('ai_key_cleared', "✓ Reset to default shared assistant proxy."));
+      });
+    }
 
     function bindPromptChips() {
       document.querySelectorAll('.prompt-chip').forEach(chip => {
@@ -525,7 +521,7 @@ RULES:
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const query = input.value.trim();
-      if (query) {
+      if (query && !input.disabled) {
         handleUserQuery(query);
         input.value = '';
       }
@@ -553,17 +549,11 @@ RULES:
           appendSystemMsg(t('ai_banned_msg', "🚫 Suspended for 1 hour due to repeated conduct violations."));
         }
         return;
+      }
 
-        // --- Language UI Help & Command Interception ---
-      const langHelpMatch = query.match(/(?:how\s*(?:do|to|can)\s*i\s*change\s*language|help\s*me\s*select\s*language|where\s*is\s*language)/i);
+      // Language Switch Commands
       const langCommandMatch = query.match(/(?:change|switch|set|translate)\s*(?:the\s*)?(?:language|lang)\s*(?:to|in)?\s*([a-zA-Z\-\s]+)/i) || 
                                query.match(/^(?:speak|talk)\s*(?:in\s*)?([a-zA-Z\-\s]+)$/i);
-
-      if (langHelpMatch && !langCommandMatch) {
-        appendUserMsg(query);
-        appendAiMsg(t('ai_lang_help', "You can change the language using the dropdown menu at the top right of the header. Alternatively, just tell me: <strong>'change language to Spanish'</strong> or <strong>'speak in JA'</strong>!"));
-        return;
-      }
 
       if (langCommandMatch) {
         appendUserMsg(query);
@@ -586,18 +576,20 @@ RULES:
 
         if (foundCode) {
           window.WuWaI18n.setLanguage(foundCode);
-          appendAiMsg(t('ai_lang_changed', `✅ Language successfully changed to {name}. I will now respond in this language.`, { name: foundName }));
+          appendAiMsg(`✅ Language successfully changed to <strong>${foundName}</strong>. I will now respond in this language.`);
         } else {
-          appendAiMsg(t('ai_lang_unsupported', `❌ Sorry, the language "{lang}" is not currently supported. Supported options include: EN, PT, ES, ZH-CN, ZH-TW, JA, ID, VI, AR.`, { lang: requestedLang }));
+          appendAiMsg(`❌ Sorry, the language "${requestedLang}" is not supported. Supported languages: EN, PT, ES, ZH-CN, ZH-TW, JA, ID, VI, AR.`);
         }
         return;
-      }
       }
 
       appendUserMsg(query);
       const contextHistory = loadContextHistory();
       const customApiKey = localStorage.getItem(GEMINI_KEY_STORAGE);
       const loadingEl = appendAiMsg(t('ai_thinking', "Thinking..."));
+
+      // Lock input while awaiting AI response
+      lockInput("AI is typing...");
 
       if (navigator.onLine) {
         try {
@@ -615,6 +607,7 @@ RULES:
           contextHistory.push({ role: 'user', text: query });
           contextHistory.push({ role: 'assistant', text: aiResponse });
           saveContextHistory(contextHistory);
+          unlockInput();
           scrollToBottom();
           return;
         } catch (err) {
@@ -625,6 +618,7 @@ RULES:
       setTimeout(() => {
         if (!window.WuWaAiKnowledge) {
           loadingEl.querySelector('.msg-bubble').textContent = t('ai_offline_loading', "Offline engine loading, please retry in a moment.");
+          unlockInput();
           return;
         }
 
@@ -635,6 +629,7 @@ RULES:
           contextHistory.push({ role: 'user', text: query });
           contextHistory.push({ role: 'assistant', text: learnedMatch.response.text });
           saveContextHistory(contextHistory);
+          unlockInput();
           return;
         }
 
@@ -650,6 +645,7 @@ RULES:
             { id: "cvars-recommended", title: t('prompt_cvars', "Recommended CVars") },
             { id: "elevated-backends", title: t('prompt_shizuku', "Shizuku & Root Setup") }
           ]);
+          unlockInput();
           return;
         }
 
@@ -670,6 +666,7 @@ RULES:
             ]);
           }
         }
+        unlockInput();
       }, 50);
     }
 
@@ -734,7 +731,9 @@ RULES:
       scrollToBottom();
     }
 
-    function scrollToBottom() { messages.scrollTop = messages.scrollHeight; }
+    function scrollToBottom() {
+      messages.scrollTop = messages.scrollHeight;
+    }
 
     function escapeHtml(str) {
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');

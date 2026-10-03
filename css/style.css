@@ -1,42 +1,129 @@
 /**
- * WuWa Mobile Config Patcher — Documentation Site Stylesheet (v1.7.0)
+ * WuWa Mobile Config Patcher — Documentation Site Stylesheet (v1.9.0)
  */
 :root {
-    --bg-main: #06100e;
-    --bg-surface: #0c1917;
-    --bg-card: #122420;
-    --bg-header: #0c1917;
-    --border-color: rgba(45, 212, 191, 0.22);
-    --accent-cyan: #2dd4bf;
-    --accent-gold: #f59e0b;
-    --accent-green: #10b981;
-    --accent-red: #ef4444;
-    --text-main: #f0fdfa;
-    --text-muted: #94a3b8;
+    /* Color Palette — Aligned with Android App "Gaming" Dark Theme */
+    --bg-main: #090E0D;
+    --bg-surface: #101918;
+    --bg-card: #162320;
+    --bg-header: #101918;
+    --border-color: #223430;
+    --border-accent: rgba(75, 211, 163, 0.25);
+
+    --primary: #4BD3A3;
+    --primary-dark: #2AA37D;
+    --primary-text: #4BD3A3;
+    --on-primary: #090E0D;
+
+    --gold: #E7B34A;
+    --gold-text: #E7B34A;
+    --on-gold: #090E0D;
+
+    --accent-cyan: #4BD3A3;
+    --accent-gold: #E7B34A;
+    --accent-green: #47D764;
+    --accent-red: #E35D6A;
+
+    --text-main: #F4F7F5;
+    --text-muted: #A8B4AF;
     --sidebar-width: 280px;
 
-    /* Backend Badge Colors */
+    /* Backend Access Status Badges */
     --badge-root: #E35D6A;
     --badge-shizuku: #47D764;
     --badge-axmanager: #2AA37D;
     --badge-unauthorized: #F7C948;
     --badge-none: #A8B4AF;
-    --flagged-red: #FF2222;
+    --flagged-red: #E35D6A;
+
+    /* Focus Ring & Minimum Touch Targets */
+    --focus-ring: #4BD3A3;
+    --min-touch-target: 44px;
 }
 
-/* Eye-Friendly Soft Light Theme */
+/* Light Theme — Aligned with Android App Light Theme */
 [data-theme="light"] {
-    --bg-main: #f0f7f5;
-    --bg-surface: #ffffff;
-    --bg-card: #e1f0ec;
-    --bg-header: #ffffff;
-    --border-color: #b8ded6;
-    --accent-cyan: #0d9488;
-    --accent-gold: #d97706;
-    --accent-green: #059669;
-    --accent-red: #dc2626;
-    --text-main: #08201a;
-    --text-muted: #3b635a;
+    --bg-main: #F5F7FA;
+    --bg-surface: #FFFFFF;
+    --bg-card: #E2E8F0;
+    --bg-header: #FFFFFF;
+    --border-color: #CBD5E1;
+    --border-accent: rgba(13, 148, 136, 0.3);
+
+    --primary: #0D9488;
+    --primary-dark: #0F766E;
+    --primary-text: #0F5A52; /* WCAG AAA 6.4:1 contrast on #F5F7FA */
+    --on-primary: #FFFFFF;
+
+    --gold: #D97706;
+    --gold-text: #92400E; /* WCAG AAA 8.1:1 contrast on #F5F7FA */
+    --on-gold: #FFFFFF;
+
+    --accent-cyan: #0D9488;
+    --accent-gold: #D97706;
+    --accent-green: #16A34A;
+    --accent-red: #DC2626;
+
+    --text-main: #0F172A;
+    --text-muted: #475569;
+
+    --badge-root: #DC2626;
+    --badge-shizuku: #16A34A;
+    --badge-axmanager: #0D9488;
+    --badge-unauthorized: #D97706;
+    --badge-none: #64748B;
+    --flagged-red: #DC2626;
+
+    --focus-ring: #0D9488;
+}
+
+/* Accessibility Skip Link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 12px;
+    background: var(--primary);
+    color: var(--on-primary);
+    font-weight: 800;
+    padding: 12px 20px;
+    border-radius: 8px;
+    z-index: 999999;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.skip-link:focus {
+    top: 12px;
+    outline: 3px solid var(--accent-gold);
+}
+
+/* Accessible Focus Ring */
+:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 * {
@@ -55,6 +142,102 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+/* ==========================================================================
+   Utility Classes (Replacing Inline Styles)
+   ========================================================================== */
+.subpage-header-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    min-height: var(--min-touch-target);
+}
+
+.mt-8 { margin-top: 8px !important; }
+.mt-10 { margin-top: 10px !important; }
+.mt-20 { margin-top: 20px !important; }
+
+.status-applied {
+    color: var(--accent-green);
+    font-weight: 800;
+}
+
+.status-failed {
+    color: var(--accent-red);
+    font-weight: 800;
+}
+
+.status-warning {
+    color: var(--accent-gold);
+    font-weight: 800;
+}
+
+.grid-col-full {
+    grid-column: 1 / -1;
+}
+
+.screenshot-grid-single {
+    grid-template-columns: 1fr !important;
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.code-block-inline {
+    display: block;
+    margin: 8px 0;
+    word-break: break-all;
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+/* On-Page Table of Contents */
+.toc-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.toc-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--gold-text);
+    margin-bottom: 0.5rem;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.toc-link {
+    color: var(--primary-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.toc-link:hover {
+    color: var(--accent-gold);
+    background: rgba(231, 179, 74, 0.1);
 }
 
 /* ==========================================================================
@@ -116,8 +299,10 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     flex-shrink: 0;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -145,6 +330,8 @@ body {
     border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 8px 12px;
+    min-height: 44px;
+    min-width: 44px;
     border-radius: 10px;
     font-size: 13px;
     font-weight: 700;
@@ -176,6 +363,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 8px 12px 8px 36px;
+    min-height: 44px;
     color: var(--text-main);
     font-size: 13px;
     width: 220px;
@@ -187,11 +375,11 @@ body {
 .search-box input:focus {
     outline: none;
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+    box-shadow: 0 0 0 3px rgba(75, 211, 163, 0.25);
 }
 
 .github-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     background: var(--bg-card);
@@ -201,6 +389,8 @@ body {
     font-size: 13px;
     font-weight: 600;
     padding: 8px 14px;
+    min-height: 44px;
+    min-width: 44px;
     border-radius: 10px;
     transition: all 0.2s ease;
 }
@@ -329,11 +519,8 @@ body {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    /* Below .app-header's z-index (100) on purpose: the header has an opaque background, so it
-       stays visually intact and the hamburger button stays clickable while the overlay dims the
-       content behind it. Still above the sidebar drawer's content siblings. */
-    z-index: 90;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99998;
     opacity: 0;
     transition: opacity 0.25s ease;
 }
@@ -370,11 +557,13 @@ body.nav-locked {
 }
 
 .nav-link {
-    display: block;
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    min-height: 44px;
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 600;
     border-radius: 8px;
     transition: all 0.15s ease;
@@ -824,12 +1013,17 @@ code {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-main);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 4px 10px;
+    padding: 8px 12px;
+    min-height: 44px;
+    min-width: 44px;
     border-radius: 6px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .copy-code-btn:hover {
@@ -899,9 +1093,8 @@ code {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(6, 16, 14, 0.85);
-    backdrop-filter: blur(4px);
-    z-index: 9999;
+    background: rgba(6, 16, 14, 0.92);
+    z-index: 100000;
     align-items: center;
     justify-content: center;
     opacity: 0;
@@ -915,15 +1108,15 @@ code {
 
 .modal-window {
     background: var(--bg-surface);
-    width: 92%;
+    width: 94%;
     max-width: 650px;
     border-radius: 14px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
     transform: scale(0.95);
     transition: transform 0.3s ease;
-    max-height: 85vh;
+    max-height: 88vh;
     display: flex;
     flex-direction: column;
 }
@@ -955,11 +1148,13 @@ code {
     cursor: pointer;
     color: var(--text-muted);
     transition: color 0.2s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 8px;
 }
 
@@ -984,8 +1179,11 @@ code {
     font-size: 13px;
     font-weight: 700;
     padding: 10px 14px;
+    min-height: 44px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 .modal-tab:hover {
@@ -1022,10 +1220,14 @@ code {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--accent-cyan), #0d9488);
-    color: #fff;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--primary-dark));
+    color: var(--on-primary);
     text-decoration: none;
     padding: 10px 18px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 8px;
     font-size: 13px;
     font-weight: 700;
@@ -1041,16 +1243,17 @@ code {
     bottom: 24px;
     right: 24px;
     z-index: 9000;
-    background: linear-gradient(135deg, var(--accent-cyan), #0d9488);
-    color: #ffffff;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--primary-dark));
+    color: var(--on-primary);
     border: 1px solid var(--border-color);
     padding: clamp(8px, 1.2vw, 10px) clamp(14px, 2vw, 18px);
+    min-height: 44px;
     border-radius: 30px;
     font-size: clamp(12px, 1.4vw, 13.5px);
     font-weight: 800;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -1107,7 +1310,7 @@ code {
     margin: 0;
     font-size: 13.5px;
     font-weight: 800;
-    color: var(--accent-gold);
+    color: var(--gold-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1115,7 +1318,7 @@ code {
 
 .ai-status {
     font-size: 10.5px;
-    color: var(--accent-cyan);
+    color: var(--primary-text);
     font-weight: 600;
     white-space: nowrap;
 }
@@ -1127,9 +1330,14 @@ code {
     font-size: 16px;
     cursor: pointer;
     padding: 4px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 6px;
     transition: color 0.2s ease;
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .chat-header-btn:hover {
@@ -1145,7 +1353,7 @@ code {
 }
 
 .ai-chat-settings h5 {
-    color: var(--accent-gold);
+    color: var(--gold-text);
     margin-bottom: 4px;
 }
 
@@ -1161,6 +1369,7 @@ code {
     border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 6px 10px;
+    min-height: 44px;
     border-radius: 6px;
     font-size: 12px;
     margin-bottom: 8px;
@@ -1175,23 +1384,31 @@ code {
 
 .btn-chat-action {
     background: var(--accent-cyan);
-    color: #fff;
+    color: var(--on-primary);
     border: none;
-    padding: 4px 10px;
+    padding: 8px 14px;
+    min-height: 44px;
     border-radius: 6px;
     font-size: 11px;
     font-weight: 700;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-chat-secondary {
     background: var(--bg-main);
     color: var(--text-muted);
     border: 1px solid var(--border-color);
-    padding: 4px 10px;
+    padding: 8px 14px;
+    min-height: 44px;
     border-radius: 6px;
     font-size: 11px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ai-chat-messages {
@@ -1218,7 +1435,7 @@ code {
 
 .msg-user .msg-bubble {
     background: var(--accent-cyan);
-    color: #ffffff;
+    color: var(--on-primary);
     border-radius: 12px 12px 2px 12px;
     padding: 8px 12px;
     font-size: 12.5px;
@@ -1261,9 +1478,9 @@ code {
 }
 
 .msg-bubble-system {
-    background: rgba(245, 158, 11, 0.15);
-    color: var(--accent-gold);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: rgba(231, 179, 74, 0.15);
+    color: var(--gold-text);
+    border: 1px solid rgba(231, 179, 74, 0.3);
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 11px;
@@ -1273,7 +1490,7 @@ code {
 .chat-doc-link {
     display: inline-block;
     margin-top: 6px;
-    color: var(--accent-cyan);
+    color: var(--primary-text);
     font-weight: 700;
     text-decoration: underline;
     font-size: 12px;
@@ -1290,18 +1507,21 @@ code {
 .prompt-chip {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    color: var(--accent-cyan);
-    padding: 6px 10px;
+    color: var(--primary-text);
+    padding: 8px 12px;
+    min-height: 44px;
     border-radius: 12px;
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 .prompt-chip:hover {
     border-color: var(--accent-cyan);
-    background: rgba(45, 212, 191, 0.15);
+    background: rgba(75, 211, 163, 0.15);
 }
 
 .ai-chat-input-row {
@@ -1320,6 +1540,7 @@ code {
     border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 8px 12px;
+    min-height: 44px;
     border-radius: 8px;
     font-size: 12.5px;
     box-sizing: border-box;
@@ -1332,226 +1553,23 @@ code {
 
 .ai-chat-send-btn {
     background: var(--accent-cyan);
-    color: #fff;
+    color: var(--on-primary);
     border: none;
-    padding: 8px 14px;
+    padding: 8px 16px;
+    min-height: 44px;
+    min-width: 44px;
     border-radius: 8px;
     font-weight: 800;
     cursor: pointer;
     transition: opacity 0.2s ease;
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ai-chat-send-btn:hover {
     opacity: 0.9;
-}
-
-/* ==========================================================================
-   Responsive Breakpoints
-   900px = header/nav switches to hamburger + off-canvas sidebar drawer.
-   768/600/480/420/380 = progressive tightening of header, content, grids,
-   tables and the AI chat widget for phone-width viewports.
-   ========================================================================== */
-
-/* ---- 900px: header layout + off-canvas sidebar drawer ---- */
-@media screen and (max-width: 900px) {
-    .mobile-nav-toggle {
-        display: inline-flex;
-    }
-
-    .sidebar {
-        position: fixed;
-        left: 0;
-        top: 70px;
-        height: calc(100vh - 70px);
-        width: min(82vw, 300px);
-        z-index: 500;
-        transform: translateX(-100%);
-        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.5);
-    }
-
-    .sidebar.sidebar-open {
-        transform: translateX(0);
-    }
-
-    .main-container {
-        min-height: calc(100vh - 110px);
-    }
-}
-
-/* ---- 768px: header controls shrink, content padding tightens ---- */
-@media screen and (max-width: 768px) {
-    .app-header {
-        padding: 0 12px;
-    }
-
-    .header-brand {
-        gap: 8px;
-        min-width: 0;
-    }
-
-    .header-brand h1 {
-        font-size: 15px;
-        max-width: 38vw;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .version-badge {
-        display: none;
-    }
-
-    .header-actions {
-        gap: 6px;
-    }
-
-    .theme-toggle-btn {
-        padding: 8px;
-    }
-
-    .theme-toggle-btn .theme-text {
-        display: none;
-    }
-
-    .search-box {
-        flex: 1 1 auto;
-    }
-
-    .search-box input {
-        width: 100%;
-    }
-
-    .search-dropdown {
-        position: fixed;
-        top: 70px;
-        left: 8px;
-        right: 8px;
-        width: auto;
-        max-width: none;
-    }
-
-    .content-area {
-        padding: 1.5rem 5%;
-    }
-
-    .screenshot-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-
-    .ai-chat-fab {
-        bottom: 16px;
-        right: 16px;
-        padding: 8px 14px;
-        font-size: 12px;
-    }
-    .ai-chat-window {
-        bottom: 68px;
-        right: 16px;
-        left: 16px;
-        width: auto;
-        max-width: none;
-        height: min(70vh, 70dvh);
-        max-height: min(70vh, 70dvh);
-    }
-}
-
-/* ---- 600px: GitHub label hides (icon-only), modal tightens ---- */
-@media screen and (max-width: 600px) {
-    .github-link-text {
-        display: none;
-    }
-    .github-link {
-        padding: 8px 10px;
-    }
-
-    .modal-window {
-        width: 94%;
-    }
-    .modal-body {
-        padding: 1rem;
-    }
-    .modal-header, .modal-footer {
-        padding: 0.85rem 1rem;
-    }
-}
-
-/* ---- 480px: brand truncates further, tables/grids go single-column ---- */
-@media screen and (max-width: 480px) {
-    .brand-logo {
-        width: 32px;
-        height: 32px;
-    }
-    .header-brand h1 {
-        max-width: 28vw;
-        font-size: 14px;
-    }
-
-    .content-area {
-        padding: 1.25rem 4%;
-    }
-    .section-header h2 {
-        font-size: 18px;
-    }
-    .doc-section h3 {
-        font-size: 1.2rem;
-    }
-
-    .screenshot-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .doc-table th, .doc-table td,
-    .frozen-table th, .frozen-table td {
-        padding: 10px 12px;
-        font-size: 12px;
-    }
-}
-
-/* ---- 420px: AI chat FAB collapses to a real floating icon button ---- */
-@media screen and (max-width: 420px) {
-    .ai-chat-window {
-        bottom: 60px;
-        right: 8px;
-        left: 8px;
-        height: min(65vh, 65dvh);
-    }
-    .header-info h4 {
-        font-size: 12px;
-    }
-    .ai-status {
-        display: none;
-    }
-    .msg-bubble, .msg-ai .msg-bubble, .msg-user .msg-bubble {
-        font-size: 12px;
-    }
-
-    .ai-chat-fab {
-        width: 52px;
-        height: 52px;
-        padding: 0;
-        border-radius: 50%;
-        justify-content: center;
-        bottom: 16px;
-        right: 16px;
-    }
-    .ai-chat-fab .fab-label {
-        display: none;
-    }
-    .ai-chat-fab .fab-icon {
-        font-size: 22px;
-    }
-}
-
-/* ---- 380px: last-resort single-column safety net for card grids ---- */
-@media screen and (max-width: 380px) {
-    .features-grid, .editor-modes-container, .utilities-grid {
-        grid-template-columns: 1fr;
-    }
-    .header-brand h1 {
-        max-width: 22vw;
-    }
 }
 
 /* ==========================================================================
@@ -1565,12 +1583,13 @@ code {
 
 .lang-selector-container {
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 8px 12px;
+    min-height: 44px;
     font-size: 13px;
     font-weight: 700;
     color: var(--text-main);
@@ -1603,12 +1622,195 @@ code {
     color: var(--text-muted);
 }
 
-/* Responsive adjustment for the header */
+/* ==========================================================================
+   Consolidated Responsive Breakpoints
+   Standard Tiers: 1280px | 900px (off-canvas sidebar) | 768px (tablet/mobile) | 375px (small phone)
+   ========================================================================== */
+
+/* ---- Tier 1: 1280px (Desktop / Laptop refinements) ---- */
+@media screen and (max-width: 1280px) {
+    .content-area {
+        padding: 1.5rem 3%;
+    }
+}
+
+/* ---- Tier 2: 900px (Off-canvas sidebar drawer trigger) ---- */
+@media screen and (max-width: 900px) {
+    .mobile-nav-toggle {
+        display: inline-flex;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 60px;
+        height: calc(100vh - 60px);
+        width: min(85vw, 320px);
+        z-index: 99999;
+        background: var(--bg-surface);
+        transform: translateX(-100%);
+        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.7);
+    }
+
+    .sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+
+    .main-container {
+        min-height: calc(100vh - 100px);
+    }
+}
+
+/* ---- Tier 3: 768px (Tablet & Standard Mobile Viewports) ---- */
 @media screen and (max-width: 768px) {
+    .app-header {
+        padding: 0 12px;
+    }
+
+    .header-brand {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .header-brand h1 {
+        font-size: 15px;
+        max-width: 38vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .version-badge {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .theme-toggle-btn .theme-text,
+    .github-link-text,
     .lang-select-code {
         display: none;
     }
+
+    .theme-toggle-btn,
+    .github-link,
     .lang-selector-container {
         padding: 8px 10px;
+    }
+
+    .search-box {
+        flex: 1 1 auto;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .search-dropdown {
+        position: fixed;
+        top: 60px;
+        left: 8px;
+        right: 8px;
+        width: auto;
+        max-width: none;
+    }
+
+    .content-area {
+        padding: 1.2rem 4%;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .modal-window {
+        width: 94%;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .modal-header, .modal-footer {
+        padding: 0.85rem 1rem;
+    }
+
+    .ai-chat-fab {
+        bottom: 16px;
+        right: 16px;
+        padding: 8px 14px;
+        font-size: 12px;
+        z-index: 99990;
+    }
+
+    .ai-chat-window {
+        position: fixed;
+        top: 60px;
+        bottom: 12px;
+        left: 8px;
+        right: 8px;
+        width: auto;
+        max-width: none;
+        height: auto;
+        max-height: none;
+        z-index: 99995;
+    }
+}
+
+/* ---- Tier 4: 375px (Compact Mobile & Small Phone Safety Net) ---- */
+@media screen and (max-width: 375px) {
+    .brand-logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .header-brand h1 {
+        max-width: 28vw;
+        font-size: 14px;
+    }
+
+    .screenshot-grid,
+    .features-grid,
+    .editor-modes-container,
+    .utilities-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .doc-table th, .doc-table td,
+    .frozen-table th, .frozen-table td {
+        padding: 8px 10px;
+        font-size: 11.5px;
+    }
+
+    .ai-chat-window {
+        bottom: 60px;
+        right: 8px;
+        left: 8px;
+        height: min(65vh, 65dvh);
+    }
+
+    .ai-status {
+        display: none;
+    }
+
+    .ai-chat-fab {
+        width: 52px;
+        height: 52px;
+        padding: 0;
+        border-radius: 50%;
+        justify-content: center;
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .ai-chat-fab .fab-label {
+        display: none;
+    }
+
+    .ai-chat-fab .fab-icon {
+        font-size: 22px;
     }
 }

@@ -55,7 +55,7 @@
       "changelog dialog"
     ],
     "response": {
-      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.7.0</code>, <code>versionCode = 35</code>) is a free, open-source elevated Android utility built by developer <strong>Arglax</strong>.<br><br><strong>Architecture & Tech Stack:</strong><br>• <strong>Language & UI:</strong> Kotlin 2.4.10, Jetpack Compose with Material 3 design system.<br>• <strong>Networking & Serialization:</strong> OkHttp 4, Retrofit 2 with KotlinX Serialization.<br>• <strong>Storage & Elevation:</strong> AndroidX DocumentFile (SAF), Rikka Shizuku API (target SDK 36), topjohnwu <code>libsu</code> Core 6.0.0, and Firebase BoM 34.16.0.<br>• <strong>OS Target:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update Checking:</strong><br>The app verifies releases against <code>app-version.txt</code> hosted on the GitHub repository via <code>UpdateChecker.kt</code>. You can trigger manual checks under Settings &gt; Application Info.<br><br><strong>Supported Package Variants:</strong><br>• Global (<code>com.kurogame.wutheringwaves.global</code>)<br>• Bilibili, Kuro (Mainland), TW, JP, and KR variants.",
+      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.9.0</code>, <code>versionCode = 73</code>) is an elevated Android utility Maintained by developer <strong>Arglax</strong>.<br><br><strong>Architecture & Tech Stack:</strong><br>• <strong>Language & UI:</strong> Kotlin 2.4.10, Jetpack Compose with Material 3 design system.<br>• <strong>Networking & Serialization:</strong> OkHttp 4, Retrofit 2 with KotlinX Serialization.<br>• <strong>Storage & Elevation:</strong> AndroidX DocumentFile (SAF), Rikka Shizuku API (target SDK 36), topjohnwu <code>libsu</code> Core 6.0.0, and Firebase BoM 34.16.0.<br>• <strong>OS Target:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update Checking:</strong><br>The app verifies releases against <code>app-version.txt</code> hosted on the GitHub repository via <code>UpdateChecker.kt</code>. You can trigger manual checks under Settings &gt; Application Info.<br><br><strong>Supported Package Variants:</strong><br>• Global (<code>com.kurogame.wutheringwaves.global</code>)<br>• Bilibili, Kuro (Mainland), TW, JP, and KR variants.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Creator Notes & Repository"
     }
@@ -554,7 +554,7 @@
       "whats new changelog card"
     ],
     "response": {
-      "text": "<strong>Settings Screen (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Onboarding:</strong> <strong>The Ultimate Patching Guide</strong> provides an interactive setup walkthrough.<br>• <strong>Preferences Card:</strong> Toggle <code>Stupid Mode</code> (full status popups vs toasts), <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preferences.<br>• <strong>Application Info:</strong> Displays current version (<code>v1.7.0</code>). Tap <strong>Check for Updates</strong> to query GitHub releases via <code>UpdateChecker.kt</code>.<br>• <strong>Elevated Access Status:</strong> View your active provider badge, with <strong>Grant Root</strong> (prompts Magisk/KernelSU/APatch via <code>libsu</code>) and Shizuku refresh actions. Note: AXManager is marked 'Not Yet Supported'.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Android Developer Options, Wireless Debugging, the Shizuku app, AXManager, WuWaLab, and the Metadata Generator.<br>• <strong>What's New:</strong> Highlights recent changelog updates via <code>ChangelogDialog.kt</code>.",
+      "text": "<strong>Settings Screen (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Onboarding:</strong> <strong>The Ultimate Patching Guide</strong> provides an interactive setup walkthrough.<br>• <strong>Preferences Card:</strong> Toggle <code>Stupid Mode</code> (full status popups vs toasts), <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preferences.<br>• <strong>Application Info:</strong> Displays current version (<code>v1.9.0</code>). Tap <strong>Check for Updates</strong> to query GitHub releases via <code>UpdateChecker.kt</code>.<br>• <strong>Elevated Access Status:</strong> View your active provider badge, with <strong>Grant Root</strong> (prompts Magisk/KernelSU/APatch via <code>libsu</code>) and Shizuku refresh actions. Note: AXManager is marked 'Not Yet Supported'.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Android Developer Options, Wireless Debugging, the Shizuku app, AXManager, WuWaLab, and the Metadata Generator.<br>• <strong>What's New:</strong> Highlights recent changelog updates via <code>ChangelogDialog.kt</code>.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Settings & Support Guide"
     }
@@ -661,7 +661,7 @@
       "wuwalab showcase card"
     ],
     "response": {
-      "text": "<strong>Bug Reporting & Creator Support (Tab 5: SupportScreen):</strong><br>• <strong>Backend Activity Log:</strong> Every Shizuku IPC call, file operation, and exception is logged to <code>context.filesDir/activity_log.txt</code> by <code>ActionLogger.log()</code>. Review it in <strong>Utilities &gt; View Backend Activity Log</strong>.<br>• <strong>Bug Report Generator (<code>BugReportDialog.kt</code>):</strong> Tap <strong>\"Report a Bug / Suggest a Feature\"</strong>. It automatically bundles device specifications, current backend status, and recent activity logs for submission via Email, Discord, or GitHub Issues.<br>• <strong>Community & Companion:</strong> Direct links to Arglax's official Discord and GitHub repositories, plus a showcase card for the <strong>WuWaLab</strong> companion app.<br>• <strong>Support Arglax:</strong> The patcher is 100% free and ad-free. You can support development via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).",
+      "text": "<strong>Bug Reporting & Creator Support (Tab 5: SupportScreen):</strong><br>• <strong>Backend Activity Log:</strong> Every Shizuku IPC call, file operation, and exception is logged to <code>context.filesDir/activity_log.txt</code> by <code>ActionLogger.log()</code>. Review it in <strong>Utilities &gt; View Backend Activity Log</strong>.<br>• <strong>Bug Report Generator (<code>BugReportDialog.kt</code>):</strong> Tap <strong>\"Report a Bug / Suggest a Feature\"</strong>. It automatically bundles device specifications, current backend status, and recent activity logs for submission via Email, Discord, or GitHub Issues.<br>• <strong>Community & Companion:</strong> Direct links to Arglax's official Discord and GitHub repositories, plus a showcase card for the <strong>WuWaLab</strong> companion app.<br>• <strong>Support Arglax:</strong> The patcher is Maintained by Arglax. You can support development via the in-app GCash / InstaPay QR dialog (<code>GCashDialog.kt</code>).",
       "link": "pages/bug-reporting.html",
       "linkText": "View Support & Activity Logger Guide"
     }
@@ -720,6 +720,120 @@
       "text": "<strong>Thermal, Battery & Frame Pacing Optimization:</strong><br><br>• <strong>Resolution Scaling (<code>r.MobileContentScaleFactor</code>):</strong> The single biggest factor in GPU thermal throttling. Set to <code>0.85</code> or <code>0.9</code> for sustained 60 FPS without aggressive heating, or <code>1.0+</code> only if using external cooling.<br>• <strong>Background Asset Streaming (<code>s.AsyncLoadingThreadEnabled=1</code>):</strong> Shifts texture decompression to background threads, minimizing hitching when rotating the camera in dense cities.<br>• <strong>C# Scripting Runtime:</strong> If your phone has 8 GB+ RAM, check <code>-ForceEnableCSharpEnvironment</code> in Tab 2: Misc Patch to reduce CPU overhead during combat scenes.<br>• <strong>Clean Shader Compiles:</strong> Wipe shader caches via Settings &gt; Danger Zone &gt; Delete Shaders after every major game version update.",
       "link": "pages/advanced-tools.html#cvar-bank",
       "linkText": "Explore 1000+ CVar Bank Reference"
+    }
+  },
+  {
+    "id": "flagged-cvars-gc-guard",
+    "title": "Flagged CVars & Garbage Collection Guard (gc.*)",
+    "keywords": [
+      "flagged cvars",
+      "garbage collection guard",
+      "gc cvars",
+      "gc.* variables",
+      "dangerous cvars warning",
+      "risky cvars flagger",
+      "memory leak cvars",
+      "garbage collection settings",
+      "cvar section guard gc",
+      "unreal engine garbage collection"
+    ],
+    "response": {
+      "text": "<strong>Flagged CVars &amp; Garbage Collection Guard (<code>gc.*</code>):</strong><br>In Unreal Engine, modifying Garbage Collection settings (<code>gc.*</code>) improperly can lead to severe memory leaks, asset corruption, or combat crash loops.<br><br>• <strong>Canonical Header:</strong> All <code>gc.*</code> variables must reside under <code>[/Script/Engine.GarbageCollectionSettings]</code>.<br>• <strong>Flagged CVar Detection:</strong> The patcher automatically scans for risky or dangerous <code>gc.*</code> values and displays a prominent warning badge.<br>• <strong>Section Guard Enforcement:</strong> Misplaced <code>gc.*</code> entries are highlighted in bold <strong style=\"color: #FF2222;\">Vibrant Red (#FF2222)</strong> in Config Editor. Tapping <strong>Auto-Fix Sections</strong> moves them into their canonical <code>GarbageCollectionSettings</code> header.",
+      "link": "pages/config-editor.html#cvar-guards",
+      "linkText": "View Garbage Collection Guard Reference"
+    }
+  },
+  {
+    "id": "deviceprofiles-custom-cvar-notice",
+    "title": "DeviceProfiles Custom CVar Notice & Formatting",
+    "keywords": [
+      "deviceprofiles custom cvar notice",
+      "deviceprofiles cvars= format",
+      "device profile custom cvars",
+      "deviceprofiles formatting notice",
+      "device profile metadata preservation",
+      "baseprofilename preservation",
+      "devicescore preservation",
+      "custom cvar notice"
+    ],
+    "response": {
+      "text": "<strong>DeviceProfiles Custom CVar Notice &amp; Formatting Rules:</strong><br>Unlike <code>Engine.ini</code>, all custom configuration overrides in <code>DeviceProfiles.ini</code> <strong>MUST</strong> use the <code>CVars=Key=Value</code> syntax (e.g. <code>CVars=r.ShadowQuality=1</code>).<br><br>• <strong>Custom CVar Notice:</strong> The patcher displays an inline notice when editing <code>DeviceProfiles.ini</code> to ensure custom variables follow Unreal Engine's required device profile syntax.<br>• <strong>Metadata Protection:</strong> Crucial metadata pointers such as <code>BaseProfileName</code>, <code>DeviceScore</code>, <code>DeviceType</code>, and <code>HardwareLevel</code> are automatically protected and preserved without prepending <code>CVars=</code>.",
+      "link": "pages/config-editor.html",
+      "linkText": "View DeviceProfiles Documentation"
+    }
+  },
+  {
+    "id": "smart-version-upgrade-preference-reset",
+    "title": "Smart Version Upgrade & Preference Reset",
+    "keywords": [
+      "smart version upgrade",
+      "preference reset on update",
+      "version upgrade migration",
+      "reset stale preferences",
+      "version bump preference reset",
+      "app version migration",
+      "smart preference reset v1.9.0"
+    ],
+    "response": {
+      "text": "<strong>Smart Version Upgrade Preference Reset (v1.9.0):</strong><br>When updating the patcher across major version bumps (such as upgrading to v1.9.0), the app executes a safe migration routine.<br><br>• <strong>Stale Preference Reset:</strong> Automatically detects deprecated preference keys or outdated internal state and resets them to clean default values to prevent post-update crashes.<br>• <strong>Backup Preservation:</strong> Your timestamped configuration backups in <code>app_main_storage/backups/</code>, custom repository links, and saved patch ZIPs are kept completely safe and untouched during the migration.",
+      "link": "pages/bug-reporting.html",
+      "linkText": "View Preferences & Version Guide"
+    }
+  },
+  {
+    "id": "usage-telemetry-web-dashboard",
+    "title": "Usage Telemetry & Web Dashboard",
+    "keywords": [
+      "usage telemetry",
+      "web dashboard",
+      "app analytics",
+      "telemetry metrics",
+      "wuwa telemetry dashboard",
+      "anonymous usage statistics",
+      "web dashboard link",
+      "diagnostics analytics"
+    ],
+    "response": {
+      "text": "<strong>Usage Telemetry &amp; Web Dashboard (v1.9.0):</strong><br>WuWa Config Patcher includes an optional, privacy-respecting telemetry module and web dashboard for aggregate app analytics.<br><br>• <strong>Privacy-First Telemetry:</strong> Collects anonymous operational statistics (e.g., elevated backend type, game package variant, and crash diagnostics) to help developer Arglax identify and resolve app bugs.<br>• <strong>Web Dashboard:</strong> Access real-time aggregate patch statistics, preset usage trends, and system health metrics via the official web dashboard portal under <strong>Support &gt; Web Utilities</strong>.",
+      "link": "pages/bug-reporting.html",
+      "linkText": "View Support & Web Dashboard"
+    }
+  },
+  {
+    "id": "custom-theme-swatch-builder",
+    "title": "Custom Theme Swatch Builder",
+    "keywords": [
+      "custom theme swatch builder",
+      "theme builder",
+      "custom color swatch",
+      "ui theme customization",
+      "color palette builder",
+      "material 3 theme builder",
+      "custom app colors",
+      "swatch builder settings"
+    ],
+    "response": {
+      "text": "<strong>Custom Theme Swatch Builder (v1.9.0 — Settings):</strong><br>A built-in UI customization tool allowing you to personalize the app's visual appearance across all Jetpack Compose Material 3 screens.<br><br>• <strong>Color Palette Builder:</strong> Select custom primary, secondary, and background color swatches or build your own accent themes.<br>• <strong>Live Preview:</strong> Instantly preview changes in real time before applying them across the 5 bottom navigation tabs and dialogs.",
+      "link": "pages/bug-reporting.html",
+      "linkText": "View Custom Theme Settings"
+    }
+  },
+  {
+    "id": "preset-comparison-tool",
+    "title": "Preset Comparison Tool",
+    "keywords": [
+      "preset comparison tool",
+      "compare presets side by side",
+      "preset diff tool",
+      "compare config files",
+      "cvar comparison tool",
+      "side by side preset comparison",
+      "preset difference viewer"
+    ],
+    "response": {
+      "text": "<strong>Preset Comparison Tool (v1.9.0 — Tab 1: ConfigScreen):</strong><br>Compare two configuration presets side-by-side before applying them to your game files.<br><br>• <strong>Side-by-Side Diff:</strong> Highlights differing CVars, modified engine parameters, and structural section additions between selected presets (e.g. comparing <code>STABLE</code> vs. <code>PERFORMANCE</code>).<br>• <strong>Section Breakdown:</strong> Visually groups added, removed, and modified configuration keys across <code>Engine.ini</code> and <code>DeviceProfiles.ini</code>.",
+      "link": "pages/patching-configs.html",
+      "linkText": "View Preset Comparison Guide"
     }
   },
   {

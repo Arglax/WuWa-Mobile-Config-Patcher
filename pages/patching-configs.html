@@ -3,39 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1-Click & Custom Preset Patching — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.7.0">
-  <link rel="icon" type="image/png" href="../images/logo.png">
+  <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Guide for 1-Click preset patching, preset comparison, multi-select patching, and vanilla reverts in WuWa Config Patcher.">
+  <title>1-Click &amp; Custom Preset Patching — WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
 <body>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
 
   <!-- App Header -->
   <header class="app-header">
     <div class="header-brand">
-      <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <img src="../images/logo.png" alt="WuWa Config Patcher Logo" class="brand-logo" onerror="this.onerror=null; this.src='../images/logo.jpg';">
-        <h1>WuWa Config Patcher</h1>
+      <a href="../index.html" class="subpage-header-link">
+        <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
+        <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.7.0</span>
+      <span class="version-badge" data-meta="version_v">v1.9.0</span>
     </div>
 
     <div class="header-actions">
       <!-- Theme Toggle Button -->
       <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
-        <span class="theme-icon">☀️</span>
+        <span class="theme-icon" aria-hidden="true">☀️</span>
         <span class="theme-text">Light Mode</span>
       </button>
 
+      <div class="lang-selector-wrapper"></div>
+
       <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." autocomplete="off">
-        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." data-i18n="search_placeholder" autocomplete="off" aria-label="Search documentation">
+        <div id="search-results-dropdown" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
       </div>
       <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
         </svg>
-        GitHub Repo
+        <span data-i18n="btn_github">GitHub Repo</span>
       </a>
     </div>
   </header>
@@ -43,41 +52,57 @@
   <div class="main-container">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <h3>GETTING STARTED</h3>
-        <ul>
-          <li><a href="../index.html" class="nav-link">Overview & Features</a></li>
-          <li><a href="setup-shizuku.html" class="nav-link">Prerequisites & Setup</a></li>
-        </ul>
-      </div>
+      <nav aria-label="Main Navigation">
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_getting_started">GETTING STARTED</h3>
+          <ul>
+            <li><a href="../index.html" class="nav-link" data-i18n="nav_overview">Overview &amp; Features</a></li>
+            <li><a href="setup-shizuku.html" class="nav-link" data-i18n="nav_prerequisites">Prerequisites &amp; Setup</a></li>
+          </ul>
+        </div>
 
-      <div class="sidebar-section">
-        <h3>CORE WORKFLOWS (END-USER)</h3>
-        <ul>
-          <li><a href="patching-configs.html" class="nav-link active">1-Click & Custom Presets</a></li>
-          <li><a href="#revert" class="nav-link">Reverting to Vanilla</a></li>
-          <li><a href="config-editor.html" class="nav-link">Live Config Editor</a></li>
-          <li><a href="enable-csharp.html" class="nav-link">Enabling C# Environment</a></li>
-        </ul>
-      </div>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
+          <ul>
+            <li><a href="patching-configs.html" class="nav-link active" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
+            <li><a href="#preset-comparison" class="nav-link">Preset Comparison Tool</a></li>
+            <li><a href="#advanced-multiselect" class="nav-link">Advanced Multi-Select Patching</a></li>
+            <li><a href="#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
+            <li><a href="config-editor.html" class="nav-link" data-i18n="nav_editor">Live Config Editor</a></li>
+            <li><a href="enable-csharp.html" class="nav-link" data-i18n="nav_csharp">Enabling C# Environment</a></li>
+          </ul>
+        </div>
 
-      <div class="sidebar-section">
-        <h3>CREATOR & ADVANCED TOOLS</h3>
-        <ul>
-          <li><a href="utilities-diagnostics.html" class="nav-link">Utilities & Log Diagnostics</a></li>
-          <li><a href="advanced-tools.html" class="nav-link">Advanced Diagnostic Suite</a></li>
-          <li><a href="config-editor.html#cvar-guards" class="nav-link">Engine CVar Section Guards</a></li>
-          <li><a href="advanced-tools.html#cvar-bank" class="nav-link">CVar Bank & Reference Library</a></li>
-          <li><a href="manual-method.html" class="nav-link">Manual Mode Guide (Old School)</a></li>
-          <li><a href="troubleshooting.html" class="nav-link">Troubleshooting & FAQ</a></li>
-          <li><a href="bug-reporting.html" class="nav-link">Support & Activity Logger</a></li>
-        </ul>
-      </div>
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_creator_tools">CREATOR &amp; ADVANCED TOOLS</h3>
+          <ul>
+            <li><a href="utilities-diagnostics.html" class="nav-link" data-i18n="nav_utilities">Utilities &amp; Log Diagnostics</a></li>
+            <li><a href="advanced-tools.html" class="nav-link" data-i18n="nav_advanced_suite">Advanced Diagnostic Suite</a></li>
+            <li><a href="config-editor.html#cvar-guards" class="nav-link" data-i18n="nav_cvar_guards">Engine CVar Section Guards</a></li>
+            <li><a href="advanced-tools.html#cvar-bank" class="nav-link" data-i18n="nav_cvar_bank">CVar Bank &amp; Reference Library</a></li>
+            <li><a href="manual-method.html" class="nav-link" data-i18n="nav_manual">Manual Mode Guide (Old School)</a></li>
+            <li><a href="troubleshooting.html" class="nav-link" data-i18n="nav_troubleshooting">Troubleshooting &amp; FAQ</a></li>
+            <li><a href="bug-reporting.html" class="nav-link" data-i18n="nav_support">Support &amp; Activity Logger</a></li>
+          </ul>
+        </div>
+      </nav>
     </aside>
 
-    <main class="content-area">
+    <main id="main-content" class="content-area">
+
+      <!-- Table of Contents -->
+      <nav class="toc-container" aria-label="On this page navigation">
+        <div class="toc-title">On this page</div>
+        <ul class="toc-list">
+          <li><a href="#workflow" class="toc-link">1-Click Preset Patching Workflow</a></li>
+          <li><a href="#mechanics" class="toc-link">Technical Mechanics &amp; Repository Architecture</a></li>
+          <li><a href="#preset-comparison" class="toc-link">Preset Comparison Tool (v1.9.0)</a></li>
+          <li><a href="#advanced-multiselect" class="toc-link">Advanced Multi-Select Patching (v1.9.0)</a></li>
+          <li><a href="#revert" class="toc-link">Reverting to Vanilla (Factory Game Defaults)</a></li>
+        </ul>
+      </nav>
       
-      <section class="doc-section">
+      <section id="workflow" class="doc-section">
         <div class="section-header">
           <h2>1-Click Preset Patching Workflow</h2>
           <span class="author-tag">Tab 1: ConfigScreen</span>
@@ -88,9 +113,9 @@
         </p>
 
         <div class="method-card">
-          <h4>End-User Quick Steps</h4>
+          <h3>End-User Quick Steps</h3>
           <ol class="step-list">
-            <li><strong>Select Repository Source:</strong> By default, <code>Arglax (Default)</code> is active. Tap <strong>"Sync Files & Refresh"</strong> to fetch the latest presets.</li>
+            <li><strong>Select Repository Source:</strong> By default, <code>Arglax (Default)</code> is active. Tap <strong>"Sync Files &amp; Refresh"</strong> to fetch the latest presets.</li>
             <li><strong>Choose a Preset:</strong> Browse through organized categories (<code>STABLE</code>, <code>PERFORMANCE</code>, <code>HIGH_VISUAL</code>, <code>COMMUNITY</code>, <code>OTHER</code>).</li>
             <li><strong>Tap "1-Click Patch":</strong> The app creates a timestamped backup of your current setup and injects the new configuration.</li>
             <li><strong>Tap "Launch Game":</strong> Triggers Wuthering Waves directly with your active tweaks.</li>
@@ -98,10 +123,10 @@
         </div>
       </section>
 
-      <section class="doc-section">
+      <section id="mechanics" class="doc-section">
         <div class="section-header">
-          <h2>Technical Mechanics & Repository Architecture</h2>
-          <span class="author-tag">ConfigScanner, ZipExtractor & Shizuku IPC</span>
+          <h2>Technical Mechanics &amp; Repository Architecture</h2>
+          <span class="author-tag">ConfigScanner, ZipExtractor &amp; Shizuku IPC</span>
         </div>
 
         <div class="editor-modes-container">
@@ -117,8 +142,8 @@
           </div>
 
           <div class="editor-mode-box">
-            <span class="mode-tag">Sync & Extraction</span>
-            <h4>2. Sync Files & Deep Subfolder Scanning</h4>
+            <span class="mode-tag">Sync &amp; Extraction</span>
+            <h4>2. Sync Files &amp; Deep Subfolder Scanning</h4>
             <ul>
               <li>Downloads archives and extracts ZIPs via <code>ZipExtractor.kt</code> into <code>context.cacheDir/repo_cache/</code>.</li>
               <li>Parses preset folders using <code>ConfigScanner.kt</code> and <code>ConfigNode.kt</code>.</li>
@@ -128,18 +153,76 @@
 
           <div class="editor-mode-box">
             <span class="mode-tag">Preset Categorization</span>
-            <h4>3. Categorization & 1-Click Injection</h4>
+            <h4>3. Categorization &amp; 1-Click Injection</h4>
             <ul>
               <li>Categorizes presets into <code>STABLE</code>, <code>PERFORMANCE</code>, <code>HIGH_VISUAL</code>, <code>COMMUNITY</code>, and <code>OTHER</code> via <code>PresetCategorization.kt</code>.</li>
-              <li><strong>Pre-mitigation & Backup:</strong> Automatically pre-creates missing <code>.ini</code> files with default templates before patching, and saves a timestamped backup in <code>app_main_storage/backups/</code>.</li>
+              <li><strong>Pre-mitigation &amp; Backup:</strong> Automatically pre-creates missing <code>.ini</code> files with default templates before patching, and saves a timestamped backup in <code>app_main_storage/backups/</code>.</li>
               <li>Injects files via elevated shell directly into <code>.../Saved/Config/Android/</code> (supporting <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, and <code>GameUserSettings.ini</code>).</li>
             </ul>
           </div>
         </div>
+      </section>
+
+      <!-- Preset Comparison Tool -->
+      <section id="preset-comparison" class="doc-section">
+        <div class="section-header">
+          <h2>Preset Comparison Tool (v1.9.0)</h2>
+          <span class="author-tag">PresetCompareDialog.kt &amp; PresetDiffer.kt</span>
+        </div>
+
+        <p class="lead-text">
+          In v1.9.0, users and preset creators can compare any preset against active running game configurations or other repository presets before applying patches.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-icon">🔍</div>
+            <h4>Compare vs Active Game Configs</h4>
+            <p>
+              Compare any community or repository preset directly against your device's live running configuration (<code>Personal (Active Game Folder)</code>). Displays exactly what parameters will be modified, added, or removed in your game folder.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-icon">⚖️</div>
+            <h4>Compare Preset vs Preset</h4>
+            <p>
+              Compare two different repository or local presets side-by-side (e.g., comparing <code>Stable Low</code> against <code>Performance 60FPS</code>) to inspect visual fidelity trade-offs and CVar adjustments.
+            </p>
+          </div>
+        </div>
 
         <div class="alert alert-tip">
-          <div class="alert-title">GEAR ICON ⚙️ PER-FILE PATCHING</div>
-          Tapping the <strong>Gear Icon (⚙️)</strong> next to 1-Click Patch opens <code>AdvancedPatchDialog.kt</code>. This allows creators to selectively check/uncheck specific files (e.g. patching only <code>Engine.ini</code> while preserving <code>DeviceProfiles.ini</code>).
+          <div class="alert-title">SMART NUMERIC COMPARISON &amp; SECTION MATCHING</div>
+          The comparison engine (<code>PresetDiffer.kt</code>) intelligently handles canonical section alignment and floating-point equivalence (e.g. recognizing that <code>2.0</code> equals <code>2</code>). Differences are highlighted in line-by-line diff views with instant filter controls.
+        </div>
+      </section>
+
+      <!-- Advanced Multi-Select Patching -->
+      <section id="advanced-multiselect" class="doc-section">
+        <div class="section-header">
+          <h2>Advanced Multi-Select Patching (v1.9.0)</h2>
+          <span class="author-tag">AdvancedPatchDialog.kt &amp; Gear Icon ⚙️</span>
+        </div>
+
+        <p class="lead-text">
+          Tapping the <strong>Gear Icon (⚙️)</strong> next to the 1-Click Patch button opens <code>AdvancedPatchDialog</code>, granting multi-select control over individual configuration files within a preset package.
+        </p>
+
+        <div class="method-card">
+          <h3>Granular File Selection Features</h3>
+          <ul>
+            <li><strong>Selective File Targeting:</strong> Multi-select which specific files to apply:
+              <ul>
+                <li><code>Engine.ini</code> (Core graphics &amp; renderer overrides)</li>
+                <li><code>DeviceProfiles.ini</code> (Vulkan, resolution scaling &amp; device score)</li>
+                <li><code>Scalability.ini</code> (Quality bucket presets)</li>
+                <li><code>GameUserSettings.ini</code> (In-game graphics toggle states)</li>
+              </ul>
+            </li>
+            <li><strong>Master Toggle ("Apply ALL .ini files found"):</strong> Instantly checks or unchecks all available configuration files in the preset.</li>
+            <li><strong>Automatic Availability Check:</strong> Disables checkboxes for configuration files not present in the selected preset package, preventing invalid file writes while allowing surgical updates (e.g. updating <code>Engine.ini</code> while preserving your custom <code>DeviceProfiles.ini</code>).</li>
+          </ul>
         </div>
       </section>
 
@@ -162,28 +245,35 @@
 
           <div class="feature-card">
             <div class="card-icon">⚙️</div>
-            <h4>Advanced Revert & Backup Restores</h4>
-            <p>Tap <strong>"Advanced Revert"</strong> (opens <code>AdvancedRevertDialog.kt</code>) to selectively delete individual INIs, or go to <a href="advanced-tools.html#extraction-storage" style="color: var(--accent-cyan); font-weight: 700;">Advanced Tools &gt; Main Storage</a> to restore a previous timestamped backup snapshot from <code>context.filesDir/app_main_storage/backups/</code>.</p>
+            <h4>Advanced Revert &amp; Backup Restores</h4>
+            <p>Tap <strong>"Advanced Revert"</strong> (opens <code>AdvancedRevertDialog.kt</code>) to selectively delete individual INIs, or go to <a href="advanced-tools.html#extraction-storage" style="color: var(--primary-text); font-weight: 700;">Advanced Tools &gt; Main Storage</a> to restore a previous timestamped backup snapshot from <code>context.filesDir/app_main_storage/backups/</code>.</p>
           </div>
         </div>
       </section>
+
+      <!-- Page Pagination Nav -->
+      <div class="page-pagination">
+        <a href="setup-shizuku.html" class="btn-primary">← Prerequisites &amp; Setup</a>
+        <a href="config-editor.html" class="btn-primary">Live Config Editor →</a>
+      </div>
 
     </main>
   </div>
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span>WuWa Config Patcher • Official Documentation • <span data-meta="version_v">v1.7.0</span></span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
   </footer>
 
-  <script src="../js/metadata.js?v=1.7.0"></script>
-  <script src="../js/search.js?v=1.7.0"></script>
-  <script src="../js/modal.js?v=1.7.0"></script>
-  <script src="../js/code-copy.js?v=1.7.0"></script>
-  <script src="../js/formatter.js?v=1.7.0"></script>
-  <script src="../js/theme.js?v=1.7.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.7.0"></script>
-  <script src="../js/ai-chat.js?v=1.7.0"></script>
-  <script src="../js/main.js?v=1.7.0"></script>
+  <script src="../js/i18n.js?v=1.9.0"></script>
+  <script src="../js/metadata.js?v=1.9.0"></script>
+  <script src="../js/search.js?v=1.9.0"></script>
+  <script src="../js/modal.js?v=1.9.0"></script>
+  <script src="../js/code-copy.js?v=1.9.0"></script>
+  <script src="../js/formatter.js?v=1.9.0"></script>
+  <script src="../js/theme.js?v=1.9.0"></script>
+  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
+  <script src="../js/ai-chat.js?v=1.9.0"></script>
+  <script src="../js/main.js?v=1.9.0"></script>
 </body>
 </html>

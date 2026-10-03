@@ -44,7 +44,8 @@
       modal_casual_tab: "End-User Quick Steps",
       modal_technical_tab: "Creator & Technical Mechanics",
       modal_full_page: "View Full Documentation Page",
-      footer_text: "WuWa Config Patcher • Developed by Arglax • Official Documentation Site",
+      skip_to_content: "Skip to main content",
+      footer_text: "WuWa Config Patcher • Maintained by Arglax • Official Documentation Site",
       
       // AI Chat Widget
       ai_fab_label: "AI Assistant",
@@ -108,7 +109,7 @@
       modal_casual_tab: "Passos Rápidos para Usuários",
       modal_technical_tab: "Mecânica Técnica e Criadores",
       modal_full_page: "Ver Página Completa da Documentação",
-      footer_text: "WuWa Config Patcher • Desenvolvido por Arglax • Site Oficial de Documentação",
+      footer_text: "WuWa Config Patcher • Mantido por Arglax • Site Oficial de Documentação",
 
       ai_fab_label: "Assistente de IA",
       ai_assistant_title: "Assistente de IA WuWa",
@@ -170,7 +171,7 @@
       modal_casual_tab: "Pasos Rápidos para Usuario",
       modal_technical_tab: "Mecánica Técnica y Creadores",
       modal_full_page: "Ver Página Completa de Documentación",
-      footer_text: "WuWa Config Patcher • Desarrollado por Arglax • Sitio Oficial de Documentación",
+      footer_text: "WuWa Config Patcher • Mantenido por Arglax • Sitio Oficial de Documentación",
 
       ai_fab_label: "Asistente de IA",
       ai_assistant_title: "Asistente de IA WuWa",
@@ -232,7 +233,7 @@
       modal_casual_tab: "普通用户快速指南",
       modal_technical_tab: "创作者与技术原理",
       modal_full_page: "查看完整文档页面",
-      footer_text: "WuWa Config Patcher • 由 Arglax 开发 • 官方技术文档网站",
+      footer_text: "WuWa Config Patcher • 由 Arglax 维护 • 官方技术文档网站",
 
       ai_fab_label: "AI 助手",
       ai_assistant_title: "WuWa AI 助手",
@@ -294,7 +295,7 @@
       modal_casual_tab: "一般使用者快速指南",
       modal_technical_tab: "創作者與技術原理",
       modal_full_page: "檢視完整文件頁面",
-      footer_text: "WuWa Config Patcher • 由 Arglax 開發 • 官方技術文件網站",
+      footer_text: "WuWa Config Patcher • 由 Arglax 維護 • 官方技術文件網站",
 
       ai_fab_label: "AI 助手",
       ai_assistant_title: "WuWa AI 助手",
@@ -356,7 +357,7 @@
       modal_casual_tab: "ユーザー向けクイック手順",
       modal_technical_tab: "技術的仕組みとクリエイター向け",
       modal_full_page: "ドキュメントの全文を見る",
-      footer_text: "WuWa Config Patcher • Developed by Arglax • 公式ドキュメントサイト",
+      footer_text: "WuWa Config Patcher • Maintained by Arglax • 公式ドキュメントサイト",
 
       ai_fab_label: "AI アシスタント",
       ai_assistant_title: "WuWa AI アシスタント",
@@ -418,7 +419,7 @@
       modal_casual_tab: "Langkah Cepat Pengguna",
       modal_technical_tab: "Mekanisme Teknis & Pembuat",
       modal_full_page: "Lihat Halaman Dokumentasi Lengkap",
-      footer_text: "WuWa Config Patcher • Dikembangkan oleh Arglax • Situs Dokumentasi Resmi",
+      footer_text: "WuWa Config Patcher • Dikelola oleh Arglax • Situs Dokumentasi Resmi",
 
       ai_fab_label: "Asisten AI",
       ai_assistant_title: "Asisten AI WuWa",
@@ -480,7 +481,7 @@
       modal_casual_tab: "Hướng Dẫn Nhanh Cho Người Dùng",
       modal_technical_tab: "Cơ Chế Kỹ Thuật & Nhà Sáng Tạo",
       modal_full_page: "Xem Trang Tài Liệu Đầy Đủ",
-      footer_text: "WuWa Config Patcher • Phát triển bởi Arglax • Trang Tài Liệu Chính Thức",
+      footer_text: "WuWa Config Patcher • Được duy trì bởi Arglax • Trang Tài Liệu Chính Thức",
 
       ai_fab_label: "Trợ Lý AI",
       ai_assistant_title: "Trợ Lý AI WuWa",
@@ -542,7 +543,7 @@
       modal_casual_tab: "خطوات سريعة للمستخدم",
       modal_technical_tab: "الآلية التقنية وللمطورين",
       modal_full_page: "عرض صفحة التوثيق الكاملة",
-      footer_text: "WuWa Config Patcher • تم التطوير بواسطة Arglax • الموقع الرسمي للتوثيق",
+      footer_text: "WuWa Config Patcher • تمت الصيانة بواسطة Arglax • الموقع الرسمي للتوثيق",
 
       ai_fab_label: "مساعد الذكاء الاصطناعي",
       ai_assistant_title: "مساعد WuWa الذكي",
@@ -582,7 +583,13 @@
   };
 
   function getCurrentLang() {
-    return localStorage.getItem(STORAGE_KEY) || 'en';
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored && LANGUAGES[stored]) return stored;
+    } catch (e) {
+      console.warn('localStorage read error for lang:', e);
+    }
+    return 'en';
   }
 
   function t(key, fallback = '', replacements = {}) {
@@ -602,7 +609,12 @@
     const lang = LANGUAGES[langCode] ? langCode : 'en';
     const langConfig = LANGUAGES[lang];
 
-    localStorage.setItem(STORAGE_KEY, lang);
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch (e) {
+      console.warn('localStorage write error for lang:', e);
+    }
+
     document.documentElement.setAttribute('lang', lang);
     document.documentElement.setAttribute('dir', langConfig.dir || 'ltr');
 

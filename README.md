@@ -1,8 +1,8 @@
 # WuWa Config Patcher
 
-An ultra light-weight (10 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
+An light-weight (10 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.8.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.9.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 ## 📚 Documentation & Releases
 
@@ -10,17 +10,23 @@ An ultra light-weight (10 MB) android application to improve streamlining of the
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **App Doctor, Stupid Mode & Action Remediation (v1.8.0):** Features automated system self-diagnosis & repair (App Doctor in Utilities > Common), full standalone status windows with actionable remediation hints (Stupid Mode), multi-language localization (12 languages), and an interactive **AI Assistant** (💬) to troubleshoot setups, explain CVars, and optimize Wuthering Waves!
+> **Flagged CVars Guard, Utility Redesign & Telemetry (v1.9.0):** Features automated Flagged CVars & Garbage Collection pre-save detection, DeviceProfiles custom CVar warnings, full Utility Screen card layout redesign, smart version upgrade preference reset, opt-in anonymous telemetry with web dashboard, preset comparison tool, and custom theme swatch controls!
 
 ---
 
 <details>
-<summary><strong>✨ Key Features (v1.8.0)</strong> (click to expand)</summary>
+<summary><strong>✨ Key Features (v1.9.0)</strong> (click to expand)</summary>
 
 <br>
 
 | Feature | Description |
 |---|---|
+| **Utility Screen & Card Redesign** | Converted utility tools into full-width cards with clear descriptions, help touch targets, long-press topic lookup, and dedicated Revert Zone. |
+| **DeviceProfiles Custom CVars Notice** | Pre-save notice when custom CVars other than `DeviceScore` are detected in `DeviceProfiles.ini` to protect Vulkan toggles and Frame Generation. |
+| **Preset Comparison Tool** | Compare any two graphics presets or active configurations side-by-side, highlighting added, removed, and modified CVars before patching. |
+| **Smart Version Upgrade Preference Reset** | Automatically resets outdated "Don't Show Again" preferences on major/minor app updates so critical safety prompts are re-prompted. |
+| **Telemetry & Web Analytics Dashboard** | Opt-in anonymous usage tracking across all 5 app tabs, synchronized in real-time with an interactive web analytics dashboard. |
+| **Custom Theme Swatches & Builder** | Design, customize, and save UI theme swatches with live preview, hex color pickers, and palette selections. |
 | **App Doctor (Self-Diagnose & Repair)** | Automated system diagnostic tool in Utilities > Common that audits elevated access, game installation, storage paths, repository health, and auto-fixes safe issues. |
 | **Stupid Mode & Standalone Popups** | Every status message pops up as a standalone window with step-by-step remediation hints for action failures (default ON, toggleable in Settings). |
 | **Helpful Action Failure Popups** | Failures (such as lost Shizuku service, unselected files, or missing logs) provide actionable remediation steps rather than vague messages or silent skips. |
@@ -47,7 +53,7 @@ An ultra light-weight (10 MB) android application to improve streamlining of the
 > ### Minimum
 > - **Android 11 (API 30)** or higher
 > - **Shizuku** installed and running (required for direct game folder access without root)
->  - Via wireless debugging (Android 11+) or a PC/ADB connection at least once for setup
+    >  - Via wireless debugging (Android 11+) or a PC/ADB connection at least once for setup
 > - **~50 MB free storage** for the app + your exported patch backups
 > - **Wuthering Waves (Global or Regional Variants)** installed
 > - Internet connection (for syncing configs from the repository)
@@ -140,7 +146,7 @@ Switch the repository source to **Local Repository** and select a folder contain
 ## Disclaimer
 >[!IMPORTANT]
 >This tool is for optimization purposes only. By using this app, you acknowledge that modifying game files is done at your own discretion. Always ensure you have a backup if you are unsure about the changes you are applying, especially if you have your own **customized** config — otherwise it will be lost. The application does not tamper with your data except to patch the config file, and all included tools run locally on your device. No data is transmitted to an external, online server.
->Also, I am not in any way affiliated with Kuro Games nor Epic Games.  
+>Also, I am not in any way affiliated with Kuro Games nor Epic Games.
 
 ---
 
@@ -150,16 +156,16 @@ Switch the repository source to **Local Repository** and select a folder contain
 - **UI Framework:** Jetpack Compose (Material 3)
 - **Permissions:** Shizuku API / Root (libsu)
 - **Architecture:** Repository-pattern driven, Coroutine-based concurrency
-  
+
 ---
 
 ## Credits
-Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project:  
-1. **nagasemana5608 / Kudoupulse**  
-2. **k4irzw67 / Kyo**  
-3. **oxygen_011**  
-4. **eggsee**  
-5. **ezequieldevteam**  
+Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project:
+1. **nagasemana5608 / Kudoupulse**
+2. **k4irzw67 / Kyo**
+3. **oxygen_011**
+4. **eggsee**
+5. **ezequieldevteam**
 
 ### Discord Server Boosters:
 - **cyanide21**

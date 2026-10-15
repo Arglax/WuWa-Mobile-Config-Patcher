@@ -109,7 +109,21 @@
         </div>
 
         <div id="shizuku-issues" class="method-card">
-          <h3>1. Symptom: A CVar Shows as CVars=CVars=CVars= in DeviceProfiles.ini</h3>
+          <h3>1. Symptom: Restoring a Backup Snapshot Says the File Is Not Accessible</h3>
+          <p>
+            A defect in builds before v2.0.0. Snapshots were captured and listed correctly, but
+            restoring one always failed: the app handed the elevated helper a file inside its own
+            private storage, which that helper is not permitted to read, so the copy was refused
+            every time. Backups were effectively write-only.
+          </p>
+          <p>
+            <strong>Fix:</strong> update to v2.0.0. Your existing snapshots are still there and are
+            restored normally now, with no need to recapture them. If you are on root or AXManager,
+            restoring also used to fail because it assumed Shizuku regardless of your setting; that
+            is fixed too.
+          </p>
+
+          <h3>2. Symptom: A CVar Shows as CVars=CVars=CVars= in DeviceProfiles.ini</h3>
           <p>
             This came from a defect in builds before v2.0.0: running auto-sort or auto-fix on a
             <code>DeviceProfiles.ini</code> added one extra <code>CVars=</code> prefix each time, and
@@ -122,7 +136,7 @@
             file afterwards.
           </p>
 
-          <h3>2. Symptom: An Error Appeared and I Do Not Know What To Do</h3>
+          <h3>3. Symptom: An Error Appeared and I Do Not Know What To Do</h3>
           <p>
             From v2.0.0 every failure message carries a suggested next step underneath it, chosen
             from what actually went wrong: start Shizuku, launch the game once so its folders exist,
@@ -135,7 +149,7 @@
             app attempted, which is what makes a report actionable.
           </p>
 
-          <h3>3. Symptom: Shizuku is Running, but App Shows "NONE" or Requests Access</h3>
+          <h3>4. Symptom: Shizuku is Running, but App Shows "NONE" or Requests Access</h3>
           <p><strong>Likely Cause:</strong> Shizuku binder service connection dropped or permission prompt was not granted to WuWa Config Patcher.</p>
           <p><strong>Access Method:</strong> Shizuku (Wireless ADB)</p>
           <p><strong>Fix Procedure:</strong></p>
@@ -148,7 +162,7 @@
         </div>
 
         <div id="game-stutter" class="method-card">
-          <h3>4. Symptom: Game Stuttering, Black Screen, or Crashing After Patching</h3>
+          <h3>5. Symptom: Game Stuttering, Black Screen, or Crashing After Patching</h3>
           <p><strong>Likely Cause:</strong> Unstable CVar combination, unsafe Garbage Collection (<code>gc.*</code>) tweaks, or incompatible shader cache.</p>
           <p><strong>Access Method:</strong> Shizuku / Root / Manual</p>
           <p><strong>Fix Procedure:</strong></p>
@@ -161,7 +175,7 @@
         </div>
 
         <div id="access-badges" class="method-card">
-          <h3>5. Symptom: Access Badges Explained</h3>
+          <h3>6. Symptom: Access Badges Explained</h3>
           <ul class="step-list">
             <li><span class="badge-backend badge-root">ROOT</span> &mdash; Red badge (#E35D6A): Direct elevated <code>libsu</code> shell execution.</li>
             <li><span class="badge-backend badge-shizuku">SHIZUKU</span> &mdash; Green badge (#47D764): Primary wireless debugging ADB backend.</li>
@@ -172,7 +186,7 @@
         </div>
 
         <div id="section-guards" class="method-card">
-          <h3>6. Symptom: Editor Lines Flagged in Vibrant Red (#FF2222)</h3>
+          <h3>7. Symptom: Editor Lines Flagged in Vibrant Red (#FF2222)</h3>
           <p><strong>Likely Cause:</strong> Misplaced CVars (e.g., placing <code>r.*</code> rendering settings under incorrect section headers) or illegal <code>CVars=</code> prefixes in <code>Engine.ini</code>.</p>
           <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
@@ -183,7 +197,7 @@
         </div>
 
         <div id="cvar-verification" class="method-card">
-          <h3>7. Symptom: How to Verify If Applied CVars Executed in Game</h3>
+          <h3>8. Symptom: How to Verify If Applied CVars Executed in Game</h3>
           <p><strong>Access Method:</strong> Shizuku / Root</p>
           <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
@@ -194,7 +208,7 @@
         </div>
 
         <div id="app-doctor-auto-repair" class="method-card">
-          <h3>8. Symptom: Patches Fail to Apply or Repository Presets Disappeared</h3>
+          <h3>9. Symptom: Patches Fail to Apply or Repository Presets Disappeared</h3>
           <p><strong>Likely Cause:</strong> Missing elevated permission, orphaned cache ZIPs, or corrupt preset repository data.</p>
           <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">

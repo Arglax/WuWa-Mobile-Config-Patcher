@@ -19,10 +19,22 @@
       "what does this app do",
       "patcher capabilities",
       "getting started with patcher",
-      "welcome guide"
+      "welcome guide",
+      "hi there",
+      "hello there",
+      "hey there",
+      "hi assistant",
+      "hello ai",
+      "good day",
+      "howdy",
+      "wassup",
+      "anyone there",
+      "are you there",
+      "can you help",
+      "need help"
     ],
     "response": {
-      "text": "Hello! 😊 I am your <strong>WuWa Config Patcher Assistant</strong>.<br><br>I can guide you through every feature of the patcher:<br>• <strong>1-Click Preset Patching:</strong> Deploy curated stable, performance, or extreme visuals configs.<br>• <strong>Live INI Editor:</strong> Edit <code>Engine.ini</code> and <code>DeviceProfiles.ini</code> with Smart, Text, and One-Line modes.<br>• <strong>Section Guards & Auto-Fix:</strong> Correct misplaced CVars and strip invalid prefixes instantly.<br>• <strong>C# Scripting Runtime:</strong> Force-enable Kuro's experimental C# environment for smoother frame pacing.<br>• <strong>Elevated Access Backends:</strong> Configure Shizuku (ADB wireless debugging) or native Root (<code>libsu</code>).<br>• <strong>Diagnostics & Tools:</strong> App Doctor (Self-Diagnose & Repair), CVar Analyzer, AlteriaX CVar Bank, Duplicate Flagger, Forbidden Stripper, and Log Decryptor.",
+      "text": "Hello! 😊 I am your <strong>WuWa Config Patcher Assistant</strong>.<br><br>I can guide you through every feature of the patcher:<br>• <strong>Config Selector:</strong> not sure which preset your phone can handle? It rates your device and ranks the configs that suit it.<br>• <strong>1-Click Preset Patching:</strong> Deploy curated stable, performance, or extreme visuals configs.<br>• <strong>Live INI Editor:</strong> Edit <code>Engine.ini</code> and <code>DeviceProfiles.ini</code> with Smart, Text, and One-Line modes.<br>• <strong>Section Guards & Auto-Fix:</strong> Correct misplaced CVars and strip invalid prefixes instantly.<br>• <strong>C# Scripting Runtime:</strong> Force-enable Kuro's experimental C# environment for smoother frame pacing.<br>• <strong>Elevated Access Backends:</strong> Configure Shizuku (ADB wireless debugging) or native Root (<code>libsu</code>).<br>• <strong>Diagnostics & Tools:</strong> App Doctor (Self-Diagnose & Repair), CVar Analyzer, AlteriaX CVar Bank, Duplicate Flagger, Forbidden Stripper, and Log Decryptor.",
       "link": "index.html",
       "linkText": "Explore Documentation Home"
     }

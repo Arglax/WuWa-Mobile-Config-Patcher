@@ -19,6 +19,62 @@
     'who', 'whom', 'why', 'will', 'with', 'would', 'you', 'your'
   ]);
 
+
+  // 1b. Conversational vocabulary.
+  //
+  // Greetings are an intent, not a retrieval problem. BM25 ranked the greetings topic only third
+  // for "hi", and bare "hi" was rescued solely by an exact-keyword phrase boost. Add one filler
+  // word ("hi there") and that boost stops firing, so a page about failure popups won instead.
+  // These sets let a greeting be recognised before scoring ever happens.
+  const GREETING_WORDS = new Set([
+    'hi', 'hii', 'hiii', 'hiya', 'hello', 'helo', 'hellow', 'hey', 'heyy', 'heya',
+    'yo', 'sup', 'wassup', 'whatsup', 'howdy', 'greetings', 'gday', 'aloha',
+    'hola', 'kamusta', 'kumusta', 'morning', 'afternoon', 'evening'
+  ]);
+  const THANKS_WORDS = new Set([
+    'thanks', 'thank', 'thanx', 'thx', 'ty', 'tysm', 'appreciate', 'appreciated',
+    'salamat', 'gracias', 'arigato'
+  ]);
+  const FAREWELL_WORDS = new Set([
+    'bye', 'byebye', 'goodbye', 'cya', 'later', 'goodnight', 'gn', 'night',
+    'adios', 'paalam', 'farewell'
+  ]);
+  // Words that carry no topic of their own, so they cannot turn a greeting into a question.
+  const CHITCHAT_FILLER = new Set([
+    'there', 'you', 'u', 'ya', 'yall', 'mate', 'man', 'bro', 'brother', 'buddy', 'pal',
+    'friend', 'dude', 'sir', 'maam', 'ai', 'bot', 'assistant', 'everyone', 'all', 'again',
+    'good', 'day', 'so', 'much', 'lot', 'very', 'im', 'am', 'are', 'is', 'how', 'hows',
+    'doing', 'going', 'whats', 'up', 'pls', 'please', 'ok', 'okay', 'hm', 'hmm', 'well',
+    'a', 'the', 'and', 'to', 'for', 'it', 'me', 'my', 'your', 'oh', 'ah', 'haha', 'lol'
+  ]);
+
+  /**
+   * Classifies a message that is purely conversational.
+   *
+   * Strict on purpose: a single word that is neither a greeting nor filler means the user is
+   * asking something, so "hi how do i patch" falls through to real retrieval rather than being
+   * answered with a wave.
+   */
+  function classifyChitchat(rawQuery) {
+    const tokens = String(rawQuery || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter(Boolean);
+
+    if (tokens.length === 0 || tokens.length > 6) return null;
+
+    let kind = null;
+    for (const tok of tokens) {
+      if (GREETING_WORDS.has(tok)) { kind = kind || 'greeting'; continue; }
+      if (THANKS_WORDS.has(tok)) { kind = kind || 'thanks'; continue; }
+      if (FAREWELL_WORDS.has(tok)) { kind = kind || 'farewell'; continue; }
+      if (CHITCHAT_FILLER.has(tok)) continue;
+      return null;
+    }
+    return kind;
+  }
+
   // 2. Irregular Suffix & Grammatical Overrides
   const IRREGULAR_STEMS = new Map([
     ['deleted', 'delete'], ['deleting', 'delete'],
@@ -511,8 +567,14 @@
   function expandAndStemQuery(text) {
     const rawTokens = tokenizeAndNormalize(text);
     const corrected = rawTokens.map(tok => bruteForceSpellFix(tok, engine.getCombinedVocab()));
-    // Filter pure stopwords from BM25 scoring unless the entire query consists of stopwords
-    const contentTokens = corrected.filter(t => !STOP_WORDS.has(t));
+    // Filter pure stopwords from BM25 scoring unless the entire query consists of stopwords.
+    // Conversational openers count as stopwords here: a purely conversational message was already
+    // answered by classifyChitchat, so any greeting still reaching this point is padding on a real
+    // question. Left in, it outranks the question itself, because "hi" is rare across the corpus
+    // and therefore scores far higher than "patch" or "config", which appear nearly everywhere.
+    const isConversational = t =>
+      GREETING_WORDS.has(t) || THANKS_WORDS.has(t) || FAREWELL_WORDS.has(t);
+    const contentTokens = corrected.filter(t => !STOP_WORDS.has(t) && !isConversational(t));
     const finalTokens = contentTokens.length > 0 ? contentTokens : corrected;
     return stemAndExpand(finalTokens);
   }
@@ -520,6 +582,19 @@
   // 8. Dynamic Offline Intent & Conversational Synthesizer ("Mini-LLM Fallback")
   function evaluateDeterministicIntents(rawQuery, contextHistory = []) {
     const q = rawQuery.toLowerCase().trim();
+
+    // Intent 0: pure conversation. Runs first so a greeting never competes on term statistics,
+    // and so the online model receives the greeting topic as its context rather than whichever
+    // documentation page happened to share a token.
+    const chitchat = classifyChitchat(rawQuery);
+    if (chitchat) {
+      const topicId = chitchat === 'thanks' ? 'thanks'
+        : chitchat === 'farewell' ? 'goodbye'
+          : 'greetings';
+      const topic = loadedTopics.find(t => t.id === topicId)
+        || loadedTopics.find(t => t.id === 'greetings');
+      if (topic) return topic;
+    }
 
     // Intent A: Interactive RAM & Hardware Advisor
     const ramMatch = q.match(/\b(4|6|8|12|16|24)\s*(?:gb|g)?\s*(?:ram)?\b/i) ||

@@ -12,7 +12,7 @@ An ultra light-weight (6 MB) android application to improve streamlining of the 
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **v2.0.0 (versionCode 74), the final release:** All known bugs fixed, full portrait and landscape layouts on every screen, and a pre-apply clean step so a new preset can no longer collide with the files left behind by the previous one.
+> **v2.0.0 (versionCode 80), the final release:** All known bugs fixed, full portrait and landscape layouts on every screen, and a pre-apply clean step so a new preset can no longer collide with the files left behind by the previous one.
 
 ---
 

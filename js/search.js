@@ -71,7 +71,7 @@
       title: "Overview & System Architecture",
       section: "Getting Started",
       url: "index.html",
-      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v2.0.0 versionCode 74 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
+      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v2.0.0 versionCode 80 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
       snippet: "An elevated Android application granting 1-click graphics patching, live INI editing, CVar section enforcement, and raw engine diagnostics for Wuthering Waves."
     },
     {
@@ -148,7 +148,7 @@
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
       url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update github releases patcher v2.0.0 versionCode 74 latest release",
+      keywords: "download apk release update github releases patcher v2.0.0 versionCode 80 latest release",
       snippet: "Download the latest APK release (v2.0.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
     }
   ];

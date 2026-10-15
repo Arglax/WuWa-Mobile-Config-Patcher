@@ -71,7 +71,7 @@
       title: "Overview & System Architecture",
       section: "Getting Started",
       url: "index.html",
-      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v1.9.0 versionCode 51 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
+      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v2.0.0 versionCode 74 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
       snippet: "An elevated Android application granting 1-click graphics patching, live INI editing, CVar section enforcement, and raw engine diagnostics for Wuthering Waves."
     },
     {
@@ -80,6 +80,13 @@
       url: "pages/setup-shizuku.html",
       keywords: "shizuku wireless debugging pc adb terminal root magisk kernelsu apatch permissions setup wizard pairing code port axmanager backend hierarchy ShizukuManager.kt libsu AccessBackend Xiaomi HyperOS MIUI USB debugging security settings axmanager supported axeron manager daemon",
       snippet: "Step-by-step guide to configuring Shizuku (Wireless Debugging), Root (libsu), or AxManager backends for Android 11+ scoped storage."
+    },
+    {
+      title: "Config Selector: Which Preset Fits My Phone",
+      section: "Core Workflows",
+      url: "pages/config-selector.html",
+      keywords: "config selector which preset should i use what config for my phone device tier potato low end mid end high end flagship score 0 100 gpu chipset ram memory recommendation recommended for you best fit estimated matched curated device list lookup search phone kodoupulse kudoupulse mythos overdrive stable config a high-end b mid-end c low-end high-visual z_experimental performance config_1 config_2 potato config vulkan variant version universal default in-game toggle auto open after sync first launch not in the synced repository",
+      snippet: "Rates your device from its GPU, chipset and memory, sorts it into one of five tiers, and ranks only the presets that suit it."
     },
     {
       title: "1-Click & Custom Preset Patching",
@@ -134,15 +141,15 @@
       title: "Support, Bug Reporting & Settings",
       section: "Help & Support",
       url: "pages/bug-reporting.html",
-      keywords: "bug report activity log ActionLogger.kt ActionLogger.log BugReportDialog.kt GCash InstaPay GCashDialog.kt settings danger zone clear cache clear data clear activity log delete shaders DeleteShadersDialog.kt Whats New ChangelogDialog.kt discord github arglax stupid mode spoonfeeding status popup preference toggle smart version upgrade preference reset usage telemetry web dashboard custom theme swatch builder",
-      snippet: "Generate detailed diagnostic bug reports with backend activity logs, customize M3 theme swatches, view usage telemetry, support developer donations, and manage Settings Danger Zone cleanups."
+      keywords: "bug report activity log ActionLogger.kt ActionLogger.log BugReportDialog.kt GCash InstaPay GCashDialog.kt settings danger zone clear cache clear data clear activity log delete shaders DeleteShadersDialog.kt Whats New ChangelogDialog.kt discord github arglax stupid mode spoonfeeding status popup preference toggle smart version upgrade preference reset custom theme swatch builder",
+      snippet: "Generate detailed diagnostic bug reports with backend activity logs, customize M3 theme swatches, support developer donations, and manage Settings Danger Zone cleanups."
     },
     {
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
       url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update github releases patcher v1.9.0 versionCode 73 latest release",
-      snippet: "Download the latest APK release (v1.9.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
+      keywords: "download apk release update github releases patcher v2.0.0 versionCode 74 latest release",
+      snippet: "Download the latest APK release (v2.0.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
     }
   ];
 

@@ -55,9 +55,80 @@
       "changelog dialog"
     ],
     "response": {
-      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> — Version <code>v1.9.0</code>, <code>versionCode = 73</code>) is an elevated Android utility Maintained by developer <strong>Arglax</strong>.<br><br><strong>Architecture & Tech Stack:</strong><br>• <strong>Language & UI:</strong> Kotlin 2.4.10, Jetpack Compose with Material 3 design system.<br>• <strong>Networking & Serialization:</strong> OkHttp 4, Retrofit 2 with KotlinX Serialization.<br>• <strong>Storage & Elevation:</strong> AndroidX DocumentFile (SAF), Rikka Shizuku API (target SDK 36), topjohnwu <code>libsu</code> Core 6.0.0, and Firebase BoM 34.16.0.<br>• <strong>OS Target:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update Checking:</strong><br>The app verifies releases against <code>app-version.txt</code> hosted on the GitHub repository via <code>UpdateChecker.kt</code>. You can trigger manual checks under Settings &gt; Application Info.<br><br><strong>Supported Package Variants:</strong><br>• Global (<code>com.kurogame.wutheringwaves.global</code>)<br>• Bilibili, Kuro (Mainland), TW, JP, and KR variants.",
+      "text": "<strong>WuWa Config Patcher</strong> (<code>io.github.arglax.configpatcher</code> - Version <code>v2.0.0</code>, <code>versionCode = 74</code>) is an elevated Android utility Maintained by developer <strong>Arglax</strong>.<br><br><strong>Architecture & Tech Stack:</strong><br>• <strong>Language & UI:</strong> Kotlin 2.4.10, Jetpack Compose with Material 3 design system.<br>• <strong>Networking & Serialization:</strong> OkHttp 4, Retrofit 2 with KotlinX Serialization.<br>• <strong>Storage & Elevation:</strong> AndroidX DocumentFile (SAF), Rikka Shizuku API (target SDK 36), and topjohnwu <code>libsu</code> Core 6.0.0.<br>• <strong>OS Target:</strong> <code>compileSdk 37</code>, <code>targetSdk 36</code>, <code>minSdk 30</code> (Android 11 minimum, Android 13+ recommended).<br><br><strong>Update Checking:</strong><br>The app verifies releases against <code>app-version.txt</code> hosted on the GitHub repository via <code>UpdateChecker.kt</code>. You can trigger manual checks under Settings &gt; Application Info.<br><br><strong>Supported Package Variants:</strong><br>• Global (<code>com.kurogame.wutheringwaves.global</code>)<br>• Bilibili, Kuro (Mainland), TW, JP, and KR variants.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Creator Notes & Repository"
+    }
+  },
+  {
+    "id": "config-selector",
+    "title": "Config Selector: Which Preset Fits My Phone",
+    "keywords": [
+      "config selector",
+      "which config",
+      "which preset",
+      "what config should i use",
+      "what preset should i use",
+      "best config for my phone",
+      "which config is best",
+      "recommend a config",
+      "recommended config",
+      "suggest a config",
+      "what should i pick",
+      "is my phone good enough",
+      "can my phone run",
+      "which one do i choose",
+      "device tier",
+      "my tier",
+      "what tier am i",
+      "tier list",
+      "device score",
+      "potato",
+      "potato config",
+      "low end",
+      "lowend",
+      "mid end",
+      "midend",
+      "high end",
+      "highend",
+      "flagship",
+      "entry level",
+      "kodoupulse",
+      "kudoupulse",
+      "mythos overdrive",
+      "mythos",
+      "stable config a",
+      "stable config b",
+      "stable config c",
+      "high-visual config",
+      "high visual",
+      "z_experimental",
+      "z experimental",
+      "performance config 1",
+      "performance config 2",
+      "config_1",
+      "config_2",
+      "estimated tier",
+      "matched device",
+      "device list",
+      "device database",
+      "look up another device",
+      "search my phone",
+      "vulkan version",
+      "vulkan toggle",
+      "universal config",
+      "which version",
+      "best fit",
+      "not in the synced repository",
+      "selector opens by itself",
+      "auto open selector",
+      "turn off config selector",
+      "disable config selector"
+    ],
+    "response": {
+      "text": "<strong>Config Selector</strong> answers the question most people actually have: which preset is worth running on <em>your</em> phone.<br><br><strong>Where:</strong> Utilities → Common → Config Selector. It also opens by itself on your very first launch, and again after each sync of the default repository (there is a switch inside the dialog to stop that).<br><br><strong>How it decides:</strong><br>• It reads your GPU, chipset and memory, then places your device in one of five tiers: <strong>Potato</strong> (0 to 19), <strong>Low end</strong> (20 to 39), <strong>Mid end</strong> (40 to 59), <strong>High end</strong> (60 to 79) and <strong>Flagship</strong> (80 to 100).<br>• A curated list of roughly 145 real devices is checked first. A hit there is labelled <strong>matched</strong>. Uncatalogued hardware is scored instead and labelled <strong>estimated</strong>, so you always know how much to trust it.<br><br><strong>Preset floors:</strong> Mythos Overdrive is flagship only. High-Visual Config and Stable Config A need high end. Z_Experimental, Stable B, Stable C and Performance Config_2 need mid end. Kodoupulse LowEnd Config and Performance Config_1 need low end. Potato Config runs anywhere.<br><br><strong>Note on Z_Experimental:</strong> despite the name it is a finished config, not a trial run. It ships alongside High-Visual Config.<br><br><strong>Several versions:</strong> Kodoupulse LowEnd Config ships a universal default, a Vulkan build, and one with the in-game Vulkan toggle. The selector lists each so you choose.<br><br>If a preset says <strong>Not in the synced repository</strong>, sync the default Arglax repository from the Config tab and reopen the selector.",
+      "link": "pages/config-selector.html",
+      "linkText": "Open the Config Selector Guide"
     }
   },
   {
@@ -140,7 +211,7 @@
       "zero millisecond tab switching"
     ],
     "response": {
-      "text": "<strong>Live Config Editor (Tab 2: EditorScreen):</strong><br>Directly reads and writes on-device game configs using <code>ShizukuManager.readLogFile()</code> with in-memory caching for zero-millisecond tab switching. Use the top dropdown to select <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, or <code>GameUserSettings.ini</code>.<br><br>• <strong>Smart Mode:</strong> Visual section cards with granular controls. Includes <strong>Sort A-Z</strong> (<code>sortSmartSectionsAlphabetically()</code>), <strong>Auto-Fix Sections</strong>, numeric steppers (with negative number handling), and multi-select bulk deletion.<br>• <strong>Text Mode:</strong> Full syntax-highlighted editor with line numbers, <strong>Isolation Search Mode</strong>, find/replace (\"Replace Next\" / \"Replace All\"), and font scaling (8sp–24sp). Uses <code>safeMapping</code> to clamp offsets and defensive <code>\\r\\n</code> line-ending normalization to prevent <code>IllegalStateException</code> crashes when pasting.<br>• <strong>One-Line Mode:</strong> Fast dropdown selector with a real-time buffer preview card before saving, complete with live Section Guard validation notes.",
+      "text": "<strong>Live Config Editor (Tab 2: EditorScreen):</strong><br>Directly reads and writes on-device game configs using <code>ShizukuManager.readLogFile()</code> with in-memory caching for zero-millisecond tab switching. Use the top dropdown to select <code>Engine.ini</code>, <code>DeviceProfiles.ini</code>, <code>Scalability.ini</code>, or <code>GameUserSettings.ini</code>.<br><br>• <strong>Smart Mode:</strong> Visual section cards with granular controls. Includes <strong>Sort A-Z</strong> (<code>sortSmartSectionsAlphabetically()</code>), <strong>Auto-Fix Sections</strong>, numeric steppers (with negative number handling), and multi-select bulk deletion.<br>• <strong>Text Mode:</strong> Full syntax-highlighted editor with line numbers, <strong>Isolation Search Mode</strong>, find/replace (\"Replace Next\" / \"Replace All\"), and font scaling (8sp-24sp). Uses <code>safeMapping</code> to clamp offsets and defensive <code>\\r\\n</code> line-ending normalization to prevent <code>IllegalStateException</code> crashes when pasting.<br>• <strong>One-Line Mode:</strong> Fast dropdown selector with a real-time buffer preview card before saving, complete with live Section Guard validation notes.",
       "link": "pages/config-editor.html",
       "linkText": "View Config Editor Documentation"
     }
@@ -209,8 +280,8 @@
       "elevated access backend hierarchy",
       "root backend libsu core",
       "axmanager backend axeron",
-      "axmanager not supported",
-      "axeron unsupported",
+      "axmanager supported backend",
+      "axeron manager integration",
       "shizuku unauthorized status fix",
       "xiaomi usb debugging security settings",
       "hyperos shizuku write permission fix",
@@ -220,7 +291,7 @@
       "backend status gray none"
     ],
     "response": {
-      "text": "<strong>Elevated Access Backends Hierarchy (Target SDK 36 • Android 11–15+):</strong><br>Because Android strictly enforces Scoped Storage on <code>/Android/data/</code>, the patcher detects elevated providers in this order:<br>• <strong>SHIZUKU (Green #47D764):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code> (<code>ShizukuManager.kt</code>) — 100% rootless.<br>• <strong>ROOT (Red #E35D6A):</strong> Native SU shell execution via topjohnwu <code>libsu</code> Core 6.0.0.<br>• <strong>AXMANAGER (Not Yet Supported):</strong> Axeron shell provider check (<code>AxManagerManager.kt</code>). Having AXManager installed alone does NOT grant active patch permissions (only Shizuku and Root are active patching backends). AXManager is explicitly marked 'Not Yet Supported' across the app.<br>• <strong>SHIZUKU_UNAUTHORIZED (Orange #F7C948):</strong> Shizuku service running, permission prompt pending approval.<br>• <strong>NONE (Gray #A8B4AF):</strong> No provider active. Prompts the setup wizard or falls back to Manual Mode.<br><br><strong>Setting Up Shizuku:</strong><br>1. Install <strong>Shizuku</strong> from Google Play or GitHub.<br>2. Connect to Wi-Fi (or a Portable Wi-Fi Hotspot).<br>3. Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times).<br>4. Enable both <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>5. In Shizuku, tap <strong>Pairing &gt; Developer Options &gt; Pair device with pairing code</strong> and enter the 6-digit code.<br>6. Return to Shizuku, tap <strong>Start</strong>, then launch WuWa Config Patcher and grant permission.<br><br>⚠️ <em>Xiaomi / HyperOS / MIUI Fix:</em> You <strong>must</strong> enable <strong>\"USB Debugging (Security Settings)\"</strong> inside Developer Options (requires a signed-in Mi Account), otherwise Xiaomi will silently block file writes!",
+      "text": "<strong>Elevated Access Backends Hierarchy (Target SDK 36 • Android 11-15+):</strong><br>Because Android strictly enforces Scoped Storage on <code>/Android/data/</code>, the patcher detects elevated providers in this order:<br>• <strong>SHIZUKU (Green #47D764):</strong> Wireless Debugging / ADB IPC via <code>rikka.shizuku.api</code> (<code>ShizukuManager.kt</code>) - 100% rootless.<br>• <strong>AXMANAGER (Blue #38BDF8):</strong> Axeron shell service binder IPC execution via <code>AxManagerManager.kt</code> - non-rooted elevated access via Axeron manager app.<br>• <strong>ROOT (Red #E35D6A):</strong> Native SU shell execution via topjohnwu <code>libsu</code> Core 6.0.0.<br>• <strong>SHIZUKU_UNAUTHORIZED (Orange #F7C948):</strong> Shizuku service running, permission prompt pending approval.<br>• <strong>NONE (Gray #A8B4AF):</strong> No provider active. Prompts the setup wizard or falls back to Manual Mode.<br><br><strong>Setting Up Shizuku:</strong><br>1. Install <strong>Shizuku</strong> from Google Play or GitHub.<br>2. Connect to Wi-Fi (or a Portable Wi-Fi Hotspot).<br>3. Enable <strong>Developer Options</strong> (tap <em>Build Number</em> 7 times).<br>4. Enable both <strong>USB Debugging</strong> and <strong>Wireless Debugging</strong>.<br>5. In Shizuku, tap <strong>Pairing &gt; Developer Options &gt; Pair device with pairing code</strong> and enter the 6-digit code.<br>6. Return to Shizuku, tap <strong>Start</strong>, then launch WuWa Config Patcher and grant permission.<br><br>⚠️ <em>Xiaomi / HyperOS / MIUI Fix:</em> You <strong>must</strong> enable <strong>\"USB Debugging (Security Settings)\"</strong> inside Developer Options (requires a signed-in Mi Account), otherwise Xiaomi will silently block file writes!",
       "link": "pages/setup-shizuku.html",
       "linkText": "View Shizuku Setup & Permissions Guide"
     }
@@ -243,7 +314,7 @@
       "app doctor dialog"
     ],
     "response": {
-      "text": "<strong>App Doctor (Self-Diagnose & Auto-Repair — Tab 3: Common Subtab):</strong><br>An automated troubleshooting tool (<code>AppDoctor.kt</code>) that audits a fixed set of real failure modes, auto-fixes safe issues, and provides actionable findings for unresolved items.<br><br><strong>What App Doctor Audits & Auto-Fixes:</strong><br>1. <strong>Elevated Access:</strong> Verifies if Shizuku or Root is granted and operational.<br>2. <strong>Wuthering Waves Installed:</strong> Checks if the game package (<code>com.kurogame.wutheringwaves.global</code>) exists on the device.<br>3. <strong>Game Config Files Reachable:</strong> Confirms the game config directory is accessible.<br>4. <strong>Config Repository:</strong> Audits repository files; if missing or corrupted, automatically triggers a re-sync.<br>5. <strong>Cache & Download Folder Health:</strong> Scans temporary directories for orphaned or corrupt ZIP/extraction folders and performs auto-cleanup.<br>6. <strong>App Storage Reports:</strong> Checks persistent storage (<code>app_main_storage/</code>) and removes zero-byte corrupt files.<br>7. <strong>Recent Errors:</strong> Scans the action log over the last 24 hours and explicitly lists exact error entries directly inside the diagnostic card, identifying patterns like repeated Shizuku or Root permission failures.",
+      "text": "<strong>App Doctor (Self-Diagnose & Auto-Repair - Tab 3: Common Subtab):</strong><br>An automated troubleshooting tool (<code>AppDoctor.kt</code>) that audits a fixed set of real failure modes, auto-fixes safe issues, and provides actionable findings for unresolved items.<br><br><strong>What App Doctor Audits & Auto-Fixes:</strong><br>1. <strong>Elevated Access:</strong> Verifies if Shizuku or Root is granted and operational.<br>2. <strong>Wuthering Waves Installed:</strong> Checks if the game package (<code>com.kurogame.wutheringwaves.global</code>) exists on the device.<br>3. <strong>Game Config Files Reachable:</strong> Confirms the game config directory is accessible.<br>4. <strong>Config Repository:</strong> Audits repository files; if missing or corrupted, automatically triggers a re-sync.<br>5. <strong>Cache & Download Folder Health:</strong> Scans temporary directories for orphaned or corrupt ZIP/extraction folders and performs auto-cleanup.<br>6. <strong>App Storage Reports:</strong> Checks persistent storage (<code>app_main_storage/</code>) and removes zero-byte corrupt files.<br>7. <strong>Recent Errors:</strong> Scans the action log over the last 24 hours and explicitly lists exact error entries directly inside the diagnostic card, identifying patterns like repeated Shizuku or Root permission failures.",
       "link": "pages/utilities-diagnostics.html",
       "linkText": "View App Doctor & Diagnostics Guide"
     }
@@ -263,7 +334,7 @@
       "spoonfeeding"
     ],
     "response": {
-      "text": "<strong>Stupid Mode (Settings Preference — Default ON):</strong><br>When Stupid Mode is enabled, every status, success, warning, or error message pops up as a full, standalone dismissible window (<code>StatusPopupDialog.kt</code>) carrying direct remediation hints on failure, rather than a short-lived toast notification.<br><br><strong>How to Turn Off:</strong><br>Go to <strong>Tab 4: SettingsScreen</strong>, scroll to the <strong>Preferences</strong> card, and toggle off <strong>Stupid Mode</strong> to switch back to lightweight toast notifications.",
+      "text": "<strong>Stupid Mode (Settings Preference - Default ON):</strong><br>When Stupid Mode is enabled, every status, success, warning, or error message pops up as a full, standalone dismissible window (<code>StatusPopupDialog.kt</code>) carrying direct remediation hints on failure, rather than a short-lived toast notification.<br><br><strong>How to Turn Off:</strong><br>Go to <strong>Tab 4: SettingsScreen</strong>, scroll to the <strong>Preferences</strong> card, and toggle off <strong>Stupid Mode</strong> to switch back to lightweight toast notifications.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Settings Preferences Guide"
     }
@@ -303,7 +374,7 @@
       "verify if cvars actually applied"
     ],
     "response": {
-      "text": "<strong>Analyze Config (<code>CVarAnalyzer.kt</code> — Tab 3: Advanced Subtab):</strong><br>Cross-references on-device INI settings against decrypted <code>Client.log</code> execution blocks, checking the <strong>latest execution instance</strong> near the end of the log to verify whether Kuro's engine accepted your changes.<br><br><strong>Analysis Report (<code>ConfigAnalysisDialog.kt</code>):</strong><br>• Displays Total CVars, Applied %, Failed count, and Deleted/Ignored count &amp; %.<br>• Includes a collapsible <strong>Smart Insights</strong> panel offering specific tuning guidance.<br><br><strong>Status Code Definitions:</strong><br>• <span style=\"color:#10b981;\">APPLIED:</span> CVar value matched the executed engine value exactly.<br>• <span style=\"color:#ef4444;\">FAILED / UNREAD:</span> Engine skipped, failed to parse, or ignored the line.<br>• <span style=\"color:#f59e0b;\">DELETED BY GAME:</span> Engine explicitly stripped or rejected the variable.<br><br><strong>UI Controls:</strong><br>Cycle filters by Status (<code>All</code> / <code>Applied</code> / <code>Failed</code> / <code>Deleted</code>) and File (<code>All Files</code> / <code>Engine.ini</code> / <code>DeviceProfiles.ini</code>). Features a frozen left CVar name column and flexible Copy/Save scopes.",
+      "text": "<strong>Analyze Config (<code>CVarAnalyzer.kt</code> - Tab 3: Advanced Subtab):</strong><br>Cross-references on-device INI settings against decrypted <code>Client.log</code> execution blocks, checking the <strong>latest execution instance</strong> near the end of the log to verify whether Kuro's engine accepted your changes.<br><br><strong>Analysis Report (<code>ConfigAnalysisDialog.kt</code>):</strong><br>• Displays Total CVars, Applied %, Failed count, and Deleted/Ignored count &amp; %.<br>• Includes a collapsible <strong>Smart Insights</strong> panel offering specific tuning guidance.<br><br><strong>Status Code Definitions:</strong><br>• <span style=\"color:#10b981;\">APPLIED:</span> CVar value matched the executed engine value exactly.<br>• <span style=\"color:#ef4444;\">FAILED / UNREAD:</span> Engine skipped, failed to parse, or ignored the line.<br>• <span style=\"color:#f59e0b;\">DELETED BY GAME:</span> Engine explicitly stripped or rejected the variable.<br><br><strong>UI Controls:</strong><br>Cycle filters by Status (<code>All</code> / <code>Applied</code> / <code>Failed</code> / <code>Deleted</code>) and File (<code>All Files</code> / <code>Engine.ini</code> / <code>DeviceProfiles.ini</code>). Features a frozen left CVar name column and flexible Copy/Save scopes.",
       "link": "pages/advanced-tools.html#cvar-analyzer",
       "linkText": "Open CVar Analyzer Guide"
     }
@@ -347,7 +418,7 @@
       "ini integrity scanner"
     ],
     "response": {
-      "text": "<strong>Duplicate Flagger (<code>DuplicateCvarFlagger.kt</code> — Tab 3: Advanced &gt; INI Integrity &amp; Cleanup):</strong><br>Scans active INI configurations for duplicate CVar keys across lines and sections. Duplicate keys confuse the engine parser and can cause inconsistent values to apply in-game.<br><br>• <strong>Metadata Protection:</strong> Automatically protects device metadata pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>, <code>DeviceType</code>, <code>HardwareLevel</code>) from being flagged.<br>• <strong>1-Tap Cleanup:</strong> Displays results in <strong><code>DuplicateFlaggerDialog.kt</code></strong> with a 1-tap resolution workflow to remove conflicting entries safely.",
+      "text": "<strong>Duplicate Flagger (<code>DuplicateCvarFlagger.kt</code> - Tab 3: Advanced &gt; INI Integrity &amp; Cleanup):</strong><br>Scans active INI configurations for duplicate CVar keys across lines and sections. Duplicate keys confuse the engine parser and can cause inconsistent values to apply in-game.<br><br>• <strong>Metadata Protection:</strong> Automatically protects device metadata pointers (<code>BaseProfileName</code>, <code>DeviceScore</code>, <code>DeviceType</code>, <code>HardwareLevel</code>) from being flagged.<br>• <strong>1-Tap Cleanup:</strong> Displays results in <strong><code>DuplicateFlaggerDialog.kt</code></strong> with a 1-tap resolution workflow to remove conflicting entries safely.",
       "link": "pages/advanced-tools.html",
       "linkText": "View INI Integrity & Cleanup Tools"
     }
@@ -395,7 +466,7 @@
       "render scale cvar mobile"
     ],
     "response": {
-      "text": "<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>• <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.2</code> (Section: <code>[SystemSettings]</code> — scales 3D internal render resolution; lower for FPS gains, raise for visual sharpness).<br>• <code>r.ShadowQuality</code> = <code>0</code> to <code>2</code> (Section: <code>[SystemSettings]</code> — shadow cascade map resolution).<br>• <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> — post-processing glare and bloom).<br>• <code>r.VSync</code> = <code>0</code> (Section: <code>[SystemSettings]</code> — disables VSync to reduce input lag).<br>• <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> — disables heavy volumetric fog).<br>• <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> — background asset loading thread).<br><br>⚠️ <em>Important:</em> Forbidden CVars are harmlessly ignored at runtime, but always tap <strong>Auto-Fix Sections</strong> when saving in Smart Mode.",
+      "text": "<strong>Popular & Recommended CVars for Wuthering Waves:</strong><br>• <code>r.MobileContentScaleFactor</code> = <code>0.8</code> to <code>1.2</code> (Section: <code>[SystemSettings]</code> - scales 3D internal render resolution; lower for FPS gains, raise for visual sharpness).<br>• <code>r.ShadowQuality</code> = <code>0</code> to <code>2</code> (Section: <code>[SystemSettings]</code> - shadow cascade map resolution).<br>• <code>r.BloomQuality</code> = <code>0</code> or <code>1</code> (Section: <code>[SystemSettings]</code> - post-processing glare and bloom).<br>• <code>r.VSync</code> = <code>0</code> (Section: <code>[SystemSettings]</code> - disables VSync to reduce input lag).<br>• <code>r.VolumetricFog</code> = <code>0</code> (Section: <code>[/Script/Engine.RendererSettings]</code> - disables heavy volumetric fog).<br>• <code>s.AsyncLoadingThreadEnabled</code> = <code>1</code> (Section: <code>[/Script/Engine.StreamingSettings]</code> - background asset loading thread).<br><br>⚠️ <em>Important:</em> Forbidden CVars are harmlessly ignored at runtime, but always tap <strong>Auto-Fix Sections</strong> when saving in Smart Mode.",
       "link": "pages/advanced-tools.html#cvar-bank",
       "linkText": "Explore 1000+ CVar Bank Reference"
     }
@@ -483,7 +554,7 @@
       "client.log decryption tool"
     ],
     "response": {
-      "text": "<strong>Log Decryptor & Real-Time Explorer (Tab 3: Common Subtab):</strong><br>Kuro Games obfuscates runtime execution logs. <code>LogDecryptor.kt</code> resolves log obfuscation automatically:<br><br>• <strong>Scheme A (XOR 0xA5 / 0xEF):</strong> Used on modern game updates with interleaved key bytes.<br>• <strong>Scheme B (XOR 0x55):</strong> Legacy XOR cipher variant used in earlier releases.<br>• <strong>Plaintext Fallback:</strong> Directly parses unencrypted development or emulator logs.<br><br><strong>Decrypted Log Explorer:</strong><br>Read real-time logs with exact line numbering and quick-filter chips:<br>• <code>LogConfig</code> — Configuration file parsing and override events.<br>• <code>Sharphereal</code> — C# runtime mono execution and script initialization.<br>• <code>Vulkan</code> / <code>RHI</code> — GPU pipeline, PSO creation, and driver events.<br>• <code>GameThread</code> / <code>LogTemp</code> — Engine warnings and thread performance drops.",
+      "text": "<strong>Log Decryptor & Real-Time Explorer (Tab 3: Common Subtab):</strong><br>Kuro Games obfuscates runtime execution logs. <code>LogDecryptor.kt</code> resolves log obfuscation automatically:<br><br>• <strong>Scheme A (XOR 0xA5 / 0xEF):</strong> Used on modern game updates with interleaved key bytes.<br>• <strong>Scheme B (XOR 0x55):</strong> Legacy XOR cipher variant used in earlier releases.<br>• <strong>Plaintext Fallback:</strong> Directly parses unencrypted development or emulator logs.<br><br><strong>Decrypted Log Explorer:</strong><br>Read real-time logs with exact line numbering and quick-filter chips:<br>• <code>LogConfig</code> - Configuration file parsing and override events.<br>• <code>Sharphereal</code> - C# runtime mono execution and script initialization.<br>• <code>Vulkan</code> / <code>RHI</code> - GPU pipeline, PSO creation, and driver events.<br>• <code>GameThread</code> / <code>LogTemp</code> - Engine warnings and thread performance drops.",
       "link": "pages/utilities-diagnostics.html",
       "linkText": "Open Log Diagnostics Guide"
     }
@@ -527,7 +598,7 @@
       "devicestatscollector kt"
     ],
     "response": {
-      "text": "<strong>Utilities & Log Diagnostics (Tab 3: Common Subtab):</strong><br>• <strong>App Doctor (Self-Diagnose & Auto-Repair — <code>AppDoctor.kt</code>):</strong> Automated troubleshooting auditing elevated access, game install, config reachability, repository validity + re-sync, cache health, 0-byte persistent file cleanup, and recent log error patterns.<br>• <strong>Decrypted Log Explorer:</strong> Real-time viewer for <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>Vulkan</code>, <code>RHI</code>).<br>• <strong>Get Device Info (<code>DeviceStatsCollector.kt</code>):</strong> Pulls exact GPU renderer strings, Vulkan driver versions, physical RAM, CPU cores, C# environment status, and game-evaluated <strong>Device Score</strong>.<br>• <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Supports Scheme A (XOR <code>0xA5/0xEF</code>), Scheme B (XOR <code>0x55</code>), and Plaintext with full-screen viewer and export.<br>• <strong>Delete Logs:</strong> Runs elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim gigabytes of storage.<br>• <strong>Export & Sharing (<code>PatchExporter.kt</code>):</strong> Exports configured INIs into a custom-named ZIP or copies them to a chosen SAF folder.<br>• <strong>Backend Activity Log:</strong> Tap <strong>View Backend Activity Log</strong> (<code>ActivityLogDialog.kt</code>) to inspect <code>activity_log.txt</code> for IPC calls, section guard events, and stack traces.",
+      "text": "<strong>Utilities & Log Diagnostics (Tab 3: Common Subtab):</strong><br>• <strong>App Doctor (Self-Diagnose & Auto-Repair - <code>AppDoctor.kt</code>):</strong> Automated troubleshooting auditing elevated access, game install, config reachability, repository validity + re-sync, cache health, 0-byte persistent file cleanup, and recent log error patterns.<br>• <strong>Decrypted Log Explorer:</strong> Real-time viewer for <code>Client.log</code> with line numbers and filter chips (<code>LogConfig</code>, <code>GameThread</code>, <code>Sharphereal</code>, <code>Vulkan</code>, <code>RHI</code>).<br>• <strong>Get Device Info (<code>DeviceStatsCollector.kt</code>):</strong> Pulls exact GPU renderer strings, Vulkan driver versions, physical RAM, CPU cores, C# environment status, and game-evaluated <strong>Device Score</strong>.<br>• <strong>Log Decryptor (<code>LogDecryptor.kt</code>):</strong> Supports Scheme A (XOR <code>0xA5/0xEF</code>), Scheme B (XOR <code>0x55</code>), and Plaintext with full-screen viewer and export.<br>• <strong>Delete Logs:</strong> Runs elevated <code>rm -rf</code> on <code>.../Saved/Logs/</code> to reclaim gigabytes of storage.<br>• <strong>Export & Sharing (<code>PatchExporter.kt</code>):</strong> Exports configured INIs into a custom-named ZIP or copies them to a chosen SAF folder.<br>• <strong>Backend Activity Log:</strong> Tap <strong>View Backend Activity Log</strong> (<code>ActivityLogDialog.kt</code>) to inspect <code>activity_log.txt</code> for IPC calls, section guard events, and stack traces.",
       "link": "pages/utilities-diagnostics.html",
       "linkText": "Open Common Utilities & Diagnostics"
     }
@@ -554,7 +625,7 @@
       "whats new changelog card"
     ],
     "response": {
-      "text": "<strong>Settings Screen (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Onboarding:</strong> <strong>The Ultimate Patching Guide</strong> provides an interactive setup walkthrough.<br>• <strong>Preferences Card:</strong> Toggle <code>Stupid Mode</code> (full status popups vs toasts), <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preferences.<br>• <strong>Application Info:</strong> Displays current version (<code>v1.9.0</code>). Tap <strong>Check for Updates</strong> to query GitHub releases via <code>UpdateChecker.kt</code>.<br>• <strong>Elevated Access Status:</strong> View your active provider badge, with <strong>Grant Root</strong> (prompts Magisk/KernelSU/APatch via <code>libsu</code>) and Shizuku refresh actions. Note: AXManager is marked 'Not Yet Supported'.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Android Developer Options, Wireless Debugging, the Shizuku app, AXManager, WuWaLab, and the Metadata Generator.<br>• <strong>What's New:</strong> Highlights recent changelog updates via <code>ChangelogDialog.kt</code>.",
+      "text": "<strong>Settings Screen (Tab 4: SettingsScreen):</strong><br>• <strong>Help & Onboarding:</strong> <strong>The Ultimate Patching Guide</strong> provides an interactive setup walkthrough.<br>• <strong>Preferences Card:</strong> Toggle <code>Stupid Mode</code> (full status popups vs toasts), <code>Help Tooltips</code>, <code>Patch Notifications</code>, <code>Haptics</code>, <code>Sound Effects</code>, and <code>DND at Work</code>. Tap <strong>Reset to Defaults</strong> to restore factory preferences.<br>• <strong>Application Info:</strong> Displays current version (<code>v2.0.0</code>). Tap <strong>Check for Updates</strong> to query GitHub releases via <code>UpdateChecker.kt</code>.<br>• <strong>Elevated Access Status:</strong> Select or view your preferred active provider (Shizuku, AXManager, or Root), with <strong>Grant Root</strong> (prompts Magisk/KernelSU/APatch via <code>libsu</code>), Shizuku, and AXManager authorization options.<br>• <strong>Quick Jumps:</strong> One-tap shortcuts to Android Developer Options, Wireless Debugging, the Shizuku app, AXManager, WuWaLab, and the Metadata Generator.<br>• <strong>What's New:</strong> Highlights recent changelog updates via <code>ChangelogDialog.kt</code>.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Settings & Support Guide"
     }
@@ -680,7 +751,7 @@
       "android 14 android 15 scoped storage block"
     ],
     "response": {
-      "text": "<strong>Manual Mode Fallback (Android 11–13):</strong><br>If unable to run Shizuku or Root:<br>1. Go to <strong>Utilities &gt; Export & Sharing &gt; Share Patch</strong> and extract your configured INIs.<br>2. Using FV File Explorer, ZArchiver, or MT Manager, copy the files to:<br><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/Client/Saved/Config/Android/</code><br><br>⚠️ <em>Android 14 / 15 Note:</em> Google has strictly locked down <code>/Android/data/</code> access on newer Android versions. Third-party file managers cannot write to this directory. Shizuku or Root elevation is mandatory on Android 14 and 15+.",
+      "text": "<strong>Manual Mode Fallback (Android 11-13):</strong><br>If unable to run Shizuku or Root:<br>1. Go to <strong>Utilities &gt; Export & Sharing &gt; Share Patch</strong> and extract your configured INIs.<br>2. Using FV File Explorer, ZArchiver, or MT Manager, copy the files to:<br><code>/storage/emulated/0/Android/data/&lt;package&gt;/files/UE4Game/Client/Client/Saved/Config/Android/</code><br><br>⚠️ <em>Android 14 / 15 Note:</em> Google has strictly locked down <code>/Android/data/</code> access on newer Android versions. Third-party file managers cannot write to this directory. Shizuku or Root elevation is mandatory on Android 14 and 15+.",
       "link": "pages/manual-method.html",
       "linkText": "View Manual Mode Guide"
     }
@@ -772,31 +843,12 @@
       "reset stale preferences",
       "version bump preference reset",
       "app version migration",
-      "smart preference reset v1.9.0"
+      "smart preference reset v2.0.0"
     ],
     "response": {
-      "text": "<strong>Smart Version Upgrade Preference Reset (v1.9.0):</strong><br>When updating the patcher across major version bumps (such as upgrading to v1.9.0), the app executes a safe migration routine.<br><br>• <strong>Stale Preference Reset:</strong> Automatically detects deprecated preference keys or outdated internal state and resets them to clean default values to prevent post-update crashes.<br>• <strong>Backup Preservation:</strong> Your timestamped configuration backups in <code>app_main_storage/backups/</code>, custom repository links, and saved patch ZIPs are kept completely safe and untouched during the migration.",
+      "text": "<strong>Smart Version Upgrade Preference Reset (v2.0.0):</strong><br>When updating the patcher across major version bumps (such as upgrading to v2.0.0), the app executes a safe migration routine.<br><br>• <strong>Stale Preference Reset:</strong> Automatically detects deprecated preference keys or outdated internal state and resets them to clean default values to prevent post-update crashes.<br>• <strong>Backup Preservation:</strong> Your timestamped configuration backups in <code>app_main_storage/backups/</code>, custom repository links, and saved patch ZIPs are kept completely safe and untouched during the migration.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Preferences & Version Guide"
-    }
-  },
-  {
-    "id": "usage-telemetry-web-dashboard",
-    "title": "Usage Telemetry & Web Dashboard",
-    "keywords": [
-      "usage telemetry",
-      "web dashboard",
-      "app analytics",
-      "telemetry metrics",
-      "wuwa telemetry dashboard",
-      "anonymous usage statistics",
-      "web dashboard link",
-      "diagnostics analytics"
-    ],
-    "response": {
-      "text": "<strong>Usage Telemetry &amp; Web Dashboard (v1.9.0):</strong><br>WuWa Config Patcher includes an optional, privacy-respecting telemetry module and web dashboard for aggregate app analytics.<br><br>• <strong>Privacy-First Telemetry:</strong> Collects anonymous operational statistics (e.g., elevated backend type, game package variant, and crash diagnostics) to help developer Arglax identify and resolve app bugs.<br>• <strong>Web Dashboard:</strong> Access real-time aggregate patch statistics, preset usage trends, and system health metrics via the official web dashboard portal under <strong>Support &gt; Web Utilities</strong>.",
-      "link": "pages/bug-reporting.html",
-      "linkText": "View Support & Web Dashboard"
     }
   },
   {
@@ -813,7 +865,7 @@
       "swatch builder settings"
     ],
     "response": {
-      "text": "<strong>Custom Theme Swatch Builder (v1.9.0 — Settings):</strong><br>A built-in UI customization tool allowing you to personalize the app's visual appearance across all Jetpack Compose Material 3 screens.<br><br>• <strong>Color Palette Builder:</strong> Select custom primary, secondary, and background color swatches or build your own accent themes.<br>• <strong>Live Preview:</strong> Instantly preview changes in real time before applying them across the 5 bottom navigation tabs and dialogs.",
+      "text": "<strong>Custom Theme Swatch Builder (v2.0.0 - Settings):</strong><br>A built-in UI customization tool allowing you to personalize the app's visual appearance across all Jetpack Compose Material 3 screens.<br><br>• <strong>Color Palette Builder:</strong> Select custom primary, secondary, and background color swatches or build your own accent themes.<br>• <strong>Live Preview:</strong> Instantly preview changes in real time before applying them across the 5 bottom navigation tabs and dialogs.",
       "link": "pages/bug-reporting.html",
       "linkText": "View Custom Theme Settings"
     }
@@ -831,7 +883,7 @@
       "preset difference viewer"
     ],
     "response": {
-      "text": "<strong>Preset Comparison Tool (v1.9.0 — Tab 1: ConfigScreen):</strong><br>Compare two configuration presets side-by-side before applying them to your game files.<br><br>• <strong>Side-by-Side Diff:</strong> Highlights differing CVars, modified engine parameters, and structural section additions between selected presets (e.g. comparing <code>STABLE</code> vs. <code>PERFORMANCE</code>).<br>• <strong>Section Breakdown:</strong> Visually groups added, removed, and modified configuration keys across <code>Engine.ini</code> and <code>DeviceProfiles.ini</code>.",
+      "text": "<strong>Preset Comparison Tool (v2.0.0 - Tab 1: ConfigScreen):</strong><br>Compare two configuration presets side-by-side before applying them to your game files.<br><br>• <strong>Side-by-Side Diff:</strong> Highlights differing CVars, modified engine parameters, and structural section additions between selected presets (e.g. comparing <code>STABLE</code> vs. <code>PERFORMANCE</code>).<br>• <strong>Section Breakdown:</strong> Visually groups added, removed, and modified configuration keys across <code>Engine.ini</code> and <code>DeviceProfiles.ini</code>.",
       "link": "pages/patching-configs.html",
       "linkText": "View Preset Comparison Guide"
     }

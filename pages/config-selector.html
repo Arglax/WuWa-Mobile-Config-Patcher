@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+  <meta name="description" content="The Config Selector rates your device and recommends which Wuthering Waves graphics preset fits it.">
+  <title>Config Selector - WuWa Config Patcher v2.0.0</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.0.0">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
+</head>
+<body>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" class="subpage-header-link">
+        <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
+        <h1 data-i18n="app_title">WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge" data-meta="version_v">v2.0.0</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon" aria-hidden="true">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
+      <div class="lang-selector-wrapper"></div>
+
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." data-i18n="search_placeholder" autocomplete="off" aria-label="Search documentation">
+        <div id="search-results-dropdown" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
+      </div>
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span data-i18n="btn_github">GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <nav aria-label="Main Navigation">
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_getting_started">GETTING STARTED</h3>
+          <ul>
+            <li><a href="../index.html" class="nav-link" data-i18n="nav_overview">Overview &amp; Features</a></li>
+            <li><a href="setup-shizuku.html" class="nav-link" data-i18n="nav_prerequisites">Prerequisites &amp; Setup</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
+          <ul>
+            <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
+            <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
+            <li><a href="config-editor.html" class="nav-link" data-i18n="nav_editor">Live Config Editor</a></li>
+            <li><a href="enable-csharp.html" class="nav-link" data-i18n="nav_csharp">Enabling C# Environment</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_creator_tools">CREATOR &amp; ADVANCED TOOLS</h3>
+          <ul>
+            <li><a href="utilities-diagnostics.html" class="nav-link active" data-i18n="nav_utilities">Utilities &amp; Log Diagnostics</a></li>
+            <li><a href="advanced-tools.html" class="nav-link" data-i18n="nav_advanced_suite">Advanced Diagnostic Suite</a></li>
+            <li><a href="config-editor.html#cvar-guards" class="nav-link" data-i18n="nav_cvar_guards">Engine CVar Section Guards</a></li>
+            <li><a href="advanced-tools.html#cvar-bank" class="nav-link" data-i18n="nav_cvar_bank">CVar Bank &amp; Reference Library</a></li>
+            <li><a href="manual-method.html" class="nav-link" data-i18n="nav_manual">Manual Mode Guide (Old School)</a></li>
+            <li><a href="troubleshooting.html" class="nav-link" data-i18n="nav_troubleshooting">Troubleshooting &amp; FAQ</a></li>
+            <li><a href="bug-reporting.html" class="nav-link" data-i18n="nav_support">Support &amp; Activity Logger</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <main id="main-content" class="content-area">
+
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Config Selector (v2.0.0 • Build 74)</h2>
+          <span class="author-tag">Tab 3: UtilitiesScreen (Common Subtab)</span>
+        </div>
+
+        <p>
+          Ten presets ship with the default repository and most of them will technically install on
+          any phone. The Config Selector answers the question that actually matters: which one is
+          worth running on <em>your</em> phone. It reads your chipset, GPU and memory, places the
+          device in one of five tiers, then lists only the presets that tier can carry, best match
+          first.
+        </p>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">📍 WHERE TO FIND IT</div>
+          <strong>Utilities → Common → Config Selector</strong>. It also opens by itself the first
+          time you launch the app, right after the patching guide, and again each time you sync the
+          default repository. A switch inside the dialog turns that second behaviour off.
+        </div>
+
+        <h3>The Five Tiers</h3>
+        <p>
+          Every device lands in exactly one tier, scored out of 100. The GPU carries the most weight
+          because it is what these presets actually stress, followed by the chipset and then memory.
+        </p>
+
+        <div class="table-wrapper">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Tier</th><th>Score</th><th>Typical hardware</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Flagship</strong></td><td>80 to 100</td><td>Snapdragon 8 Gen series, Dimensity 9000 series, Immortalis GPUs</td></tr>
+            <tr><td><strong>High end</strong></td><td>60 to 79</td><td>Snapdragon 7 and 8s series, Dimensity 8000 series, Adreno 7xx</td></tr>
+            <tr><td><strong>Mid end</strong></td><td>40 to 59</td><td>Snapdragon 6 series, Dimensity 7000 series, Mali-G6xx</td></tr>
+            <tr><td><strong>Low end</strong></td><td>20 to 39</td><td>Snapdragon 4 series, Helio G series, older Adreno 6xx</td></tr>
+            <tr><td><strong>Potato</strong></td><td>0 to 19</td><td>Entry level chips that can still launch the game</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>Which Preset Goes With Which Tier</h3>
+        <p>
+          Each preset has a floor: the weakest tier it is considered safe on. A flagship can run
+          Potato Config perfectly well, it simply has no reason to, so the list is ordered by what
+          suits your device rather than by what will merely install.
+        </p>
+
+        <div class="table-wrapper">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Preset</th><th>Minimum tier</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Mythos Overdrive Config</td><td>Flagship only</td></tr>
+            <tr><td>High-Visual Config</td><td>High end</td></tr>
+            <tr><td>Stable Config: A High-End</td><td>High end</td></tr>
+            <tr><td>Z_Experimental Config</td><td>Mid end</td></tr>
+            <tr><td>Stable Config: B Mid-End</td><td>Mid end</td></tr>
+            <tr><td>Stable Config: C Low-End</td><td>Mid end</td></tr>
+            <tr><td>Performance Config_2</td><td>Mid end</td></tr>
+            <tr><td>Kodoupulse LowEnd Config</td><td>Low end</td></tr>
+            <tr><td>Performance Config_1</td><td>Low end</td></tr>
+            <tr><td>Potato Config</td><td>Any device</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="alert alert-info">
+          <div class="alert-title">ℹ️ ABOUT Z_EXPERIMENTAL</div>
+          Despite the name, this is a finished config and not a trial run. It ships alongside
+          High-Visual Config as a refined take on it. The name is historical.
+        </div>
+
+        <h3>Matched Versus Estimated</h3>
+        <p>
+          The selector always tells you where its answer came from, because a recommendation you
+          cannot judge the reliability of is worth very little.
+        </p>
+        <ul>
+          <li>
+            <strong>Matched.</strong> Your phone or its chipset appears in a curated list of roughly
+            145 real devices. This is the author's own judgement about hardware that has actually
+            been tested, and it always wins.
+          </li>
+          <li>
+            <strong>Estimated.</strong> Your hardware is not catalogued yet, so the score was
+            calculated from the GPU, chipset and memory the app can read. The dialog labels this
+            with an <code>estimated</code> tag. Treat it as a sensible starting point rather than a
+            measurement.
+          </li>
+        </ul>
+
+        <h3>Configs That Ship Several Versions</h3>
+        <p>
+          Some configs come in more than one flavour. Kodoupulse LowEnd Config, for example, ships a
+          universal default, a Vulkan build, and one that adds the in-game Vulkan toggle. When that
+          happens the selector lists each version as its own row so you choose, rather than picking
+          one for you.
+        </p>
+
+        <h3>Applying a Recommendation</h3>
+        <ol class="step-list">
+          <li>Sync the repository from the <strong>Config</strong> tab first. The selector can only
+            offer presets that are actually downloaded.</li>
+          <li>Open <strong>Utilities → Config Selector</strong>.</li>
+          <li>Read your tier and score at the top, and check whether it says matched or estimated.</li>
+          <li>Tap a recommendation. If it ships several versions, tap the version you want.</li>
+          <li>The app selects that preset and returns you to the Config tab. Tap
+            <strong>1-Click Patch</strong> to apply it.</li>
+        </ol>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">⚠️ NOT IN THE SYNCED REPOSITORY</div>
+          A preset marked this way exists in the catalogue but is not in the repository you have
+          currently synced. Sync the default Arglax repository from the Config tab and reopen the
+          selector. If you are using a custom repository, that preset may simply not be in it.
+        </div>
+
+        <h3>Looking Up a Different Device</h3>
+        <p>
+          The <strong>Look up another device</strong> section searches the same curated list by phone
+          name, chipset or GPU. It is useful for checking what a friend's phone should run, or for
+          seeing how your own device was classified.
+        </p>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Where the Device List Comes From</h2>
+          <span class="author-tag">Creator &amp; Technical Mechanics</span>
+        </div>
+
+        <p>
+          The device list is fetched from the configuration repository when your phone is online and
+          falls back to a copy bundled inside the app when it is not. A failed fetch is not an error
+          worth interrupting you over: the bundled copy is complete, just potentially older, so the
+          feature degrades to slightly out of date rather than broken. The dialog footer names
+          whichever source was used.
+        </p>
+
+        <p>
+          Scoring weights the GPU renderer at 0.60, the chipset at 0.25 and memory at 0.15. The
+          curated list is always consulted first and only an uncatalogued device falls through to
+          that calculation, which is why the dialog distinguishes matched from estimated.
+        </p>
+
+        <div class="alert alert-info">
+          <div class="alert-title">🔒 WHAT IT READS</div>
+          The selector reads your GPU renderer string, chipset model and total memory. These are the
+          same values shown by <strong>Get Device Info</strong> in Utilities. Nothing is uploaded and
+          nothing leaves your phone.
+        </div>
+      </section>
+
+      <!-- Page Pagination Nav -->
+      <div class="page-pagination">
+        <a href="setup-shizuku.html" class="btn-primary">← Prerequisites &amp; Elevated Access</a>
+        <a href="patching-configs.html" class="btn-primary">1-Click &amp; Custom Presets →</a>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.0.0</span>
+  </footer>
+
+  <script src="../js/i18n.js?v=2.0.0"></script>
+  <script src="../js/metadata.js?v=2.0.0"></script>
+  <script src="../js/search.js?v=2.0.0"></script>
+  <script src="../js/modal.js?v=2.0.0"></script>
+  <script src="../js/code-copy.js?v=2.0.0"></script>
+  <script src="../js/formatter.js?v=2.0.0"></script>
+  <script src="../js/theme.js?v=2.0.0"></script>
+  <script src="../js/ai-knowledge.js?v=2.0.0"></script>
+  <script src="../js/ai-chat.js?v=2.0.0"></script>
+  <script src="../js/main.js?v=2.0.0"></script>
+</body>
+</html>

@@ -11,6 +11,41 @@
   }
 
   const FEATURE_DETAILS = {
+    'config-selector': {
+      titleKey: 'card_selector_title',
+      title: 'Config Selector',
+      route: 'pages/config-selector.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>✨ Which Preset Should I Use?</h4>
+          <ol class="step-list">
+            <li>Sync the repository from the <strong>Config</strong> tab so presets are downloaded.</li>
+            <li>Open <strong>Utilities → Common → Config Selector</strong>.</li>
+            <li>Read your tier at the top: Potato, Low end, Mid end, High end or Flagship.</li>
+            <li>Tap the recommendation marked <strong>best fit</strong>, or any other one you prefer.</li>
+            <li>If that config ships several versions, tap the version you want.</li>
+            <li>You land back on the Config tab with it selected. Tap <strong>1-Click Patch</strong>.</li>
+          </ol>
+          <div class="alert alert-tip">
+            <div class="alert-title">💡 IT OPENS BY ITSELF</div>
+            Once on your first launch, and again after each sync of the default repository. There is a switch inside the dialog to stop the second one.
+          </div>
+        </div>
+      `,
+      technical: `
+        <div class="modal-section-block">
+          <h4>🛠️ Scoring &amp; Matching</h4>
+          <ul>
+            <li><strong>Curated list first:</strong> roughly 145 real devices mapped to a recommendation. A hit here is labelled <em>matched</em> and always wins.</li>
+            <li><strong>Scorer as fallback:</strong> uncatalogued hardware is scored 0 to 100 from the GPU renderer, chipset model and memory, weighted 0.60 / 0.25 / 0.15. Labelled <em>estimated</em>.</li>
+            <li><strong>Tier floors:</strong> each preset declares the weakest tier it is safe on. Mythos Overdrive is flagship only; Potato Config has no floor.</li>
+            <li><strong>Versions:</strong> a config whose folder holds several subfolders is listed once per version, so Kodoupulse LowEnd Config shows its universal default, its Vulkan build and its in-game toggle build separately.</li>
+            <li><strong>Data source:</strong> fetched from the config repository when online, bundled copy otherwise. Nothing is uploaded.</li>
+          </ul>
+        </div>
+      `
+    },
+
     '1-click-patching': {
       titleKey: 'card_1click_title',
       title: '1-Click Patching Workflow',
@@ -104,7 +139,7 @@
       casual: `
         <div class="modal-section-block">
           <h4>🔄 Automated Preference & Safety Alignment</h4>
-          <p>When updating WuWa Config Patcher to a major new release (e.g. v1.9.0), internal preference keys auto-align to re-prompt safety warnings and feature introductions.</p>
+          <p>When updating WuWa Config Patcher to a major new release (e.g. v2.0.0), internal preference keys auto-align to re-prompt safety warnings and feature introductions.</p>
           <ul>
             <li><strong>Safety Re-prompt:</strong> Ensures critical warnings (like GC guards and storage permissions) are re-displayed upon updating.</li>
             <li><strong>Onboarding Refresh:</strong> Introduces newly added capabilities and updated safety guidelines automatically.</li>
@@ -197,31 +232,6 @@
       `
     },
 
-    'usage-telemetry': {
-      titleKey: 'card_telemetry_title',
-      title: 'Anonymous Usage Telemetry & Analytics Dashboard',
-      route: 'pages/bug-reporting.html',
-      casual: `
-        <div class="modal-section-block">
-          <h4>📊 Opt-In Anonymous Telemetry</h4>
-          <p>Help improve WuWa Config Patcher stability with privacy-first anonymous diagnostic telemetry.</p>
-          <ul>
-            <li><strong>100% Anonymous:</strong> No personal details or device identifiers are ever tracked or transmitted.</li>
-            <li><strong>Real-Time Analytics Dashboard:</strong> View aggregated app statistics, crash counts, and backend distribution.</li>
-          </ul>
-        </div>
-      `,
-      technical: `
-        <div class="modal-section-block">
-          <h4>🛠️ Telemetry Architecture</h4>
-          <ul>
-            <li><strong>Privacy Sanitize Engine:</strong> Strips paths, personal tokens, and hardware serials before event dispatch.</li>
-            <li><strong>Opt-In Control:</strong> Controlled via <code>TelemetryPreferences.kt</code> with instant disable switch.</li>
-          </ul>
-        </div>
-      `
-    },
-
     'live-config-editor': {
       titleKey: 'card_editor_title',
       title: 'Live Config Editor & Modes',
@@ -262,10 +272,10 @@
           <h4>🛡️ Automated Section Placement Enforcement</h4>
           <p>Unreal Engine ignores misplaced CVars. The patcher auto-validates every line against canonical section rules:</p>
           <ul>
-            <li><code>[/Script/Engine.RendererSettings]</code> — Accepts <code>r.</code> CVars.</li>
-            <li><code>[/Script/Engine.StreamingSettings]</code> — Accepts <code>s.</code> CVars.</li>
-            <li><code>[/Script/Engine.GarbageCollectionSettings]</code> — Accepts <code>gc.</code> CVars.</li>
-            <li><code>[SystemSettings]</code> — Universal container accepting ANY CVar.</li>
+            <li><code>[/Script/Engine.RendererSettings]</code> - Accepts <code>r.</code> CVars.</li>
+            <li><code>[/Script/Engine.StreamingSettings]</code> - Accepts <code>s.</code> CVars.</li>
+            <li><code>[/Script/Engine.GarbageCollectionSettings]</code> - Accepts <code>gc.</code> CVars.</li>
+            <li><code>[SystemSettings]</code> - Universal container accepting ANY CVar.</li>
           </ul>
           <div class="alert alert-important">
             <div class="alert-title">VIBRANT RED HIGHLIGHTING (#FF2222)</div>

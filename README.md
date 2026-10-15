@@ -1,8 +1,10 @@
 # WuWa Config Patcher
 
-An light-weight (10 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
+An ultra light-weight (6 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v1.9.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+**Maintained by Arglax**
+
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v2.0.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 ## 📚 Documentation & Releases
 
@@ -10,28 +12,30 @@ An light-weight (10 MB) android application to improve streamlining of the quali
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **Flagged CVars Guard, Utility Redesign & Telemetry (v1.9.0):** Features automated Flagged CVars & Garbage Collection pre-save detection, DeviceProfiles custom CVar warnings, full Utility Screen card layout redesign, smart version upgrade preference reset, opt-in anonymous telemetry with web dashboard, preset comparison tool, and custom theme swatch controls!
+> **v2.0.0 (versionCode 74), the final release:** All known bugs fixed, full portrait and landscape layouts on every screen, and a pre-apply clean step so a new preset can no longer collide with the files left behind by the previous one.
 
 ---
 
 <details>
-<summary><strong>✨ Key Features (v1.9.0)</strong> (click to expand)</summary>
+<summary><strong>✨ Key Features (v2.0.0)</strong> (click to expand)</summary>
 
 <br>
 
 | Feature | Description |
 |---|---|
-| **Utility Screen & Card Redesign** | Converted utility tools into full-width cards with clear descriptions, help touch targets, long-press topic lookup, and dedicated Revert Zone. |
-| **DeviceProfiles Custom CVars Notice** | Pre-save notice when custom CVars other than `DeviceScore` are detected in `DeviceProfiles.ini` to protect Vulkan toggles and Frame Generation. |
-| **Preset Comparison Tool** | Compare any two graphics presets or active configurations side-by-side, highlighting added, removed, and modified CVars before patching. |
-| **Smart Version Upgrade Preference Reset** | Automatically resets outdated "Don't Show Again" preferences on major/minor app updates so critical safety prompts are re-prompted. |
-| **Telemetry & Web Analytics Dashboard** | Opt-in anonymous usage tracking across all 5 app tabs, synchronized in real-time with an interactive web analytics dashboard. |
-| **Custom Theme Swatches & Builder** | Design, customize, and save UI theme swatches with live preview, hex color pickers, and palette selections. |
+| **Flagged CVars & Garbage Collection Guard** | Identifies risky or unsafe Unreal Engine CVars and guards memory with automated Garbage Collection management. |
+| **DeviceProfiles Custom CVars Notice** | Provides explicit warnings and guidance when custom CVars are detected within `DeviceProfiles.ini`. |
+| **Smart Version Upgrade Preference Reset** | Automatically resets out-of-date preferences gracefully when upgrading across major/minor app versions. |
+| **Clean Apply** | Removes the .ini files the patcher previously wrote before applying a new preset, so leftovers from the last preset can't conflict with the new one. |
+| **Full Landscape Layouts** | Side-rail navigation, two-column sections on wide screens, and a full-height editor, with rotation no longer restarting the app. |
+| **Custom Theme Swatches & Builder** | Design, save, and switch between personalized UI color swatches and custom theme styles. |
+| **Preset Comparison Tool** | Side-by-side comparison tool to audit differences between graphics presets before applying. |
+| **Dynamic Theme Engine & Presets** | 5 customizable app theme presets (Gaming / Cyberpunk Dark, Vibrant Light, AMOLED Dark, High-Contrast Dark, Simplistic Slate) with live theme switching. |
+| **Refactored ViewModel Architecture** | Completely decoupled state management architecture with MainViewModel controlling repository syncing and patch application with zero memory leaks. |
 | **App Doctor (Self-Diagnose & Repair)** | Automated system diagnostic tool in Utilities > Common that audits elevated access, game installation, storage paths, repository health, and auto-fixes safe issues. |
-| **Stupid Mode & Standalone Popups** | Every status message pops up as a standalone window with step-by-step remediation hints for action failures (default ON, toggleable in Settings). |
 | **Helpful Action Failure Popups** | Failures (such as lost Shizuku service, unselected files, or missing logs) provide actionable remediation steps rather than vague messages or silent skips. |
 | **App-Wide Multi-Language Support** | Every screen, button, dialog, and tab is 100% translatable across 12 languages (English, 简体中文, 繁體中文, 日本語, 한국어, Español, Português, Bahasa Indonesia, Tiếng Việt, Tagalog/Filipino, and العربية). |
-| **1-Click Patching** | Uses Shizuku or Root to write game configurations directly to protected game data folders with or without root access (AXManager is detected as Not Yet Supported). |
+| **1-Click Patching** | Uses Shizuku, AXManager, or Root to write game configurations directly to protected game data folders with or without root access. |
 | **Safe Revert (Triple Guard)** | Restore stock game files instantly using 3-step triple-guarded revert options to clear modified `.ini` configurations securely. |
 | **Multi-Backend Log Decryptor** | 1-tap log decryption supporting direct file access, Shizuku, and Root shell across all 7 regional game package variants (Global, Bilibili, Kuro, TW, JP, KR). |
 | **Advanced Multi-Select Patching** | Freely select specific combinations of `.ini` files to patch (`Engine.ini`, `DeviceProfiles.ini`, `Scalability.ini`, `GameUserSettings.ini`), or use the quick toggle to apply everything at once. |
@@ -53,12 +57,12 @@ An light-weight (10 MB) android application to improve streamlining of the quali
 > ### Minimum
 > - **Android 11 (API 30)** or higher
 > - **Shizuku** installed and running (required for direct game folder access without root)
-    >  - Via wireless debugging (Android 11+) or a PC/ADB connection at least once for setup
+>  - Via wireless debugging (Android 11+) or a PC/ADB connection at least once for setup
 > - **~50 MB free storage** for the app + your exported patch backups
 > - **Wuthering Waves (Global or Regional Variants)** installed
 > - Internet connection (for syncing configs from the repository)
 > ## Recommended
-> - **Android 13+ (API 33)** or higher — smoother Shizuku wireless debugging pairing, matches modern devices better
+> - **Android 13+ (API 33)** or higher - smoother Shizuku wireless debugging pairing, matches modern devices better
 > - **Shizuku running persistently** (auto-start on boot via wireless debugging, where supported)
 > - **Stable Wi-Fi** for repository sync and patch downloads
 
@@ -88,7 +92,7 @@ Since this app isn't from the Play Store, Android will flag it as unrecognized. 
 
    <img src="assets/img_security_passed.jpg" width="280">
 
-3. On first launch, the Setup Wizard will prompt you to grant Shizuku permissions — tap **Allow all the time**.
+3. On first launch, the Setup Wizard will prompt you to grant Shizuku permissions - tap **Allow all the time**.
 
    <img src="assets/img_allowshizuku.jpg" width="280">
 
@@ -101,7 +105,7 @@ Since this app isn't from the Play Store, Android will flag it as unrecognized. 
 1. Open WuWa Config Patcher.
 2. Tap **Sync Files & Refresh** (or pull down to refresh) to fetch the latest configs.
 3. Select your preferred graphics preset from **Engine Presets**.
-4. Tap **1-Click Patch** — you'll get a confirmation once it's applied.
+4. Tap **1-Click Patch** - you'll get a confirmation once it's applied.
 
    <img src="assets/img_configpatch_success.jpg" width="280">
 
@@ -133,7 +137,7 @@ Switch the repository source to **Custom Online Repository** and paste in a dire
 
 Switch the repository source to **Local Repository** and select a folder containing your `.ini` files.
 
-> ⚠️ Android's scoped storage rules mean you must pick a **specific sub-folder** (e.g. a Downloads folder or a dedicated configs folder) — selecting the root of Internal Storage will be rejected by the system picker.
+> ⚠️ Android's scoped storage rules mean you must pick a **specific sub-folder** (e.g. a Downloads folder or a dedicated configs folder) - selecting the root of Internal Storage will be rejected by the system picker.
 
 </details>
 
@@ -145,8 +149,8 @@ Switch the repository source to **Local Repository** and select a folder contain
 
 ## Disclaimer
 >[!IMPORTANT]
->This tool is for optimization purposes only. By using this app, you acknowledge that modifying game files is done at your own discretion. Always ensure you have a backup if you are unsure about the changes you are applying, especially if you have your own **customized** config — otherwise it will be lost. The application does not tamper with your data except to patch the config file, and all included tools run locally on your device. No data is transmitted to an external, online server.
->Also, I am not in any way affiliated with Kuro Games nor Epic Games.
+>This tool is for optimization purposes only. By using this app, you acknowledge that modifying game files is done at your own discretion. Always ensure you have a backup if you are unsure about the changes you are applying, especially if you have your own **customized** config - otherwise it will be lost. The application does not tamper with your data except to patch the config file, and all included tools run locally on your device. No data is transmitted to an external, online server.
+>Also, I am not in any way affiliated with Kuro Games nor Epic Games.  
 
 ---
 
@@ -159,13 +163,22 @@ Switch the repository source to **Local Repository** and select a folder contain
 
 ---
 
+## 🤖 AI Knowledge Base & Documentation Wiki
+
+The documentation wiki located in `app/src/main/assets/docs/` serves as both an offline in-app manual and the hosted GitHub Pages documentation site.
+
+- **`assets/ai-knowledge.json`**: The structured JSON data source containing knowledge topics, keywords, and reference links. Automatically updated via `.github/workflows/update-knowledge.yml` when GitHub issues with the `ai-learning` label are resolved.
+- **`js/ai-knowledge.js`**: The client-side hybrid search engine script using BM25 ranking, stemming, and stop-word filtering to index `assets/ai-knowledge.json` for offline AI grounding and search matching.
+
+---
+
 ## Credits
-Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project:
-1. **nagasemana5608 / Kudoupulse**
-2. **k4irzw67 / Kyo**
-3. **oxygen_011**
-4. **eggsee**
-5. **ezequieldevteam**
+Appreciation Notice to the following individuals for their contributions in creating, testing, bug reporting or suggesting ideas for this project:  
+1. **nagasemana5608 / Kudoupulse**  
+2. **k4irzw67 / Kyo**  
+3. **oxygen_011**  
+4. **eggsee**  
+5. **ezequieldevteam**  
 
 ### Discord Server Boosters:
 - **cyanide21**

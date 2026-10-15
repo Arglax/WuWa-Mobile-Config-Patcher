@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
   <meta name="description" content="Troubleshooting guide, symptom-cause-fix solutions, and FAQ for WuWa Config Patcher.">
-  <title>Troubleshooting &amp; FAQ — WuWa Config Patcher v1.9.0</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <title>Troubleshooting &amp; FAQ - WuWa Config Patcher v2.0.0</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
@@ -23,7 +23,7 @@
         <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
         <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.9.0</span>
+      <span class="version-badge" data-meta="version_v">v2.0.0</span>
     </div>
 
     <div class="header-actions">
@@ -64,6 +64,7 @@
         <div class="sidebar-section">
           <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
           <ul>
+            <li><a href="config-selector.html" class="nav-link" data-i18n="nav_config_selector">Config Selector (Which Preset?)</a></li>
             <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
             <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
             <li><a href="config-editor.html" class="nav-link" data-i18n="nav_editor">Live Config Editor</a></li>
@@ -104,11 +105,37 @@
       <section class="doc-section">
         <div class="section-header">
           <h2>Troubleshooting &amp; Frequently Asked Questions</h2>
-          <span class="author-tag">v1.9.0 (versionCode 73) Support Reference</span>
+          <span class="author-tag">v2.0.0 (versionCode 74) Support Reference</span>
         </div>
 
         <div id="shizuku-issues" class="method-card">
-          <h3>1. Symptom: Shizuku is Running, but App Shows "NONE" or Requests Access</h3>
+          <h3>1. Symptom: A CVar Shows as CVars=CVars=CVars= in DeviceProfiles.ini</h3>
+          <p>
+            This came from a defect in builds before v2.0.0: running auto-sort or auto-fix on a
+            <code>DeviceProfiles.ini</code> added one extra <code>CVars=</code> prefix each time, and
+            the game ignores a line written that way.
+          </p>
+          <p>
+            <strong>Fix:</strong> open that file in the Config Editor on v2.0.0 and run
+            <strong>auto-sort</strong> or <strong>auto-fix</strong> once. The stacked prefixes
+            collapse back to the single correct one no matter how many accumulated. Re-apply the
+            file afterwards.
+          </p>
+
+          <h3>2. Symptom: An Error Appeared and I Do Not Know What To Do</h3>
+          <p>
+            From v2.0.0 every failure message carries a suggested next step underneath it, chosen
+            from what actually went wrong: start Shizuku, launch the game once so its folders exist,
+            pick your export folder again, check your connection, and so on.
+          </p>
+          <p>
+            <strong>If the suggestion does not help:</strong> run
+            <strong>Utilities → Self-Diagnose &amp; Repair</strong>, then send a bug report with your
+            activity log attached from <strong>Support</strong>. The activity log records what the
+            app attempted, which is what makes a report actionable.
+          </p>
+
+          <h3>3. Symptom: Shizuku is Running, but App Shows "NONE" or Requests Access</h3>
           <p><strong>Likely Cause:</strong> Shizuku binder service connection dropped or permission prompt was not granted to WuWa Config Patcher.</p>
           <p><strong>Access Method:</strong> Shizuku (Wireless ADB)</p>
           <p><strong>Fix Procedure:</strong></p>
@@ -121,7 +148,7 @@
         </div>
 
         <div id="game-stutter" class="method-card">
-          <h3>2. Symptom: Game Stuttering, Black Screen, or Crashing After Patching</h3>
+          <h3>4. Symptom: Game Stuttering, Black Screen, or Crashing After Patching</h3>
           <p><strong>Likely Cause:</strong> Unstable CVar combination, unsafe Garbage Collection (<code>gc.*</code>) tweaks, or incompatible shader cache.</p>
           <p><strong>Access Method:</strong> Shizuku / Root / Manual</p>
           <p><strong>Fix Procedure:</strong></p>
@@ -134,7 +161,7 @@
         </div>
 
         <div id="access-badges" class="method-card">
-          <h3>3. Symptom: Access Badges Explained</h3>
+          <h3>5. Symptom: Access Badges Explained</h3>
           <ul class="step-list">
             <li><span class="badge-backend badge-root">ROOT</span> &mdash; Red badge (#E35D6A): Direct elevated <code>libsu</code> shell execution.</li>
             <li><span class="badge-backend badge-shizuku">SHIZUKU</span> &mdash; Green badge (#47D764): Primary wireless debugging ADB backend.</li>
@@ -145,7 +172,7 @@
         </div>
 
         <div id="section-guards" class="method-card">
-          <h3>4. Symptom: Editor Lines Flagged in Vibrant Red (#FF2222)</h3>
+          <h3>6. Symptom: Editor Lines Flagged in Vibrant Red (#FF2222)</h3>
           <p><strong>Likely Cause:</strong> Misplaced CVars (e.g., placing <code>r.*</code> rendering settings under incorrect section headers) or illegal <code>CVars=</code> prefixes in <code>Engine.ini</code>.</p>
           <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
@@ -156,7 +183,7 @@
         </div>
 
         <div id="cvar-verification" class="method-card">
-          <h3>5. Symptom: How to Verify If Applied CVars Executed in Game</h3>
+          <h3>7. Symptom: How to Verify If Applied CVars Executed in Game</h3>
           <p><strong>Access Method:</strong> Shizuku / Root</p>
           <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
@@ -167,7 +194,7 @@
         </div>
 
         <div id="app-doctor-auto-repair" class="method-card">
-          <h3>6. Symptom: Patches Fail to Apply or Repository Presets Disappeared</h3>
+          <h3>8. Symptom: Patches Fail to Apply or Repository Presets Disappeared</h3>
           <p><strong>Likely Cause:</strong> Missing elevated permission, orphaned cache ZIPs, or corrupt preset repository data.</p>
           <p><strong>Fix Procedure:</strong></p>
           <ol class="step-list">
@@ -184,18 +211,18 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.0.0</span>
   </footer>
 
-  <script src="../js/i18n.js?v=1.9.0"></script>
-  <script src="../js/metadata.js?v=1.9.0"></script>
-  <script src="../js/search.js?v=1.9.0"></script>
-  <script src="../js/modal.js?v=1.9.0"></script>
-  <script src="../js/code-copy.js?v=1.9.0"></script>
-  <script src="../js/formatter.js?v=1.9.0"></script>
-  <script src="../js/theme.js?v=1.9.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
-  <script src="../js/ai-chat.js?v=1.9.0"></script>
-  <script src="../js/main.js?v=1.9.0"></script>
+  <script src="../js/i18n.js?v=2.0.0"></script>
+  <script src="../js/metadata.js?v=2.0.0"></script>
+  <script src="../js/search.js?v=2.0.0"></script>
+  <script src="../js/modal.js?v=2.0.0"></script>
+  <script src="../js/code-copy.js?v=2.0.0"></script>
+  <script src="../js/formatter.js?v=2.0.0"></script>
+  <script src="../js/theme.js?v=2.0.0"></script>
+  <script src="../js/ai-knowledge.js?v=2.0.0"></script>
+  <script src="../js/ai-chat.js?v=2.0.0"></script>
+  <script src="../js/main.js?v=2.0.0"></script>
 </body>
 </html>

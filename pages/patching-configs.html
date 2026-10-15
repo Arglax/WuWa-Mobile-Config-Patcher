@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
   <meta name="description" content="Guide for 1-Click preset patching, preset comparison, multi-select patching, and vanilla reverts in WuWa Config Patcher.">
-  <title>1-Click &amp; Custom Preset Patching — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <title>1-Click &amp; Custom Preset Patching - WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
@@ -23,7 +23,7 @@
         <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
         <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.9.0</span>
+      <span class="version-badge" data-meta="version_v">v2.0.0</span>
     </div>
 
     <div class="header-actions">
@@ -64,6 +64,7 @@
         <div class="sidebar-section">
           <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
           <ul>
+            <li><a href="config-selector.html" class="nav-link" data-i18n="nav_config_selector">Config Selector (Which Preset?)</a></li>
             <li><a href="patching-configs.html" class="nav-link active" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
             <li><a href="#preset-comparison" class="nav-link">Preset Comparison Tool</a></li>
             <li><a href="#advanced-multiselect" class="nav-link">Advanced Multi-Select Patching</a></li>
@@ -96,8 +97,8 @@
         <ul class="toc-list">
           <li><a href="#workflow" class="toc-link">1-Click Preset Patching Workflow</a></li>
           <li><a href="#mechanics" class="toc-link">Technical Mechanics &amp; Repository Architecture</a></li>
-          <li><a href="#preset-comparison" class="toc-link">Preset Comparison Tool (v1.9.0)</a></li>
-          <li><a href="#advanced-multiselect" class="toc-link">Advanced Multi-Select Patching (v1.9.0)</a></li>
+          <li><a href="#preset-comparison" class="toc-link">Preset Comparison Tool (v2.0.0)</a></li>
+          <li><a href="#advanced-multiselect" class="toc-link">Advanced Multi-Select Patching (v2.0.0)</a></li>
           <li><a href="#revert" class="toc-link">Reverting to Vanilla (Factory Game Defaults)</a></li>
         </ul>
       </nav>
@@ -166,12 +167,12 @@
       <!-- Preset Comparison Tool -->
       <section id="preset-comparison" class="doc-section">
         <div class="section-header">
-          <h2>Preset Comparison Tool (v1.9.0)</h2>
+          <h2>Preset Comparison Tool (v2.0.0)</h2>
           <span class="author-tag">PresetCompareDialog.kt &amp; PresetDiffer.kt</span>
         </div>
 
         <p class="lead-text">
-          In v1.9.0, users and preset creators can compare any preset against active running game configurations or other repository presets before applying patches.
+          In v2.0.0, users and preset creators can compare any preset against active running game configurations or other repository presets before applying patches.
         </p>
 
         <div class="features-grid">
@@ -201,7 +202,7 @@
       <!-- Advanced Multi-Select Patching -->
       <section id="advanced-multiselect" class="doc-section">
         <div class="section-header">
-          <h2>Advanced Multi-Select Patching (v1.9.0)</h2>
+          <h2>Advanced Multi-Select Patching (v2.0.0)</h2>
           <span class="author-tag">AdvancedPatchDialog.kt &amp; Gear Icon ⚙️</span>
         </div>
 
@@ -227,6 +228,35 @@
       </section>
 
       <section id="revert" class="doc-section">
+        <div class="section-header">
+          <h2>Every Patch Starts From a Clean Slate (v2.0.0)</h2>
+        </div>
+
+        <p>
+          Before writing a new preset, the patcher deletes the config files it previously wrote. This
+          matters because presets do not all ship the same files. Applying a preset that contains
+          only <code>Engine.ini</code> on top of one that also had <code>DeviceProfiles.ini</code>
+          used to leave that second file behind, and the game then read two configs that were never
+          designed to work together, which showed up as odd visuals or crashes.
+        </p>
+
+        <div class="alert alert-info">
+          <div class="alert-title">ℹ️ WHAT IS AND IS NOT TOUCHED</div>
+          Only files this app wrote are cleared. Files the game created, and any file you placed
+          there yourself, are never deleted. After a successful patch the app names exactly which
+          files it wrote, and mentions anything stale that was cleared.
+        </div>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">💡 1-CLICK VERSUS ADVANCED PATCH</div>
+          <strong>1-Click Patch</strong> clears everything the app previously wrote.
+          <strong>Advanced Patch</strong> clears only the files you ticked. That difference is
+          deliberate: Advanced Patch is an explicit per-file choice, so it leaves your other files
+          alone.
+        </div>
+      </section>
+
+      <section class="doc-section">
         <div class="section-header">
           <h2>Reverting to Vanilla (Factory Game Defaults)</h2>
           <span class="author-tag">Restoring Original State</span>
@@ -262,18 +292,18 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.0.0</span>
   </footer>
 
-  <script src="../js/i18n.js?v=1.9.0"></script>
-  <script src="../js/metadata.js?v=1.9.0"></script>
-  <script src="../js/search.js?v=1.9.0"></script>
-  <script src="../js/modal.js?v=1.9.0"></script>
-  <script src="../js/code-copy.js?v=1.9.0"></script>
-  <script src="../js/formatter.js?v=1.9.0"></script>
-  <script src="../js/theme.js?v=1.9.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
-  <script src="../js/ai-chat.js?v=1.9.0"></script>
-  <script src="../js/main.js?v=1.9.0"></script>
+  <script src="../js/i18n.js?v=2.0.0"></script>
+  <script src="../js/metadata.js?v=2.0.0"></script>
+  <script src="../js/search.js?v=2.0.0"></script>
+  <script src="../js/modal.js?v=2.0.0"></script>
+  <script src="../js/code-copy.js?v=2.0.0"></script>
+  <script src="../js/formatter.js?v=2.0.0"></script>
+  <script src="../js/theme.js?v=2.0.0"></script>
+  <script src="../js/ai-knowledge.js?v=2.0.0"></script>
+  <script src="../js/ai-chat.js?v=2.0.0"></script>
+  <script src="../js/main.js?v=2.0.0"></script>
 </body>
 </html>

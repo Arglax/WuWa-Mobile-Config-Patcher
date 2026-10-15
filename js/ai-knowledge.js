@@ -70,7 +70,11 @@
     ['bug', 'report', 'reporting', 'issue', 'discord', 'github', 'activitylog'],
     ['donate', 'donation', 'gcash', 'instapay', 'support', 'creator', 'arglax'],
     ['manual', 'filemanager', 'zarchiver', 'mtmanager', 'fvfile'],
-    ['version', 'changelog', 'update', 'updates', 'developer', 'author']
+    ['version', 'changelog', 'update', 'updates', 'developer', 'author'],
+    ['selector', 'select', 'recommend', 'recommended', 'recommendation', 'suggest',
+     'suggestion', 'suited', 'suitable', 'fits', 'fit', 'which', 'pick', 'choose', 'best'],
+    ['tier', 'potato', 'lowend', 'midend', 'highend', 'flagship', 'entry', 'rank', 'rating'],
+    ['kodoupulse', 'kudoupulse', 'mythos', 'overdrive', 'experimental', 'stable', 'visual']
   ];
   const SYNONYM_MAP = new Map();
   SYNONYM_GROUPS.forEach(group => group.forEach(word => SYNONYM_MAP.set(word, group)));
@@ -97,6 +101,12 @@
     devicestatscollector: ['device', 'stats', 'statistics', 'collector'],
     actionlogger: ['action', 'logger', 'log'],
     bugreportdialog: ['bug', 'report', 'dialog'],
+    configselector: ['config', 'selector', 'recommend'],
+    deviceTier: ['device', 'tier'],
+    devicetier: ['device', 'tier'],
+    lowend: ['low', 'end'],
+    midend: ['mid', 'end'],
+    highend: ['high', 'end'],
     wuwalab: ['wuwa', 'lab'],
     networkemulationprofiles: ['network', 'emulation', 'profiles'],
     axmanager: ['ax', 'manager', 'shizuku'],
@@ -153,7 +163,11 @@
     ['bakup', 'backup'], ['bacup', 'backup'],
     ['dangar', 'danger'],
     ['snyc', 'sync'], ['syncc', 'sync'],
-    ['xaiomi', 'xiaomi'], ['redmi', 'xiaomi'], ['poco', 'xiaomi'], ['hyperos', 'hyperos']
+    ['xaiomi', 'xiaomi'], ['redmi', 'xiaomi'], ['poco', 'xiaomi'], ['hyperos', 'hyperos'],
+    ['kudoupulse', 'kodoupulse'], ['koudoupulse', 'kodoupulse'], ['kodupulse', 'kodoupulse'],
+    ['mythos', 'mythos'], ['flagshp', 'flagship'], ['potatoe', 'potato'],
+    ['seletor', 'selector'], ['selecter', 'selector'], ['reccomend', 'recommend'],
+    ['recomend', 'recommend'], ['recomended', 'recommended']
   ]);
 
   const STATIC_VOCAB = new Set();

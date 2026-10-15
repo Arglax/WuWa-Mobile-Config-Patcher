@@ -1,8 +1,8 @@
 /**
- * WuWa Mobile Config Patcher — Documentation Site Stylesheet (v1.9.0)
+ * WuWa Mobile Config Patcher - Documentation Site Stylesheet (v2.0.0)
  */
 :root {
-    /* Color Palette — Aligned with Android App "Gaming" Dark Theme */
+    /* Color Palette - Aligned with Android App "Gaming" Dark Theme */
     --bg-main: #090E0D;
     --bg-surface: #101918;
     --bg-card: #162320;
@@ -41,7 +41,7 @@
     --min-touch-target: 44px;
 }
 
-/* Light Theme — Aligned with Android App Light Theme */
+/* Light Theme - Aligned with Android App Light Theme */
 [data-theme="light"] {
     --bg-main: #F5F7FA;
     --bg-surface: #FFFFFF;
@@ -294,7 +294,7 @@ body {
     min-width: 0;
 }
 
-/* Hamburger toggle — injected into .app-header by initMobileNav() in js/main.js */
+/* Hamburger toggle - injected into .app-header by initMobileNav() in js/main.js */
 .mobile-nav-toggle {
     display: none;
     align-items: center;
@@ -514,7 +514,7 @@ body {
     transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
-/* Backdrop behind the off-canvas sidebar on mobile — injected by initMobileNav() in js/main.js */
+/* Backdrop behind the off-canvas sidebar on mobile - injected by initMobileNav() in js/main.js */
 .sidebar-overlay {
     display: none;
     position: fixed;

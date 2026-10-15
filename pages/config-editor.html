@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
   <meta name="description" content="Live Config Editor, CVar section guards, flagged CVar rules, and UE4CommandLine patching guide in WuWa Config Patcher.">
-  <title>Live Config Editor &amp; Section Guards — WuWa Config Patcher</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.9.0">
+  <title>Live Config Editor &amp; Section Guards - WuWa Config Patcher</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
@@ -23,7 +23,7 @@
         <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
         <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v1.9.0</span>
+      <span class="version-badge" data-meta="version_v">v2.0.0</span>
     </div>
 
     <div class="header-actions">
@@ -64,6 +64,7 @@
         <div class="sidebar-section">
           <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
           <ul>
+            <li><a href="config-selector.html" class="nav-link" data-i18n="nav_config_selector">Config Selector (Which Preset?)</a></li>
             <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
             <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
             <li><a href="config-editor.html" class="nav-link active" data-i18n="nav_editor">Live Config Editor</a></li>
@@ -262,12 +263,12 @@
       <!-- Flagged CVars & GC Guard -->
       <section id="flagged-cvars" class="doc-section">
         <div class="section-header">
-          <h2>Flagged CVars &amp; Garbage Collection Guard (v1.9.0)</h2>
+          <h2>Flagged CVars &amp; Garbage Collection Guard (v2.0.0)</h2>
           <span class="author-tag">FlaggedCvarManager.kt &amp; FlaggedCvarDialog.kt</span>
         </div>
 
         <p class="lead-text">
-          In v1.9.0, the editor introduces a real-time <strong>Pre-Save Flagged CVar Guard</strong>. This system automatically inspects configuration content prior to saving for unsafe parameters that cause game crashes, severe memory pressure, or rendering degradation.
+          In v2.0.0, the editor introduces a real-time <strong>Pre-Save Flagged CVar Guard</strong>. This system automatically inspects configuration content prior to saving for unsafe parameters that cause game crashes, severe memory pressure, or rendering degradation.
         </p>
 
         <div class="editor-modes-container">
@@ -308,12 +309,41 @@
 
         <div class="alert alert-tip">
           <div class="alert-title">🔄 SMART VERSION UPGRADE PREFERENCE RESET</div>
-          When WuWa Config Patcher is upgraded to a new version (e.g. v1.9.0), <code>AppPreferences.checkAndHandleAppVersionUpgrade()</code> automatically resets all "Don't show again" warning preferences. This ensures users re-evaluate safety popups, Flagged CVar guards, and DeviceProfiles notices against the latest Wuthering Waves engine updates.
+          When WuWa Config Patcher is upgraded to a new version (e.g. v2.0.0), <code>AppPreferences.checkAndHandleAppVersionUpgrade()</code> automatically resets all "Don't show again" warning preferences. This ensures users re-evaluate safety popups, Flagged CVar guards, and DeviceProfiles notices against the latest Wuthering Waves engine updates.
         </div>
       </section>
 
       <!-- Misc Patch -->
       <section id="misc-patch" class="doc-section">
+        <div class="section-header">
+          <h2>DeviceProfiles CVars Prefix Handling (v2.0.0)</h2>
+        </div>
+
+        <p>
+          Every CVar line in <code>DeviceProfiles.ini</code> carries exactly one
+          <code>CVars=</code> prefix, as in <code>CVars=r.Shadow.Quality=0</code>. The editor now
+          understands those lines properly however they arrive.
+        </p>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">⚠️ FIXED IN v2.0.0: STACKED PREFIXES</div>
+          Earlier builds added an extra prefix each time you ran auto-sort or auto-fix on a
+          DeviceProfiles file, so a line could end up written as
+          <code>CVars=CVars=CVars=r.Shadow.Quality=0</code> and the game stopped reading it. Sorting
+          that file also silently did nothing, because every entry was being keyed on the prefix
+          rather than on the CVar name.
+        </div>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">💡 ALREADY AFFECTED? IT REPAIRS ITSELF</div>
+          Open the damaged <code>DeviceProfiles.ini</code> in the editor and run
+          <strong>auto-sort</strong> or <strong>auto-fix</strong> once. However many prefixes stacked
+          up, they collapse back to the single correct one. A line the editor cannot parse is left
+          exactly as you wrote it rather than rewritten.
+        </div>
+      </section>
+
+      <section class="doc-section">
         <div class="section-header">
           <h2>Misc Patching (UE4CommandLine.txt)</h2>
           <span class="author-tag">Editor Tab &gt; Misc Patch Subtab</span>
@@ -346,18 +376,18 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v1.9.0</span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.0.0</span>
   </footer>
 
-  <script src="../js/i18n.js?v=1.9.0"></script>
-  <script src="../js/metadata.js?v=1.9.0"></script>
-  <script src="../js/search.js?v=1.9.0"></script>
-  <script src="../js/modal.js?v=1.9.0"></script>
-  <script src="../js/code-copy.js?v=1.9.0"></script>
-  <script src="../js/formatter.js?v=1.9.0"></script>
-  <script src="../js/theme.js?v=1.9.0"></script>
-  <script src="../js/ai-knowledge.js?v=1.9.0"></script>
-  <script src="../js/ai-chat.js?v=1.9.0"></script>
-  <script src="../js/main.js?v=1.9.0"></script>
+  <script src="../js/i18n.js?v=2.0.0"></script>
+  <script src="../js/metadata.js?v=2.0.0"></script>
+  <script src="../js/search.js?v=2.0.0"></script>
+  <script src="../js/modal.js?v=2.0.0"></script>
+  <script src="../js/code-copy.js?v=2.0.0"></script>
+  <script src="../js/formatter.js?v=2.0.0"></script>
+  <script src="../js/theme.js?v=2.0.0"></script>
+  <script src="../js/ai-knowledge.js?v=2.0.0"></script>
+  <script src="../js/ai-chat.js?v=2.0.0"></script>
+  <script src="../js/main.js?v=2.0.0"></script>
 </body>
 </html>

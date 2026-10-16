@@ -1640,20 +1640,37 @@ code {
         display: inline-flex;
     }
 
+    .main-container {
+        flex-direction: column;
+    }
+
+    /* In-flow collapsible panel rather than an off-canvas drawer. The drawer relied on
+       position:fixed plus a transform inside a hardware layer, which the app's WebView can fail to
+       composite, leaving navigation that exists but never appears. */
     .sidebar {
-        position: fixed;
-        left: 0;
-        top: 60px;
-        height: calc(100vh - 60px);
-        width: min(85vw, 320px);
-        z-index: 99999;
-        background: var(--bg-surface);
-        transform: translateX(-100%);
-        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.7);
+        position: static;
+        width: 100%;
+        height: auto;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        transform: none;
+        box-shadow: none;
+        transition: max-height 0.25s ease, padding 0.25s ease;
     }
 
     .sidebar.sidebar-open {
-        transform: translateX(0);
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 16px;
+    }
+
+    /* The backdrop belonged to the drawer and would now cover the page for no reason. */
+    .sidebar-overlay,
+    .sidebar-overlay.active {
+        display: none;
     }
 
     .main-container {
@@ -1690,6 +1707,7 @@ code {
 
     .theme-toggle-btn .theme-text,
     .github-link-text,
+    .github-link span,
     .lang-select-code {
         display: none;
     }

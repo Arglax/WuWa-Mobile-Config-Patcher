@@ -51,7 +51,6 @@
       overlay.classList.add('active');
       toggleBtn.setAttribute('aria-expanded', 'true');
       toggleBtn.innerHTML = '<span class="hamburger-icon">✕</span>';
-      document.body.classList.add('nav-locked');
     }
 
     function closeNav() {
@@ -59,7 +58,7 @@
       overlay.classList.remove('active');
       toggleBtn.setAttribute('aria-expanded', 'false');
       toggleBtn.innerHTML = '<span class="hamburger-icon">☰</span>';
-      document.body.classList.remove('nav-locked');
+      // nav panel is in flow, so the page keeps its own scrolling
     }
 
     toggleBtn.addEventListener('click', () => {
@@ -130,7 +129,10 @@
       window.WuWaTheme.initTheme();
     }
 
-    if (window.WuWaAiChat && window.WuWaAiChat.initAiChat) {
+    // The copy bundled inside the app is served from file://. The assistant stays out of it: it
+    // reaches a remote service, which is not something the app itself offers or claims to do.
+    const isBundledInApp = window.location.protocol === 'file:';
+    if (!isBundledInApp && window.WuWaAiChat && window.WuWaAiChat.initAiChat) {
       window.WuWaAiChat.initAiChat();
     }
 

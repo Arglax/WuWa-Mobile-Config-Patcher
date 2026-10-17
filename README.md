@@ -2,9 +2,9 @@
 
 A light-weight (11 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-**Maintained by Arglax**
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v2.0.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)  
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v2.0.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
+Config Patcher Video Walkthrough : [YoutubeLink](https://youtu.be/-__77wGs5hU?si=zGrH1JYuB77k2uqZ)
 
 ## 📚 Documentation & Releases
 
@@ -183,3 +183,5 @@ Appreciation Notice to the following individuals for their contributions in crea
 ### Discord Server Boosters:
 - **cyanide21**
 - **ofekitoo**
+
+**Maintained by Arglax**

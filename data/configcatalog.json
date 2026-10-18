@@ -1,0 +1,167 @@
+{
+  "_comment": "The config catalogue the WuWa Config Patcher app reads at runtime. Editing this file changes which configs the Config Selector offers. No app update is needed. See README.md in this folder for the field meanings.",
+  "version": 1,
+  "configs": [
+    {
+      "key": "mythos",
+      "name": "Mythos Overdrive Config",
+      "minScore": 60,
+      "idealScore": 88,
+      "minimumTier": "HIGH",
+      "idealTier": "FLAGSHIP",
+      "blurb": "Community showcase config for high end devices.",
+      "match": [
+        "mythos"
+      ],
+      "note": "Its creator has not updated it for the current game version yet."
+    },
+    {
+      "key": "high_visuals",
+      "name": "High-Visual Config",
+      "minScore": 60,
+      "idealScore": 88,
+      "minimumTier": "HIGH",
+      "idealTier": "FLAGSHIP",
+      "blurb": "Maximum fidelity. High end devices only.",
+      "match": [
+        "high-visual",
+        "high visual",
+        "highvisual"
+      ],
+      "note": ""
+    },
+    {
+      "key": "stable_a",
+      "name": "Stable Config: A High-End",
+      "minScore": 40,
+      "idealScore": 78,
+      "minimumTier": "MID",
+      "idealTier": "HIGH",
+      "blurb": "The high end default. Best balance of looks and stability on strong hardware.",
+      "match": [
+        "a high-end",
+        "a high end",
+        "stable config a"
+      ],
+      "note": "A mid end phone can run this, but set the AXM downscale to 0.6x first."
+    },
+    {
+      "key": "z_experimental",
+      "name": "Z_Experimental Config",
+      "minScore": 40,
+      "idealScore": 66,
+      "minimumTier": "MID",
+      "idealTier": "HIGH",
+      "blurb": "Lighter than High-Visual and ships alongside it. A mid end phone can run this. The name is historical: it is a finished config, not a trial run.",
+      "match": [
+        "z_experimental",
+        "z experimental",
+        "z-experimental"
+      ],
+      "note": ""
+    },
+    {
+      "key": "siesta",
+      "name": "Siesta Config",
+      "minScore": 40,
+      "idealScore": 62,
+      "minimumTier": "MID",
+      "idealTier": "HIGH",
+      "blurb": "Community config from Siesta, tuned for Dimensity 8400 and 8500 class phones.",
+      "match": [
+        "siesta"
+      ],
+      "note": ""
+    },
+    {
+      "key": "stable_b",
+      "name": "Stable Config: B Mid-End",
+      "minScore": 40,
+      "idealScore": 50,
+      "minimumTier": "MID",
+      "idealTier": "MID",
+      "blurb": "The mid end default. Steady frame pacing without giving up much visually.",
+      "match": [
+        "b mid-end",
+        "b mid end",
+        "stable config b"
+      ],
+      "note": ""
+    },
+    {
+      "key": "perf_2",
+      "name": "Performance Config_2",
+      "minScore": 40,
+      "idealScore": 48,
+      "minimumTier": "MID",
+      "idealTier": "MID",
+      "blurb": "Performance first for mid end devices, keeping a little more detail than Config_1.",
+      "match": [
+        "config_2",
+        "config 2",
+        "config2"
+      ],
+      "note": ""
+    },
+    {
+      "key": "kudoupulse",
+      "name": "Kodoupulse LowEnd Config",
+      "minScore": 20,
+      "idealScore": 36,
+      "minimumTier": "LOW",
+      "idealTier": "LOW",
+      "blurb": "Community config from Kodoupulse for low and mid end devices. Ships in three versions: a universal default, a Vulkan build, and one that adds the in-game Vulkan toggle.",
+      "match": [
+        "kodoupulse",
+        "kudoupulse",
+        "kodou",
+        "kudou",
+        "nagasemana"
+      ],
+      "note": ""
+    },
+    {
+      "key": "perf_1",
+      "name": "Performance Config_1",
+      "minScore": 20,
+      "idealScore": 30,
+      "minimumTier": "LOW",
+      "idealTier": "LOW",
+      "blurb": "Frame rate above all else, for low and mid end devices.",
+      "match": [
+        "config_1",
+        "config 1",
+        "config1"
+      ],
+      "note": ""
+    },
+    {
+      "key": "stable_c",
+      "name": "Stable Config: C Low-End",
+      "minScore": 20,
+      "idealScore": 28,
+      "minimumTier": "LOW",
+      "idealTier": "LOW",
+      "blurb": "The leanest of the three Stable configs, for low end devices.",
+      "match": [
+        "c low-end",
+        "c low end",
+        "stable config c"
+      ],
+      "note": ""
+    },
+    {
+      "key": "potato",
+      "name": "Potato Config",
+      "minScore": 0,
+      "idealScore": 10,
+      "minimumTier": "POTATO",
+      "idealTier": "POTATO",
+      "blurb": "Absolute minimum settings for the weakest devices that can still launch the game.",
+      "match": [
+        "potato"
+      ],
+      "note": ""
+    }
+  ]
+}

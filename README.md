@@ -1,6 +1,6 @@
 # WuWa Config Patcher
 
-A light-weight (11 MB) android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
+A light-weight (11 MB) Android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
 [![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v2.0.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)  
 
@@ -12,7 +12,9 @@ Config Patcher Video Walkthrough : [YoutubeLink](https://youtu.be/-__77wGs5hU?si
 - **Latest Releases & Downloads:** [https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)
 
 >[!NOTE]
-> **v2.0.0 (versionCode 80), the final release:** All known bugs fixed, full portrait and landscape layouts on every screen, and a pre-apply clean step so a new preset can no longer collide with the files left behind by the previous one.
+> 1. Report all bugs in-app, through Discord, or through an issue submission here.  
+> 2. Config-related reports will not be entertained here. Only app/patcher-related issues.  
+> 3. **v2.0.0 (versionCode 80), the final release:** All known bugs fixed, full portrait and landscape layouts on every screen, and a pre-apply clean step so a new preset can no longer collide with the files left behind by the previous one.
 
 ---
 

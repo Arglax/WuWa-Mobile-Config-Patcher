@@ -1,5 +1,5 @@
 /**
- * WuWa Config Patcher - Floating AI Chat Assistant Widget (v2.0.0)
+ * WuWa Config Patcher - Floating AI Chat Assistant Widget (v2.1.0)
  * Enhanced with Dynamic i18n Localization & Multilingual Cloud AI Prompts.
  */
 (function (window) {
@@ -191,7 +191,7 @@
       ? window.WuWaI18n.LANGUAGES[curLang]
       : { name: 'English', code: 'en' };
 
-    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v2.0.0) Maintained by Arglax.
+    return `You are WuWa Assistant, a friendly and expert AI helper for the Android app 'WuWa Config Patcher' (v2.1.0) Maintained by Arglax.
 
 CRITICAL LANGUAGE REQUIREMENT:
 The user's preferred language is ${langConfig.name} (Code: ${curLang}).

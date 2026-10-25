@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wuwa-docs-cache-v2.0.0-r2';
+const CACHE_NAME = 'wuwa-docs-cache-v2.1.0-r1';
 
 const PRECACHE_URLS = [
   './',
@@ -31,6 +31,7 @@ const PRECACHE_URLS = [
   './images/text.jpg',
   './pages/setup-shizuku.html',
   './pages/config-selector.html',
+  './pages/game-resizer.html',
   './pages/patching-configs.html',
   './pages/config-editor.html',
   './pages/utilities-diagnostics.html',

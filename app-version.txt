@@ -1,5 +1,5 @@
-version: 2.0.0
-app_size: 6 MB
+version: 2.1.0
+app_size: 11 MB
 release_url: https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases
 latest_release_url: https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases/latest
 repo_url: https://github.com/Arglax/WuWa-Mobile-Config-Patcher

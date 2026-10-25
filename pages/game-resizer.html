@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
+  <meta name="description" content="The Game Resizer sets the resolution Wuthering Waves renders at, without changing your phone's own screen.">
+  <title>Game Resizer - WuWa Config Patcher v2.1.0</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.1.0-r1">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
+</head>
+<body>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <a href="../index.html" class="subpage-header-link">
+        <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
+        <h1 data-i18n="app_title">WuWa Config Patcher</h1>
+      </a>
+      <span class="version-badge" data-meta="version_v">v2.1.0</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle-btn" aria-label="Toggle Light/Dark Theme">
+        <span class="theme-icon" aria-hidden="true">☀️</span>
+        <span class="theme-text">Light Mode</span>
+      </button>
+
+      <div class="lang-selector-wrapper"></div>
+
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="doc-search" placeholder="Search documentation, CVars, tools..." data-i18n="search_placeholder" autocomplete="off" aria-label="Search documentation">
+        <div id="search-results-dropdown" class="search-dropdown hidden" role="listbox" aria-label="Search results"></div>
+      </div>
+      <a href="https://github.com/Arglax/WuWa-Mobile-Config-Patcher" target="_blank" rel="noopener noreferrer" class="github-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span data-i18n="btn_github">GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <nav aria-label="Main Navigation">
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_getting_started">GETTING STARTED</h3>
+          <ul>
+            <li><a href="../index.html" class="nav-link" data-i18n="nav_overview">Overview &amp; Features</a></li>
+            <li><a href="setup-shizuku.html" class="nav-link" data-i18n="nav_prerequisites">Prerequisites &amp; Setup</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_core_workflows">CORE WORKFLOWS (END-USER)</h3>
+          <ul>
+            <li><a href="config-selector.html" class="nav-link" data-i18n="nav_config_selector">Config Selector (Which Preset?)</a></li>
+            <li><a href="game-resizer.html" class="nav-link active" data-i18n="nav_game_resizer">Game Resizer (Resolution)</a></li>
+            <li><a href="patching-configs.html" class="nav-link" data-i18n="nav_one_click">1-Click &amp; Custom Presets</a></li>
+            <li><a href="patching-configs.html#revert" class="nav-link" data-i18n="nav_revert">Reverting to Vanilla</a></li>
+            <li><a href="config-editor.html" class="nav-link" data-i18n="nav_editor">Live Config Editor</a></li>
+            <li><a href="enable-csharp.html" class="nav-link" data-i18n="nav_csharp">Enabling C# Environment</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 data-i18n="nav_creator_tools">CREATOR &amp; ADVANCED TOOLS</h3>
+          <ul>
+            <li><a href="utilities-diagnostics.html" class="nav-link" data-i18n="nav_utilities">Utilities &amp; Log Diagnostics</a></li>
+            <li><a href="advanced-tools.html" class="nav-link" data-i18n="nav_advanced_suite">Advanced Diagnostic Suite</a></li>
+            <li><a href="config-editor.html#cvar-guards" class="nav-link" data-i18n="nav_cvar_guards">Engine CVar Section Guards</a></li>
+            <li><a href="advanced-tools.html#cvar-bank" class="nav-link" data-i18n="nav_cvar_bank">CVar Bank &amp; Reference Library</a></li>
+            <li><a href="manual-method.html" class="nav-link" data-i18n="nav_manual">Manual Mode Guide (Old School)</a></li>
+            <li><a href="troubleshooting.html" class="nav-link" data-i18n="nav_troubleshooting">Troubleshooting &amp; FAQ</a></li>
+            <li><a href="bug-reporting.html" class="nav-link" data-i18n="nav_support">Support &amp; Activity Logger</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <main id="main-content" class="content-area">
+
+      <section class="doc-section">
+        <div class="section-header">
+          <h2>Game Resizer (v2.1.0 &bull; Build 84)</h2>
+          <span class="author-tag">Tab 1: ConfigScreen &bull; Tab 3: UtilitiesScreen (Advanced Subtab)</span>
+        </div>
+
+        <p>
+          The Game Resizer sets the resolution Wuthering Waves renders at. Lower it and the phone
+          draws fewer pixels per frame, which is less work for the GPU: more frames, and a phone
+          that stays cooler through a long session. Raise it, on a screen with the pixels to spare,
+          and the game renders sharper than it otherwise would.
+        </p>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">&#128205; WHERE TO FIND IT</div>
+          Under the <strong>Launch Game</strong> button on the Config tab, and again under
+          <strong>Utilities &rarr; Advanced &rarr; Game Resolution</strong>. Both are the same
+          setting, so a change in one already shows in the other.
+        </div>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">&#9888; IT ONLY TOUCHES THE GAME</div>
+          Your phone's own screen is never resized. Every other app, your launcher and the system
+          interface keep looking exactly as they did. The patcher uses Android's own per-app game
+          setting rather than changing your display.
+        </div>
+
+        <h3>Reading the Number</h3>
+        <p>
+          The scale is anchored at 1080p, so <strong>1.00x means 1080p on every phone</strong>.
+          0.50x is 540p, 2.00x is 2160p, and the card shows the resolution next to the number. The
+          same setting therefore means the same pixels whatever handset you are on, which is what
+          makes a recommendation worth passing to someone else.
+        </p>
+
+        <div class="table-wrapper">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Slider</th><th>Game renders at</th><th>Roughly</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0.50x</td><td>540p</td><td>A quarter of the pixels of 1080p. Lowest end devices.</td></tr>
+            <tr><td>0.75x</td><td>810p</td><td>Noticeably lighter, still readable text.</td></tr>
+            <tr><td>1.00x</td><td>1080p</td><td>The usual mobile target.</td></tr>
+            <tr><td>1.50x</td><td>1620p</td><td>Only on a QHD panel or better.</td></tr>
+            <tr><td>2.00x</td><td>2160p</td><td>Only on a true 4K panel.</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>Why Your Slider Stops Where It Does</h3>
+        <p>
+          Android's per-app setting can only ask a game to render <em>fewer</em> pixels, never more
+          than the screen itself has. So the top of the slider is simply your panel's own
+          resolution, worked out from its short edge:
+        </p>
+
+        <div class="table-wrapper">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Your screen</th><th>Slider tops out at</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1080p (most phones)</td><td>1.00x</td></tr>
+            <tr><td>1220p</td><td>1.10x</td></tr>
+            <tr><td>1440p (QHD)</td><td>1.30x</td></tr>
+            <tr><td>1644p</td><td>1.50x</td></tr>
+            <tr><td>2160p (true 4K)</td><td>2.00x</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>
+          On a 1080p phone the slider is a downscale only, and that is not a limitation worth
+          working around: the game was already drawing every pixel the screen can show.
+        </p>
+
+        <h3>Using It</h3>
+        <ol class="step-list">
+          <li>Open either card and drag the slider. The tile shows the scale, and the line under it shows the resolution.</li>
+          <li>Let go. The setting is applied straight away and the status message confirms it.</li>
+          <li><strong>Restart the game.</strong> Android reads the setting when the game's process starts, so a game already running keeps its old resolution until you close and reopen it.</li>
+          <li>Tap <strong>Reset</strong> at any time to turn it off and hand the game back its normal resolution.</li>
+        </ol>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">&#128161; WHAT TO EXPECT</div>
+          Measured on a 1220p phone: at 0.50x the game went from 2408x1080 to 1352x608, which is
+          half the pixels per frame. The phone's own display stayed at 1220x2712 the whole time.
+        </div>
+
+        <h3>Requirements</h3>
+        <div class="table-wrapper">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Requirement</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Android 13 or newer</strong></td><td>The per-app game setting this uses did not exist before Android 13. On an older phone the card says so and the slider stays put.</td></tr>
+            <tr><td><strong>Shizuku, AXManager or root</strong></td><td>Changing another app's settings needs elevated access, the same access the patcher already uses to write config files.</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>If Nothing Seems To Change</h3>
+        <ul>
+          <li><strong>Restart the game properly.</strong> Close it from recents, not just back out of it.</li>
+          <li><strong>A game can have its own ceiling.</strong> Wuthering Waves draws at 1080p at most on mobile, so on a screen taller than that the top of the slider will not look any different. That limit belongs to the game, not the patcher.</li>
+          <li><strong>Check your access.</strong> If Shizuku stopped, the slider will tell you and offer to set it up again.</li>
+        </ul>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.1.0</span>
+  </footer>
+
+  <script src="../js/i18n.js?v=2.1.0-r1"></script>
+  <script src="../js/metadata.js?v=2.1.0-r1"></script>
+  <script src="../js/search.js?v=2.1.0-r1"></script>
+  <script src="../js/modal.js?v=2.1.0-r1"></script>
+  <script src="../js/code-copy.js?v=2.1.0-r1"></script>
+  <script src="../js/formatter.js?v=2.1.0-r1"></script>
+  <script src="../js/theme.js?v=2.1.0-r1"></script>
+  <script src="../js/ai-knowledge.js?v=2.1.0-r1"></script>
+  <script src="../js/ai-chat.js?v=2.1.0-r1"></script>
+  <script src="../js/main.js?v=2.1.0-r1"></script>
+</body>
+</html>

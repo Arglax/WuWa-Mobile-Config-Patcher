@@ -11,6 +11,30 @@
   }
 
   const FEATURE_DETAILS = {
+    'game-resizer': {
+      titleKey: 'card_resizer_title',
+      title: 'Game Resizer',
+      route: 'pages/game-resizer.html',
+      casual: `
+        <div class="modal-section-block">
+          <h4>&#128208; Make The Game Lighter</h4>
+          <ol class="step-list">
+            <li>Open the <strong>Config</strong> tab and look under the <strong>Launch Game</strong> button, or go to <strong>Utilities &rarr; Advanced &rarr; Game Resolution</strong>.</li>
+            <li>Drag the slider down. 1.00x is 1080p, 0.50x is 540p, and the line under it shows the resolution you are asking for.</li>
+            <li>Let go. It is applied straight away.</li>
+            <li><strong>Restart the game</strong> so it picks up the new resolution.</li>
+            <li>Tap <strong>Reset</strong> whenever you want it back to normal.</li>
+          </ol>
+          <p>Only the game changes. Your phone's screen, your launcher and every other app stay exactly as they were.</p>
+        </div>`,
+      technical: `
+        <div class="modal-section-block">
+          <h4>Mechanics</h4>
+          <p>Drives Android's per-app Game Mode intervention through <code>cmd game set --downscale</code> on the elevated backend, so the game renders into a smaller buffer that the compositor scales to the panel. The display itself is never resized.</p>
+          <p>The slider is anchored at 1080p: <code>factor = (scale * 1080) / panelShortEdge</code>, clamped to 1.0. Because the intervention can only shrink a buffer, the top of the slider is the panel's short edge over 1080, which is 1.00x on a 1080p phone and 2.00x on a true 4K one.</p>
+          <p>Needs Android 13 or newer, plus Shizuku, AXManager or root. The setting is read when the game's process starts, so it takes effect on the next launch.</p>
+        </div>`
+    },
     'config-selector': {
       titleKey: 'card_selector_title',
       title: 'Config Selector',

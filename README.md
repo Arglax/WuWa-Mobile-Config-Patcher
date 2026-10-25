@@ -2,7 +2,7 @@
 
 A light-weight (11 MB) Android application to improve streamlining of the quality of life in applying mobile configuration for Wuthering Waves.
 
-[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v2.0.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)  
+[![Download WuWa Config Patcher](https://img.shields.io/badge/Download-WuWa%20Config%20Patcher%20v2.1.0-brightgreen?style=plastic&logo=android)](https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases)  
 
 Config Patcher Video Walkthrough : [YoutubeLink](https://youtu.be/-__77wGs5hU?si=zGrH1JYuB77k2uqZ)
 
@@ -14,17 +14,19 @@ Config Patcher Video Walkthrough : [YoutubeLink](https://youtu.be/-__77wGs5hU?si
 >[!NOTE]
 > 1. Report all bugs in-app, through Discord, or through an issue submission here.  
 > 2. Config-related reports will not be entertained here. Only app/patcher-related issues.  
-> 3. **v2.0.0 (versionCode 80), the final release:** All known bugs fixed, full portrait and landscape layouts on every screen, and a pre-apply clean step so a new preset can no longer collide with the files left behind by the previous one.
+> 3. **v2.1.0 (versionCode 84), the final version:** This is the finished state of the app and no further updates are planned. Adds the Game Resizer, which sets the resolution the game renders at without touching your phone's own screen, and a Config Selector that now reads its list of configs from this repository so new community configs appear without an app update.
 
 ---
 
 <details>
-<summary><strong>✨ Key Features (v2.0.0)</strong> (click to expand)</summary>
+<summary><strong>✨ Key Features (v2.1.0)</strong> (click to expand)</summary>
 
 <br>
 
 | Feature | Description |
 |---|---|
+| **Game Resizer** | Sets the resolution the game renders at, anchored so 1.00x always means 1080p, with the top of the range taken from your own panel. Uses Android's per-app game setting, so your phone's display and every other app are untouched. Needs Android 13+. |
+| **Config Selector** | Reads your GPU, chipset and memory, scores the device out of 100, and ranks only the presets worth running on it. The list of configs is read from this repository, so new community configs appear without an app update. |
 | **Flagged CVars & Garbage Collection Guard** | Identifies risky or unsafe Unreal Engine CVars and guards memory with automated Garbage Collection management. |
 | **DeviceProfiles Custom CVars Notice** | Provides explicit warnings and guidance when custom CVars are detected within `DeviceProfiles.ini`. |
 | **Smart Version Upgrade Preference Reset** | Automatically resets out-of-date preferences gracefully when upgrading across major/minor app versions. |
@@ -57,14 +59,14 @@ Config Patcher Video Walkthrough : [YoutubeLink](https://youtu.be/-__77wGs5hU?si
 ## 🛠 Prerequisites
 >[!IMPORTANT]
 > ### Minimum
-> - **Android 11 (API 30)** or higher
+> - **Android 11 (API 30)** or higher (**Android 13 / API 33** for the Game Resizer)
 > - **Shizuku** installed and running (required for direct game folder access without root)
 >  - Via wireless debugging (Android 11+) or a PC/ADB connection at least once for setup
 > - **~50 MB free storage** for the app + your exported patch backups
 > - **Wuthering Waves (Global or Regional Variants)** installed
 > - Internet connection (for syncing configs from the repository)
 > ## Recommended
-> - **Android 13+ (API 33)** or higher - smoother Shizuku wireless debugging pairing, matches modern devices better
+> - **Android 13+ (API 33)** or higher - required by the Game Resizer, smoother Shizuku wireless debugging pairing, matches modern devices better
 > - **Shizuku running persistently** (auto-start on boot via wireless debugging, where supported)
 > - **Stable Wi-Fi** for repository sync and patch downloads
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wuwa-docs-cache-v2.1.0-r1';
+const CACHE_NAME = 'wuwa-docs-cache-v2.1.1-r2';
 
 const PRECACHE_URLS = [
   './',

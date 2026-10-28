@@ -148,6 +148,10 @@
     "title": "Game Resizer: Resolution Scaling",
     "keywords": [
       "game resizer",
+      "exact resolution",
+      "custom resolution",
+      "360p",
+      "480p",
       "resizer",
       "resize",
       "resolution",
@@ -194,7 +198,7 @@
       "launch game slider"
     ],
     "response": {
-      "text": "<strong>Game Resizer</strong> sets the resolution Wuthering Waves renders at. Fewer pixels per frame is less work for the GPU, so you get more frames and a cooler phone.<br><br><strong>Where:</strong> under the <strong>Launch Game</strong> button on the Config tab, and under <strong>Utilities &rarr; Advanced &rarr; Game Resolution</strong>. Both are the same setting.<br><br><strong>Reading the number:</strong> the scale is anchored at 1080p, so <strong>1.00x means 1080p on every phone</strong>, 0.50x is 540p and 2.00x is 2160p. The card shows the resolution next to the number.<br><br><strong>Why your slider stops where it does:</strong> Android's per-app setting can only ask for fewer pixels, never more than the screen has, so the top of the slider is your own panel. A 1080p phone stops at 1.00x, a QHD phone reaches 1.30x, and a true 4K phone reaches 2.00x.<br><br><strong>It only touches the game.</strong> Your screen, launcher and every other app look exactly the same.<br><br><strong>Needs:</strong> Android 13 or newer, plus Shizuku, AXManager or root. <strong>Restart the game</strong> after changing it, because the setting is read when the game starts.<br><br>If nothing looks different, note that Wuthering Waves draws at 1080p at most on mobile, so on a taller screen the top of the slider will not change the picture. That ceiling belongs to the game.",
+      "text": "<strong>Game Resizer</strong> sets the resolution Wuthering Waves renders at. Fewer pixels per frame is less work for the GPU, so you get more frames and a cooler phone.<br><br><strong>Where:</strong> under the <strong>Launch Game</strong> button on the Config tab, and under <strong>Utilities &rarr; Advanced &rarr; Game Resolution</strong>. Both are the same setting.<br><br><strong>Reading it:</strong> each stop is a fraction of <em>your own screen</em>, and the tile shows the resolution that works out to. On a 1080p phone 0.50x is 540p; on a 1220p phone the same 0.50x is 610p.<br><br><strong>Exact resolutions:</strong> buttons under the slider pick 360p, 480p, 540p, 720p, 900p or 1080p, and Custom takes any height from 0.30x to 0.90x of your screen. Exact on Android 14 and newer; on Android 13 the closest slider step is used.<br><br><strong>Why the slider has thirteen stops:</strong> 0.30x to 0.90x in steps of 0.05, plus Off, the values every Android version accepts. There is nothing above 0.90x because the mechanism can only ask for fewer pixels than the screen has, so Off is already the sharpest the game gets.<br><br><strong>It only touches the game.</strong> Your screen, launcher and every other app look exactly the same.<br><br><strong>Needs:</strong> Android 13 or newer, plus Shizuku, AXManager or root. <strong>Restart the game</strong> after changing it.<br><br><strong>On Android 13, version 2.1.0 was broken</strong> and failed every time with 'exit code 255'. Version 2.1.1 fixes it, so update if that is what you saw.<br><br>If nothing looks different, note that Wuthering Waves draws at 1080p at most on mobile, so on a taller screen the highest stops will not change the picture.",
       "link": "pages/game-resizer.html"
     }
   },

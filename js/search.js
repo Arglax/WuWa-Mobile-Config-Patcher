@@ -71,7 +71,7 @@
       title: "Overview & System Architecture",
       section: "Getting Started",
       url: "index.html",
-      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v2.1.0 versionCode 84 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
+      keywords: "home overview introduction capabilities system metadata package io.github.arglax.configpatcher v2.1.1 versionCode 86 scoped storage accessbackend root shizuku axmanager none global bilibili kuro tw jp kr invariants UE4Game Client Saved Config Android Engine.ini DeviceProfiles.ini Scalability.ini GameUserSettings.ini Client.log UE4CommandLine.txt VulkanProgramBinaryCache ProgramBinaryCache",
       snippet: "An elevated Android application granting 1-click graphics patching, live INI editing, CVar section enforcement, and raw engine diagnostics for Wuthering Waves."
     },
     {
@@ -92,8 +92,8 @@
       title: "Game Resizer: Resolution Scaling",
       section: "Core Workflows",
       url: "pages/game-resizer.html",
-      keywords: "game resizer resolution scale resize downscale upscale render resolution fps frames per second heating hot phone overheat performance boost lag stutter 1080p 540p 720p 810p 1440p 2160p 4k qhd scale factor 0.5x 1.0x 2.0x slider launch game utilities advanced game resolution cmd game downscale game mode intervention per-app android 13 api 33 shizuku axmanager root restart the game panel short edge native resolution axm downscale ResolutionScaler.kt",
-      snippet: "Sets the resolution the game renders at, from 0.05x up to whatever your screen can show, without changing your phone's own display."
+      keywords: "game resizer resolution scale resize downscale render resolution exact resolution custom resolution 360p 480p 900p pick resolution fps frames per second heating hot phone overheat performance boost lag stutter 1080p 540p 720p 810p 1440p 2160p 4k qhd scale factor 0.5x 1.0x 2.0x slider launch game utilities advanced game resolution cmd game downscale game mode intervention per-app android 13 api 33 shizuku axmanager root restart the game panel short edge native resolution axm downscale ResolutionScaler.kt",
+      snippet: "Sets the resolution the game renders at, with a slider, one tap 360p to 1080p buttons or a custom height, without changing your phone's own display."
     },
     {
       title: "1-Click & Custom Preset Patching",
@@ -155,8 +155,8 @@
       title: "GitHub Releases (Latest Downloads)",
       section: "Downloads",
       url: "https://github.com/Arglax/WuWa-Mobile-Config-Patcher/releases",
-      keywords: "download apk release update github releases patcher v2.1.0 versionCode 84 latest release",
-      snippet: "Download the latest APK release (v2.1.0) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
+      keywords: "download apk release update github releases patcher v2.1.1 versionCode 86 latest release",
+      snippet: "Download the latest APK release (v2.1.1) of WuWa Mobile Config Patcher from the official GitHub Releases repository."
     }
   ];
 

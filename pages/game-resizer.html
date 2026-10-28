@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#090E0D" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)">
   <meta name="description" content="The Game Resizer sets the resolution Wuthering Waves renders at, without changing your phone's own screen.">
-  <title>Game Resizer - WuWa Config Patcher v2.1.0</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.1.0-r1">
+  <title>Game Resizer - WuWa Config Patcher v2.1.1</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.1.1-r2">
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" type="image/jpeg" href="../images/logo.jpg">
 </head>
@@ -23,7 +23,7 @@
         <img src="../images/logo.jpg" alt="WuWa Config Patcher Logo" class="brand-logo" width="40" height="40">
         <h1 data-i18n="app_title">WuWa Config Patcher</h1>
       </a>
-      <span class="version-badge" data-meta="version_v">v2.1.0</span>
+      <span class="version-badge" data-meta="version_v">v2.1.1</span>
     </div>
 
     <div class="header-actions">
@@ -92,15 +92,14 @@
 
       <section class="doc-section">
         <div class="section-header">
-          <h2>Game Resizer (v2.1.0 &bull; Build 84)</h2>
+          <h2>Game Resizer (v2.1.1 &bull; Build 86)</h2>
           <span class="author-tag">Tab 1: ConfigScreen &bull; Tab 3: UtilitiesScreen (Advanced Subtab)</span>
         </div>
 
         <p>
           The Game Resizer sets the resolution Wuthering Waves renders at. Lower it and the phone
           draws fewer pixels per frame, which is less work for the GPU: more frames, and a phone
-          that stays cooler through a long session. Raise it, on a screen with the pixels to spare,
-          and the game renders sharper than it otherwise would.
+          that stays cooler through a long session.
         </p>
 
         <div class="alert alert-tip">
@@ -117,59 +116,67 @@
           setting rather than changing your display.
         </div>
 
-        <h3>Reading the Number</h3>
+        <h3>Reading the Slider</h3>
         <p>
-          The scale is anchored at 1080p, so <strong>1.00x means 1080p on every phone</strong>.
-          0.50x is 540p, 2.00x is 2160p, and the card shows the resolution next to the number. The
-          same setting therefore means the same pixels whatever handset you are on, which is what
-          makes a recommendation worth passing to someone else.
+          Each stop is a fraction of <em>your own screen</em>, and the card shows the resolution
+          that works out to. On a 1080p phone 0.50x is 540p; on a 1220p phone the same 0.50x is
+          610p. A second figure next to it compares the result to 1080p, which is how most people
+          talk about a mobile resolution.
         </p>
 
         <div class="table-wrapper">
         <table class="doc-table">
           <thead>
-            <tr><th>Slider</th><th>Game renders at</th><th>Roughly</th></tr>
+            <tr><th>Slider</th><th>144p screen</th><th>360p screen</th><th>480p screen</th><th>720p screen</th><th>1080p screen</th><th>1220p screen</th><th>1440p screen</th></tr>
           </thead>
           <tbody>
-            <tr><td>0.50x</td><td>540p</td><td>A quarter of the pixels of 1080p. Lowest end devices.</td></tr>
-            <tr><td>0.75x</td><td>810p</td><td>Noticeably lighter, still readable text.</td></tr>
-            <tr><td>1.00x</td><td>1080p</td><td>The usual mobile target.</td></tr>
-            <tr><td>1.50x</td><td>1620p</td><td>Only on a QHD panel or better.</td></tr>
-            <tr><td>2.00x</td><td>2160p</td><td>Only on a true 4K panel.</td></tr>
+            <tr><td>0.30x</td><td>43p</td><td>108p</td><td>144p</td><td>216p</td><td>324p</td><td>366p</td><td>432p</td></tr>
+            <tr><td>0.35x</td><td>50p</td><td>126p</td><td>168p</td><td>252p</td><td>378p</td><td>427p</td><td>504p</td></tr>
+            <tr><td>0.40x</td><td>58p</td><td>144p</td><td>192p</td><td>288p</td><td>432p</td><td>488p</td><td>576p</td></tr>
+            <tr><td>0.45x</td><td>65p</td><td>162p</td><td>216p</td><td>324p</td><td>486p</td><td>549p</td><td>648p</td></tr>
+            <tr><td>0.50x</td><td>72p</td><td>180p</td><td>240p</td><td>360p</td><td>540p</td><td>610p</td><td>720p</td></tr>
+            <tr><td>0.55x</td><td>79p</td><td>198p</td><td>264p</td><td>396p</td><td>594p</td><td>671p</td><td>792p</td></tr>
+            <tr><td>0.60x</td><td>86p</td><td>216p</td><td>288p</td><td>432p</td><td>648p</td><td>732p</td><td>864p</td></tr>
+            <tr><td>0.65x</td><td>94p</td><td>234p</td><td>312p</td><td>468p</td><td>702p</td><td>793p</td><td>936p</td></tr>
+            <tr><td>0.70x</td><td>101p</td><td>252p</td><td>336p</td><td>504p</td><td>756p</td><td>854p</td><td>1008p</td></tr>
+            <tr><td>0.75x</td><td>108p</td><td>270p</td><td>360p</td><td>540p</td><td>810p</td><td>915p</td><td>1080p</td></tr>
+            <tr><td>0.80x</td><td>115p</td><td>288p</td><td>384p</td><td>576p</td><td>864p</td><td>976p</td><td>1152p</td></tr>
+            <tr><td>0.85x</td><td>122p</td><td>306p</td><td>408p</td><td>612p</td><td>918p</td><td>1037p</td><td>1224p</td></tr>
+            <tr><td>0.90x</td><td>130p</td><td>324p</td><td>432p</td><td>648p</td><td>972p</td><td>1098p</td><td>1296p</td></tr>
+            <tr><td>Off</td><td>144p</td><td>360p</td><td>480p</td><td>720p</td><td>1080p</td><td>1220p</td><td>1440p</td></tr>
           </tbody>
         </table>
         </div>
 
-        <h3>Why Your Slider Stops Where It Does</h3>
+        <h3>Picking an Exact Resolution</h3>
         <p>
-          Android's per-app setting can only ask a game to render <em>fewer</em> pixels, never more
-          than the screen itself has. So the top of the slider is simply your panel's own
-          resolution, worked out from its short edge:
+          Under the slider are one tap buttons for the usual resolutions: 360p, 480p, 540p, 720p,
+          900p and 1080p. Only the ones your screen can reach are shown, which is anything from
+          0.30x to 0.90x of your screen. <strong>Custom</strong> lets you type any height in that
+          range, and tells you the range if you go outside it.
         </p>
+        <ul>
+          <li><strong>Android 14 and newer:</strong> you get exactly the height you pick. Measured on
+          a 1220p phone, 480p rendered the game at 1064x480 and a custom 600p at 1328x600.</li>
+          <li><strong>Android 13:</strong> Android only allows the slider's steps, so the patcher uses
+          the closest one and says which. On a 1220p phone, 480p becomes 488p.</li>
+        </ul>
 
-        <div class="table-wrapper">
-        <table class="doc-table">
-          <thead>
-            <tr><th>Your screen</th><th>Slider tops out at</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>1080p (most phones)</td><td>1.00x</td></tr>
-            <tr><td>1220p</td><td>1.10x</td></tr>
-            <tr><td>1440p (QHD)</td><td>1.30x</td></tr>
-            <tr><td>1644p</td><td>1.50x</td></tr>
-            <tr><td>2160p (true 4K)</td><td>2.00x</td></tr>
-          </tbody>
-        </table>
-        </div>
-
+        <h3>Why the Slider Has Thirteen Stops</h3>
         <p>
-          On a 1080p phone the slider is a downscale only, and that is not a limitation worth
-          working around: the game was already drawing every pixel the screen can show.
+          The slider stops on 0.30x, 0.35x, and so on in steps of 0.05 up to 0.90x, plus Off.
+          Those are the values every supported Android version accepts. Android 13 refuses
+          anything else, which is also why exact resolutions are an Android 14 feature.
+        </p>
+        <p>
+          There is also no setting above 0.90x. The mechanism can only ask a game to draw
+          <em>fewer</em> pixels than the screen has, never more, so <strong>Off</strong> is already
+          the sharpest the game will get.
         </p>
 
         <h3>Using It</h3>
         <ol class="step-list">
-          <li>Open either card and drag the slider. The tile shows the scale, and the line under it shows the resolution.</li>
+          <li>Open either card and drag the slider, or tap a resolution button under it. The tile shows the resolution you are asking for.</li>
           <li>Let go. The setting is applied straight away and the status message confirms it.</li>
           <li><strong>Restart the game.</strong> Android reads the setting when the game's process starts, so a game already running keeps its old resolution until you close and reopen it.</li>
           <li>Tap <strong>Reset</strong> at any time to turn it off and hand the game back its normal resolution.</li>
@@ -194,12 +201,36 @@
         </table>
         </div>
 
+        <div class="alert alert-warning">
+          <div class="alert-title">&#9888; ANDROID 13 AND VERSION 2.1.0</div>
+          In <strong>2.1.0</strong> the resizer failed on every Android 13 phone with a bare
+          "exit code 255". Android 13 expects the request worded differently from newer versions,
+          and that build only knew the newer wording. <strong>2.1.1 fixes it.</strong> If you are on
+          Android 13, update before trying again.
+        </div>
+
         <h3>If Nothing Seems To Change</h3>
         <ul>
           <li><strong>Restart the game properly.</strong> Close it from recents, not just back out of it.</li>
-          <li><strong>A game can have its own ceiling.</strong> Wuthering Waves draws at 1080p at most on mobile, so on a screen taller than that the top of the slider will not look any different. That limit belongs to the game, not the patcher.</li>
+          <li><strong>A game can have its own ceiling.</strong> Wuthering Waves draws at 1080p at most on mobile, so on a screen taller than that the highest stops will look no different. That limit belongs to the game, not the patcher.</li>
           <li><strong>Check your access.</strong> If Shizuku stopped, the slider will tell you and offer to set it up again.</li>
         </ul>
+
+        <h3>Messages You Might See</h3>
+        <div class="table-wrapper">
+        <table class="doc-table">
+          <thead>
+            <tr><th>Message</th><th>What it means</th><th>What to do</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Wuthering Waves is not installed</td><td>There is no game on this phone to resize.</td><td>Install the game first.</td></tr>
+            <tr><td>Android does not list this app as a game</td><td>Your phone only scales apps it treats as games, and it does not treat this one as a game.</td><td>Update Wuthering Waves from its store and try again.</td></tr>
+            <tr><td>The phone accepted the new game resolution but did not put it into effect</td><td>Android took the request and then did not apply it.</td><td>Close the game completely, tap <strong>Reset</strong>, then pick the resolution again.</td></tr>
+            <tr><td>Could not change the game resolution: ...</td><td>Android refused the change. The text after the colon is your phone's own reason.</td><td>Include that text if you send a bug report.</td></tr>
+            <tr><td>This phone cannot scale a single app</td><td>Your phone runs Android 12 or older.</td><td>Nothing can be done on this phone; the rest of the patcher still works.</td></tr>
+          </tbody>
+        </table>
+        </div>
 
       </section>
 
@@ -208,18 +239,18 @@
 
   <!-- Footer -->
   <footer class="app-footer">
-    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.1.0</span>
+    <span data-i18n="footer_text">WuWa Config Patcher • Maintained by Arglax • Official Documentation Site</span> • <span data-meta="version_v">v2.1.1</span>
   </footer>
 
-  <script src="../js/i18n.js?v=2.1.0-r1"></script>
-  <script src="../js/metadata.js?v=2.1.0-r1"></script>
-  <script src="../js/search.js?v=2.1.0-r1"></script>
-  <script src="../js/modal.js?v=2.1.0-r1"></script>
-  <script src="../js/code-copy.js?v=2.1.0-r1"></script>
-  <script src="../js/formatter.js?v=2.1.0-r1"></script>
-  <script src="../js/theme.js?v=2.1.0-r1"></script>
-  <script src="../js/ai-knowledge.js?v=2.1.0-r1"></script>
-  <script src="../js/ai-chat.js?v=2.1.0-r1"></script>
-  <script src="../js/main.js?v=2.1.0-r1"></script>
+  <script src="../js/i18n.js?v=2.1.1-r2"></script>
+  <script src="../js/metadata.js?v=2.1.1-r2"></script>
+  <script src="../js/search.js?v=2.1.1-r2"></script>
+  <script src="../js/modal.js?v=2.1.1-r2"></script>
+  <script src="../js/code-copy.js?v=2.1.1-r2"></script>
+  <script src="../js/formatter.js?v=2.1.1-r2"></script>
+  <script src="../js/theme.js?v=2.1.1-r2"></script>
+  <script src="../js/ai-knowledge.js?v=2.1.1-r2"></script>
+  <script src="../js/ai-chat.js?v=2.1.1-r2"></script>
+  <script src="../js/main.js?v=2.1.1-r2"></script>
 </body>
 </html>

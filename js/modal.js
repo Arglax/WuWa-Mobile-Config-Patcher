@@ -20,7 +20,7 @@
           <h4>&#128208; Make The Game Lighter</h4>
           <ol class="step-list">
             <li>Open the <strong>Config</strong> tab and look under the <strong>Launch Game</strong> button, or go to <strong>Utilities &rarr; Advanced &rarr; Game Resolution</strong>.</li>
-            <li>Drag the slider down. 1.00x is 1080p, 0.50x is 540p, and the line under it shows the resolution you are asking for.</li>
+            <li>Drag the slider down. Each stop is a fraction of your own screen, and the tile shows the resolution it works out to.</li>
             <li>Let go. It is applied straight away.</li>
             <li><strong>Restart the game</strong> so it picks up the new resolution.</li>
             <li>Tap <strong>Reset</strong> whenever you want it back to normal.</li>
@@ -31,7 +31,8 @@
         <div class="modal-section-block">
           <h4>Mechanics</h4>
           <p>Drives Android's per-app Game Mode intervention through <code>cmd game set --downscale</code> on the elevated backend, so the game renders into a smaller buffer that the compositor scales to the panel. The display itself is never resized.</p>
-          <p>The slider is anchored at 1080p: <code>factor = (scale * 1080) / panelShortEdge</code>, clamped to 1.0. Because the intervention can only shrink a buffer, the top of the slider is the panel's short edge over 1080, which is 1.00x on a 1080p phone and 2.00x on a true 4K one.</p>
+          <p>The slider stops on the thirteen ratios every version accepts, 0.3 to 0.9 of the panel in steps of 0.05, plus off. Android 13 refuses anything else outright, because it applies the scale through one compatibility change per step. Android 14 and later take the stored factor as given, so the resolution buttons and Custom send the exact ratio there, <code>height / panelShortEdge</code> at five decimals (480p on a 1220p panel is <code>0.39344</code>), and fall back to the closest step on 13. There is no setting above 0.9 because the intervention can only shrink a buffer, never enlarge one.</p>
+          <p>Android 13 needs a different command shape from Android 14 and later: <code>set</code> there requires <code>--mode</code> first and only accepts performance or battery, so the patcher writes a <code>game_overlay</code> config and switches to performance mode instead.</p>
           <p>Needs Android 13 or newer, plus Shizuku, AXManager or root. The setting is read when the game's process starts, so it takes effect on the next launch.</p>
         </div>`
     },
